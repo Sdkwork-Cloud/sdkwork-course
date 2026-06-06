@@ -1,0 +1,17 @@
+{
+  "name": "@sdkwork/course-workspace",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "pnpm@10.30.3",
+  "scripts": {
+    "test": "node --test scripts/course-workspace-boundary.test.mjs",
+    "test:contracts": "node --test packages/common/course/sdkwork-course-contracts/tests/course-contracts.test.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "typescript": "^6.0.2"
+  }
+}
+

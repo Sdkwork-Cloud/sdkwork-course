@@ -1,0 +1,58 @@
+schemaVersion: 1
+kind: sdkwork.course.capability.catalog
+standardVersion: 2026-06-06
+purpose: >
+  Canonical SDKWork Course capability catalog. Capabilities declared here own
+  course learning content, learning structure, author submissions, comments,
+  reactions, and governance audit records.
+
+capabilities:
+  - id: course
+    domain: course
+    status: standardizing
+    maturity: L3
+    targetMaturity: L3
+    priority: P0
+    owner: sdkwork-course
+    scope:
+      - category
+      - course
+      - section
+      - lesson
+      - relation
+      - application
+      - comment
+      - reaction
+      - engagement
+      - audit
+    requiredLayers:
+      - kind: contracts
+        path: packages/common/course/sdkwork-course-contracts
+        manifest: package.json
+      - kind: native_rust_core
+        path: packages/native-rust/course/sdkwork-course-rust
+        manifest: Cargo.toml
+      - kind: native_rust_storage_sqlx
+        path: packages/native-rust/course/sdkwork-course-rust
+        manifest: Cargo.toml
+      - kind: app_sdk
+        path: sdks/sdkwork-course-app-sdk
+        manifest: .sdkwork-assembly.json
+      - kind: backend_sdk
+        path: sdks/sdkwork-course-backend-sdk
+        manifest: .sdkwork-assembly.json
+    qualityGates:
+      - category: contract
+        command: pnpm run test:contracts
+      - category: governance
+        command: pnpm test
+      - category: storage
+        command: cargo test
+    integration:
+      sdkBoundary: generated-sdk-through-openapi
+      appResponsibility: >
+        Applications provide shell routes, visual composition, concrete media
+        storage, and access adapters. Course records, learning structure, author
+        submissions, moderation, engagement, and audit records remain owned by
+        sdkwork-course.
+

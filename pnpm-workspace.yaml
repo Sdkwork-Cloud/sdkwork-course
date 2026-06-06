@@ -1,0 +1,9 @@
+packages:
+  - "packages/common/*/*"
+  - "sdks/*"
+  - "sdks/sdkwork-course-app-sdk/sdkwork-course-app-sdk-typescript/generated/server-openapi"
+  - "sdks/sdkwork-course-backend-sdk/sdkwork-course-backend-sdk-typescript/generated/server-openapi"
+
+catalog:
+  typescript: ~6.0.2
+

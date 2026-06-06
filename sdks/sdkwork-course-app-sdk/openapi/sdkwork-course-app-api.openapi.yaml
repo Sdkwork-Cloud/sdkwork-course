@@ -1,0 +1,1567 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "title": "SDKWork Course App API",
+    "version": "1.0.0",
+    "description": "App/client contract for SDKWork course catalog, lessons, relations, and author applications.",
+    "x-sdkwork-api-authority": "sdkwork-course-app-api",
+    "x-sdkwork-sdk-family": "sdkwork-course-app-sdk",
+    "x-sdkwork-audience": "App, desktop, mobile, H5, and user-facing clients"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Local sdkwork-course runtime"
+    }
+  ],
+  "tags": [
+    {
+      "name": "courseApplications",
+      "description": "Course Applications API resources.",
+      "x-sdk-nested-resource-surface": true
+    },
+    {
+      "name": "courseCategories",
+      "description": "Course Categories API resources.",
+      "x-sdk-nested-resource-surface": true
+    },
+    {
+      "name": "courseLessons",
+      "description": "Course Lessons API resources.",
+      "x-sdk-nested-resource-surface": true
+    },
+    {
+      "name": "courseRelations",
+      "description": "Course Relations API resources.",
+      "x-sdk-nested-resource-surface": true
+    },
+    {
+      "name": "courses",
+      "description": "Courses API resources.",
+      "x-sdk-nested-resource-surface": true
+    },
+    {
+      "name": "courseSections",
+      "description": "Course Sections API resources.",
+      "x-sdk-nested-resource-surface": true
+    }
+  ],
+  "security": [
+    {
+      "AuthToken": [],
+      "AccessToken": []
+    }
+  ],
+  "paths": {
+    "/app/v3/api/course_applications": {
+      "post": {
+        "tags": [
+          "courseApplications"
+        ],
+        "summary": "Course Applications create.",
+        "operationId": "courseApplications.create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseApplicationCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseApplicationCreateResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ],
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-app-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseApplications",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
+      }
+    },
+    "/app/v3/api/courses": {
+      "get": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "Courses list.",
+        "operationId": "courses.list",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 64
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseCollectionResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ],
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-app-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courses",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
+      }
+    },
+    "/app/v3/api/courses/categories": {
+      "get": {
+        "tags": [
+          "courseCategories"
+        ],
+        "summary": "Course Categories list.",
+        "operationId": "courseCategories.list",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 64
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseCategoryListResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ],
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-app-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseCategories",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
+      }
+    },
+    "/app/v3/api/courses/{courseId}": {
+      "get": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "Courses retrieve.",
+        "operationId": "courses.retrieve",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseDetailResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ],
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-app-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courses",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
+      }
+    },
+    "/app/v3/api/courses/{courseId}/lessons": {
+      "get": {
+        "tags": [
+          "courseLessons"
+        ],
+        "summary": "Course Lessons list.",
+        "operationId": "courseLessons.list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdPath"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 64
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseLessonCollectionResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ],
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-app-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseLessons",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
+      }
+    },
+    "/app/v3/api/courses/{courseId}/relations": {
+      "get": {
+        "tags": [
+          "courseRelations"
+        ],
+        "summary": "Course Relations list.",
+        "operationId": "courseRelations.list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseRelationCollectionResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ],
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-app-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseRelations",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
+      }
+    },
+    "/app/v3/api/courses/{courseId}/sections": {
+      "get": {
+        "tags": [
+          "courseSections"
+        ],
+        "summary": "Course Sections list.",
+        "operationId": "courseSections.list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdPath"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 64
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseSectionCollectionResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ],
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-app-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseSections",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "CourseIdPath": {
+        "name": "courseId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      }
+    },
+    "securitySchemes": {
+      "AuthToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "SDKWork auth token carried as Authorization: Bearer <auth_token>."
+      },
+      "AccessToken": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Access-Token",
+        "description": "SDKWork access isolation token."
+      }
+    },
+    "schemas": {
+      "CourseApplicationCreateRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "category",
+          "description",
+          "sourceProvider"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "category": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "sourceProvider": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "externalBvid": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "contactName": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "contactEmail": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "CourseApplicationCreateResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CourseApiResult"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/CourseApplicationCreateResponse"
+              }
+            }
+          }
+        ]
+      },
+      "CourseApplicationCreateResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "item"
+        ],
+        "properties": {
+          "item": {
+            "$ref": "#/components/schemas/CourseApplicationItem"
+          }
+        }
+      },
+      "CourseApplicationItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "category",
+          "sourceProvider",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "sourceProvider": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "contactName": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "submittedAt": {
+            "type": "string",
+            "maxLength": 64
+          }
+        }
+      },
+      "CourseApiResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "msg"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "msg": {
+            "type": "string"
+          },
+          "data": true
+        }
+      },
+      "CourseCategoryItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "code",
+          "name",
+          "sortWeight",
+          "courseCount"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "iconKey": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "sortWeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "courseCount": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          }
+        }
+      },
+      "CourseCategoryListResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CourseApiResult"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "maxItems": 100,
+                "items": {
+                  "$ref": "#/components/schemas/CourseCategoryItem"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CourseCollectionResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CourseApiResult"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/CoursePage"
+              }
+            }
+          }
+        ]
+      },
+      "CourseDetailResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CourseApiResult"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/CourseDetail"
+              }
+            }
+          }
+        ]
+      },
+      "CourseDetail": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CourseItem"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "string",
+                "maxLength": 20000
+              },
+              "sections": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CourseSectionItem"
+                }
+              },
+              "lessons": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CourseLessonItem"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CourseEngagement": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "views",
+          "likes",
+          "saves",
+          "shares",
+          "discussions",
+          "studentsCount"
+        ],
+        "properties": {
+          "views": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "likes": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "saves": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "shares": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "discussions": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "studentsCount": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          }
+        }
+      },
+      "CourseInstructor": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "avatar": {
+            "$ref": "#/components/schemas/MediaResource"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "bio": {
+            "type": "string",
+            "maxLength": 1024
+          }
+        }
+      },
+      "CourseItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "courseCode",
+          "title",
+          "description",
+          "lessonsCount",
+          "studentsCount",
+          "level",
+          "category",
+          "tags",
+          "engagement"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "courseCode": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "thumbnail": {
+            "$ref": "#/components/schemas/MediaResource"
+          },
+          "instructor": {
+            "$ref": "#/components/schemas/CourseInstructor"
+          },
+          "durationText": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "lessonsCount": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "ratingScore": {
+            "type": "number",
+            "minimum": 0
+          },
+          "studentsCount": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "level": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "tags": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "string",
+              "maxLength": 64
+            }
+          },
+          "engagement": {
+            "$ref": "#/components/schemas/CourseEngagement"
+          }
+        }
+      },
+      "CourseLessonCollectionResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CourseApiResult"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CourseLessonItem"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CourseLessonItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "courseId",
+          "title",
+          "durationSeconds",
+          "freePreview",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "courseId": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "sectionId": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "lessonNo": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "video": {
+            "$ref": "#/components/schemas/MediaResource"
+          },
+          "externalBvid": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "durationSeconds": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "durationText": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "content": {
+            "type": "string",
+            "maxLength": 20000
+          },
+          "freePreview": {
+            "type": "boolean"
+          },
+          "sortWeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 64
+          }
+        }
+      },
+      "CoursePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items",
+          "page",
+          "pageSize",
+          "total"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CourseItem"
+            }
+          },
+          "page": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          }
+        }
+      },
+      "CourseRelationCollectionResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CourseApiResult"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CourseRelationItem"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CourseRelationItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "courseId",
+          "relatedCourseId",
+          "relationType",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "courseId": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "relatedCourseId": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "relationType": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "sortWeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 64
+          }
+        }
+      },
+      "CourseSectionCollectionResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CourseApiResult"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CourseSectionItem"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CourseSectionItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "courseId",
+          "title",
+          "lessonCount",
+          "durationSeconds",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "courseId": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "sectionNo": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "lessonCount": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "durationSeconds": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "sortWeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 64
+          }
+        }
+      },
+      "MediaResource": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 2048
+          },
+          "mimeType": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "width": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "height": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "durationSeconds": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ProblemDetail": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "instance": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "x-sdkwork-request-context": {
+    "contextObject": "AppRequestContext",
+    "serverRequestId": "server-owned",
+    "clientRequestIdHeader": "forbidden",
+    "tenantSource": "AuthToken + AccessToken",
+    "organizationSource": "AuthToken + AccessToken",
+    "userSource": "AuthToken + AccessToken"
+  }
+}

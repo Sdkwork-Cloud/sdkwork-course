@@ -1,0 +1,48 @@
+{
+  "workspace": "sdkwork-course-backend-sdk",
+  "title": "SDKWork Course Backend API SDK",
+  "apiVersion": "1.0.0",
+  "openapiVersion": "3.1.2",
+  "authoritySpec": "openapi/sdkwork-course-backend-api.openapi.yaml",
+  "generationInputSpec": "openapi/sdkwork-course-backend-api.sdkgen.yaml",
+  "ownerOnlyOperationCount": 19,
+  "sdkDependencies": [],
+  "generator": {
+    "package": "@sdkwork/sdk-generator",
+    "entrypoint": "D:\\javasource\\spring-ai-plus\\sdk\\sdkwork-sdk-generator\\bin\\sdkgen.js",
+    "version": "1.0.0",
+    "standardProfile": "sdkwork-v3"
+  },
+  "derivedSpecs": {
+    "default": "openapi/sdkwork-course-backend-api.sdkgen.yaml"
+  },
+  "sdkOwner": "sdkwork-course",
+  "apiAuthority": "sdkwork-course-backend-api",
+  "discoverySurface": {
+    "sdkTarget": "backend",
+    "apiPrefix": "/backend/v3/api",
+    "schemaUrl": "/backend/v3/openapi.json",
+    "generatedProtocols": ["http-openapi"],
+    "manualTransports": []
+  },
+  "languages": [
+    {
+      "language": "typescript",
+      "workspace": "sdkwork-course-backend-sdk-typescript",
+      "generationState": "source_ready",
+      "releaseState": "not_published",
+      "packagePath": "sdkwork-course-backend-sdk-typescript/generated/server-openapi",
+      "manifestPath": "sdkwork-course-backend-sdk-typescript/generated/server-openapi/package.json",
+      "name": "@sdkwork/course-backend-sdk",
+      "version": "1.0.0",
+      "description": "Generator-owned TypeScript transport SDK for SDKWork Course Backend API.",
+      "generatedPath": "sdkwork-course-backend-sdk-typescript/generated/server-openapi"
+    }
+  ],
+  "metadata": {
+    "managedBy": "sdkwork-course",
+    "standardProfile": "sdkwork-v3",
+    "standardVersion": "2026-06-06",
+    "supportedLanguageSubset": ["typescript"]
+  }
+}

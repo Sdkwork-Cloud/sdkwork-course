@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "kind": "sdkwork.component.spec",
+  "component": {
+    "name": "sdkwork-course-backend-sdk",
+    "displayName": "SDKWork Course Backend SDK",
+    "version": "1.0.0",
+    "type": "sdk-family",
+    "root": "sdks/sdkwork-course-backend-sdk",
+    "domain": "course",
+    "capability": "course",
+    "languages": ["typescript"],
+    "generated": true,
+    "manifests": [
+      ".sdkwork-assembly.json",
+      "sdkwork-course-backend-sdk-typescript/generated/server-openapi/package.json",
+      "sdkwork-course-backend-sdk-typescript/generated/server-openapi/sdkwork-sdk.json"
+    ]
+  },
+  "canonicalSpecs": [
+    {
+      "file": "SDK_SPEC.md",
+      "path": "D:\\javasource\\spring-ai-plus\\spring-ai-plus-business\\specs\\SDK_SPEC.md",
+      "purpose": "Generated SDK contract, naming, auth, and consumer integration standard."
+    },
+    {
+      "file": "SDK_WORKSPACE_GENERATION_SPEC.md",
+      "path": "D:\\javasource\\spring-ai-plus\\spring-ai-plus-business\\specs\\SDK_WORKSPACE_GENERATION_SPEC.md",
+      "purpose": "SDK family workspace, OpenAPI authority, and generated-output placement standard."
+    },
+    {
+      "file": "API_SPEC.md",
+      "path": "D:\\javasource\\spring-ai-plus\\spring-ai-plus-business\\specs\\API_SPEC.md",
+      "purpose": "SDKWork v3 API path, OpenAPI, operation, security, and response standard."
+    },
+    {
+      "file": "TEST_SPEC.md",
+      "path": "D:\\javasource\\spring-ai-plus\\spring-ai-plus-business\\specs\\TEST_SPEC.md",
+      "purpose": "Verification and regression coverage standard."
+    },
+    {
+      "file": "DOCUMENTATION_SPEC.md",
+      "path": "D:\\javasource\\spring-ai-plus\\spring-ai-plus-business\\specs\\DOCUMENTATION_SPEC.md",
+      "purpose": "Documentation ownership and handoff standard."
+    }
+  ],
+  "contracts": {
+    "publicExports": ["."],
+    "runtimeEntrypoints": [
+      "bin/generate-sdk.ps1",
+      "sdkwork-course-backend-sdk-typescript/generated/server-openapi/bin/publish-core.mjs"
+    ],
+    "sdkClients": ["SdkworkBackendClient", "createClient"],
+    "apiAuthority": "sdkwork-course-backend-api",
+    "apiPrefix": "/backend/v3/api",
+    "authoritySpec": "openapi/sdkwork-course-backend-api.openapi.yaml",
+    "generationInputSpec": "openapi/sdkwork-course-backend-api.sdkgen.yaml",
+    "sdkDependencies": [],
+    "events": [],
+    "configKeys": [".sdkwork-assembly.json"]
+  },
+  "generator": {
+    "package": "@sdkwork/sdk-generator",
+    "entrypoint": "D:\\javasource\\spring-ai-plus\\sdk\\sdkwork-sdk-generator\\bin\\sdkgen.js",
+    "version": "1.0.0",
+    "standardProfile": "sdkwork-v3"
+  },
+  "verification": {
+    "commands": [
+      "node --test scripts/course-workspace-boundary.test.mjs",
+      "powershell -ExecutionPolicy Bypass -File sdks/sdkwork-course-backend-sdk/bin/generate-sdk.ps1 -Languages typescript",
+      "node sdks/sdkwork-course-backend-sdk/sdkwork-course-backend-sdk-typescript/generated/server-openapi/bin/publish-core.mjs --language typescript --project-dir sdks/sdkwork-course-backend-sdk/sdkwork-course-backend-sdk-typescript/generated/server-openapi --action check",
+      "node sdks/sdkwork-course-backend-sdk/sdkwork-course-backend-sdk-typescript/generated/server-openapi/bin/publish-core.mjs --language typescript --project-dir sdks/sdkwork-course-backend-sdk/sdkwork-course-backend-sdk-typescript/generated/server-openapi --action build"
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "workspace": "sdkwork-course-app-sdk",
+  "title": "SDKWork Course App API SDK",
+  "apiVersion": "1.0.0",
+  "openapiVersion": "3.1.2",
+  "authoritySpec": "openapi/sdkwork-course-app-api.openapi.yaml",
+  "generationInputSpec": "openapi/sdkwork-course-app-api.sdkgen.yaml",
+  "ownerOnlyOperationCount": 7,
+  "sdkDependencies": [],
+  "generator": {
+    "package": "@sdkwork/sdk-generator",
+    "entrypoint": "D:\\javasource\\spring-ai-plus\\sdk\\sdkwork-sdk-generator\\bin\\sdkgen.js",
+    "version": "1.0.0",
+    "standardProfile": "sdkwork-v3"
+  },
+  "derivedSpecs": {
+    "default": "openapi/sdkwork-course-app-api.sdkgen.yaml"
+  },
+  "sdkOwner": "sdkwork-course",
+  "apiAuthority": "sdkwork-course-app-api",
+  "discoverySurface": {
+    "sdkTarget": "app",
+    "apiPrefix": "/app/v3/api",
+    "schemaUrl": "/app/v3/openapi.json",
+    "generatedProtocols": ["http-openapi"],
+    "manualTransports": []
+  },
+  "languages": [
+    {
+      "language": "typescript",
+      "workspace": "sdkwork-course-app-sdk-typescript",
+      "generationState": "source_ready",
+      "releaseState": "not_published",
+      "packagePath": "sdkwork-course-app-sdk-typescript/generated/server-openapi",
+      "manifestPath": "sdkwork-course-app-sdk-typescript/generated/server-openapi/package.json",
+      "name": "@sdkwork/course-app-sdk",
+      "version": "1.0.0",
+      "description": "Generator-owned TypeScript transport SDK for SDKWork Course App API.",
+      "generatedPath": "sdkwork-course-app-sdk-typescript/generated/server-openapi"
+    }
+  ],
+  "metadata": {
+    "managedBy": "sdkwork-course",
+    "standardProfile": "sdkwork-v3",
+    "standardVersion": "2026-06-06",
+    "supportedLanguageSubset": ["typescript"]
+  }
+}

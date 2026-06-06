@@ -1,0 +1,1244 @@
+{
+  "openapi": "3.1.2",
+  "info": {
+    "title": "SDKWork Course Backend API",
+    "version": "1.0.0",
+    "description": "Backend/admin contract for SDKWork course governance and learning content management.",
+    "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+    "x-sdkwork-sdk-family": "sdkwork-course-backend-sdk",
+    "x-sdkwork-audience": "Backend consoles, operators, control-plane integrations, and admin automation"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Local sdkwork-course runtime"
+    }
+  ],
+  "tags": [
+    {
+      "name": "courseApplications",
+      "description": "Course Applications API resources.",
+      "x-sdk-nested-resource-surface": true
+    },
+    {
+      "name": "courseComments",
+      "description": "Course Comments API resources.",
+      "x-sdk-nested-resource-surface": true
+    },
+    {
+      "name": "courseEngagement",
+      "description": "Course Engagement API resources.",
+      "x-sdk-nested-resource-surface": true
+    },
+    {
+      "name": "courseLessons",
+      "description": "Course Lessons API resources.",
+      "x-sdk-nested-resource-surface": true
+    },
+    {
+      "name": "courseRelations",
+      "description": "Course Relations API resources.",
+      "x-sdk-nested-resource-surface": true
+    },
+    {
+      "name": "courses",
+      "description": "Courses API resources.",
+      "x-sdk-nested-resource-surface": true
+    },
+    {
+      "name": "courseSections",
+      "description": "Course Sections API resources.",
+      "x-sdk-nested-resource-surface": true
+    }
+  ],
+  "security": [
+    {
+      "AuthToken": [],
+      "AccessToken": []
+    }
+  ],
+  "paths": {
+    "/backend/v3/api/course_applications": {
+      "get": {
+        "tags": [
+          "courseApplications"
+        ],
+        "summary": "Course Applications list.",
+        "operationId": "courseApplications.list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageQuery"
+          },
+          {
+            "$ref": "#/components/parameters/PageSizeQuery"
+          },
+          {
+            "$ref": "#/components/parameters/SearchQuery"
+          },
+          {
+            "$ref": "#/components/parameters/StatusQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseApplicationCollectionResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseApplications",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/backend/v3/api/course_applications/{applicationId}/review": {
+      "patch": {
+        "tags": [
+          "courseApplications"
+        ],
+        "summary": "Course Applications review.",
+        "operationId": "courseApplications.review",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ApplicationIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCourseApplicationReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseApplicationReviewResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseApplications",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/backend/v3/api/course_lessons/{lessonId}": {
+      "delete": {
+        "tags": [
+          "courseLessons"
+        ],
+        "summary": "Course Lessons delete.",
+        "operationId": "courseLessons.delete",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/LessonIdPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseDeleteResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseLessons",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "courseLessons"
+        ],
+        "summary": "Course Lessons update.",
+        "operationId": "courseLessons.update",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/LessonIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCourseLessonMutationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseLessonMutationResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseLessons",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/backend/v3/api/course_sections/{sectionId}": {
+      "delete": {
+        "tags": [
+          "courseSections"
+        ],
+        "summary": "Course Sections delete.",
+        "operationId": "courseSections.delete",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/SectionIdPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseDeleteResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseSections",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "courseSections"
+        ],
+        "summary": "Course Sections update.",
+        "operationId": "courseSections.update",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/SectionIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCourseSectionMutationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseSectionMutationResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseSections",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/backend/v3/api/courses": {
+      "get": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "Courses list.",
+        "operationId": "courses.list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageQuery"
+          },
+          {
+            "$ref": "#/components/parameters/PageSizeQuery"
+          },
+          {
+            "$ref": "#/components/parameters/SearchQuery"
+          },
+          {
+            "$ref": "#/components/parameters/StatusQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseCollectionResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courses",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "Courses create.",
+        "operationId": "courses.create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCourseMutationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseMutationResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courses",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/backend/v3/api/courses/comments": {
+      "get": {
+        "tags": [
+          "courseComments"
+        ],
+        "summary": "Course Comments list.",
+        "operationId": "courseComments.list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageQuery"
+          },
+          {
+            "$ref": "#/components/parameters/PageSizeQuery"
+          },
+          {
+            "$ref": "#/components/parameters/SearchQuery"
+          },
+          {
+            "$ref": "#/components/parameters/StatusQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseCommentCollectionResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseComments",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/backend/v3/api/courses/comments/{commentId}/moderation": {
+      "patch": {
+        "tags": [
+          "courseComments"
+        ],
+        "summary": "Course Comments moderate.",
+        "operationId": "courseComments.moderate",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CommentIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCourseCommentModerationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseCommentCollectionResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseComments",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/backend/v3/api/courses/engagement": {
+      "get": {
+        "tags": [
+          "courseEngagement"
+        ],
+        "summary": "Course Engagement list.",
+        "operationId": "courseEngagement.list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageQuery"
+          },
+          {
+            "$ref": "#/components/parameters/PageSizeQuery"
+          },
+          {
+            "$ref": "#/components/parameters/SearchQuery"
+          },
+          {
+            "$ref": "#/components/parameters/StatusQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseEngagementCollectionResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseEngagement",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/backend/v3/api/courses/{courseId}": {
+      "delete": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "Courses delete.",
+        "operationId": "courses.delete",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseDeleteResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courses",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "courses"
+        ],
+        "summary": "Courses update.",
+        "operationId": "courses.update",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCourseMutationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseMutationResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courses",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/backend/v3/api/courses/{courseId}/lessons": {
+      "get": {
+        "tags": [
+          "courseLessons"
+        ],
+        "summary": "Course Lessons list.",
+        "operationId": "courseLessons.list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdPath"
+          },
+          {
+            "$ref": "#/components/parameters/StatusQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseLessonCollectionResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseLessons",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "courseLessons"
+        ],
+        "summary": "Course Lessons create.",
+        "operationId": "courseLessons.create",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCourseLessonMutationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseLessonMutationResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseLessons",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/backend/v3/api/courses/{courseId}/relations": {
+      "get": {
+        "tags": [
+          "courseRelations"
+        ],
+        "summary": "Course Relations list.",
+        "operationId": "courseRelations.list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseRelationCollectionResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseRelations",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "courseRelations"
+        ],
+        "summary": "Course Relations replace.",
+        "operationId": "courseRelations.replace",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCourseRelationsReplaceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseRelationCollectionResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseRelations",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      }
+    },
+    "/backend/v3/api/courses/{courseId}/sections": {
+      "get": {
+        "tags": [
+          "courseSections"
+        ],
+        "summary": "Course Sections list.",
+        "operationId": "courseSections.list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdPath"
+          },
+          {
+            "$ref": "#/components/parameters/StatusQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseSectionCollectionResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseSections",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "courseSections"
+        ],
+        "summary": "Course Sections create.",
+        "operationId": "courseSections.create",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/CourseIdPath"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCourseSectionMutationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCourseSectionMutationResult"
+                }
+              }
+            }
+          }
+        },
+        "x-sdkwork-owner": "sdkwork-course",
+        "x-sdkwork-api-authority": "sdkwork-course-backend-api",
+        "x-sdkwork-domain": "course",
+        "x-sdkwork-resource": "courseSections",
+        "x-sdkwork-request-context": "BackendRequestContext",
+        "x-sdkwork-server-request-id": true,
+        "security": [
+          {
+            "AuthToken": [],
+            "AccessToken": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "ApplicationIdPath": {
+        "name": "applicationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
+      "CommentIdPath": {
+        "name": "commentId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
+      "CourseIdPath": {
+        "name": "courseId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
+      "LessonIdPath": {
+        "name": "lessonId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
+      "PageQuery": {
+        "name": "page",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        }
+      },
+      "PageSizeQuery": {
+        "name": "page_size",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200,
+          "default": 20
+        }
+      },
+      "SearchQuery": {
+        "name": "q",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "maxLength": 128
+        }
+      },
+      "SectionIdPath": {
+        "name": "sectionId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
+      "StatusQuery": {
+        "name": "status",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "maxLength": 64
+        }
+      }
+    },
+    "securitySchemes": {
+      "AuthToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      },
+      "AccessToken": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Access-Token"
+      }
+    },
+    "schemas": {
+      "AdminCourseApplicationCollectionResult": {
+        "$ref": "#/components/schemas/CourseApiResult"
+      },
+      "AdminCourseApplicationReviewRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "reviewNote": {
+            "type": "string",
+            "maxLength": 4000
+          }
+        }
+      },
+      "AdminCourseApplicationReviewResult": {
+        "$ref": "#/components/schemas/CourseApiResult"
+      },
+      "AdminCourseCollectionResult": {
+        "$ref": "#/components/schemas/CourseApiResult"
+      },
+      "AdminCourseCommentCollectionResult": {
+        "$ref": "#/components/schemas/CourseApiResult"
+      },
+      "AdminCourseCommentModerationRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "moderationNote": {
+            "type": "string",
+            "maxLength": 4000
+          }
+        }
+      },
+      "AdminCourseDeleteResult": {
+        "$ref": "#/components/schemas/CourseApiResult"
+      },
+      "AdminCourseEngagementCollectionResult": {
+        "$ref": "#/components/schemas/CourseApiResult"
+      },
+      "AdminCourseLessonCollectionResult": {
+        "$ref": "#/components/schemas/CourseApiResult"
+      },
+      "AdminCourseLessonMutationRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sectionId": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "lessonNo": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "externalBvid": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "durationSeconds": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "freePreview": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "AdminCourseLessonMutationResult": {
+        "$ref": "#/components/schemas/CourseApiResult"
+      },
+      "AdminCourseMutationRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "courseCode": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "level": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 64
+            }
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "AdminCourseMutationResult": {
+        "$ref": "#/components/schemas/CourseApiResult"
+      },
+      "AdminCourseRelationCollectionResult": {
+        "$ref": "#/components/schemas/CourseApiResult"
+      },
+      "AdminCourseRelationsReplaceRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "relatedCourseId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                "relationType": {
+                  "type": "string",
+                  "maxLength": 64
+                },
+                "sortWeight": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "status": {
+                  "type": "string",
+                  "maxLength": 64
+                }
+              }
+            }
+          }
+        }
+      },
+      "AdminCourseSectionCollectionResult": {
+        "$ref": "#/components/schemas/CourseApiResult"
+      },
+      "AdminCourseSectionMutationRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sectionNo": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "durationSeconds": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sortWeight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 64
+          }
+        }
+      },
+      "AdminCourseSectionMutationResult": {
+        "$ref": "#/components/schemas/CourseApiResult"
+      },
+      "CourseApiResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "msg"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "msg": {
+            "type": "string"
+          },
+          "data": true
+        }
+      }
+    }
+  }
+}
