@@ -7,9 +7,11 @@
     "version": "1.0.0",
     "type": "sdk-family",
     "root": "sdks/sdkwork-course-backend-sdk",
-    "domain": "course",
+    "domain": "content",
     "capability": "course",
-    "languages": ["typescript"],
+    "languages": [
+      "typescript"
+    ],
     "generated": true,
     "manifests": [
       ".sdkwork-assembly.json",
@@ -42,22 +44,55 @@
       "file": "DOCUMENTATION_SPEC.md",
       "path": "D:\\javasource\\spring-ai-plus\\spring-ai-plus-business\\specs\\DOCUMENTATION_SPEC.md",
       "purpose": "Documentation ownership and handoff standard."
+    },
+    {
+      "file": "COMPONENT_SPEC.md",
+      "path": "../../../sdkwork-specs/COMPONENT_SPEC.md",
+      "purpose": "Component-local contract and discovery rules."
+    },
+    {
+      "file": "CODE_STYLE_SPEC.md",
+      "path": "../../../sdkwork-specs/CODE_STYLE_SPEC.md",
+      "purpose": "Authored source structure and generated code boundaries."
+    },
+    {
+      "file": "NAMING_SPEC.md",
+      "path": "../../../sdkwork-specs/NAMING_SPEC.md",
+      "purpose": "Canonical SDKWork naming rules."
+    },
+    {
+      "file": "MODULE_SPEC.md",
+      "path": "../../../sdkwork-specs/MODULE_SPEC.md",
+      "purpose": "Reusable module and package boundary rules."
+    },
+    {
+      "file": "TYPESCRIPT_CODE_SPEC.md",
+      "path": "../../../sdkwork-specs/TYPESCRIPT_CODE_SPEC.md",
+      "purpose": "TypeScript and Node package rules."
     }
   ],
   "contracts": {
-    "publicExports": ["."],
+    "publicExports": [
+      "."
+    ],
     "runtimeEntrypoints": [
       "bin/generate-sdk.ps1",
       "sdkwork-course-backend-sdk-typescript/generated/server-openapi/bin/publish-core.mjs"
     ],
-    "sdkClients": ["SdkworkBackendClient", "createClient"],
+    "sdkClients": [
+      "SdkworkBackendClient",
+      "createClient"
+    ],
     "apiAuthority": "sdkwork-course-backend-api",
     "apiPrefix": "/backend/v3/api",
     "authoritySpec": "openapi/sdkwork-course-backend-api.openapi.yaml",
     "generationInputSpec": "openapi/sdkwork-course-backend-api.sdkgen.yaml",
     "sdkDependencies": [],
     "events": [],
-    "configKeys": [".sdkwork-assembly.json"]
+    "configKeys": [
+      ".sdkwork-assembly.json"
+    ],
+    "routeManifest": null
   },
   "generator": {
     "package": "@sdkwork/sdk-generator",

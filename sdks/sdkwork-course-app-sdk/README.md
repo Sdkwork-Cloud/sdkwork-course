@@ -47,3 +47,46 @@ powershell -ExecutionPolicy Bypass -File .\sdks\sdkwork-course-app-sdk\bin\gener
 node .\sdks\sdkwork-course-app-sdk\sdkwork-course-app-sdk-typescript\generated\server-openapi\bin\publish-core.mjs --language typescript --project-dir .\sdks\sdkwork-course-app-sdk\sdkwork-course-app-sdk-typescript\generated\server-openapi --action check
 node .\sdks\sdkwork-course-app-sdk\sdkwork-course-app-sdk-typescript\generated\server-openapi\bin\publish-core.mjs --language typescript --project-dir .\sdks\sdkwork-course-app-sdk\sdkwork-course-app-sdk-typescript\generated\server-openapi --action build
 ```
+
+## SDKWork Documentation Contract
+
+Domain: content
+Capability: course
+Package type: sdk-family
+Status: standard
+
+### Public API
+
+Public exports are declared in `specs/component.spec.json` under `contracts.publicExports`.
+
+### Required SDK Surface
+
+- `SdkworkAppClient`
+- `createClient`
+
+### Configuration
+
+Configuration keys and runtime entrypoints are declared in `specs/component.spec.json`.
+
+### SaaS/Private/Local Behavior
+
+This module follows the canonical standards linked from `specs/component.spec.json`, including deployment and runtime configuration rules where applicable.
+
+### Security
+
+Do not add secrets, live tokens, manual auth headers, or app-local credential handling to this module.
+
+### Extension Points
+
+Extension points are limited to declared public exports, runtime entrypoints, SDK clients, events, and config keys.
+
+### Verification
+
+- `node --test scripts/course-workspace-boundary.test.mjs`
+- `powershell -ExecutionPolicy Bypass -File sdks/sdkwork-course-app-sdk/bin/generate-sdk.ps1 -Languages typescript`
+- `node sdks/sdkwork-course-app-sdk/sdkwork-course-app-sdk-typescript/generated/server-openapi/bin/publish-core.mjs --language typescript --project-dir sdks/sdkwork-course-app-sdk/sdkwork-course-app-sdk-typescript/generated/server-openapi --action check`
+- `node sdks/sdkwork-course-app-sdk/sdkwork-course-app-sdk-typescript/generated/server-openapi/bin/publish-core.mjs --language typescript --project-dir sdks/sdkwork-course-app-sdk/sdkwork-course-app-sdk-typescript/generated/server-openapi --action build`
+
+### Owner And Status
+
+Owner and lifecycle status are tracked in `specs/component.spec.json`.
