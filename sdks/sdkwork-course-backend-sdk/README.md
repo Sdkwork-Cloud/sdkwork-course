@@ -23,13 +23,13 @@ clients must not send `X-Request-Id`.
 
 ## Generation
 
-Run from `D:\sdkwork-opensource\sdkwork-course`:
+Run from the `sdkwork-course` repository root:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\sdks\sdkwork-course-backend-sdk\bin\generate-sdk.ps1 -Languages typescript
 ```
 
-The wrapper calls `D:\javasource\spring-ai-plus\sdk\sdkwork-sdk-generator\bin\sdkgen.js`
+The wrapper calls `..\sdkwork-sdk-generator\bin\sdkgen.js`
 from `@sdkwork/sdk-generator` version `1.0.0` with `--standard-profile sdkwork-v3`.
 
 Generated output:

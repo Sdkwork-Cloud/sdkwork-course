@@ -416,7 +416,7 @@ test("course SDK families declare discoverable ownership metadata outside genera
     assert.equal(assembly.generator?.package, "@sdkwork/sdk-generator");
     assert.equal(
       assembly.generator?.entrypoint,
-      "D:\\javasource\\spring-ai-plus\\sdk\\sdkwork-sdk-generator\\bin\\sdkgen.js",
+      "../sdkwork-sdk-generator/bin/sdkgen.js",
     );
 
     assert.equal(componentSpec.schemaVersion, 1);
@@ -439,7 +439,7 @@ test("course SDK families declare discoverable ownership metadata outside genera
       family.apiPrefix,
       family.packageName,
       "@sdkwork/sdk-generator",
-      "D:\\javasource\\spring-ai-plus\\sdk\\sdkwork-sdk-generator\\bin\\sdkgen.js",
+      "../sdkwork-sdk-generator/bin/sdkgen.js",
       "--standard-profile sdkwork-v3",
     ]) {
       assert.ok(familyReadme.includes(requiredText), `${family.root}/README.md must include ${requiredText}`);

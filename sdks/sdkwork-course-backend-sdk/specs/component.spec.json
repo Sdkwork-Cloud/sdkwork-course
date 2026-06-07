@@ -22,27 +22,27 @@
   "canonicalSpecs": [
     {
       "file": "SDK_SPEC.md",
-      "path": "D:\\javasource\\spring-ai-plus\\spring-ai-plus-business\\specs\\SDK_SPEC.md",
+      "path": "../../../../sdkwork-specs/SDK_SPEC.md",
       "purpose": "Generated SDK contract, naming, auth, and consumer integration standard."
     },
     {
       "file": "SDK_WORKSPACE_GENERATION_SPEC.md",
-      "path": "D:\\javasource\\spring-ai-plus\\spring-ai-plus-business\\specs\\SDK_WORKSPACE_GENERATION_SPEC.md",
+      "path": "../../../../sdkwork-specs/SDK_WORKSPACE_GENERATION_SPEC.md",
       "purpose": "SDK family workspace, OpenAPI authority, and generated-output placement standard."
     },
     {
       "file": "API_SPEC.md",
-      "path": "D:\\javasource\\spring-ai-plus\\spring-ai-plus-business\\specs\\API_SPEC.md",
+      "path": "../../../../sdkwork-specs/API_SPEC.md",
       "purpose": "SDKWork v3 API path, OpenAPI, operation, security, and response standard."
     },
     {
       "file": "TEST_SPEC.md",
-      "path": "D:\\javasource\\spring-ai-plus\\spring-ai-plus-business\\specs\\TEST_SPEC.md",
+      "path": "../../../../sdkwork-specs/TEST_SPEC.md",
       "purpose": "Verification and regression coverage standard."
     },
     {
       "file": "DOCUMENTATION_SPEC.md",
-      "path": "D:\\javasource\\spring-ai-plus\\spring-ai-plus-business\\specs\\DOCUMENTATION_SPEC.md",
+      "path": "../../../../sdkwork-specs/DOCUMENTATION_SPEC.md",
       "purpose": "Documentation ownership and handoff standard."
     },
     {
@@ -96,7 +96,7 @@
   },
   "generator": {
     "package": "@sdkwork/sdk-generator",
-    "entrypoint": "D:\\javasource\\spring-ai-plus\\sdk\\sdkwork-sdk-generator\\bin\\sdkgen.js",
+    "entrypoint": "../sdkwork-sdk-generator/bin/sdkgen.js",
     "version": "1.0.0",
     "standardProfile": "sdkwork-v3"
   },

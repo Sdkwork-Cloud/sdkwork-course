@@ -16,7 +16,7 @@ are integrated by the hosting application runtime.
 ## Generator
 
 - Package: `@sdkwork/sdk-generator`
-- Entrypoint: `D:\javasource\spring-ai-plus\sdk\sdkwork-sdk-generator\bin\sdkgen.js`
+- Entrypoint: `..\sdkwork-sdk-generator\bin\sdkgen.js`
 - Version: `1.0.0`
 - Standard profile: `sdkwork-v3`
 
@@ -26,7 +26,7 @@ at `generated/server-openapi`; do not edit generated files directly.
 
 ## Commands
 
-Run from `D:\sdkwork-opensource\sdkwork-course`:
+Run from the `sdkwork-course` repository root:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\sdks\sdkwork-course-app-sdk\bin\generate-sdk.ps1 -Languages typescript
