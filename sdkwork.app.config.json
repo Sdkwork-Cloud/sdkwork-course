@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "sdkwork.app.config",
+  "app": {
+    "name": "sdkwork-course",
+    "displayName": "SDKWork Course",
+    "version": "0.1.0",
+    "description": "Professional online course management platform",
+    "owner": "sdkwork-course",
+    "domain": "content",
+    "capability": "course"
+  },
+  "runtime": {
+    "apiBaseUrl": "http://localhost:8080",
+    "appApiPrefix": "/app/v3/api",
+    "backendApiPrefix": "/backend/v3/api"
+  },
+  "sdk": {
+    "appApiAuthority": "sdkwork-course-app-api",
+    "backendApiAuthority": "sdkwork-course-backend-api",
+    "appSdkFamily": "sdkwork-course-app-sdk",
+    "backendSdkFamily": "sdkwork-course-backend-sdk"
+  },
+  "features": {
+    "categories": true,
+    "courses": true,
+    "lessons": true,
+    "liveSessions": true,
+    "enrollments": true,
+    "progress": true,
+    "comments": true,
+    "reactions": true,
+    "applications": true,
+    "auditLogs": true
+  }
+}

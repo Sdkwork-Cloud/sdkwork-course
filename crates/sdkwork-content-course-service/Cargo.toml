@@ -1,0 +1,15 @@
+[package]
+name = "sdkwork-content-course-service"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "SDKWork content course business contracts, service traits, and integration ports."
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+async-trait = "0.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sqlx = { version = "0.8.6", default-features = false, features = ["runtime-tokio", "sqlite", "postgres", "derive"] }

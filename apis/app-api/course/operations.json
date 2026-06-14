@@ -1,0 +1,267 @@
+﻿{
+    "schemaVersion":  1,
+    "kind":  "sdkwork.course.api.operations",
+    "surface":  "app-api",
+    "apiAuthority":  "sdkwork-course-app-api",
+    "sdkFamily":  "sdkwork-course-app-sdk",
+    "apiPrefix":  "/app/v3/api",
+    "domain":  "content",
+    "capability":  "course",
+    "owner":  "sdkwork-course",
+    "operations":  [
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_categories",
+                           "operationId":  "courseCategories.list",
+                           "resource":  "courseCategories",
+                           "authMode":  "dual-token-or-anonymous",
+                           "permission":  "course.categories.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_categories/{categoryId}",
+                           "operationId":  "courseCategories.retrieve",
+                           "resource":  "courseCategories",
+                           "authMode":  "dual-token-or-anonymous",
+                           "permission":  "course.categories.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/courses",
+                           "operationId":  "courses.list",
+                           "resource":  "courses",
+                           "authMode":  "dual-token-or-anonymous",
+                           "permission":  "course.courses.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/courses/{courseId}",
+                           "operationId":  "courses.retrieve",
+                           "resource":  "courses",
+                           "authMode":  "dual-token-or-anonymous",
+                           "permission":  "course.courses.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/courses/{courseId}/offerings",
+                           "operationId":  "courseOfferings.list",
+                           "resource":  "courseOfferings",
+                           "authMode":  "dual-token-or-anonymous",
+                           "permission":  "course.offerings.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_offerings/{offeringId}",
+                           "operationId":  "courseOfferings.retrieve",
+                           "resource":  "courseOfferings",
+                           "authMode":  "dual-token-or-anonymous",
+                           "permission":  "course.offerings.read"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/app/v3/api/course_offerings/{offeringId}/enrollments",
+                           "operationId":  "courseEnrollments.create",
+                           "resource":  "courseEnrollments",
+                           "authMode":  "dual-token",
+                           "permission":  "course.enrollments.write",
+                           "idempotency":  "required"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_enrollments",
+                           "operationId":  "courseEnrollments.current.list",
+                           "resource":  "courseEnrollments",
+                           "authMode":  "dual-token",
+                           "permission":  "course.enrollments.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_enrollments/{enrollmentId}",
+                           "operationId":  "courseEnrollments.retrieve",
+                           "resource":  "courseEnrollments",
+                           "authMode":  "dual-token",
+                           "permission":  "course.enrollments.read"
+                       },
+                       {
+                           "method":  "DELETE",
+                           "path":  "/app/v3/api/course_enrollments/{enrollmentId}",
+                           "operationId":  "courseEnrollments.cancel",
+                           "resource":  "courseEnrollments",
+                           "authMode":  "dual-token",
+                           "permission":  "course.enrollments.write"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/courses/{courseId}/sections",
+                           "operationId":  "courseSections.list",
+                           "resource":  "courseSections",
+                           "authMode":  "dual-token-or-anonymous",
+                           "permission":  "course.lessons.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/courses/{courseId}/lessons",
+                           "operationId":  "courseLessons.list",
+                           "resource":  "courseLessons",
+                           "authMode":  "dual-token-or-anonymous",
+                           "permission":  "course.lessons.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_lessons/{lessonId}",
+                           "operationId":  "courseLessons.retrieve",
+                           "resource":  "courseLessons",
+                           "authMode":  "dual-token-or-anonymous",
+                           "permission":  "course.lessons.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_lessons/{lessonId}/resources",
+                           "operationId":  "courseLessonResources.list",
+                           "resource":  "courseLessonResources",
+                           "authMode":  "dual-token",
+                           "permission":  "course.resources.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_enrollments/{enrollmentId}/progress",
+                           "operationId":  "courseProgress.retrieve",
+                           "resource":  "courseProgress",
+                           "authMode":  "dual-token",
+                           "permission":  "course.progress.read"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/app/v3/api/course_lessons/{lessonId}/progress",
+                           "operationId":  "courseLessonProgress.update",
+                           "resource":  "courseLessonProgress",
+                           "authMode":  "dual-token",
+                           "permission":  "course.progress.write",
+                           "idempotency":  "recommended"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/app/v3/api/course_lessons/{lessonId}/watch_position",
+                           "operationId":  "courseLessonProgress.watchPositions.update",
+                           "resource":  "courseLessonProgress",
+                           "authMode":  "dual-token",
+                           "permission":  "course.progress.write"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_live_sessions",
+                           "operationId":  "courseLiveSessions.list",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_live_sessions/{liveSessionId}",
+                           "operationId":  "courseLiveSessions.retrieve",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.read"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/app/v3/api/course_live_sessions/{liveSessionId}/join",
+                           "operationId":  "courseLiveSessions.join",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.join",
+                           "idempotency":  "recommended"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/app/v3/api/course_live_sessions/{liveSessionId}/heartbeat",
+                           "operationId":  "courseLiveSessions.heartbeat",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.join"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/app/v3/api/course_live_sessions/{liveSessionId}/leave",
+                           "operationId":  "courseLiveSessions.leave",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.join"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_live_sessions/{liveSessionId}/replay",
+                           "operationId":  "courseLiveSessions.replay.retrieve",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/courses/{courseId}/comments",
+                           "operationId":  "courseComments.list",
+                           "resource":  "courseComments",
+                           "authMode":  "dual-token-or-anonymous",
+                           "permission":  "course.comments.read"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/app/v3/api/courses/{courseId}/comments",
+                           "operationId":  "courseComments.create",
+                           "resource":  "courseComments",
+                           "authMode":  "dual-token",
+                           "permission":  "course.comments.write",
+                           "idempotency":  "recommended"
+                       },
+                       {
+                           "method":  "DELETE",
+                           "path":  "/app/v3/api/course_comments/{commentId}",
+                           "operationId":  "courseComments.delete",
+                           "resource":  "courseComments",
+                           "authMode":  "dual-token",
+                           "permission":  "course.comments.write"
+                       },
+                       {
+                           "method":  "PUT",
+                           "path":  "/app/v3/api/course_reactions",
+                           "operationId":  "courseReactions.replace",
+                           "resource":  "courseReactions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.reactions.write",
+                           "idempotency":  "recommended"
+                       },
+                       {
+                           "method":  "DELETE",
+                           "path":  "/app/v3/api/course_reactions/{reactionId}",
+                           "operationId":  "courseReactions.delete",
+                           "resource":  "courseReactions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.reactions.write"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/app/v3/api/course_applications",
+                           "operationId":  "courseApplications.create",
+                           "resource":  "courseApplications",
+                           "authMode":  "dual-token",
+                           "permission":  "course.applications.write",
+                           "idempotency":  "required"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_applications",
+                           "operationId":  "courseApplications.current.list",
+                           "resource":  "courseApplications",
+                           "authMode":  "dual-token",
+                           "permission":  "course.applications.read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/app/v3/api/course_applications/{applicationId}",
+                           "operationId":  "courseApplications.retrieve",
+                           "resource":  "courseApplications",
+                           "authMode":  "dual-token",
+                           "permission":  "course.applications.read"
+                       }
+                   ]
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "kind": "sdkwork.component.spec",
+  "component": {
+    "name": "sdkwork-content-course-repository-sqlx",
+    "displayName": "SDKWork Content Course SQLx Repository",
+    "version": "0.1.0",
+    "type": "rust-crate",
+    "root": "sdkwork-course/crates/sdkwork-content-course-repository-sqlx",
+    "domain": "content",
+    "capability": "course",
+    "surface": "backend-service",
+    "languages": ["rust"],
+    "generated": false,
+    "manifests": ["Cargo.toml"]
+  },
+  "canonicalSpecs": [
+    {
+      "file": "CODE_STYLE_SPEC.md",
+      "path": "../../../../sdkwork-specs/CODE_STYLE_SPEC.md",
+      "purpose": "Authored source structure and public export boundaries."
+    },
+    {
+      "file": "NAMING_SPEC.md",
+      "path": "../../../../sdkwork-specs/NAMING_SPEC.md",
+      "purpose": "SDKWork Rust crate naming."
+    },
+    {
+      "file": "RUST_CODE_SPEC.md",
+      "path": "../../../../sdkwork-specs/RUST_CODE_SPEC.md",
+      "purpose": "Rust repository crate responsibility and module layout."
+    },
+    {
+      "file": "DATABASE_SPEC.md",
+      "path": "../../../../sdkwork-specs/DATABASE_SPEC.md",
+      "purpose": "Database contract and migration rules."
+    },
+    {
+      "file": "COMPONENT_SPEC.md",
+      "path": "../../../../sdkwork-specs/COMPONENT_SPEC.md",
+      "purpose": "Component-local contract and discovery rules."
+    }
+  ],
+  "contracts": {
+    "publicExports": ["."],
+    "runtimeEntrypoints": [],
+    "routeManifest": null,
+    "sdkClients": [],
+    "sdkDependencies": [],
+    "dependencyApiExports": [],
+    "dependencyApiSurfaces": [],
+    "events": [],
+    "configKeys": []
+  },
+  "verification": {
+    "commands": ["cargo test -p sdkwork-content-course-repository-sqlx"]
+  }
+}

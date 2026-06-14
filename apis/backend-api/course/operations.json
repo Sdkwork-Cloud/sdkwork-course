@@ -1,0 +1,616 @@
+﻿{
+    "schemaVersion":  1,
+    "kind":  "sdkwork.course.api.operations",
+    "surface":  "backend-api",
+    "apiAuthority":  "sdkwork-course-backend-api",
+    "sdkFamily":  "sdkwork-course-backend-sdk",
+    "apiPrefix":  "/backend/v3/api",
+    "domain":  "content",
+    "capability":  "course",
+    "owner":  "sdkwork-course",
+    "operations":  [
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_categories",
+                           "operationId":  "courseCategories.list",
+                           "resource":  "courseCategories",
+                           "authMode":  "dual-token",
+                           "permission":  "course.categories.read",
+                           "auditEvent":  "course.categories.list"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_categories",
+                           "operationId":  "courseCategories.create",
+                           "resource":  "courseCategories",
+                           "authMode":  "dual-token",
+                           "permission":  "course.categories.write",
+                           "auditEvent":  "course.category.created"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/backend/v3/api/course_categories/{categoryId}",
+                           "operationId":  "courseCategories.update",
+                           "resource":  "courseCategories",
+                           "authMode":  "dual-token",
+                           "permission":  "course.categories.write",
+                           "auditEvent":  "course.category.updated"
+                       },
+                       {
+                           "method":  "DELETE",
+                           "path":  "/backend/v3/api/course_categories/{categoryId}",
+                           "operationId":  "courseCategories.delete",
+                           "resource":  "courseCategories",
+                           "authMode":  "dual-token",
+                           "permission":  "course.categories.write",
+                           "auditEvent":  "course.category.deleted"
+                       },
+                       {
+                           "method":  "PUT",
+                           "path":  "/backend/v3/api/course_categories/reorder",
+                           "operationId":  "courseCategories.reorder",
+                           "resource":  "courseCategories",
+                           "authMode":  "dual-token",
+                           "permission":  "course.categories.write",
+                           "auditEvent":  "course.categories.reordered"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_instructors",
+                           "operationId":  "courseInstructors.list",
+                           "resource":  "courseInstructors",
+                           "authMode":  "dual-token",
+                           "permission":  "course.instructors.read",
+                           "auditEvent":  "course.instructors.list"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_instructors",
+                           "operationId":  "courseInstructors.create",
+                           "resource":  "courseInstructors",
+                           "authMode":  "dual-token",
+                           "permission":  "course.instructors.write",
+                           "auditEvent":  "course.instructor.created"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_instructors/{instructorId}",
+                           "operationId":  "courseInstructors.retrieve",
+                           "resource":  "courseInstructors",
+                           "authMode":  "dual-token",
+                           "permission":  "course.instructors.read",
+                           "auditEvent":  "course.instructor.read"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/backend/v3/api/course_instructors/{instructorId}",
+                           "operationId":  "courseInstructors.update",
+                           "resource":  "courseInstructors",
+                           "authMode":  "dual-token",
+                           "permission":  "course.instructors.write",
+                           "auditEvent":  "course.instructor.updated"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/backend/v3/api/course_instructors/{instructorId}/status",
+                           "operationId":  "courseInstructors.status.update",
+                           "resource":  "courseInstructors",
+                           "authMode":  "dual-token",
+                           "permission":  "course.instructors.write",
+                           "auditEvent":  "course.instructor.status_updated"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/courses",
+                           "operationId":  "courses.list",
+                           "resource":  "courses",
+                           "authMode":  "dual-token",
+                           "permission":  "course.courses.read",
+                           "auditEvent":  "course.courses.list"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/courses",
+                           "operationId":  "courses.create",
+                           "resource":  "courses",
+                           "authMode":  "dual-token",
+                           "permission":  "course.courses.write",
+                           "auditEvent":  "course.course.created"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/courses/{courseId}",
+                           "operationId":  "courses.retrieve",
+                           "resource":  "courses",
+                           "authMode":  "dual-token",
+                           "permission":  "course.courses.read",
+                           "auditEvent":  "course.course.read"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/backend/v3/api/courses/{courseId}",
+                           "operationId":  "courses.update",
+                           "resource":  "courses",
+                           "authMode":  "dual-token",
+                           "permission":  "course.courses.write",
+                           "auditEvent":  "course.course.updated"
+                       },
+                       {
+                           "method":  "DELETE",
+                           "path":  "/backend/v3/api/courses/{courseId}",
+                           "operationId":  "courses.delete",
+                           "resource":  "courses",
+                           "authMode":  "dual-token",
+                           "permission":  "course.courses.write",
+                           "auditEvent":  "course.course.deleted"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/courses/{courseId}/publish",
+                           "operationId":  "courses.publish",
+                           "resource":  "courses",
+                           "authMode":  "dual-token",
+                           "permission":  "course.courses.publish",
+                           "auditEvent":  "course.course.published"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/courses/{courseId}/unpublish",
+                           "operationId":  "courses.unpublish",
+                           "resource":  "courses",
+                           "authMode":  "dual-token",
+                           "permission":  "course.courses.publish",
+                           "auditEvent":  "course.course.unpublished"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/courses/{courseId}/offerings",
+                           "operationId":  "courseOfferings.list",
+                           "resource":  "courseOfferings",
+                           "authMode":  "dual-token",
+                           "permission":  "course.offerings.read",
+                           "auditEvent":  "course.offerings.list"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/courses/{courseId}/offerings",
+                           "operationId":  "courseOfferings.create",
+                           "resource":  "courseOfferings",
+                           "authMode":  "dual-token",
+                           "permission":  "course.offerings.write",
+                           "auditEvent":  "course.offering.created"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_offerings/{offeringId}",
+                           "operationId":  "courseOfferings.retrieve",
+                           "resource":  "courseOfferings",
+                           "authMode":  "dual-token",
+                           "permission":  "course.offerings.read",
+                           "auditEvent":  "course.offering.read"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/backend/v3/api/course_offerings/{offeringId}",
+                           "operationId":  "courseOfferings.update",
+                           "resource":  "courseOfferings",
+                           "authMode":  "dual-token",
+                           "permission":  "course.offerings.write",
+                           "auditEvent":  "course.offering.updated"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_offerings/{offeringId}/publish",
+                           "operationId":  "courseOfferings.publish",
+                           "resource":  "courseOfferings",
+                           "authMode":  "dual-token",
+                           "permission":  "course.offerings.write",
+                           "auditEvent":  "course.offering.published"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_offerings/{offeringId}/close",
+                           "operationId":  "courseOfferings.close",
+                           "resource":  "courseOfferings",
+                           "authMode":  "dual-token",
+                           "permission":  "course.offerings.write",
+                           "auditEvent":  "course.offering.closed"
+                       },
+                       {
+                           "method":  "DELETE",
+                           "path":  "/backend/v3/api/course_offerings/{offeringId}",
+                           "operationId":  "courseOfferings.delete",
+                           "resource":  "courseOfferings",
+                           "authMode":  "dual-token",
+                           "permission":  "course.offerings.write",
+                           "auditEvent":  "course.offering.deleted"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/courses/{courseId}/sections",
+                           "operationId":  "courseSections.list",
+                           "resource":  "courseSections",
+                           "authMode":  "dual-token",
+                           "permission":  "course.lessons.read",
+                           "auditEvent":  "course.sections.list"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/courses/{courseId}/sections",
+                           "operationId":  "courseSections.create",
+                           "resource":  "courseSections",
+                           "authMode":  "dual-token",
+                           "permission":  "course.lessons.write",
+                           "auditEvent":  "course.section.created"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/backend/v3/api/course_sections/{sectionId}",
+                           "operationId":  "courseSections.update",
+                           "resource":  "courseSections",
+                           "authMode":  "dual-token",
+                           "permission":  "course.lessons.write",
+                           "auditEvent":  "course.section.updated"
+                       },
+                       {
+                           "method":  "DELETE",
+                           "path":  "/backend/v3/api/course_sections/{sectionId}",
+                           "operationId":  "courseSections.delete",
+                           "resource":  "courseSections",
+                           "authMode":  "dual-token",
+                           "permission":  "course.lessons.write",
+                           "auditEvent":  "course.section.deleted"
+                       },
+                       {
+                           "method":  "PUT",
+                           "path":  "/backend/v3/api/courses/{courseId}/sections/reorder",
+                           "operationId":  "courseSections.reorder",
+                           "resource":  "courseSections",
+                           "authMode":  "dual-token",
+                           "permission":  "course.lessons.write",
+                           "auditEvent":  "course.sections.reordered"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/courses/{courseId}/lessons",
+                           "operationId":  "courseLessons.list",
+                           "resource":  "courseLessons",
+                           "authMode":  "dual-token",
+                           "permission":  "course.lessons.read",
+                           "auditEvent":  "course.lessons.list"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/courses/{courseId}/lessons",
+                           "operationId":  "courseLessons.create",
+                           "resource":  "courseLessons",
+                           "authMode":  "dual-token",
+                           "permission":  "course.lessons.write",
+                           "auditEvent":  "course.lesson.created"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_lessons/{lessonId}",
+                           "operationId":  "courseLessons.retrieve",
+                           "resource":  "courseLessons",
+                           "authMode":  "dual-token",
+                           "permission":  "course.lessons.read",
+                           "auditEvent":  "course.lesson.read"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/backend/v3/api/course_lessons/{lessonId}",
+                           "operationId":  "courseLessons.update",
+                           "resource":  "courseLessons",
+                           "authMode":  "dual-token",
+                           "permission":  "course.lessons.write",
+                           "auditEvent":  "course.lesson.updated"
+                       },
+                       {
+                           "method":  "DELETE",
+                           "path":  "/backend/v3/api/course_lessons/{lessonId}",
+                           "operationId":  "courseLessons.delete",
+                           "resource":  "courseLessons",
+                           "authMode":  "dual-token",
+                           "permission":  "course.lessons.write",
+                           "auditEvent":  "course.lesson.deleted"
+                       },
+                       {
+                           "method":  "PUT",
+                           "path":  "/backend/v3/api/courses/{courseId}/lessons/reorder",
+                           "operationId":  "courseLessons.reorder",
+                           "resource":  "courseLessons",
+                           "authMode":  "dual-token",
+                           "permission":  "course.lessons.write",
+                           "auditEvent":  "course.lessons.reordered"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_lessons/{lessonId}/resources",
+                           "operationId":  "courseResources.list",
+                           "resource":  "courseResources",
+                           "authMode":  "dual-token",
+                           "permission":  "course.resources.read",
+                           "auditEvent":  "course.resources.list"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_lessons/{lessonId}/resources",
+                           "operationId":  "courseResources.create",
+                           "resource":  "courseResources",
+                           "authMode":  "dual-token",
+                           "permission":  "course.resources.write",
+                           "auditEvent":  "course.resource.created"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/backend/v3/api/course_resources/{resourceRefId}",
+                           "operationId":  "courseResources.update",
+                           "resource":  "courseResources",
+                           "authMode":  "dual-token",
+                           "permission":  "course.resources.write",
+                           "auditEvent":  "course.resource.updated"
+                       },
+                       {
+                           "method":  "DELETE",
+                           "path":  "/backend/v3/api/course_resources/{resourceRefId}",
+                           "operationId":  "courseResources.delete",
+                           "resource":  "courseResources",
+                           "authMode":  "dual-token",
+                           "permission":  "course.resources.write",
+                           "auditEvent":  "course.resource.deleted"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_live_sessions",
+                           "operationId":  "courseLiveSessions.list",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.read",
+                           "auditEvent":  "course.live_sessions.list"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_live_sessions",
+                           "operationId":  "courseLiveSessions.create",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.write",
+                           "auditEvent":  "course.live_session.created"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_live_sessions/{liveSessionId}",
+                           "operationId":  "courseLiveSessions.retrieve",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.read",
+                           "auditEvent":  "course.live_session.read"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/backend/v3/api/course_live_sessions/{liveSessionId}",
+                           "operationId":  "courseLiveSessions.update",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.write",
+                           "auditEvent":  "course.live_session.updated"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_live_sessions/{liveSessionId}/start",
+                           "operationId":  "courseLiveSessions.start",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.operate",
+                           "auditEvent":  "course.live_session.started"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_live_sessions/{liveSessionId}/end",
+                           "operationId":  "courseLiveSessions.end",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.operate",
+                           "auditEvent":  "course.live_session.ended"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_live_sessions/{liveSessionId}/cancel",
+                           "operationId":  "courseLiveSessions.cancel",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.operate",
+                           "auditEvent":  "course.live_session.cancelled"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_live_sessions/{liveSessionId}/replay",
+                           "operationId":  "courseLiveSessions.replay.attach",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.write",
+                           "auditEvent":  "course.live_session.replay_attached"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_live_sessions/{liveSessionId}/replay/publish",
+                           "operationId":  "courseLiveSessions.replay.publish",
+                           "resource":  "courseLiveSessions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.live_sessions.write",
+                           "auditEvent":  "course.live_session.replay_published"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_enrollments",
+                           "operationId":  "courseEnrollments.list",
+                           "resource":  "courseEnrollments",
+                           "authMode":  "dual-token",
+                           "permission":  "course.enrollments.read",
+                           "auditEvent":  "course.enrollments.list"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_enrollments/grants",
+                           "operationId":  "courseEnrollments.grant",
+                           "resource":  "courseEnrollments",
+                           "authMode":  "dual-token",
+                           "permission":  "course.enrollments.write",
+                           "auditEvent":  "course.enrollment.granted"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_enrollments/{enrollmentId}/revoke",
+                           "operationId":  "courseEnrollments.revoke",
+                           "resource":  "courseEnrollments",
+                           "authMode":  "dual-token",
+                           "permission":  "course.enrollments.write",
+                           "auditEvent":  "course.enrollment.revoked"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_progress",
+                           "operationId":  "courseProgress.list",
+                           "resource":  "courseProgress",
+                           "authMode":  "dual-token",
+                           "permission":  "course.progress.read",
+                           "auditEvent":  "course.progress.list"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_enrollments/{enrollmentId}/progress",
+                           "operationId":  "courseProgress.retrieve",
+                           "resource":  "courseProgress",
+                           "authMode":  "dual-token",
+                           "permission":  "course.progress.read",
+                           "auditEvent":  "course.progress.read"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/backend/v3/api/course_lesson_progress/{lessonProgressId}",
+                           "operationId":  "courseLessonProgress.repair",
+                           "resource":  "courseLessonProgress",
+                           "authMode":  "dual-token",
+                           "permission":  "course.progress.repair",
+                           "auditEvent":  "course.lesson_progress.repaired"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_comments",
+                           "operationId":  "courseComments.list",
+                           "resource":  "courseComments",
+                           "authMode":  "dual-token",
+                           "permission":  "course.comments.read",
+                           "auditEvent":  "course.comments.list"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/backend/v3/api/course_comments/{commentId}/moderation",
+                           "operationId":  "courseComments.moderate",
+                           "resource":  "courseComments",
+                           "authMode":  "dual-token",
+                           "permission":  "course.comments.moderate",
+                           "auditEvent":  "course.comment.moderated"
+                       },
+                       {
+                           "method":  "DELETE",
+                           "path":  "/backend/v3/api/course_comments/{commentId}",
+                           "operationId":  "courseComments.delete",
+                           "resource":  "courseComments",
+                           "authMode":  "dual-token",
+                           "permission":  "course.comments.moderate",
+                           "auditEvent":  "course.comment.deleted"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_reactions",
+                           "operationId":  "courseReactions.list",
+                           "resource":  "courseReactions",
+                           "authMode":  "dual-token",
+                           "permission":  "course.reactions.read",
+                           "auditEvent":  "course.reactions.list"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_applications",
+                           "operationId":  "courseApplications.list",
+                           "resource":  "courseApplications",
+                           "authMode":  "dual-token",
+                           "permission":  "course.applications.read",
+                           "auditEvent":  "course.applications.list"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_applications/{applicationId}",
+                           "operationId":  "courseApplications.retrieve",
+                           "resource":  "courseApplications",
+                           "authMode":  "dual-token",
+                           "permission":  "course.applications.read",
+                           "auditEvent":  "course.application.read"
+                       },
+                       {
+                           "method":  "PATCH",
+                           "path":  "/backend/v3/api/course_applications/{applicationId}/review",
+                           "operationId":  "courseApplications.review",
+                           "resource":  "courseApplications",
+                           "authMode":  "dual-token",
+                           "permission":  "course.applications.review",
+                           "auditEvent":  "course.application.reviewed"
+                       },
+                       {
+                           "method":  "POST",
+                           "path":  "/backend/v3/api/course_applications/{applicationId}/convert",
+                           "operationId":  "courseApplications.convertToCourse",
+                           "resource":  "courseApplications",
+                           "authMode":  "dual-token",
+                           "permission":  "course.applications.review",
+                           "auditEvent":  "course.application.converted"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_reports/overview",
+                           "operationId":  "courseReports.overview.retrieve",
+                           "resource":  "courseReports",
+                           "authMode":  "dual-token",
+                           "permission":  "course.reports.read",
+                           "auditEvent":  "course.reports.overview_read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_reports/learning",
+                           "operationId":  "courseReports.learning.list",
+                           "resource":  "courseReports",
+                           "authMode":  "dual-token",
+                           "permission":  "course.reports.read",
+                           "auditEvent":  "course.reports.learning_read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_reports/live_sessions",
+                           "operationId":  "courseReports.liveSessions.list",
+                           "resource":  "courseReports",
+                           "authMode":  "dual-token",
+                           "permission":  "course.reports.read",
+                           "auditEvent":  "course.reports.live_sessions_read"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_audit_logs",
+                           "operationId":  "courseAuditLogs.list",
+                           "resource":  "courseAuditLogs",
+                           "authMode":  "dual-token",
+                           "permission":  "course.audit_logs.read",
+                           "auditEvent":  "course.audit_logs.list"
+                       },
+                       {
+                           "method":  "GET",
+                           "path":  "/backend/v3/api/course_audit_logs/{auditLogId}",
+                           "operationId":  "courseAuditLogs.retrieve",
+                           "resource":  "courseAuditLogs",
+                           "authMode":  "dual-token",
+                           "permission":  "course.audit_logs.read",
+                           "auditEvent":  "course.audit_log.read"
+                       }
+                   ]
+}

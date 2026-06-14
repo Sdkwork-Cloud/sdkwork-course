@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "kind": "sdkwork.component.spec",
+  "component": {
+    "name": "sdkwork-router-course-backend-api",
+    "displayName": "SDKWork Course Backend API Route Crate",
+    "version": "0.1.0",
+    "type": "rust-crate",
+    "root": "sdkwork-course/crates/sdkwork-router-course-backend-api",
+    "domain": "content",
+    "capability": "course",
+    "surface": "backend-api",
+    "languages": ["rust"],
+    "generated": false,
+    "manifests": ["Cargo.toml"]
+  },
+  "canonicalSpecs": [
+    {
+      "file": "CODE_STYLE_SPEC.md",
+      "path": "../../../../sdkwork-specs/CODE_STYLE_SPEC.md",
+      "purpose": "Authored source structure and public export boundaries."
+    },
+    {
+      "file": "NAMING_SPEC.md",
+      "path": "../../../../sdkwork-specs/NAMING_SPEC.md",
+      "purpose": "SDKWork Rust crate naming."
+    },
+    {
+      "file": "RUST_CODE_SPEC.md",
+      "path": "../../../../sdkwork-specs/RUST_CODE_SPEC.md",
+      "purpose": "Rust route crate responsibility and module layout."
+    },
+    {
+      "file": "API_SPEC.md",
+      "path": "../../../../sdkwork-specs/API_SPEC.md",
+      "purpose": "HTTP route, operation, and authority standard."
+    },
+    {
+      "file": "SDK_WORKSPACE_GENERATION_SPEC.md",
+      "path": "../../../../sdkwork-specs/SDK_WORKSPACE_GENERATION_SPEC.md",
+      "purpose": "Route manifest materialization and SDK workspace placement."
+    },
+    {
+      "file": "COMPONENT_SPEC.md",
+      "path": "../../../../sdkwork-specs/COMPONENT_SPEC.md",
+      "purpose": "Component-local contract and discovery rules."
+    }
+  ],
+  "contracts": {
+    "publicExports": ["."],
+    "runtimeEntrypoints": ["src/lib.rs", "src/routes.rs", "src/manifest.rs"],
+    "routeManifest": "sdks/_route-manifests/backend-api/sdkwork-router-course-backend-api.route-manifest.json",
+    "sdkClients": [],
+    "sdkDependencies": [],
+    "dependencyApiExports": [],
+    "dependencyApiSurfaces": [],
+    "events": [],
+    "configKeys": []
+  },
+  "verification": {
+    "commands": ["cargo test -p sdkwork-router-course-backend-api"]
+  }
+}
+

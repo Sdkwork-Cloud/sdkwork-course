@@ -8,7 +8,7 @@ purpose: >
 
 capabilities:
   - id: course
-    domain: course
+    domain: content
     status: standardizing
     maturity: L3
     targetMaturity: L3
@@ -16,24 +16,29 @@ capabilities:
     owner: sdkwork-course
     scope:
       - category
+      - instructor
       - course
+      - offering
       - section
       - lesson
-      - relation
-      - application
+      - resource_ref
+      - live_session
+      - enrollment
+      - learning_progress
+      - lesson_progress
       - comment
       - reaction
-      - engagement
+      - application
       - audit
     requiredLayers:
       - kind: contracts
-        path: packages/common/course/sdkwork-course-contracts
+        path: sdks/_shared/course-contracts
         manifest: package.json
-      - kind: native_rust_core
-        path: packages/native-rust/course/sdkwork-course-rust
+      - kind: service
+        path: crates/sdkwork-content-course-service
         manifest: Cargo.toml
-      - kind: native_rust_storage_sqlx
-        path: packages/native-rust/course/sdkwork-course-rust
+      - kind: repository_sqlx
+        path: crates/sdkwork-content-course-repository-sqlx
         manifest: Cargo.toml
       - kind: app_sdk
         path: sdks/sdkwork-course-app-sdk
@@ -53,6 +58,6 @@ capabilities:
       appResponsibility: >
         Applications provide shell routes, visual composition, concrete media
         storage, and access adapters. Course records, learning structure, author
-        submissions, moderation, engagement, and audit records remain owned by
-        sdkwork-course.
+        submissions, moderation, progress, live sessions, and audit records
+        remain owned by sdkwork-course.
 

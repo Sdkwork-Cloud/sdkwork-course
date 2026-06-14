@@ -1,0 +1,2901 @@
+﻿{
+    "schemaVersion":  1,
+    "kind":  "sdkwork.course.database.contract",
+    "domain":  "content",
+    "capability":  "course",
+    "owner":  "sdkwork-course",
+    "status":  "draft",
+    "standardProfile":  "sdkwork-v3",
+    "purpose":  "Professional online course database contract for VOD video courses, live online courses, blended offerings, enrollment, learning progress, comments, reactions, applications, and audit logs.",
+    "apiSerialization":  {
+                             "int64":  "string",
+                             "decimal":  "string",
+                             "time":  "iso8601_utc"
+                         },
+    "commonColumns":  [
+                          "id",
+                          "uuid",
+                          "tenant_id",
+                          "organization_id",
+                          "status",
+                          "created_at",
+                          "created_by",
+                          "updated_at",
+                          "updated_by",
+                          "version",
+                          "deleted_at",
+                          "deleted_by"
+                      ],
+    "enums":  {
+                  "offering_type":  [
+                                        "vod",
+                                        "live",
+                                        "blended",
+                                        "cohort"
+                                    ],
+                  "delivery_mode":  [
+                                        "self_paced",
+                                        "scheduled",
+                                        "instructor_led",
+                                        "hybrid"
+                                    ],
+                  "lesson_kind":  [
+                                      "vod_video",
+                                      "live_session",
+                                      "article",
+                                      "download",
+                                      "quiz",
+                                      "assignment"
+                                  ],
+                  "publish_status":  [
+                                         "draft",
+                                         "reviewing",
+                                         "published",
+                                         "unpublished",
+                                         "archived"
+                                     ],
+                  "live_status":  [
+                                      "scheduled",
+                                      "preparing",
+                                      "live",
+                                      "ended",
+                                      "recording_processing",
+                                      "replay_ready",
+                                      "cancelled",
+                                      "archived"
+                                  ],
+                  "enrollment_status":  [
+                                            "active",
+                                            "completed",
+                                            "expired",
+                                            "cancelled",
+                                            "revoked"
+                                        ],
+                  "progress_status":  [
+                                          "not_started",
+                                          "in_progress",
+                                          "completed",
+                                          "missed",
+                                          "attended",
+                                          "expired"
+                                      ],
+                  "resource_role":  [
+                                        "cover",
+                                        "intro_video",
+                                        "vod_video",
+                                        "live_replay",
+                                        "subtitle",
+                                        "attachment",
+                                        "handout",
+                                        "avatar"
+                                    ],
+                  "visibility":  [
+                                     "public",
+                                     "tenant",
+                                     "organization",
+                                     "private"
+                                 ]
+              },
+    "tables":  [
+                   {
+                       "name":  "course_category",
+                       "title":  "Course category tree",
+                       "profile":  "tree_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "parent_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "category_code",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  96
+                                       },
+                                       {
+                                           "name":  "name",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  160
+                                       },
+                                       {
+                                           "name":  "description",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  1000
+                                       },
+                                       {
+                                           "name":  "icon_resource_snapshot",
+                                           "type":  "json",
+                                           "required":  false,
+                                           "schema":  "MediaResource"
+                                       },
+                                       {
+                                           "name":  "path",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  512
+                                       },
+                                       {
+                                           "name":  "level_no",
+                                           "type":  "int32",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "sort_order",
+                                           "type":  "int32",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "course_count_snapshot",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active",
+                                                          "inactive",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "uk_course_category_tenant_code",
+                                           "unique":  true,
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "organization_id",
+                                                           "category_code"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_category_parent_sort",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "organization_id",
+                                                           "parent_id",
+                                                           "sort_order"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_category_status_sort",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "organization_id",
+                                                           "status",
+                                                           "sort_order"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_instructor",
+                       "title":  "Course instructor profile",
+                       "profile":  "tenant_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "user_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "display_name",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  160
+                                       },
+                                       {
+                                           "name":  "title",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  160
+                                       },
+                                       {
+                                           "name":  "bio",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  4000
+                                       },
+                                       {
+                                           "name":  "avatar_resource_snapshot",
+                                           "type":  "json",
+                                           "required":  false,
+                                           "schema":  "MediaResource"
+                                       },
+                                       {
+                                           "name":  "profile_links_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "[]"
+                                       },
+                                       {
+                                           "name":  "expertise_tags_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "[]"
+                                       },
+                                       {
+                                           "name":  "qualification_status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "pending",
+                                                          "verified",
+                                                          "rejected"
+                                                      ],
+                                           "default":  "pending"
+                                       },
+                                       {
+                                           "name":  "sort_order",
+                                           "type":  "int32",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active",
+                                                          "inactive",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "idx_course_instructor_tenant_status",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "organization_id",
+                                                           "status",
+                                                           "sort_order"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_instructor_user",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "user_id"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_catalog",
+                       "title":  "Course catalog master",
+                       "profile":  "tenant_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "course_code",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  96
+                                       },
+                                       {
+                                           "name":  "category_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "primary_instructor_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "title",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  240
+                                       },
+                                       {
+                                           "name":  "subtitle",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  240
+                                       },
+                                       {
+                                           "name":  "summary",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  1000
+                                       },
+                                       {
+                                           "name":  "description",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  8000
+                                       },
+                                       {
+                                           "name":  "learning_objectives_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "[]"
+                                       },
+                                       {
+                                           "name":  "target_audience_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "[]"
+                                       },
+                                       {
+                                           "name":  "prerequisites_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "[]"
+                                       },
+                                       {
+                                           "name":  "difficulty_level",
+                                           "type":  "enum",
+                                           "required":  false,
+                                           "values":  [
+                                                          "beginner",
+                                                          "intermediate",
+                                                          "advanced"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "language_code",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  32
+                                       },
+                                       {
+                                           "name":  "cover_resource_snapshot",
+                                           "type":  "json",
+                                           "required":  false,
+                                           "schema":  "MediaResource"
+                                       },
+                                       {
+                                           "name":  "intro_video_resource_ref_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "tags_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "[]"
+                                       },
+                                       {
+                                           "name":  "estimated_duration_seconds",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "lesson_count_snapshot",
+                                           "type":  "int32",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "student_count_snapshot",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "rating_score_snapshot",
+                                           "type":  "decimal",
+                                           "required":  true,
+                                           "default":  "0"
+                                       },
+                                       {
+                                           "name":  "rating_count_snapshot",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "visibility",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "public",
+                                                          "tenant",
+                                                          "organization",
+                                                          "private"
+                                                      ],
+                                           "default":  "tenant"
+                                       },
+                                       {
+                                           "name":  "publish_status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "draft",
+                                                          "reviewing",
+                                                          "published",
+                                                          "unpublished",
+                                                          "archived"
+                                                      ],
+                                           "default":  "draft"
+                                       },
+                                       {
+                                           "name":  "published_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active",
+                                                          "archived",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "uk_course_catalog_tenant_code",
+                                           "unique":  true,
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "organization_id",
+                                                           "course_code"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_catalog_category_status",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "organization_id",
+                                                           "category_id",
+                                                           "publish_status",
+                                                           "updated_at"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_catalog_instructor",
+                                           "columns":  [
+                                                           "primary_instructor_id",
+                                                           "publish_status"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_catalog_visibility_status",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "organization_id",
+                                                           "visibility",
+                                                           "publish_status"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_offering",
+                       "title":  "Course delivery offering",
+                       "profile":  "tenant_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "course_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "offering_code",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  96
+                                       },
+                                       {
+                                           "name":  "title",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  240
+                                       },
+                                       {
+                                           "name":  "offering_type",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "vod",
+                                                          "live",
+                                                          "blended",
+                                                          "cohort"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "delivery_mode",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "self_paced",
+                                                          "scheduled",
+                                                          "instructor_led",
+                                                          "hybrid"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "access_mode",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "free",
+                                                          "enrollment_required",
+                                                          "entitlement_required",
+                                                          "invite_only"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "access_policy_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "{}"
+                                       },
+                                       {
+                                           "name":  "start_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "end_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "open_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "close_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "capacity",
+                                           "type":  "int32",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "enrolled_count_snapshot",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "completion_rule_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "{}"
+                                       },
+                                       {
+                                           "name":  "certificate_enabled",
+                                           "type":  "bool",
+                                           "required":  true,
+                                           "default":  false
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "draft",
+                                                          "published",
+                                                          "open",
+                                                          "closed",
+                                                          "archived",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "uk_course_offering_tenant_code",
+                                           "unique":  true,
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "organization_id",
+                                                           "offering_code"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_offering_course_status",
+                                           "columns":  [
+                                                           "course_id",
+                                                           "status",
+                                                           "start_at"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_offering_type_status",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "organization_id",
+                                                           "offering_type",
+                                                           "status",
+                                                           "start_at"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_section",
+                       "title":  "Course section",
+                       "profile":  "core_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "course_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "section_no",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "title",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  240
+                                       },
+                                       {
+                                           "name":  "description",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  2000
+                                       },
+                                       {
+                                           "name":  "sort_order",
+                                           "type":  "int32",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "lesson_count_snapshot",
+                                           "type":  "int32",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "duration_seconds_snapshot",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "visibility",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "public",
+                                                          "tenant",
+                                                          "organization",
+                                                          "private"
+                                                      ],
+                                           "default":  "tenant"
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "draft",
+                                                          "published",
+                                                          "archived",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "uk_course_section_no",
+                                           "unique":  true,
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "course_id",
+                                                           "section_no"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_section_course_sort",
+                                           "columns":  [
+                                                           "course_id",
+                                                           "status",
+                                                           "sort_order"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_lesson",
+                       "title":  "Course lesson or learning activity",
+                       "profile":  "core_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "course_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "section_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "lesson_no",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "lesson_kind",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "vod_video",
+                                                          "live_session",
+                                                          "article",
+                                                          "download",
+                                                          "quiz",
+                                                          "assignment"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "title",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  240
+                                       },
+                                       {
+                                           "name":  "description",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  2000
+                                       },
+                                       {
+                                           "name":  "content",
+                                           "type":  "string",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "duration_seconds",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "free_preview",
+                                           "type":  "bool",
+                                           "required":  true,
+                                           "default":  false
+                                       },
+                                       {
+                                           "name":  "required_for_completion",
+                                           "type":  "bool",
+                                           "required":  true,
+                                           "default":  true
+                                       },
+                                       {
+                                           "name":  "completion_rule_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "{}"
+                                       },
+                                       {
+                                           "name":  "sort_order",
+                                           "type":  "int32",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "scheduled_start_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "scheduled_end_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "draft",
+                                                          "published",
+                                                          "archived",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "uk_course_lesson_no",
+                                           "unique":  true,
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "course_id",
+                                                           "lesson_no"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_lesson_course_sort",
+                                           "columns":  [
+                                                           "course_id",
+                                                           "status",
+                                                           "sort_order"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_lesson_kind_status",
+                                           "columns":  [
+                                                           "course_id",
+                                                           "lesson_kind",
+                                                           "status"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_resource_ref",
+                       "title":  "Course Drive-backed resource reference",
+                       "profile":  "relation_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "owner_type",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "course",
+                                                          "lesson",
+                                                          "live_session",
+                                                          "application",
+                                                          "instructor"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "owner_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "resource_role",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "cover",
+                                                          "intro_video",
+                                                          "vod_video",
+                                                          "live_replay",
+                                                          "subtitle",
+                                                          "attachment",
+                                                          "handout",
+                                                          "avatar"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "drive_space_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "drive_node_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "drive_uri",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  512
+                                       },
+                                       {
+                                           "name":  "media_kind",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "image",
+                                                          "video",
+                                                          "audio",
+                                                          "document",
+                                                          "archive",
+                                                          "other"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "media_resource_snapshot",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "schema":  "MediaResource"
+                                       },
+                                       {
+                                           "name":  "mime_type",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  256
+                                       },
+                                       {
+                                           "name":  "size_bytes",
+                                           "type":  "int64",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "duration_seconds",
+                                           "type":  "int64",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "checksum_algorithm",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  32
+                                       },
+                                       {
+                                           "name":  "checksum_value",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  256
+                                       },
+                                       {
+                                           "name":  "sort_order",
+                                           "type":  "int32",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active",
+                                                          "inactive",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "idx_course_resource_owner",
+                                           "columns":  [
+                                                           "owner_type",
+                                                           "owner_id",
+                                                           "resource_role",
+                                                           "status"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_resource_drive",
+                                           "columns":  [
+                                                           "drive_space_id",
+                                                           "drive_node_id"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_resource_tenant_status",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "organization_id",
+                                                           "status"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_live_session",
+                       "title":  "Live online course session",
+                       "profile":  "tenant_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "course_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "offering_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "lesson_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "title",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  240
+                                       },
+                                       {
+                                           "name":  "description",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  2000
+                                       },
+                                       {
+                                           "name":  "primary_instructor_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "assistant_instructor_ids_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "[]"
+                                       },
+                                       {
+                                           "name":  "live_mode",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "large_class",
+                                                          "small_class",
+                                                          "webinar",
+                                                          "one_to_one"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "provider",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "provider_room_id",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  256
+                                       },
+                                       {
+                                           "name":  "scheduled_start_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "scheduled_end_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "actual_start_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "actual_end_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "entry_open_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "entry_close_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "max_participants",
+                                           "type":  "int32",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "replay_enabled",
+                                           "type":  "bool",
+                                           "required":  true,
+                                           "default":  true
+                                       },
+                                       {
+                                           "name":  "replay_resource_ref_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "live_status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "scheduled",
+                                                          "preparing",
+                                                          "live",
+                                                          "ended",
+                                                          "recording_processing",
+                                                          "replay_ready",
+                                                          "cancelled",
+                                                          "archived"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "metadata_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "{}"
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active",
+                                                          "archived",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "idx_course_live_session_offering_time",
+                                           "columns":  [
+                                                           "offering_id",
+                                                           "scheduled_start_at"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_live_session_lesson",
+                                           "columns":  [
+                                                           "lesson_id"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_live_session_status",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "organization_id",
+                                                           "live_status",
+                                                           "scheduled_start_at"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_enrollment",
+                       "title":  "Course learner enrollment",
+                       "profile":  "user_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "course_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "offering_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "user_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "enrollment_source",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "self",
+                                                          "admin_grant",
+                                                          "invitation",
+                                                          "organization_assignment",
+                                                          "external_entitlement"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "access_snapshot_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "{}"
+                                       },
+                                       {
+                                           "name":  "enrolled_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "started_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "completed_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "expires_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "enrollment_status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active",
+                                                          "completed",
+                                                          "expired",
+                                                          "cancelled",
+                                                          "revoked"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active",
+                                                          "inactive",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "uk_course_enrollment_user_offering",
+                                           "unique":  true,
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "offering_id",
+                                                           "user_id"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_enrollment_user_status",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "user_id",
+                                                           "enrollment_status",
+                                                           "updated_at"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_enrollment_course",
+                                           "columns":  [
+                                                           "course_id",
+                                                           "enrollment_status"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_learning_progress",
+                       "title":  "Course-level learning progress",
+                       "profile":  "user_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "course_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "offering_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "enrollment_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "user_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "progress_status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "not_started",
+                                                          "in_progress",
+                                                          "completed",
+                                                          "expired"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "completed_lesson_count",
+                                           "type":  "int32",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "required_lesson_count",
+                                           "type":  "int32",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "progress_percent",
+                                           "type":  "decimal",
+                                           "required":  true,
+                                           "default":  "0"
+                                       },
+                                       {
+                                           "name":  "watch_seconds",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "last_lesson_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "last_activity_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "started_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "completed_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "completion_snapshot_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "{}"
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "uk_course_learning_progress_enrollment",
+                                           "unique":  true,
+                                           "columns":  [
+                                                           "enrollment_id"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_learning_progress_user",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "user_id",
+                                                           "progress_status",
+                                                           "last_activity_at"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_learning_progress_course",
+                                           "columns":  [
+                                                           "course_id",
+                                                           "progress_status"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_lesson_progress",
+                       "title":  "Lesson-level VOD and live progress",
+                       "profile":  "user_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "course_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "offering_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "lesson_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "enrollment_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "live_session_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "user_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "lesson_kind",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "vod_video",
+                                                          "live_session",
+                                                          "article",
+                                                          "download",
+                                                          "quiz",
+                                                          "assignment"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "progress_status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "not_started",
+                                                          "in_progress",
+                                                          "completed",
+                                                          "missed",
+                                                          "attended"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "watch_position_seconds",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "watch_seconds",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "required_seconds",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "joined_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "left_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "last_heartbeat_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "completed_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "progress_metadata_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "{}"
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "uk_course_lesson_progress_user_lesson",
+                                           "unique":  true,
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "offering_id",
+                                                           "lesson_id",
+                                                           "user_id"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_lesson_progress_user",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "user_id",
+                                                           "progress_status",
+                                                           "updated_at"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_lesson_progress_live",
+                                           "columns":  [
+                                                           "live_session_id",
+                                                           "progress_status"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_comment",
+                       "title":  "Course comment and discussion",
+                       "profile":  "user_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "target_type",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "course",
+                                                          "lesson",
+                                                          "live_session"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "target_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "parent_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "author_user_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "author_snapshot",
+                                           "type":  "json",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "content",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  4000
+                                       },
+                                       {
+                                           "name":  "content_format",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "plain",
+                                                          "markdown"
+                                                      ],
+                                           "default":  "plain"
+                                       },
+                                       {
+                                           "name":  "moderation_status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "visible",
+                                                          "pending",
+                                                          "hidden",
+                                                          "rejected"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "moderation_note",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  1000
+                                       },
+                                       {
+                                           "name":  "like_count_snapshot",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "idx_course_comment_target",
+                                           "columns":  [
+                                                           "target_type",
+                                                           "target_id",
+                                                           "moderation_status",
+                                                           "created_at"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_comment_author",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "author_user_id",
+                                                           "created_at"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_reaction",
+                       "title":  "Course reaction",
+                       "profile":  "relation_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "target_type",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "course",
+                                                          "lesson",
+                                                          "comment",
+                                                          "live_session"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "target_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "actor_user_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "reaction_type",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "like",
+                                                          "favorite",
+                                                          "save",
+                                                          "share"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "reaction_value",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "uk_course_reaction_actor_target",
+                                           "unique":  true,
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "target_type",
+                                                           "target_id",
+                                                           "actor_user_id",
+                                                           "reaction_type"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_reaction_target",
+                                           "columns":  [
+                                                           "target_type",
+                                                           "target_id",
+                                                           "reaction_type",
+                                                           "status"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_application",
+                       "title":  "Course application and author submission",
+                       "profile":  "workflow_entity",
+                       "complianceLevel":  "L2",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "soft_delete",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "applicant_user_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "instructor_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "title",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  240
+                                       },
+                                       {
+                                           "name":  "category_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "description",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  8000
+                                       },
+                                       {
+                                           "name":  "sample_resource_ref_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "contact_name",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  160
+                                       },
+                                       {
+                                           "name":  "contact_email",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  256
+                                       },
+                                       {
+                                           "name":  "application_status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "submitted",
+                                                          "reviewing",
+                                                          "approved",
+                                                          "rejected",
+                                                          "converted",
+                                                          "cancelled"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "reviewed_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "reviewed_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "review_note",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  2000
+                                       },
+                                       {
+                                           "name":  "converted_course_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "metadata_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "{}"
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active",
+                                                          "deleted"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "created_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "updated_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "updated_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "version",
+                                           "type":  "int64",
+                                           "required":  true,
+                                           "default":  0
+                                       },
+                                       {
+                                           "name":  "deleted_at",
+                                           "type":  "instant",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "deleted_by",
+                                           "type":  "id",
+                                           "required":  false
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "idx_course_application_status",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "organization_id",
+                                                           "application_status",
+                                                           "created_at"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_application_user",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "applicant_user_id",
+                                                           "created_at"
+                                                       ]
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "course_audit_log",
+                       "title":  "Course audit log",
+                       "profile":  "audit_log",
+                       "complianceLevel":  "L3",
+                       "systemOfRecord":  true,
+                       "writeOwner":  "course-service",
+                       "lifecycle":  "append_only",
+                       "columns":  [
+                                       {
+                                           "name":  "id",
+                                           "type":  "id",
+                                           "required":  true,
+                                           "primaryKey":  true
+                                       },
+                                       {
+                                           "name":  "uuid",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "unique":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "tenant_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "organization_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "actor_type",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "user",
+                                                          "admin",
+                                                          "system"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "actor_id",
+                                           "type":  "id",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "operation_id",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  160
+                                       },
+                                       {
+                                           "name":  "audit_event_type",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  160
+                                       },
+                                       {
+                                           "name":  "target_type",
+                                           "type":  "string",
+                                           "required":  true,
+                                           "maxLength":  64
+                                       },
+                                       {
+                                           "name":  "target_id",
+                                           "type":  "id",
+                                           "required":  true
+                                       },
+                                       {
+                                           "name":  "request_id",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  128
+                                       },
+                                       {
+                                           "name":  "idempotency_key",
+                                           "type":  "string",
+                                           "required":  false,
+                                           "maxLength":  256
+                                       },
+                                       {
+                                           "name":  "before_snapshot_json",
+                                           "type":  "json",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "after_snapshot_json",
+                                           "type":  "json",
+                                           "required":  false
+                                       },
+                                       {
+                                           "name":  "metadata_json",
+                                           "type":  "json",
+                                           "required":  true,
+                                           "default":  "{}"
+                                       },
+                                       {
+                                           "name":  "status",
+                                           "type":  "enum",
+                                           "required":  true,
+                                           "values":  [
+                                                          "active"
+                                                      ]
+                                       },
+                                       {
+                                           "name":  "created_at",
+                                           "type":  "instant",
+                                           "required":  true
+                                       }
+                                   ],
+                       "indexes":  [
+                                       {
+                                           "name":  "idx_course_audit_target",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "target_type",
+                                                           "target_id",
+                                                           "created_at"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_audit_actor",
+                                           "columns":  [
+                                                           "tenant_id",
+                                                           "actor_type",
+                                                           "actor_id",
+                                                           "created_at"
+                                                       ]
+                                       },
+                                       {
+                                           "name":  "idx_course_audit_operation",
+                                           "columns":  [
+                                                           "operation_id",
+                                                           "created_at"
+                                                       ]
+                                       }
+                                   ]
+                   }
+               ],
+    "deferredTables":  [
+                           {
+                               "name":  "course_version",
+                               "reason":  "Add when draft/review/publish/rollback versioning is required."
+                           },
+                           {
+                               "name":  "course_live_attendance_event",
+                               "reason":  "Add when precise live attendance event replay and compliance reporting is required."
+                           },
+                           {
+                               "name":  "course_live_interaction",
+                               "reason":  "Add when classroom Q\u0026A, polls, raise-hand, chat, and co-host interaction archives are required."
+                           },
+                           {
+                               "name":  "course_assessment",
+                               "reason":  "Add with QTI/xAPI-aligned assessment support."
+                           },
+                           {
+                               "name":  "course_certificate",
+                               "reason":  "Add with Open Badges-style certificate issuance."
+                           },
+                           {
+                               "name":  "course_outbox_event",
+                               "reason":  "Add when cross-service course events need durable publication."
+                           }
+                       ]
+}

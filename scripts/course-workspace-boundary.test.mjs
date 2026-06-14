@@ -11,7 +11,14 @@ const requiredFiles = [
   "pnpm-workspace.yaml",
   "Cargo.toml",
   "specs/course-capabilities.yaml",
+  "specs/database/course-schema.contract.json",
+  "apis/README.md",
+  "apis/app-api/course/operations.json",
+  "apis/backend-api/course/operations.json",
+  "scripts/materialize-course-openapi.mjs",
   "sdks/README.md",
+  "sdks/_route-manifests/app-api/sdkwork-router-course-app-api.route-manifest.json",
+  "sdks/_route-manifests/backend-api/sdkwork-router-course-backend-api.route-manifest.json",
   "sdks/sdkwork-course-app-sdk/.sdkwork-assembly.json",
   "sdks/sdkwork-course-app-sdk/README.md",
   "sdks/sdkwork-course-app-sdk/bin/generate-sdk.ps1",
@@ -26,12 +33,35 @@ const requiredFiles = [
   "sdks/sdkwork-course-backend-sdk/openapi/sdkwork-course-backend-api.sdkgen.yaml",
   "sdks/sdkwork-course-backend-sdk/specs/README.md",
   "sdks/sdkwork-course-backend-sdk/specs/component.spec.json",
-  "packages/common/course/sdkwork-course-contracts/src/index.ts",
-  "packages/native-rust/course/sdkwork-course-rust/Cargo.toml",
-  "packages/native-rust/course/sdkwork-course-rust/migrations/0001_course_foundation.sql",
-  "packages/native-rust/course/sdkwork-course-rust/src/lib.rs",
-  "packages/native-rust/course/sdkwork-course-rust/src/storage.rs",
-  "packages/native-rust/course/sdkwork-course-rust/src/router.rs",
+  "sdks/_shared/course-contracts/package.json",
+  "sdks/_shared/course-contracts/specs/component.spec.json",
+  "sdks/_shared/course-contracts/src/index.ts",
+  "sdks/_shared/course-contracts/src/course-api.ts",
+  "sdks/_shared/course-contracts/src/course-domain.ts",
+  "crates/sdkwork-content-course-service/Cargo.toml",
+  "crates/sdkwork-content-course-service/specs/component.spec.json",
+  "crates/sdkwork-content-course-service/src/lib.rs",
+  "crates/sdkwork-content-course-service/src/domain/commands.rs",
+  "crates/sdkwork-content-course-service/src/domain/models.rs",
+  "crates/sdkwork-content-course-service/src/ports/repository.rs",
+  "crates/sdkwork-content-course-service/src/ports/provider.rs",
+  "crates/sdkwork-content-course-service/src/service/course_service.rs",
+  "crates/sdkwork-content-course-repository-sqlx/Cargo.toml",
+  "crates/sdkwork-content-course-repository-sqlx/specs/component.spec.json",
+  "crates/sdkwork-content-course-repository-sqlx/migrations/0001_course_foundation.sql",
+  "crates/sdkwork-content-course-repository-sqlx/src/lib.rs",
+  "crates/sdkwork-content-course-repository-sqlx/src/db/schema.rs",
+  "crates/sdkwork-content-course-repository-sqlx/src/repository/course_repository.rs",
+  "crates/sdkwork-router-course-app-api/Cargo.toml",
+  "crates/sdkwork-router-course-app-api/specs/component.spec.json",
+  "crates/sdkwork-router-course-app-api/src/lib.rs",
+  "crates/sdkwork-router-course-app-api/src/routes.rs",
+  "crates/sdkwork-router-course-app-api/src/manifest.rs",
+  "crates/sdkwork-router-course-backend-api/Cargo.toml",
+  "crates/sdkwork-router-course-backend-api/specs/component.spec.json",
+  "crates/sdkwork-router-course-backend-api/src/lib.rs",
+  "crates/sdkwork-router-course-backend-api/src/routes.rs",
+  "crates/sdkwork-router-course-backend-api/src/manifest.rs",
 ];
 
 const forbiddenOwnershipPatterns = [
@@ -54,53 +84,23 @@ const forbiddenScanAllowlist = new Set([
   "scripts/course-workspace-boundary.test.mjs",
 ]);
 
-const requiredAppOperations = [
-  "courseCategories.list",
-  "courses.list",
-  "courses.retrieve",
-  "courseSections.list",
-  "courseLessons.list",
-  "courseRelations.list",
-  "courseApplications.create",
-];
-
-const requiredBackendOperations = [
-  "courses.list",
-  "courses.create",
-  "courses.update",
-  "courses.delete",
-  "courseSections.list",
-  "courseSections.create",
-  "courseSections.update",
-  "courseSections.delete",
-  "courseLessons.list",
-  "courseLessons.create",
-  "courseLessons.update",
-  "courseLessons.delete",
-  "courseRelations.list",
-  "courseRelations.replace",
-  "courseApplications.list",
-  "courseApplications.review",
-  "courseComments.list",
-  "courseComments.moderate",
-  "courseEngagement.list",
-];
-
 const requiredCourseTables = [
   "course_category",
+  "course_instructor",
   "course_catalog",
+  "course_offering",
   "course_section",
   "course_lesson",
-  "course_relation",
-  "course_application",
+  "course_resource_ref",
+  "course_live_session",
+  "course_enrollment",
+  "course_learning_progress",
+  "course_lesson_progress",
   "course_comment",
   "course_reaction",
+  "course_application",
   "course_audit_log",
 ];
-
-const protectedSecurity = [{ AuthToken: [], AccessToken: [] }];
-const appApiPrefix = "/app/v3/api";
-const backendApiPrefix = "/backend/v3/api";
 
 const sdkFamilies = [
   {
@@ -108,10 +108,14 @@ const sdkFamilies = [
     workspace: "sdkwork-course-app-sdk",
     title: "SDKWork Course App API SDK",
     sdkType: "app",
+    surface: "app-api",
     apiAuthority: "sdkwork-course-app-api",
     apiPrefix: "/app/v3/api",
     authoritySpec: "openapi/sdkwork-course-app-api.openapi.yaml",
     generationInputSpec: "openapi/sdkwork-course-app-api.sdkgen.yaml",
+    operationsPath: "apis/app-api/course/operations.json",
+    routeManifestPath: "sdks/_route-manifests/app-api/sdkwork-router-course-app-api.route-manifest.json",
+    routeCrate: "sdkwork-router-course-app-api",
     packageName: "@sdkwork/course-app-sdk",
     languages: ["typescript"],
   },
@@ -120,10 +124,15 @@ const sdkFamilies = [
     workspace: "sdkwork-course-backend-sdk",
     title: "SDKWork Course Backend API SDK",
     sdkType: "backend",
+    surface: "backend-api",
     apiAuthority: "sdkwork-course-backend-api",
     apiPrefix: "/backend/v3/api",
     authoritySpec: "openapi/sdkwork-course-backend-api.openapi.yaml",
     generationInputSpec: "openapi/sdkwork-course-backend-api.sdkgen.yaml",
+    operationsPath: "apis/backend-api/course/operations.json",
+    routeManifestPath:
+      "sdks/_route-manifests/backend-api/sdkwork-router-course-backend-api.route-manifest.json",
+    routeCrate: "sdkwork-router-course-backend-api",
     packageName: "@sdkwork/course-backend-sdk",
     languages: ["typescript"],
   },
@@ -153,21 +162,6 @@ function collectTextFiles(directory) {
   });
 }
 
-function collectOperationIds(document) {
-  const operationIds = [];
-  for (const pathItem of Object.values(document.paths ?? {})) {
-    for (const [method, operation] of Object.entries(pathItem ?? {})) {
-      if (!["get", "post", "patch", "put", "delete"].includes(method)) {
-        continue;
-      }
-
-      operationIds.push(operation.operationId);
-    }
-  }
-
-  return operationIds.sort();
-}
-
 function collectOperations(document) {
   const operations = [];
   for (const [routePath, pathItem] of Object.entries(document.paths ?? {})) {
@@ -176,158 +170,76 @@ function collectOperations(document) {
         continue;
       }
 
-      operations.push({ routePath, method, operation });
+      operations.push({
+        method: method.toUpperCase(),
+        operationId: operation.operationId,
+        path: routePath,
+        resource: operation["x-sdkwork-resource"],
+        tag: operation.tags?.[0],
+        apiAuthority: operation["x-sdkwork-api-authority"],
+        domain: operation["x-sdkwork-domain"],
+        sourceRouteCrate: operation["x-sdkwork-source-route-crate"],
+        security: operation.security,
+      });
     }
   }
 
-  return operations;
+  return operations.sort((left, right) => operationKey(left).localeCompare(operationKey(right)));
 }
 
-function collectOpenApiOperationContracts(document) {
-  return collectOperations(document)
-    .map(({ routePath, method, operation }) => ({
-      method: method.toUpperCase(),
+function collectOperationPlanContracts(operationPlan) {
+  return operationPlan.operations
+    .map((operation) => ({
+      method: operation.method,
       operationId: operation.operationId,
-      path: routePath,
-      tag: operation.tags?.[0],
+      path: operation.path,
+      resource: operation.resource,
     }))
     .sort((left, right) => operationKey(left).localeCompare(operationKey(right)));
 }
 
-function collectContractOperationContracts(source, surface) {
-  return [...source.matchAll(/operation\(\s*"(app|backend)"\s*,\s*"([A-Z]+)"\s*,\s*`([^`]+)`\s*,\s*"([^"]+)"\s*,\s*"([^"]+)"\s*\)/gu)]
-    .filter((match) => match[1] === surface)
-    .map((match) => ({
-      method: match[2],
-      path: match[3].replaceAll("${app}", appApiPrefix).replaceAll("${backend}", backendApiPrefix),
-      operationId: match[4],
-      tag: match[5],
+function collectRouteManifestContracts(routeManifest) {
+  return routeManifest.routes
+    .map((route) => ({
+      method: route.method,
+      operationId: route.operationId,
+      path: route.path,
+      resource: route.resource,
     }))
     .sort((left, right) => operationKey(left).localeCompare(operationKey(right)));
 }
 
 function operationKey(operation) {
-  return `${operation.method} ${operation.path} ${operation.operationId} ${operation.tag}`;
+  return `${operation.method} ${operation.path} ${operation.operationId}`;
 }
 
-function routeKey(operation) {
-  return `${operation.method} ${operation.path}`;
-}
-
-function collectRustRouterRouteKeys(source) {
-  return extractRouteCalls(source)
-    .flatMap((call) => {
-      const [routePathExpression, handlerExpression] = splitTopLevelComma(call);
-      const routePath = routePathExpression.match(/^"([^"]+)"$/u)?.[1];
-      assert.ok(routePath, `router route path must be a string literal: ${routePathExpression}`);
-
-      return [...handlerExpression.matchAll(/\b(get|post|patch|put|delete)\s*\(/gu)].map(
-        (match) => `${match[1].toUpperCase()} ${routePath}`,
-      );
-    })
-    .sort();
-}
-
-function extractRouteCalls(source) {
-  const calls = [];
-  let cursor = 0;
-  while ((cursor = source.indexOf(".route(", cursor)) !== -1) {
-    const start = cursor + ".route(".length;
-    let depth = 1;
-    let quote = null;
-    let escape = false;
-    let end = start;
-
-    for (; end < source.length; end += 1) {
-      const char = source[end];
-      if (quote) {
-        if (escape) {
-          escape = false;
-        } else if (char === "\\") {
-          escape = true;
-        } else if (char === quote) {
-          quote = null;
-        }
-        continue;
-      }
-
-      if (char === '"' || char === "'" || char === "`") {
-        quote = char;
-      } else if (char === "(") {
-        depth += 1;
-      } else if (char === ")") {
-        depth -= 1;
-        if (depth === 0) {
-          break;
-        }
-      }
-    }
-
-    calls.push(source.slice(start, end));
-    cursor = end + 1;
-  }
-
-  return calls;
-}
-
-function splitTopLevelComma(source) {
-  let depth = 0;
-  let quote = null;
-  let escape = false;
-
-  for (let index = 0; index < source.length; index += 1) {
-    const char = source[index];
-    if (quote) {
-      if (escape) {
-        escape = false;
-      } else if (char === "\\") {
-        escape = true;
-      } else if (char === quote) {
-        quote = null;
-      }
-      continue;
-    }
-
-    if (char === '"' || char === "'" || char === "`") {
-      quote = char;
-    } else if (char === "(" || char === "[" || char === "{") {
-      depth += 1;
-    } else if (char === ")" || char === "]" || char === "}") {
-      depth -= 1;
-    } else if (char === "," && depth === 0) {
-      return [source.slice(0, index).trim(), source.slice(index + 1).trim()];
-    }
-  }
-
-  return [source.trim(), ""];
-}
-
-function assertSdkworkV3PathAndSecurity(document, apiPrefix) {
-  const violations = collectOperations(document).flatMap(({ routePath, method, operation }) => {
+function assertSdkworkV3PathAndSecurity(document, family) {
+  const violations = collectOperations(document).flatMap((operation) => {
     const operationViolations = [];
-    if (!routePath.startsWith(apiPrefix)) {
-      operationViolations.push(`${method.toUpperCase()} ${routePath}: invalid prefix`);
+    if (!operation.path.startsWith(family.apiPrefix)) {
+      operationViolations.push(`${operation.method} ${operation.path}: invalid prefix`);
     }
 
-    for (const segment of routePath.split("/").filter(Boolean)) {
+    for (const segment of operation.path.split("/").filter(Boolean)) {
       if (segment.startsWith("{") && segment.endsWith("}")) {
         if (!/^\{[a-z][A-Za-z0-9]*\}$/u.test(segment)) {
-          operationViolations.push(`${method.toUpperCase()} ${routePath}: path parameter ${segment} is not lowerCamelCase`);
+          operationViolations.push(`${operation.method} ${operation.path}: path parameter ${segment} is not lowerCamelCase`);
         }
         continue;
       }
 
       if (!/^[a-z0-9]+(?:_[a-z0-9]+)*$/u.test(segment)) {
-        operationViolations.push(`${method.toUpperCase()} ${routePath}: static segment ${segment} is not lower_snake_case`);
+        operationViolations.push(`${operation.method} ${operation.path}: static segment ${segment} is not lower_snake_case`);
       }
     }
 
-    assert.equal(operation["x-sdkwork-owner"], "sdkwork-course");
-    assert.equal(operation["x-sdkwork-domain"], "course");
+    assert.equal(operation.apiAuthority, family.apiAuthority);
+    assert.equal(operation.domain, "content");
+    assert.equal(operation.sourceRouteCrate, family.routeCrate);
     assert.deepEqual(
       operation.security,
-      protectedSecurity,
-      `${method.toUpperCase()} ${routePath} must declare operation-level dual token security`,
+      [{ AuthToken: [], AccessToken: [] }],
+      `${operation.method} ${operation.path} must declare operation-level dual token security`,
     );
 
     return operationViolations;
@@ -336,64 +248,63 @@ function assertSdkworkV3PathAndSecurity(document, apiPrefix) {
   assert.deepEqual(violations, []);
 }
 
-test("course workspace owns the expected source, API, SDK, and Rust storage files", () => {
+test("course workspace owns the expected source, API, SDK, and Rust crate files", () => {
   const missingFiles = requiredFiles.filter((relativePath) => !fs.existsSync(path.join(courseRoot, relativePath)));
   assert.deepEqual(missingFiles, []);
 });
 
-test("course app and backend OpenAPI documents expose the complete course API surface", () => {
-  const appApi = readJson("sdks/sdkwork-course-app-sdk/openapi/sdkwork-course-app-api.openapi.yaml");
-  const backendApi = readJson("sdks/sdkwork-course-backend-sdk/openapi/sdkwork-course-backend-api.openapi.yaml");
+test("course Rust crates use SDKWork responsibility-specific workspace layout", () => {
+  const cargo = fs.readFileSync(path.join(courseRoot, "Cargo.toml"), "utf8");
 
-  assert.equal(appApi.info["x-sdkwork-api-authority"], "sdkwork-course-app-api");
-  assert.equal(appApi.info["x-sdkwork-sdk-family"], "sdkwork-course-app-sdk");
-  assert.equal(backendApi.info["x-sdkwork-api-authority"], "sdkwork-course-backend-api");
-  assert.equal(backendApi.info["x-sdkwork-sdk-family"], "sdkwork-course-backend-sdk");
+  for (const member of [
+    "crates/sdkwork-content-course-service",
+    "crates/sdkwork-content-course-repository-sqlx",
+    "crates/sdkwork-router-course-app-api",
+    "crates/sdkwork-router-course-backend-api",
+  ]) {
+    assert.ok(cargo.includes(member), `Cargo workspace must include ${member}`);
+  }
 
-  assert.deepEqual(
-    requiredAppOperations.filter((operationId) => !collectOperationIds(appApi).includes(operationId)),
-    [],
+  assert.ok(
+    !fs.existsSync(path.join(courseRoot, "packages/native-rust/course/sdkwork-course-rust/Cargo.toml")),
+    "legacy packages/native-rust/course/sdkwork-course-rust crate must not remain as a public Rust crate",
   );
-  assert.deepEqual(
-    requiredBackendOperations.filter((operationId) => !collectOperationIds(backendApi).includes(operationId)),
-    [],
+  assert.ok(
+    !fs.existsSync(path.join(courseRoot, "packages")),
+    "application root must not keep top-level packages/ as a generic workspace directory",
   );
 });
 
-test("course OpenAPI documents use SDKWork v3 path and security standards", () => {
-  const appApi = readJson("sdks/sdkwork-course-app-sdk/openapi/sdkwork-course-app-api.openapi.yaml");
-  const appSdkgen = readJson("sdks/sdkwork-course-app-sdk/openapi/sdkwork-course-app-api.sdkgen.yaml");
-  const backendApi = readJson("sdks/sdkwork-course-backend-sdk/openapi/sdkwork-course-backend-api.openapi.yaml");
-  const backendSdkgen = readJson("sdks/sdkwork-course-backend-sdk/openapi/sdkwork-course-backend-api.sdkgen.yaml");
+test("course API operation plans, route manifests, and OpenAPI documents stay aligned", () => {
+  for (const family of sdkFamilies) {
+    const operationPlan = readJson(family.operationsPath);
+    const routeManifest = readJson(family.routeManifestPath);
+    const openApi = readJson(`${family.root}/${family.authoritySpec}`);
+    const sdkgen = readJson(`${family.root}/${family.generationInputSpec}`);
 
-  assertSdkworkV3PathAndSecurity(appApi, "/app/v3/api");
-  assertSdkworkV3PathAndSecurity(appSdkgen, "/app/v3/api");
-  assertSdkworkV3PathAndSecurity(backendApi, "/backend/v3/api");
-  assertSdkworkV3PathAndSecurity(backendSdkgen, "/backend/v3/api");
+    assert.equal(operationPlan.surface, family.surface);
+    assert.equal(operationPlan.apiAuthority, family.apiAuthority);
+    assert.equal(operationPlan.sdkFamily, family.workspace);
+    assert.equal(operationPlan.apiPrefix, family.apiPrefix);
+    assert.equal(routeManifest.kind, "sdkwork.route.manifest");
+    assert.equal(routeManifest.packageName, family.routeCrate);
+    assert.equal(routeManifest.surface, family.surface);
+    assert.equal(routeManifest.apiAuthority, family.apiAuthority);
+    assert.equal(routeManifest.sdkFamily, family.workspace);
+    assert.equal(routeManifest.prefix, family.apiPrefix);
+
+    const expectedContracts = collectOperationPlanContracts(operationPlan).map(operationKey);
+    assert.deepEqual(collectRouteManifestContracts(routeManifest).map(operationKey), expectedContracts);
+    assert.deepEqual(collectOperations(openApi).map(operationKey), expectedContracts);
+    assert.deepEqual(collectOperations(sdkgen).map(operationKey), expectedContracts);
+  }
 });
 
-test("course contracts and Rust router stay aligned with OpenAPI operations", () => {
-  const appApi = readJson("sdks/sdkwork-course-app-sdk/openapi/sdkwork-course-app-api.openapi.yaml");
-  const backendApi = readJson("sdks/sdkwork-course-backend-sdk/openapi/sdkwork-course-backend-api.openapi.yaml");
-  const contracts = fs.readFileSync(
-    path.join(courseRoot, "packages/common/course/sdkwork-course-contracts/src/index.ts"),
-    "utf8",
-  );
-  const router = fs.readFileSync(
-    path.join(courseRoot, "packages/native-rust/course/sdkwork-course-rust/src/router.rs"),
-    "utf8",
-  );
-
-  const appOpenApiOperations = collectOpenApiOperationContracts(appApi);
-  const backendOpenApiOperations = collectOpenApiOperationContracts(backendApi);
-  const openApiRouteKeys = [...appOpenApiOperations, ...backendOpenApiOperations].map(routeKey).sort();
-
-  assert.deepEqual(collectContractOperationContracts(contracts, "app").map(operationKey), appOpenApiOperations.map(operationKey));
-  assert.deepEqual(
-    collectContractOperationContracts(contracts, "backend").map(operationKey),
-    backendOpenApiOperations.map(operationKey),
-  );
-  assert.deepEqual(collectRustRouterRouteKeys(router), openApiRouteKeys);
+test("course OpenAPI documents use SDKWork v3 path, ownership, and security standards", () => {
+  for (const family of sdkFamilies) {
+    assertSdkworkV3PathAndSecurity(readJson(`${family.root}/${family.authoritySpec}`), family);
+    assertSdkworkV3PathAndSecurity(readJson(`${family.root}/${family.generationInputSpec}`), family);
+  }
 });
 
 test("course SDK families declare discoverable ownership metadata outside generated output", () => {
@@ -402,6 +313,7 @@ test("course SDK families declare discoverable ownership metadata outside genera
     const componentSpec = readJson(`${family.root}/specs/component.spec.json`);
     const familyReadme = fs.readFileSync(path.join(courseRoot, family.root, "README.md"), "utf8");
     const specsReadme = fs.readFileSync(path.join(courseRoot, family.root, "specs/README.md"), "utf8");
+    const operationPlan = readJson(family.operationsPath);
 
     assert.equal(assembly.workspace, family.workspace);
     assert.equal(assembly.title, family.title);
@@ -409,22 +321,20 @@ test("course SDK families declare discoverable ownership metadata outside genera
     assert.equal(assembly.apiAuthority, family.apiAuthority);
     assert.equal(assembly.authoritySpec, family.authoritySpec);
     assert.equal(assembly.generationInputSpec, family.generationInputSpec);
+    assert.equal(assembly.ownerOnlyOperationCount, operationPlan.operations.length);
     assert.equal(assembly.discoverySurface.sdkTarget, family.sdkType);
     assert.equal(assembly.discoverySurface.apiPrefix, family.apiPrefix);
     assert.deepEqual(assembly.sdkDependencies, []);
     assert.deepEqual(assembly.metadata?.standardProfile, "sdkwork-v3");
     assert.equal(assembly.generator?.package, "@sdkwork/sdk-generator");
-    assert.equal(
-      assembly.generator?.entrypoint,
-      "../sdkwork-sdk-generator/bin/sdkgen.js",
-    );
+    assert.equal(assembly.generator?.entrypoint, "../sdkwork-sdk-generator/bin/sdkgen.js");
 
     assert.equal(componentSpec.schemaVersion, 1);
     assert.equal(componentSpec.kind, "sdkwork.component.spec");
     assert.equal(componentSpec.component.name, family.workspace);
     assert.equal(componentSpec.component.type, "sdk-family");
     assert.equal(componentSpec.component.root, family.root);
-    assert.equal(componentSpec.component.domain, "course");
+    assert.equal(componentSpec.component.domain, "content");
     assert.equal(componentSpec.component.capability, "course");
     assert.deepEqual(componentSpec.component.languages, family.languages);
     assert.equal(componentSpec.component.generated, true);
@@ -482,78 +392,41 @@ test("course SDK language declarations match generated transport workspaces", ()
   }
 });
 
-test("course SQL migration owns course tables without legacy commerce table ownership", () => {
+test("course database contract and SQL migration define the professional VOD and live course tables", () => {
+  const contract = readJson("specs/database/course-schema.contract.json");
   const migration = fs.readFileSync(
-    path.join(courseRoot, "packages/native-rust/course/sdkwork-course-rust/migrations/0001_course_foundation.sql"),
+    path.join(courseRoot, "crates/sdkwork-content-course-repository-sqlx/migrations/0001_course_foundation.sql"),
     "utf8",
   );
+
+  assert.equal(contract.kind, "sdkwork.course.database.contract");
+  assert.equal(contract.domain, "content");
+  assert.equal(contract.capability, "course");
+
+  const contractTables = new Set(contract.tables.map((table) => table.name));
+  assert.deepEqual(requiredCourseTables.filter((tableName) => !contractTables.has(tableName)), []);
 
   const missingTables = requiredCourseTables.filter((tableName) => !migration.includes(`CREATE TABLE IF NOT EXISTS ${tableName}`));
   assert.deepEqual(missingTables, []);
-
   assert.doesNotMatch(migration, /\b(?:commerce|product|order|payment|wallet|checkout|subscription|membership|invoice|refund)_/iu);
 });
 
-test("course Rust storage has no migrated Postgres placeholder wiring", () => {
-  const storage = fs.readFileSync(
-    path.join(courseRoot, "packages/native-rust/course/sdkwork-course-rust/src/storage.rs"),
-    "utf8",
-  );
-  const postgresImpl = storage.slice(storage.indexOf("impl CourseStore for PostgresCourseStore"));
-
-  assert.ok(postgresImpl.length > 0, "PostgresCourseStore must implement CourseStore");
-  assert.doesNotMatch(postgresImpl, /postgres course writes require repository wiring/u);
-  assert.doesNotMatch(postgresImpl, /let _ = &self\.pool;/u);
-});
-
-test("course Rust store trait is fully implemented for empty, SQLite, and Postgres stores", () => {
-  const storage = fs.readFileSync(
-    path.join(courseRoot, "packages/native-rust/course/sdkwork-course-rust/src/storage.rs"),
-    "utf8",
-  );
-  const traitBlock = storage.match(/pub trait CourseStore \{([\s\S]*?)\n\}/u)?.[1] ?? "";
-  const traitMethods = [...traitBlock.matchAll(/fn\s+([a-z_]+)/gu)].map((match) => match[1]).sort();
-
-  assert.deepEqual(
-    traitMethods,
-    [
-      "create_application",
-      "create_course",
-      "create_lesson",
-      "create_section",
-      "delete_course",
-      "delete_lesson",
-      "delete_section",
-      "get_course",
-      "list_applications",
-      "list_categories",
-      "list_comments",
-      "list_courses",
-      "list_engagement",
-      "list_lessons",
-      "list_relations",
-      "list_sections",
-      "moderate_comment",
-      "replace_relations",
-      "review_application",
-      "update_course",
-      "update_lesson",
-      "update_section",
-    ],
-  );
-
-  for (const implementation of ["EmptyCourseStore", "SqliteCourseStore", "PostgresCourseStore"]) {
-    const start = storage.indexOf(`impl CourseStore for ${implementation}`);
-    assert.notEqual(start, -1, `${implementation} must implement CourseStore`);
-    const nextImplementation = ["EmptyCourseStore", "SqliteCourseStore", "PostgresCourseStore"]
-      .map((candidate) => storage.indexOf(`impl CourseStore for ${candidate}`, start + 1))
-      .filter((index) => index > start)
-      .sort((left, right) => left - right)[0] ?? storage.length;
-    const implementationBlock = storage.slice(start, nextImplementation);
-    const implementationMethods = new Set([...implementationBlock.matchAll(/fn\s+([a-z_]+)/gu)].map((match) => match[1]));
-    const missingMethods = traitMethods.filter((method) => !implementationMethods.has(method));
-
-    assert.deepEqual(missingMethods, [], `${implementation} is missing CourseStore methods`);
+test("course authored Rust modules keep TODO guidance at method interfaces", () => {
+  for (const relativePath of [
+    "crates/sdkwork-content-course-service/src/domain/commands.rs",
+    "crates/sdkwork-content-course-service/src/domain/models.rs",
+    "crates/sdkwork-content-course-service/src/ports/repository.rs",
+    "crates/sdkwork-content-course-service/src/ports/provider.rs",
+    "crates/sdkwork-content-course-service/src/service/course_service.rs",
+    "crates/sdkwork-content-course-repository-sqlx/src/db/schema.rs",
+    "crates/sdkwork-content-course-repository-sqlx/src/repository/course_repository.rs",
+    "crates/sdkwork-router-course-app-api/src/routes.rs",
+    "crates/sdkwork-router-course-backend-api/src/routes.rs",
+    "crates/sdkwork-router-course-app-api/src/manifest.rs",
+    "crates/sdkwork-router-course-backend-api/src/manifest.rs",
+  ]) {
+    const source = fs.readFileSync(path.join(courseRoot, relativePath), "utf8");
+    assert.match(source, /TODO\(course\)/u, `${relativePath} must include TODO(course) implementation notes`);
   }
 });
 
