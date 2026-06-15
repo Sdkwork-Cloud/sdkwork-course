@@ -9,6 +9,7 @@ description = "SDKWork content course SQLx repository implementation and migrati
 path = "src/lib.rs"
 
 [dependencies]
+sdkwork-pool-config = { path = "../../../sdkwork-pool/crates/sdkwork-pool-config" }
 async-trait = "0.1"
 sdkwork-content-course-service = { path = "../sdkwork-content-course-service" }
 chrono = { version = "0.4", features = ["serde"] }
