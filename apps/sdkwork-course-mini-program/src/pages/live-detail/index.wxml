@@ -1,0 +1,32 @@
+<view class="container">
+  <view class="live-header">
+    <view class="live-status {{session.liveStatus}}">
+      <text wx:if="{{session.liveStatus === 'live'}}">🔴 直播中</text>
+      <text wx:elif="{{session.liveStatus === 'scheduled'}}">即将开始</text>
+      <text wx:else>已结束</text>
+    </view>
+    <text class="live-title">{{session.title}}</text>
+  </view>
+  
+  <view class="live-info">
+    <view class="info-item">
+      <text class="info-label">开始时间</text>
+      <text class="info-value">{{session.scheduledStartAt}}</text>
+    </view>
+    <view class="info-item">
+      <text class="info-label">结束时间</text>
+      <text class="info-value">{{session.scheduledEndAt}}</text>
+    </view>
+  </view>
+  
+  <view class="live-description">
+    <text class="section-title">直播详情</text>
+    <text class="description-text">{{session.description || '暂无详情描述'}}</text>
+  </view>
+  
+  <view class="live-actions">
+    <button class="btn-join" wx:if="{{session.liveStatus === 'live'}}" bindtap="joinLive">加入直播</button>
+    <button class="btn-remind" wx:elif="{{session.liveStatus === 'scheduled'}}" bindtap="setReminder">预约提醒</button>
+    <button class="btn-replay" wx:else bindtap="watchReplay">观看回放</button>
+  </view>
+</view>

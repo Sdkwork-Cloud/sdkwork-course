@@ -13,12 +13,14 @@ contract for `/app/v3/api`.
 - Generated language: TypeScript
 - OpenAPI authority: `openapi/sdkwork-course-app-api.openapi.yaml`
 - Generator input: `openapi/sdkwork-course-app-api.sdkgen.yaml`
-- Owner-only operations: `7`
+- Owner-only operations: `31`
 - SDK dependencies: `[]`
 
 Clients call generated resource methods for course categories, courses,
-sections, lessons, relations, and author applications. Auth tokens are supplied
-through generated SDK auth/bootstrap APIs; clients must not send `X-Request-Id`.
+offerings, enrollments, sections, lessons, lesson resources, live sessions,
+progress, comments, reactions, and author applications. Auth tokens are
+supplied through generated SDK auth/bootstrap APIs; clients must not send
+`X-Request-Id`.
 
 ## Generation
 
@@ -28,7 +30,7 @@ Run from the `sdkwork-course` repository root:
 powershell -ExecutionPolicy Bypass -File .\sdks\sdkwork-course-app-sdk\bin\generate-sdk.ps1 -Languages typescript
 ```
 
-The wrapper calls `..\sdkwork-sdk-generator\bin\sdkgen.js`
+The wrapper calls `../sdkwork-sdk-generator/bin/sdkgen.js`
 from `@sdkwork/sdk-generator` version `1.0.0` with `--standard-profile sdkwork-v3`.
 
 Generated output:

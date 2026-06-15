@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="register-header">
+    <text class="register-title">注册</text>
+    <text class="register-subtitle">创建新账户</text>
+  </view>
+  
+  <view class="register-form">
+    <view class="form-item">
+      <text class="form-label">姓名</text>
+      <input type="text" placeholder="请输入姓名" bindinput="onNameChange" value="{{name}}" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">邮箱地址</text>
+      <input type="text" placeholder="请输入邮箱" bindinput="onEmailChange" value="{{email}}" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">密码</text>
+      <input type="password" placeholder="请输入密码" bindinput="onPasswordChange" value="{{password}}" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">确认密码</text>
+      <input type="password" placeholder="请再次输入密码" bindinput="onConfirmPasswordChange" value="{{confirmPassword}}" />
+    </view>
+    
+    <view class="error-message" wx:if="{{error}}">
+      <text>{{error}}</text>
+    </view>
+    
+    <button class="btn-register" bindtap="register" loading="{{loading}}">注册</button>
+  </view>
+  
+  <view class="register-footer">
+    <text>已有账户？</text>
+    <text class="link" bindtap="goToLogin">立即登录</text>
+  </view>
+</view>

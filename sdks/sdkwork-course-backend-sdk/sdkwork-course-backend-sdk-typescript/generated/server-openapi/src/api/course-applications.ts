@@ -1,38 +1,48 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { AdminCourseApplicationCollectionResult, AdminCourseApplicationReviewRequest, AdminCourseApplicationReviewResult } from '../types';
+import type { CourseOperationCommand, CourseOperationResult } from '../types';
 
 
 export interface CourseApplicationsListParams {
-  page?: number;
-  pageSize?: number;
   q?: string;
+  cursor?: string;
+  limit?: number;
   status?: string;
 }
 
 export class CourseApplicationsApi {
   private client: HttpClient;
-  
-  constructor(client: HttpClient) { 
-    this.client = client; 
+
+  constructor(client: HttpClient) {
+    this.client = client;
   }
 
 
-/** Course Applications list. */
-  async list(params?: CourseApplicationsListParams): Promise<AdminCourseApplicationCollectionResult> {
+/** course Applications list */
+  async list(params?: CourseApplicationsListParams): Promise<CourseOperationResult> {
     const query = buildQueryString([
-      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
-      { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
+      { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
+      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<AdminCourseApplicationCollectionResult>(appendQueryString(backendApiPath(`/course_applications`), query));
+    return this.client.get<CourseOperationResult>(appendQueryString(backendApiPath(`/course_applications`), query));
   }
 
-/** Course Applications review. */
-  async review(applicationId: string, body: AdminCourseApplicationReviewRequest): Promise<AdminCourseApplicationReviewResult> {
-    return this.client.patch<AdminCourseApplicationReviewResult>(backendApiPath(`/course_applications/${serializePathParameter(applicationId, { name: 'applicationId', style: 'simple', explode: false })}/review`), body, undefined, undefined, 'application/json');
+/** course Applications retrieve */
+  async retrieve(applicationId: string): Promise<CourseOperationResult> {
+    return this.client.get<CourseOperationResult>(backendApiPath(`/course_applications/${serializePathParameter(applicationId, { name: 'applicationId', style: 'simple', explode: false })}`));
+  }
+
+/** course Applications review */
+  async review(applicationId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
+    return this.client.patch<CourseOperationResult>(backendApiPath(`/course_applications/${serializePathParameter(applicationId, { name: 'applicationId', style: 'simple', explode: false })}/review`), body, undefined, undefined, 'application/json');
+  }
+
+/** course Applications convert To Course */
+  async convertToCourse(applicationId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
+    return this.client.post<CourseOperationResult>(backendApiPath(`/course_applications/${serializePathParameter(applicationId, { name: 'applicationId', style: 'simple', explode: false })}/convert`), body, undefined, undefined, 'application/json');
   }
 }
 

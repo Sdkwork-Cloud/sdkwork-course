@@ -2,47 +2,77 @@ import { HttpClient, createHttpClient } from './http/client';
 import type { SdkworkBackendConfig } from './types/common';
 import type { AuthTokenManager } from '@sdkwork/sdk-common';
 
-import { CourseApplicationsApi, createCourseApplicationsApi } from './api/course-applications';
-import { CourseLessonsApi, createCourseLessonsApi } from './api/course-lessons';
-import { CourseSectionsApi, createCourseSectionsApi } from './api/course-sections';
+import { CourseCategoriesApi, createCourseCategoriesApi } from './api/course-categories';
+import { CourseInstructorsApi, createCourseInstructorsApi } from './api/course-instructors';
 import { CoursesApi, createCoursesApi } from './api/courses';
+import { CourseOfferingsApi, createCourseOfferingsApi } from './api/course-offerings';
+import { CourseSectionsApi, createCourseSectionsApi } from './api/course-sections';
+import { CourseLessonsApi, createCourseLessonsApi } from './api/course-lessons';
+import { CourseResourcesApi, createCourseResourcesApi } from './api/course-resources';
+import { CourseLiveSessionsApi, createCourseLiveSessionsApi } from './api/course-live-sessions';
+import { CourseEnrollmentsApi, createCourseEnrollmentsApi } from './api/course-enrollments';
+import { CourseProgressApi, createCourseProgressApi } from './api/course-progress';
+import { CourseLessonProgressApi, createCourseLessonProgressApi } from './api/course-lesson-progress';
 import { CourseCommentsApi, createCourseCommentsApi } from './api/course-comments';
-import { CourseEngagementApi, createCourseEngagementApi } from './api/course-engagement';
-import { CourseRelationsApi, createCourseRelationsApi } from './api/course-relations';
+import { CourseReactionsApi, createCourseReactionsApi } from './api/course-reactions';
+import { CourseApplicationsApi, createCourseApplicationsApi } from './api/course-applications';
+import { CourseReportsApi, createCourseReportsApi } from './api/course-reports';
+import { CourseAuditLogsApi, createCourseAuditLogsApi } from './api/course-audit-logs';
 
 export class SdkworkBackendClient {
   private httpClient: HttpClient;
 
-  public readonly courseApplications: CourseApplicationsApi;
-  public readonly courseLessons: CourseLessonsApi;
-  public readonly courseSections: CourseSectionsApi;
+  public readonly courseCategories: CourseCategoriesApi;
+  public readonly courseInstructors: CourseInstructorsApi;
   public readonly courses: CoursesApi;
+  public readonly courseOfferings: CourseOfferingsApi;
+  public readonly courseSections: CourseSectionsApi;
+  public readonly courseLessons: CourseLessonsApi;
+  public readonly courseResources: CourseResourcesApi;
+  public readonly courseLiveSessions: CourseLiveSessionsApi;
+  public readonly courseEnrollments: CourseEnrollmentsApi;
+  public readonly courseProgress: CourseProgressApi;
+  public readonly courseLessonProgress: CourseLessonProgressApi;
   public readonly courseComments: CourseCommentsApi;
-  public readonly courseEngagement: CourseEngagementApi;
-  public readonly courseRelations: CourseRelationsApi;
+  public readonly courseReactions: CourseReactionsApi;
+  public readonly courseApplications: CourseApplicationsApi;
+  public readonly courseReports: CourseReportsApi;
+  public readonly courseAuditLogs: CourseAuditLogsApi;
 
   constructor(config: SdkworkBackendConfig) {
     this.httpClient = createHttpClient(config);
-    this.courseApplications = createCourseApplicationsApi(this.httpClient);
+    this.courseCategories = createCourseCategoriesApi(this.httpClient);
 
-    this.courseLessons = createCourseLessonsApi(this.httpClient);
-
-    this.courseSections = createCourseSectionsApi(this.httpClient);
+    this.courseInstructors = createCourseInstructorsApi(this.httpClient);
 
     this.courses = createCoursesApi(this.httpClient);
 
+    this.courseOfferings = createCourseOfferingsApi(this.httpClient);
+
+    this.courseSections = createCourseSectionsApi(this.httpClient);
+
+    this.courseLessons = createCourseLessonsApi(this.httpClient);
+
+    this.courseResources = createCourseResourcesApi(this.httpClient);
+
+    this.courseLiveSessions = createCourseLiveSessionsApi(this.httpClient);
+
+    this.courseEnrollments = createCourseEnrollmentsApi(this.httpClient);
+
+    this.courseProgress = createCourseProgressApi(this.httpClient);
+
+    this.courseLessonProgress = createCourseLessonProgressApi(this.httpClient);
+
     this.courseComments = createCourseCommentsApi(this.httpClient);
 
-    this.courseEngagement = createCourseEngagementApi(this.httpClient);
+    this.courseReactions = createCourseReactionsApi(this.httpClient);
 
-    this.courseRelations = createCourseRelationsApi(this.httpClient);
+    this.courseApplications = createCourseApplicationsApi(this.httpClient);
+
+    this.courseReports = createCourseReportsApi(this.httpClient);
+
+    this.courseAuditLogs = createCourseAuditLogsApi(this.httpClient);
   }
-
-  setApiKey(apiKey: string): this {
-    this.httpClient.setApiKey(apiKey);
-    return this;
-  }
-
   setAuthToken(token: string): this {
     this.httpClient.setAuthToken(token);
     return this;

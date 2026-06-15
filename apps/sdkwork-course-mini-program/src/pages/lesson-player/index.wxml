@@ -1,0 +1,23 @@
+<view class="container">
+  <view class="video-player">
+    <video src="{{lesson.videoUrl}}" controls poster="{{lesson.thumbnail}}"></video>
+  </view>
+  
+  <view class="lesson-info">
+    <text class="lesson-title">{{lesson.title}}</text>
+    <text class="lesson-duration">时长: {{lesson.durationSeconds}}秒</text>
+  </view>
+  
+  <view class="lesson-content">
+    <text class="section-title">课程内容</text>
+    <text class="content-text">{{lesson.description || '暂无内容描述'}}</text>
+  </view>
+  
+  <view class="lesson-list">
+    <text class="section-title">课程目录</text>
+    <view class="lesson-item" wx:for="{{lessons}}" wx:key="id" bindtap="switchLesson" data-id="{{item.id}}">
+      <text class="lesson-index">{{index + 1}}</text>
+      <text class="lesson-name">{{item.title}}</text>
+    </view>
+  </view>
+</view>

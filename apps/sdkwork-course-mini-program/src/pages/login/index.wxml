@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="login-header">
+    <text class="login-title">登录</text>
+    <text class="login-subtitle">欢迎回来</text>
+  </view>
+  
+  <view class="login-form">
+    <view class="form-item">
+      <text class="form-label">邮箱地址</text>
+      <input type="text" placeholder="请输入邮箱" bindinput="onEmailChange" value="{{email}}" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">密码</text>
+      <input type="password" placeholder="请输入密码" bindinput="onPasswordChange" value="{{password}}" />
+    </view>
+    
+    <view class="error-message" wx:if="{{error}}">
+      <text>{{error}}</text>
+    </view>
+    
+    <button class="btn-login" bindtap="login" loading="{{loading}}">登录</button>
+  </view>
+  
+  <view class="login-footer">
+    <text>还没有账户？</text>
+    <text class="link" bindtap="goToRegister">立即注册</text>
+  </view>
+</view>

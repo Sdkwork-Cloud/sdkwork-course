@@ -1,42 +1,58 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { AdminCourseDeleteResult, AdminCourseLessonCollectionResult, AdminCourseLessonMutationRequest, AdminCourseLessonMutationResult } from '../types';
+import type { CourseOperationCommand, CourseOperationResult } from '../types';
 
 
 export interface CourseLessonsListParams {
+  q?: string;
+  cursor?: string;
+  limit?: number;
   status?: string;
 }
 
 export class CourseLessonsApi {
   private client: HttpClient;
-  
-  constructor(client: HttpClient) { 
-    this.client = client; 
+
+  constructor(client: HttpClient) {
+    this.client = client;
   }
 
 
-/** Course Lessons delete. */
-  async delete(lessonId: string): Promise<AdminCourseDeleteResult> {
-    return this.client.delete<AdminCourseDeleteResult>(backendApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}`));
-  }
-
-/** Course Lessons update. */
-  async update(lessonId: string, body: AdminCourseLessonMutationRequest): Promise<AdminCourseLessonMutationResult> {
-    return this.client.patch<AdminCourseLessonMutationResult>(backendApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}`), body, undefined, undefined, 'application/json');
-  }
-
-/** Course Lessons list. */
-  async list(courseId: string, params?: CourseLessonsListParams): Promise<AdminCourseLessonCollectionResult> {
+/** course Lessons list */
+  async list(courseId: string, params?: CourseLessonsListParams): Promise<CourseOperationResult> {
     const query = buildQueryString([
+      { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
+      { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
+      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<AdminCourseLessonCollectionResult>(appendQueryString(backendApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/lessons`), query));
+    return this.client.get<CourseOperationResult>(appendQueryString(backendApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/lessons`), query));
   }
 
-/** Course Lessons create. */
-  async create(courseId: string, body: AdminCourseLessonMutationRequest): Promise<AdminCourseLessonMutationResult> {
-    return this.client.post<AdminCourseLessonMutationResult>(backendApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/lessons`), body, undefined, undefined, 'application/json');
+/** course Lessons create */
+  async create(courseId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
+    return this.client.post<CourseOperationResult>(backendApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/lessons`), body, undefined, undefined, 'application/json');
+  }
+
+/** course Lessons retrieve */
+  async retrieve(lessonId: string): Promise<CourseOperationResult> {
+    return this.client.get<CourseOperationResult>(backendApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}`));
+  }
+
+/** course Lessons update */
+  async update(lessonId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
+    return this.client.patch<CourseOperationResult>(backendApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}`), body, undefined, undefined, 'application/json');
+  }
+
+/** course Lessons delete */
+  async delete(lessonId: string): Promise<CourseOperationResult> {
+    return this.client.delete<CourseOperationResult>(backendApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}`));
+  }
+
+/** course Lessons reorder */
+  async reorder(courseId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
+    return this.client.put<CourseOperationResult>(backendApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/lessons/reorder`), body, undefined, undefined, 'application/json');
   }
 }
 

@@ -1,0 +1,79 @@
+/* Register page styles */
+.register-header {
+  text-align: center;
+  padding: 60rpx 0;
+}
+
+.register-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+}
+
+.register-subtitle {
+  font-size: 28rpx;
+  color: #666;
+  margin-top: 16rpx;
+  display: block;
+}
+
+.register-form {
+  background-color: white;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+.form-item input {
+  background-color: #f5f5f5;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.error-message {
+  background-color: #fee2e2;
+  border: 1rpx solid #fecaca;
+  border-radius: 8rpx;
+  padding: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.error-message text {
+  color: #dc2626;
+  font-size: 24rpx;
+}
+
+.btn-register {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8rpx;
+  padding: 24rpx;
+  font-size: 32rpx;
+  width: 100%;
+}
+
+.register-footer {
+  text-align: center;
+  padding: 20rpx;
+}
+
+.link {
+  color: #3b82f6;
+  margin-left: 8rpx;
+}

@@ -47,27 +47,27 @@
     },
     {
       "file": "COMPONENT_SPEC.md",
-      "path": "../../../sdkwork-specs/COMPONENT_SPEC.md",
+      "path": "../../../../sdkwork-specs/COMPONENT_SPEC.md",
       "purpose": "Component-local contract and discovery rules."
     },
     {
       "file": "CODE_STYLE_SPEC.md",
-      "path": "../../../sdkwork-specs/CODE_STYLE_SPEC.md",
+      "path": "../../../../sdkwork-specs/CODE_STYLE_SPEC.md",
       "purpose": "Authored source structure and generated code boundaries."
     },
     {
       "file": "NAMING_SPEC.md",
-      "path": "../../../sdkwork-specs/NAMING_SPEC.md",
+      "path": "../../../../sdkwork-specs/NAMING_SPEC.md",
       "purpose": "Canonical SDKWork naming rules."
     },
     {
       "file": "MODULE_SPEC.md",
-      "path": "../../../sdkwork-specs/MODULE_SPEC.md",
+      "path": "../../../../sdkwork-specs/MODULE_SPEC.md",
       "purpose": "Reusable module and package boundary rules."
     },
     {
       "file": "TYPESCRIPT_CODE_SPEC.md",
-      "path": "../../../sdkwork-specs/TYPESCRIPT_CODE_SPEC.md",
+      "path": "../../../../sdkwork-specs/TYPESCRIPT_CODE_SPEC.md",
       "purpose": "TypeScript and Node package rules."
     }
   ],
@@ -92,7 +92,7 @@
     "configKeys": [
       ".sdkwork-assembly.json"
     ],
-    "routeManifest": null
+    "routeManifest": "sdks/_route-manifests/backend-api/sdkwork-router-course-backend-api.route-manifest.json"
   },
   "generator": {
     "package": "@sdkwork/sdk-generator",

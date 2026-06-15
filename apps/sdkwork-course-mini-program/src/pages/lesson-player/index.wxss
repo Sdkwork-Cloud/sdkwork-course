@@ -1,0 +1,80 @@
+/* Lesson player page styles */
+.video-player {
+  margin-bottom: 30rpx;
+}
+
+.video-player video {
+  width: 100%;
+  border-radius: 12rpx;
+}
+
+.lesson-info {
+  background-color: white;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.lesson-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+}
+
+.lesson-duration {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 8rpx;
+  display: block;
+}
+
+.lesson-content {
+  background-color: white;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.content-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+  display: block;
+}
+
+.lesson-list {
+  background-color: white;
+  border-radius: 12rpx;
+  padding: 30rpx;
+}
+
+.lesson-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.lesson-item:last-child {
+  border-bottom: none;
+}
+
+.lesson-index {
+  width: 50rpx;
+  height: 50rpx;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 20rpx;
+}
+
+.lesson-name {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+}

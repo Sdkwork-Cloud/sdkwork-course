@@ -1,6 +1,6 @@
 # sdkwork-course-backend-sdk
 
-Professional TypeScript SDK for SDKWork API.
+Generated SDKWork v3 dual-token transport SDK.
 
 ## Installation
 
@@ -22,43 +22,21 @@ const client = new SdkworkBackendClient({
   timeout: 30000,
 });
 
-// Mode A: API Key (recommended for server-to-server calls)
-client.setApiKey('your-api-key');
-
-// Use the SDK
-const params = {
-  page: 1,
-  page_size: 2,
-  q: 'q',
-  status: 'status',
-};
-const result = await client.courseApplications.list(params);
-```
-
-## Authentication Modes (Mutually Exclusive)
-
-Choose exactly one mode for the same client instance.
-
-### Mode A: API Key
-
-```typescript
-const client = new SdkworkBackendClient({ baseUrl: 'http://localhost:8080' });
-client.setApiKey('your-api-key');
-// Sends: Access-Token: <apiKey>
-```
-
-### Mode B: Dual Token
-
-```typescript
-const client = new SdkworkBackendClient({ baseUrl: 'http://localhost:8080' });
+// Authentication
 client.setAuthToken('your-auth-token');
 client.setAccessToken('your-access-token');
-// Sends:
-// Authorization: Bearer <authToken>
-// Access-Token: <accessToken>
+
+// Use the SDK
+const result = await client.courseReports.overview.retrieve();
 ```
 
-> Do not call `setApiKey(...)` together with `setAuthToken(...)` + `setAccessToken(...)` on the same client.
+## Authentication
+
+```text
+Authorization: Bearer <authToken>
+Access-Token: <accessToken>
+```
+
 
 ## Configuration (Non-Auth)
 
@@ -76,96 +54,201 @@ const client = new SdkworkBackendClient({
 
 ## API Modules
 
-- `client.courseApplications` - course_applications API
-- `client.courseLessons` - course_lessons API
-- `client.courseSections` - course_sections API
+- `client.courseCategories` - course_categories API
+- `client.courseInstructors` - course_instructors API
 - `client.courses` - courses API
+- `client.courseOfferings` - course_offerings API
+- `client.courseSections` - course_sections API
+- `client.courseLessons` - course_lessons API
+- `client.courseResources` - course_resources API
+- `client.courseLiveSessions` - course_live_sessions API
+- `client.courseEnrollments` - course_enrollments API
+- `client.courseProgress` - course_progress API
+- `client.courseLessonProgress` - course_lesson_progress API
 - `client.courseComments` - course_comments API
-- `client.courseEngagement` - course_engagement API
-- `client.courseRelations` - course_relations API
+- `client.courseReactions` - course_reactions API
+- `client.courseApplications` - course_applications API
+- `client.courseReports` - course_reports API
+- `client.courseAuditLogs` - course_audit_logs API
 
 ## Usage Examples
 
-### course_applications
+### course_categories
 
 ```typescript
-// Course Applications list.
+// course Categories list
 const params = {
-  page: 1,
-  page_size: 2,
   q: 'q',
+  cursor: 'cursor',
+  limit: 3,
   status: 'status',
 };
-const result = await client.courseApplications.list(params);
+const result = await client.courseCategories.list(params);
 ```
 
-### course_lessons
+### course_instructors
 
 ```typescript
-// Course Lessons list.
-const courseId = '1';
+// course Instructors list
 const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
   status: 'status',
 };
-const result = await client.courseLessons.list(courseId, params);
-```
-
-### course_sections
-
-```typescript
-// Course Sections list.
-const courseId = '1';
-const params = {
-  status: 'status',
-};
-const result = await client.courseSections.list(courseId, params);
+const result = await client.courseInstructors.list(params);
 ```
 
 ### courses
 
 ```typescript
-// Courses list.
+// courses list
 const params = {
-  page: 1,
-  page_size: 2,
   q: 'q',
+  cursor: 'cursor',
+  limit: 3,
   status: 'status',
 };
 const result = await client.courses.list(params);
 ```
 
+### course_offerings
+
+```typescript
+// course Offerings retrieve
+const offeringId = '1';
+const result = await client.courseOfferings.retrieve(offeringId);
+```
+
+### course_sections
+
+```typescript
+// course Sections delete
+const sectionId = '1';
+const result = await client.courseSections.delete(sectionId);
+```
+
+### course_lessons
+
+```typescript
+// course Lessons retrieve
+const lessonId = '1';
+const result = await client.courseLessons.retrieve(lessonId);
+```
+
+### course_resources
+
+```typescript
+// course Resources delete
+const resourceRefId = '1';
+const result = await client.courseResources.delete(resourceRefId);
+```
+
+### course_live_sessions
+
+```typescript
+// course Live Sessions list
+const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
+  status: 'status',
+};
+const result = await client.courseLiveSessions.list(params);
+```
+
+### course_enrollments
+
+```typescript
+// course Enrollments list
+const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
+  status: 'status',
+};
+const result = await client.courseEnrollments.list(params);
+```
+
+### course_progress
+
+```typescript
+// course Progress list
+const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
+  status: 'status',
+};
+const result = await client.courseProgress.list(params);
+```
+
+### course_lesson_progress
+
+```typescript
+// course Lesson Progress repair
+const lessonProgressId = '1';
+const body = {};
+const result = await client.courseLessonProgress.repair(lessonProgressId, body);
+```
+
 ### course_comments
 
 ```typescript
-// Course Comments list.
+// course Comments list
 const params = {
-  page: 1,
-  page_size: 2,
   q: 'q',
+  cursor: 'cursor',
+  limit: 3,
   status: 'status',
 };
 const result = await client.courseComments.list(params);
 ```
 
-### course_engagement
+### course_reactions
 
 ```typescript
-// Course Engagement list.
+// course Reactions list
 const params = {
-  page: 1,
-  page_size: 2,
   q: 'q',
+  cursor: 'cursor',
+  limit: 3,
   status: 'status',
 };
-const result = await client.courseEngagement.list(params);
+const result = await client.courseReactions.list(params);
 ```
 
-### course_relations
+### course_applications
 
 ```typescript
-// Course Relations list.
-const courseId = '1';
-const result = await client.courseRelations.list(courseId);
+// course Applications list
+const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
+  status: 'status',
+};
+const result = await client.courseApplications.list(params);
+```
+
+### course_reports
+
+```typescript
+// course Reports overview retrieve
+const result = await client.courseReports.overview.retrieve();
+```
+
+### course_audit_logs
+
+```typescript
+// course Audit Logs list
+const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
+  status: 'status',
+};
+const result = await client.courseAuditLogs.list(params);
 ```
 
 ## Error Handling
@@ -174,13 +257,7 @@ const result = await client.courseRelations.list(courseId);
 import { SdkworkBackendClient, NetworkError, TimeoutError, AuthenticationError } from '@sdkwork/course-backend-sdk';
 
 try {
-  const params = {
-    page: 1,
-    page_size: 2,
-    q: 'q',
-    status: 'status',
-  };
-  const result = await client.courseApplications.list(params);
+  const result = await client.courseReports.overview.retrieve();
 } catch (error) {
   if (error instanceof AuthenticationError) {
     console.error('Authentication failed:', error.message);
@@ -217,7 +294,7 @@ This SDK includes cross-platform publish scripts in `bin/`:
 .\bin\publish.ps1 --action publish --channel test --dry-run
 ```
 
-> Set `NPM_TOKEN` (and optional `NPM_REGISTRY_URL`) before release publish.
+> Configure npm registry credentials before release publish.
 
 ## License
 
@@ -225,10 +302,12 @@ MIT
 
 ## Regeneration Contract
 
-- Generator-owned files are tracked in `.sdkwork/sdkwork-generator-manifest.json`.
-- Each run also writes `.sdkwork/sdkwork-generator-changes.json` so automation can inspect created, updated, deleted, unchanged, scaffolded, and backed-up files plus the classified impact areas, verification plan, and execution decision for the latest generation.
-- Apply mode also writes `.sdkwork/sdkwork-generator-report.json` with the full execution report, including `schemaVersion`, `generator`, stable artifact paths, and the execution handoff commands that match CLI `--json` output.
+- HTTP/OpenAPI generator-owned files are tracked in `.sdkwork/sdkwork-generator-manifest.json`.
+- HTTP/OpenAPI generation also writes `.sdkwork/sdkwork-generator-changes.json` so automation can inspect created, updated, deleted, unchanged, scaffolded, and backed-up files plus the classified impact areas, verification plan, and execution decision for the latest generation.
+- HTTP/OpenAPI apply mode also writes `.sdkwork/sdkwork-generator-report.json` with the full execution report, including `schemaVersion`, `generator`, stable artifact paths, and the execution handoff commands that match CLI `--json` output.
 - CLI JSON output also includes an execution handoff with concrete next commands, including reviewed apply commands for dry-run flows.
-- Put hand-written wrappers, adapters, and orchestration in `custom/`.
-- Files scaffolded under `custom/` are created once and preserved across regenerations.
-- If a generated-owned file was modified locally, its previous content is copied to `.sdkwork/manual-backups/` before overwrite or removal.
+- Put HTTP/OpenAPI hand-written wrappers, adapters, and orchestration in `custom/`.
+- Files scaffolded under `custom/` are created once and preserved across HTTP/OpenAPI regenerations.
+- If an HTTP/OpenAPI generated-owned file was modified locally, its previous content is copied to `.sdkwork/manual-backups/` before overwrite or removal.
+- RPC SDK source workspaces use convention-first evidence by default: RPC SDK family naming, language workspace naming, `rpc/*.manifest.json`, proto source references, generated client source, and native package manifests.
+- Use `sdkgen inspect --protocol rpc` to verify RPC convention evidence. Request persisted generator evidence only with `--emit-control-plane` for release, CI, audit, or migration workflows; evidence paths are derived by generator convention.

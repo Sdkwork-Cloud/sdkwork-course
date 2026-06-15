@@ -1,7 +1,8 @@
 {
   "name": "@sdkwork/course-backend-sdk",
   "version": "1.0.0",
-  "description": "sdkwork-course-backend-sdk",
+  "private": true,
+  "description": "Generator-owned TypeScript transport SDK for sdkwork-course-backend-sdk.",
   "author": "SDKWork Team",
   "license": "MIT",
   "type": "module",

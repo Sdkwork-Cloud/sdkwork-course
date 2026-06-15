@@ -3,6 +3,6 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": ["packages/**/*.ts"]
+  "include": ["sdks/_shared/**/*.ts"]
 }
 

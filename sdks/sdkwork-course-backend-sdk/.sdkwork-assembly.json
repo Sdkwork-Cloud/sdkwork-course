@@ -5,7 +5,7 @@
   "openapiVersion": "3.1.2",
   "authoritySpec": "openapi/sdkwork-course-backend-api.openapi.yaml",
   "generationInputSpec": "openapi/sdkwork-course-backend-api.sdkgen.yaml",
-  "ownerOnlyOperationCount": 19,
+  "ownerOnlyOperationCount": 67,
   "sdkDependencies": [],
   "generator": {
     "package": "@sdkwork/sdk-generator",
@@ -22,7 +22,9 @@
     "sdkTarget": "backend",
     "apiPrefix": "/backend/v3/api",
     "schemaUrl": "/backend/v3/openapi.json",
-    "generatedProtocols": ["http-openapi"],
+    "generatedProtocols": [
+      "http-openapi"
+    ],
     "manualTransports": []
   },
   "languages": [
@@ -43,6 +45,8 @@
     "managedBy": "sdkwork-course",
     "standardProfile": "sdkwork-v3",
     "standardVersion": "2026-06-06",
-    "supportedLanguageSubset": ["typescript"]
+    "supportedLanguageSubset": [
+      "typescript"
+    ]
   }
 }

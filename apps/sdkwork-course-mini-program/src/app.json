@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/courses/index",
+    "pages/course-detail/index",
+    "pages/lesson-player/index",
+    "pages/live/index",
+    "pages/live-detail/index",
+    "pages/my/index",
+    "pages/login/index",
+    "pages/register/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#3b82f6",
+    "navigationBarTitleText": "SDKWork Course",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#3b82f6",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/icons/home.png",
+        "selectedIconPath": "assets/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/courses/index",
+        "text": "课程",
+        "iconPath": "assets/icons/course.png",
+        "selectedIconPath": "assets/icons/course-active.png"
+      },
+      {
+        "pagePath": "pages/live/index",
+        "text": "直播",
+        "iconPath": "assets/icons/live.png",
+        "selectedIconPath": "assets/icons/live-active.png"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我的",
+        "iconPath": "assets/icons/my.png",
+        "selectedIconPath": "assets/icons/my-active.png"
+      }
+    ]
+  }
+}

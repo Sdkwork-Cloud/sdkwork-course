@@ -1,6 +1,7 @@
 # SDKWork Course SDK Workspace
 
-This directory owns SDK generation for the SDKWork Course API authorities.
+This directory owns route-manifest materialization, OpenAPI authority files, and
+generated SDK family workspaces for the SDKWork Course API authorities.
 
 ## Families
 
@@ -9,9 +10,9 @@ This directory owns SDK generation for the SDKWork Course API authorities.
 | `sdkwork-course-app-sdk` | `sdkwork-course-app-api` | `/app/v3/api` | App, desktop, mobile, H5, and user-facing clients | TypeScript |
 | `sdkwork-course-backend-sdk` | `sdkwork-course-backend-api` | `/backend/v3/api` | Backend consoles, operators, control-plane integrations, and admin automation | TypeScript |
 
-Only course-owned routes are present in these authorities. Shared auth, bootstrap,
-and request-context capabilities stay outside this owner-only SDK workspace and
-are integrated by the hosting application runtime.
+Only course-owned routes are present in these authorities. Shared auth,
+bootstrap, and request-context capabilities stay outside this owner-only SDK
+workspace and are integrated by the hosting application runtime.
 
 ## Generator
 
@@ -29,6 +30,7 @@ at `generated/server-openapi`; do not edit generated files directly.
 Run from the `sdkwork-course` repository root:
 
 ```powershell
+node scripts/materialize-course-openapi.mjs
 powershell -ExecutionPolicy Bypass -File .\sdks\sdkwork-course-app-sdk\bin\generate-sdk.ps1 -Languages typescript
 powershell -ExecutionPolicy Bypass -File .\sdks\sdkwork-course-backend-sdk\bin\generate-sdk.ps1 -Languages typescript
 ```

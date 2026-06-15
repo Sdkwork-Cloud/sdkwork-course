@@ -1,6 +1,9 @@
 [workspace]
 resolver = "2"
 members = [
-  "packages/native-rust/course/sdkwork-course-rust"
+  "crates/sdkwork-content-course-service",
+  "crates/sdkwork-content-course-repository-sqlx",
+  "crates/sdkwork-router-course-app-api",
+  "crates/sdkwork-router-course-backend-api"
 ]
 

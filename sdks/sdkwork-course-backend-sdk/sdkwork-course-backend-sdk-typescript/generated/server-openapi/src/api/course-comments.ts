@@ -1,38 +1,43 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { AdminCourseCommentCollectionResult, AdminCourseCommentModerationRequest } from '../types';
+import type { CourseOperationCommand, CourseOperationResult } from '../types';
 
 
 export interface CourseCommentsListParams {
-  page?: number;
-  pageSize?: number;
   q?: string;
+  cursor?: string;
+  limit?: number;
   status?: string;
 }
 
 export class CourseCommentsApi {
   private client: HttpClient;
-  
-  constructor(client: HttpClient) { 
-    this.client = client; 
+
+  constructor(client: HttpClient) {
+    this.client = client;
   }
 
 
-/** Course Comments list. */
-  async list(params?: CourseCommentsListParams): Promise<AdminCourseCommentCollectionResult> {
+/** course Comments list */
+  async list(params?: CourseCommentsListParams): Promise<CourseOperationResult> {
     const query = buildQueryString([
-      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
-      { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
+      { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
+      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<AdminCourseCommentCollectionResult>(appendQueryString(backendApiPath(`/courses/comments`), query));
+    return this.client.get<CourseOperationResult>(appendQueryString(backendApiPath(`/course_comments`), query));
   }
 
-/** Course Comments moderate. */
-  async moderate(commentId: string, body: AdminCourseCommentModerationRequest): Promise<AdminCourseCommentCollectionResult> {
-    return this.client.patch<AdminCourseCommentCollectionResult>(backendApiPath(`/courses/comments/${serializePathParameter(commentId, { name: 'commentId', style: 'simple', explode: false })}/moderation`), body, undefined, undefined, 'application/json');
+/** course Comments moderate */
+  async moderate(commentId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
+    return this.client.patch<CourseOperationResult>(backendApiPath(`/course_comments/${serializePathParameter(commentId, { name: 'commentId', style: 'simple', explode: false })}/moderation`), body, undefined, undefined, 'application/json');
+  }
+
+/** course Comments delete */
+  async delete(commentId: string): Promise<CourseOperationResult> {
+    return this.client.delete<CourseOperationResult>(backendApiPath(`/course_comments/${serializePathParameter(commentId, { name: 'commentId', style: 'simple', explode: false })}`));
   }
 }
 

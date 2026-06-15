@@ -1,6 +1,6 @@
 # sdkwork-course-app-sdk
 
-Professional TypeScript SDK for SDKWork API.
+Generated SDKWork v3 dual-token transport SDK.
 
 ## Installation
 
@@ -22,40 +22,27 @@ const client = new SdkworkAppClient({
   timeout: 30000,
 });
 
-// Mode A: API Key (recommended for server-to-server calls)
-client.setApiKey('your-api-key');
+// Authentication
+client.setAuthToken('your-auth-token');
+client.setAccessToken('your-access-token');
 
 // Use the SDK
 const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
   status: 'status',
 };
-const result = await client.courseCategories.list(params);
+const result = await client.courseApplications.current.list(params);
 ```
 
-## Authentication Modes (Mutually Exclusive)
+## Authentication
 
-Choose exactly one mode for the same client instance.
-
-### Mode A: API Key
-
-```typescript
-const client = new SdkworkAppClient({ baseUrl: 'http://localhost:8080' });
-client.setApiKey('your-api-key');
-// Sends: Access-Token: <apiKey>
+```text
+Authorization: Bearer <authToken>
+Access-Token: <accessToken>
 ```
 
-### Mode B: Dual Token
-
-```typescript
-const client = new SdkworkAppClient({ baseUrl: 'http://localhost:8080' });
-client.setAuthToken('your-auth-token');
-client.setAccessToken('your-access-token');
-// Sends:
-// Authorization: Bearer <authToken>
-// Access-Token: <accessToken>
-```
-
-> Do not call `setApiKey(...)` together with `setAuthToken(...)` + `setAccessToken(...)` on the same client.
 
 ## Configuration (Non-Auth)
 
@@ -73,84 +60,166 @@ const client = new SdkworkAppClient({
 
 ## API Modules
 
-- `client.courseApplications` - course_applications API
-- `client.courses` - courses API
 - `client.courseCategories` - course_categories API
-- `client.courseLessons` - course_lessons API
-- `client.courseRelations` - course_relations API
+- `client.courses` - courses API
+- `client.courseOfferings` - course_offerings API
+- `client.courseEnrollments` - course_enrollments API
 - `client.courseSections` - course_sections API
+- `client.courseLessons` - course_lessons API
+- `client.courseLessonResources` - course_lesson_resources API
+- `client.courseProgress` - course_progress API
+- `client.courseLessonProgress` - course_lesson_progress API
+- `client.courseLiveSessions` - course_live_sessions API
+- `client.courseComments` - course_comments API
+- `client.courseReactions` - course_reactions API
+- `client.courseApplications` - course_applications API
 
 ## Usage Examples
-
-### course_applications
-
-```typescript
-// Course Applications create.
-const body = {
-  title: 'title',
-  category: 'category',
-  description: 'description',
-  sourceProvider: 'sourceProvider',
-  externalBvid: 'externalBvid',
-  contactName: 'contactName',
-  contactEmail: 'contactEmail',
-  metadata: {},
-};
-const result = await client.courseApplications.create(body);
-```
-
-### courses
-
-```typescript
-// Courses list.
-const params = {
-  page: 1,
-  page_size: 2,
-  q: 'q',
-  category: 'category',
-  level: 'level',
-};
-const result = await client.courses.list(params);
-```
 
 ### course_categories
 
 ```typescript
-// Course Categories list.
+// course Categories list
 const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
   status: 'status',
 };
 const result = await client.courseCategories.list(params);
 ```
 
-### course_lessons
+### courses
 
 ```typescript
-// Course Lessons list.
-const courseId = '1';
+// courses list
 const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
   status: 'status',
 };
-const result = await client.courseLessons.list(courseId, params);
+const result = await client.courses.list(params);
 ```
 
-### course_relations
+### course_offerings
 
 ```typescript
-// Course Relations list.
-const courseId = '1';
-const result = await client.courseRelations.list(courseId);
+// course Offerings retrieve
+const offeringId = '1';
+const result = await client.courseOfferings.retrieve(offeringId);
+```
+
+### course_enrollments
+
+```typescript
+// course Enrollments current list
+const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
+  status: 'status',
+};
+const result = await client.courseEnrollments.current.list(params);
 ```
 
 ### course_sections
 
 ```typescript
-// Course Sections list.
+// course Sections list
 const courseId = '1';
 const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
   status: 'status',
 };
 const result = await client.courseSections.list(courseId, params);
+```
+
+### course_lessons
+
+```typescript
+// course Lessons retrieve
+const lessonId = '1';
+const result = await client.courseLessons.retrieve(lessonId);
+```
+
+### course_lesson_resources
+
+```typescript
+// course Lesson Resources list
+const lessonId = '1';
+const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
+  status: 'status',
+};
+const result = await client.courseLessonResources.list(lessonId, params);
+```
+
+### course_progress
+
+```typescript
+// course Progress retrieve
+const enrollmentId = '1';
+const result = await client.courseProgress.retrieve(enrollmentId);
+```
+
+### course_lesson_progress
+
+```typescript
+// course Lesson Progress watch Positions update
+const lessonId = '1';
+const body = {};
+const result = await client.courseLessonProgress.watchPositions.update(lessonId, body);
+```
+
+### course_live_sessions
+
+```typescript
+// course Live Sessions list
+const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
+  status: 'status',
+};
+const result = await client.courseLiveSessions.list(params);
+```
+
+### course_comments
+
+```typescript
+// course Comments delete
+const commentId = '1';
+const result = await client.courseComments.delete(commentId);
+```
+
+### course_reactions
+
+```typescript
+// course Reactions replace
+const body = {};
+const idempotencyKey = 'Idempotency-Key';
+const params = {
+  idempotencyKey,
+};
+const result = await client.courseReactions.replace(body, params);
+```
+
+### course_applications
+
+```typescript
+// course Applications current list
+const params = {
+  q: 'q',
+  cursor: 'cursor',
+  limit: 3,
+  status: 'status',
+};
+const result = await client.courseApplications.current.list(params);
 ```
 
 ## Error Handling
@@ -160,9 +229,12 @@ import { SdkworkAppClient, NetworkError, TimeoutError, AuthenticationError } fro
 
 try {
   const params = {
+    q: 'q',
+    cursor: 'cursor',
+    limit: 3,
     status: 'status',
   };
-  const result = await client.courseCategories.list(params);
+  const result = await client.courseApplications.current.list(params);
 } catch (error) {
   if (error instanceof AuthenticationError) {
     console.error('Authentication failed:', error.message);
@@ -199,7 +271,7 @@ This SDK includes cross-platform publish scripts in `bin/`:
 .\bin\publish.ps1 --action publish --channel test --dry-run
 ```
 
-> Set `NPM_TOKEN` (and optional `NPM_REGISTRY_URL`) before release publish.
+> Configure npm registry credentials before release publish.
 
 ## License
 
@@ -207,10 +279,12 @@ MIT
 
 ## Regeneration Contract
 
-- Generator-owned files are tracked in `.sdkwork/sdkwork-generator-manifest.json`.
-- Each run also writes `.sdkwork/sdkwork-generator-changes.json` so automation can inspect created, updated, deleted, unchanged, scaffolded, and backed-up files plus the classified impact areas, verification plan, and execution decision for the latest generation.
-- Apply mode also writes `.sdkwork/sdkwork-generator-report.json` with the full execution report, including `schemaVersion`, `generator`, stable artifact paths, and the execution handoff commands that match CLI `--json` output.
+- HTTP/OpenAPI generator-owned files are tracked in `.sdkwork/sdkwork-generator-manifest.json`.
+- HTTP/OpenAPI generation also writes `.sdkwork/sdkwork-generator-changes.json` so automation can inspect created, updated, deleted, unchanged, scaffolded, and backed-up files plus the classified impact areas, verification plan, and execution decision for the latest generation.
+- HTTP/OpenAPI apply mode also writes `.sdkwork/sdkwork-generator-report.json` with the full execution report, including `schemaVersion`, `generator`, stable artifact paths, and the execution handoff commands that match CLI `--json` output.
 - CLI JSON output also includes an execution handoff with concrete next commands, including reviewed apply commands for dry-run flows.
-- Put hand-written wrappers, adapters, and orchestration in `custom/`.
-- Files scaffolded under `custom/` are created once and preserved across regenerations.
-- If a generated-owned file was modified locally, its previous content is copied to `.sdkwork/manual-backups/` before overwrite or removal.
+- Put HTTP/OpenAPI hand-written wrappers, adapters, and orchestration in `custom/`.
+- Files scaffolded under `custom/` are created once and preserved across HTTP/OpenAPI regenerations.
+- If an HTTP/OpenAPI generated-owned file was modified locally, its previous content is copied to `.sdkwork/manual-backups/` before overwrite or removal.
+- RPC SDK source workspaces use convention-first evidence by default: RPC SDK family naming, language workspace naming, `rpc/*.manifest.json`, proto source references, generated client source, and native package manifests.
+- Use `sdkgen inspect --protocol rpc` to verify RPC convention evidence. Request persisted generator evidence only with `--emit-control-plane` for release, CI, audit, or migration workflows; evidence paths are derived by generator convention.

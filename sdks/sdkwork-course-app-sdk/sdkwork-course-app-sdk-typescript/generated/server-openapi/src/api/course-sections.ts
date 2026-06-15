@@ -1,27 +1,33 @@
 import { appApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseSectionCollectionResult } from '../types';
+import type { CourseOperationResult } from '../types';
 
 
 export interface CourseSectionsListParams {
+  q?: string;
+  cursor?: string;
+  limit?: number;
   status?: string;
 }
 
 export class CourseSectionsApi {
   private client: HttpClient;
-  
-  constructor(client: HttpClient) { 
-    this.client = client; 
+
+  constructor(client: HttpClient) {
+    this.client = client;
   }
 
 
-/** Course Sections list. */
-  async list(courseId: string, params?: CourseSectionsListParams): Promise<CourseSectionCollectionResult> {
+/** course Sections list */
+  async list(courseId: string, params?: CourseSectionsListParams): Promise<CourseOperationResult> {
     const query = buildQueryString([
+      { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
+      { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
+      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseSectionCollectionResult>(appendQueryString(appApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/sections`), query));
+    return this.client.get<CourseOperationResult>(appendQueryString(appApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/sections`), query));
   }
 }
 

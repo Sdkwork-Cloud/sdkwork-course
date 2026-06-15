@@ -1,0 +1,24 @@
+<view class="container">
+  <view class="search-bar">
+    <input type="text" placeholder="搜索课程" bindinput="onSearch" value="{{searchQuery}}" />
+  </view>
+  
+  <view class="course-list">
+    <view class="course-card" wx:for="{{courses}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+      <image src="{{item.thumbnail || '/assets/icons/course.png'}}" class="course-image"></image>
+      <view class="course-info">
+        <text class="course-title">{{item.title}}</text>
+        <text class="course-desc">{{item.description}}</text>
+        <view class="course-meta">
+          <text class="course-rating">⭐ {{item.ratingScore || '暂无'}}</text>
+          <text class="course-lessons">📚 {{item.lessonsCount}}课</text>
+          <text class="course-students">👥 {{item.studentsCount}}人</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="empty" wx:if="{{courses.length === 0}}">
+      <text>暂无课程</text>
+    </view>
+  </view>
+</view>

@@ -1,8 +1,12 @@
 packages:
-  - "packages/common/*/*"
+  - "sdks/_shared/*"
   - "sdks/*"
   - "sdks/sdkwork-course-app-sdk/sdkwork-course-app-sdk-typescript/generated/server-openapi"
   - "sdks/sdkwork-course-backend-sdk/sdkwork-course-backend-sdk-typescript/generated/server-openapi"
+  - "apps/*"
+  - "apps/sdkwork-course-pc/packages/*"
+  - "apps/sdkwork-course-h5/packages/*"
+  - "apps/sdkwork-course-mini-program/packages/*"
 
 catalog:
   typescript: ~6.0.2
