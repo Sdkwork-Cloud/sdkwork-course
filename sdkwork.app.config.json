@@ -13,7 +13,11 @@
   "runtime": {
     "apiBaseUrl": "http://localhost:8080",
     "appApiPrefix": "/app/v3/api",
-    "backendApiPrefix": "/backend/v3/api"
+    "backendApiPrefix": "/backend/v3/api",
+    "supportedDeploymentProfiles": [
+      "cloud"
+    ],
+    "defaultDeploymentProfile": "cloud"
   },
   "sdk": {
     "appApiAuthority": "sdkwork-course-app-api",
