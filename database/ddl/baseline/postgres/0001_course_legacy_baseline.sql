@@ -75,6 +75,11 @@ CREATE TABLE IF NOT EXISTS course_catalog (
   student_count_snapshot INTEGER NOT NULL DEFAULT 0,
   rating_score_snapshot TEXT NOT NULL DEFAULT '0',
   rating_count_snapshot INTEGER NOT NULL DEFAULT 0,
+  external_source_id TEXT,
+  body_content TEXT,
+  price_amount TEXT,
+  currency TEXT,
+  is_collection INTEGER NOT NULL DEFAULT 0,
   visibility TEXT NOT NULL DEFAULT 'tenant',
   publish_status TEXT NOT NULL DEFAULT 'draft',
   published_at TEXT,
@@ -157,6 +162,9 @@ CREATE TABLE IF NOT EXISTS course_lesson (
   description TEXT,
   content TEXT,
   duration_seconds INTEGER NOT NULL DEFAULT 0,
+  duration_text TEXT,
+  external_source_id TEXT,
+  source_provider TEXT,
   free_preview INTEGER NOT NULL DEFAULT 0,
   required_for_completion INTEGER NOT NULL DEFAULT 1,
   completion_rule_json TEXT NOT NULL DEFAULT '{}',
@@ -363,6 +371,21 @@ CREATE TABLE IF NOT EXISTS course_reaction (
   deleted_at TEXT,
   deleted_by TEXT,
   UNIQUE (tenant_id, target_type, target_id, actor_user_id, reaction_type)
+);
+
+CREATE TABLE IF NOT EXISTS course_catalog_link (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  course_id TEXT NOT NULL,
+  linked_course_id TEXT NOT NULL,
+  link_type TEXT NOT NULL,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  UNIQUE (tenant_id, course_id, linked_course_id, link_type)
 );
 
 CREATE TABLE IF NOT EXISTS course_application (
