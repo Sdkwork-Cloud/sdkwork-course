@@ -1,0 +1,55 @@
+schema_version: 1
+kind: sdkwork.database.schema
+module_id: course
+contract_version: 1.0.0
+owner_team: course-platform
+compliance_level: L2
+engines:
+  - postgres
+table_prefix: course_
+tables:
+  - name: course_category
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_instructor
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_catalog
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_offering
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_section
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_lesson
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_resource_ref
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_live_session
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_enrollment
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_learning_progress
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_lesson_progress
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_comment
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_reaction
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_application
+    lifecycle_status: active
+    owner: course-platform
+  - name: course_audit_log
+    lifecycle_status: active
+    owner: course-platform

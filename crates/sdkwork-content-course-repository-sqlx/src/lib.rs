@@ -1,7 +1,15 @@
 //! SQLx repository implementation for SDKWork content course.
 
+mod bootstrap;
+
 pub mod db;
 pub mod repository;
+
+pub use bootstrap::{
+    bootstrap_course_database, bootstrap_course_database_from_env,
+    connect_and_bootstrap_course_database_from_env, connect_course_database_pool_from_env,
+    CourseDatabaseHost, CourseDatabasePool,
+};
 
 pub use db::schema::{
     COURSE_APPLICATION_TABLE, COURSE_AUDIT_LOG_TABLE, COURSE_CATALOG_TABLE, COURSE_CATEGORY_TABLE,
