@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env.SDKWORK_ACCESS_TOKEN': JSON.stringify(env.SDKWORK_ACCESS_TOKEN ?? ''),
     },
-      plugins: [react(), tailwindcss()],
+          plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
