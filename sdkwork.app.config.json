@@ -8,7 +8,10 @@
     "description": "Professional online course management platform",
     "owner": "sdkwork-course",
     "domain": "content",
-    "capability": "course"
+    "capability": "course",
+    "key": "sdkwork-course",
+    "appType": "APP_HTML",
+    "officialWebsiteUrl": "https://sdkwork.com/apps/sdkwork-course"
   },
   "runtime": {
     "apiBaseUrl": "http://localhost:8080",
@@ -36,5 +39,15 @@
     "reactions": true,
     "applications": true,
     "auditLogs": true
-  }
+  },
+  "backend": {
+    "profileKey": "backend-root-admin",
+    "accessTokenPermissionScope": [
+      "iam.users.read",
+      "iam.organizations.read",
+      "iam.roles.read",
+      "iam.permissions.read"
+    ]
+  },
+  "environments": {}
 }
