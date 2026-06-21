@@ -1,4 +1,4 @@
--- Root course category for composed Claw Router bootstrap (tenant 0 / system scope).
+-- Root course category for composed Claw Router bootstrap (tenant 100001 / org 0).
 INSERT INTO course_category
     (
         id,
@@ -18,7 +18,7 @@ VALUES
     (
         'course-category-root',
         'course-category-root',
-        '0',
+        '100001',
         '0',
         'root',
         'Courses',
@@ -30,6 +30,8 @@ VALUES
         CURRENT_TIMESTAMP::text
     )
 ON CONFLICT (id) DO UPDATE SET
+    tenant_id = EXCLUDED.tenant_id,
+    organization_id = EXCLUDED.organization_id,
     name = EXCLUDED.name,
     description = EXCLUDED.description,
     status = EXCLUDED.status,
