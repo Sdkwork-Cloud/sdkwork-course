@@ -1,4 +1,4 @@
-# sdkwork-router-course-backend-api
+# sdkwork-routes-course-backend-api
 
 Domain: content  
 Capability: course  
@@ -17,9 +17,9 @@ contract.
 
 ## Public API
 
-- `sdkwork_router_course_backend_api::*`
+- `sdkwork_routes_course_backend_api::*`
 
 ## Verification
 
-- `cargo test -p sdkwork-router-course-backend-api`
+- `cargo test -p sdkwork-routes-course-backend-api`
 

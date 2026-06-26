@@ -1,7 +1,7 @@
 use serde_json::Value;
 
 pub const ROUTE_MANIFEST_PATH: &str =
-    "sdks/_route-manifests/app-api/sdkwork-router-course-app-api.route-manifest.json";
+    "sdks/_route-manifests/app-api/sdkwork-routes-course-app-api.route-manifest.json";
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct CourseRouteManifestMetadata {
@@ -17,7 +17,7 @@ pub struct CourseRouteManifestMetadata {
 
 pub const COURSE_APP_API_MANIFEST_METADATA: CourseRouteManifestMetadata =
     CourseRouteManifestMetadata {
-        package_name: "sdkwork-router-course-app-api",
+        package_name: "sdkwork-routes-course-app-api",
         surface: "app-api",
         owner: "sdkwork-course",
         domain: "content",

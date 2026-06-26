@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "kind": "sdkwork.route.manifest",
-  "packageName": "sdkwork-router-course-backend-api",
+  "packageName": "sdkwork-routes-course-backend-api",
   "surface": "backend-api",
   "owner": "sdkwork-course",
   "domain": "content",
@@ -10,8 +10,8 @@
   "sdkFamily": "sdkwork-course-backend-sdk",
   "prefix": "/backend/v3/api",
   "source": {
-    "crateRoot": "crates/sdkwork-router-course-backend-api",
-    "crateImport": "sdkwork_router_course_backend_api",
+    "crateRoot": "crates/sdkwork-routes-course-backend-api",
+    "crateImport": "sdkwork_routes_course_backend_api",
     "operations": "apis/backend-api/course/operations.json"
   },
   "routes": [

@@ -7,25 +7,25 @@ const surfaces = [
   {
     operationsPath: "apis/app-api/course/operations.json",
     routeManifestPath:
-      "sdks/_route-manifests/app-api/sdkwork-router-course-app-api.route-manifest.json",
+      "sdks/_route-manifests/app-api/sdkwork-routes-course-app-api.route-manifest.json",
     authorityPath: "sdks/sdkwork-course-app-sdk/openapi/sdkwork-course-app-api.openapi.yaml",
     sdkgenPath: "sdks/sdkwork-course-app-sdk/openapi/sdkwork-course-app-api.sdkgen.yaml",
     assemblyPath: "sdks/sdkwork-course-app-sdk/.sdkwork-assembly.json",
-    routeCrate: "sdkwork-router-course-app-api",
-    routeCrateRoot: "crates/sdkwork-router-course-app-api",
+    routeCrate: "sdkwork-routes-course-app-api",
+    routeCrateRoot: "crates/sdkwork-routes-course-app-api",
     title: "SDKWork Course App API",
   },
   {
     operationsPath: "apis/backend-api/course/operations.json",
     routeManifestPath:
-      "sdks/_route-manifests/backend-api/sdkwork-router-course-backend-api.route-manifest.json",
+      "sdks/_route-manifests/backend-api/sdkwork-routes-course-backend-api.route-manifest.json",
     authorityPath:
       "sdks/sdkwork-course-backend-sdk/openapi/sdkwork-course-backend-api.openapi.yaml",
     sdkgenPath:
       "sdks/sdkwork-course-backend-sdk/openapi/sdkwork-course-backend-api.sdkgen.yaml",
     assemblyPath: "sdks/sdkwork-course-backend-sdk/.sdkwork-assembly.json",
-    routeCrate: "sdkwork-router-course-backend-api",
-    routeCrateRoot: "crates/sdkwork-router-course-backend-api",
+    routeCrate: "sdkwork-routes-course-backend-api",
+    routeCrateRoot: "crates/sdkwork-routes-course-backend-api",
     title: "SDKWork Course Backend API",
   },
 ];

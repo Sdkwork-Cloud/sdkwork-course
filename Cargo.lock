@@ -1207,7 +1207,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "sdkwork-router-course-app-api"
+name = "sdkwork-routes-course-app-api"
 version = "0.1.0"
 dependencies = [
  "async-trait",
@@ -1217,7 +1217,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "sdkwork-router-course-backend-api"
+name = "sdkwork-routes-course-backend-api"
 version = "0.1.0"
 dependencies = [
  "async-trait",

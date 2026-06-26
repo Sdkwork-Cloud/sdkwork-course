@@ -146,7 +146,7 @@
         "x-sdkwork-audit-event": "course.categories.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "post": {
         "tags": [
@@ -235,7 +235,7 @@
         "x-sdkwork-audit-event": "course.category.created",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -346,7 +346,7 @@
         "x-sdkwork-audit-event": "course.category.updated",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -455,7 +455,7 @@
         "x-sdkwork-audit-event": "course.category.deleted",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_categories/reorder": {
@@ -546,7 +546,7 @@
         "x-sdkwork-audit-event": "course.categories.reordered",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -684,7 +684,7 @@
         "x-sdkwork-audit-event": "course.instructors.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "post": {
         "tags": [
@@ -773,7 +773,7 @@
         "x-sdkwork-audit-event": "course.instructor.created",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -884,7 +884,7 @@
         "x-sdkwork-audit-event": "course.instructor.read",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "patch": {
         "tags": [
@@ -982,7 +982,7 @@
         "x-sdkwork-audit-event": "course.instructor.updated",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -1093,7 +1093,7 @@
         "x-sdkwork-audit-event": "course.instructor.status_updated",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -1231,7 +1231,7 @@
         "x-sdkwork-audit-event": "course.courses.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "post": {
         "tags": [
@@ -1320,7 +1320,7 @@
         "x-sdkwork-audit-event": "course.course.created",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -1431,7 +1431,7 @@
         "x-sdkwork-audit-event": "course.course.read",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "patch": {
         "tags": [
@@ -1529,7 +1529,7 @@
         "x-sdkwork-audit-event": "course.course.updated",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -1638,7 +1638,7 @@
         "x-sdkwork-audit-event": "course.course.deleted",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/courses/{courseId}/publish": {
@@ -1738,7 +1738,7 @@
         "x-sdkwork-audit-event": "course.course.published",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -1849,7 +1849,7 @@
         "x-sdkwork-audit-event": "course.course.unpublished",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -1995,7 +1995,7 @@
         "x-sdkwork-audit-event": "course.offerings.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "post": {
         "tags": [
@@ -2093,7 +2093,7 @@
         "x-sdkwork-audit-event": "course.offering.created",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -2204,7 +2204,7 @@
         "x-sdkwork-audit-event": "course.offering.read",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "patch": {
         "tags": [
@@ -2302,7 +2302,7 @@
         "x-sdkwork-audit-event": "course.offering.updated",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -2411,7 +2411,7 @@
         "x-sdkwork-audit-event": "course.offering.deleted",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_offerings/{offeringId}/publish": {
@@ -2511,7 +2511,7 @@
         "x-sdkwork-audit-event": "course.offering.published",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -2622,7 +2622,7 @@
         "x-sdkwork-audit-event": "course.offering.closed",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -2768,7 +2768,7 @@
         "x-sdkwork-audit-event": "course.sections.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "post": {
         "tags": [
@@ -2866,7 +2866,7 @@
         "x-sdkwork-audit-event": "course.section.created",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -2977,7 +2977,7 @@
         "x-sdkwork-audit-event": "course.section.updated",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -3086,7 +3086,7 @@
         "x-sdkwork-audit-event": "course.section.deleted",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/courses/{courseId}/sections/reorder": {
@@ -3186,7 +3186,7 @@
         "x-sdkwork-audit-event": "course.sections.reordered",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -3332,7 +3332,7 @@
         "x-sdkwork-audit-event": "course.lessons.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "post": {
         "tags": [
@@ -3430,7 +3430,7 @@
         "x-sdkwork-audit-event": "course.lesson.created",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -3541,7 +3541,7 @@
         "x-sdkwork-audit-event": "course.lesson.read",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "patch": {
         "tags": [
@@ -3639,7 +3639,7 @@
         "x-sdkwork-audit-event": "course.lesson.updated",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -3748,7 +3748,7 @@
         "x-sdkwork-audit-event": "course.lesson.deleted",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/courses/{courseId}/lessons/reorder": {
@@ -3848,7 +3848,7 @@
         "x-sdkwork-audit-event": "course.lessons.reordered",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -3994,7 +3994,7 @@
         "x-sdkwork-audit-event": "course.resources.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "post": {
         "tags": [
@@ -4092,7 +4092,7 @@
         "x-sdkwork-audit-event": "course.resource.created",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -4203,7 +4203,7 @@
         "x-sdkwork-audit-event": "course.resource.updated",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -4312,7 +4312,7 @@
         "x-sdkwork-audit-event": "course.resource.deleted",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_live_sessions": {
@@ -4439,7 +4439,7 @@
         "x-sdkwork-audit-event": "course.live_sessions.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "post": {
         "tags": [
@@ -4528,7 +4528,7 @@
         "x-sdkwork-audit-event": "course.live_session.created",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -4639,7 +4639,7 @@
         "x-sdkwork-audit-event": "course.live_session.read",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       },
       "patch": {
         "tags": [
@@ -4737,7 +4737,7 @@
         "x-sdkwork-audit-event": "course.live_session.updated",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -4848,7 +4848,7 @@
         "x-sdkwork-audit-event": "course.live_session.started",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -4959,7 +4959,7 @@
         "x-sdkwork-audit-event": "course.live_session.ended",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -5070,7 +5070,7 @@
         "x-sdkwork-audit-event": "course.live_session.cancelled",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -5181,7 +5181,7 @@
         "x-sdkwork-audit-event": "course.live_session.replay_attached",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -5292,7 +5292,7 @@
         "x-sdkwork-audit-event": "course.live_session.replay_published",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -5430,7 +5430,7 @@
         "x-sdkwork-audit-event": "course.enrollments.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_enrollments/grants": {
@@ -5521,7 +5521,7 @@
         "x-sdkwork-audit-event": "course.enrollment.granted",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -5632,7 +5632,7 @@
         "x-sdkwork-audit-event": "course.enrollment.revoked",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -5770,7 +5770,7 @@
         "x-sdkwork-audit-event": "course.progress.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_enrollments/{enrollmentId}/progress": {
@@ -5870,7 +5870,7 @@
         "x-sdkwork-audit-event": "course.progress.read",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_lesson_progress/{lessonProgressId}": {
@@ -5970,7 +5970,7 @@
         "x-sdkwork-audit-event": "course.lesson_progress.repaired",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -6108,7 +6108,7 @@
         "x-sdkwork-audit-event": "course.comments.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_comments/{commentId}/moderation": {
@@ -6208,7 +6208,7 @@
         "x-sdkwork-audit-event": "course.comment.moderated",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -6319,7 +6319,7 @@
         "x-sdkwork-audit-event": "course.comment.deleted",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_reactions": {
@@ -6446,7 +6446,7 @@
         "x-sdkwork-audit-event": "course.reactions.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_applications": {
@@ -6573,7 +6573,7 @@
         "x-sdkwork-audit-event": "course.applications.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_applications/{applicationId}": {
@@ -6673,7 +6673,7 @@
         "x-sdkwork-audit-event": "course.application.read",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_applications/{applicationId}/review": {
@@ -6773,7 +6773,7 @@
         "x-sdkwork-audit-event": "course.application.reviewed",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -6884,7 +6884,7 @@
         "x-sdkwork-audit-event": "course.application.converted",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api",
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "requestBody": {
           "required": true,
           "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
@@ -6986,7 +6986,7 @@
         "x-sdkwork-audit-event": "course.reports.overview_read",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_reports/learning": {
@@ -7113,7 +7113,7 @@
         "x-sdkwork-audit-event": "course.reports.learning_read",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_reports/live_sessions": {
@@ -7240,7 +7240,7 @@
         "x-sdkwork-audit-event": "course.reports.live_sessions_read",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_audit_logs": {
@@ -7367,7 +7367,7 @@
         "x-sdkwork-audit-event": "course.audit_logs.list",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     },
     "/backend/v3/api/course_audit_logs/{auditLogId}": {
@@ -7467,7 +7467,7 @@
         "x-sdkwork-audit-event": "course.audit_log.read",
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-router-course-backend-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api"
       }
     }
   },

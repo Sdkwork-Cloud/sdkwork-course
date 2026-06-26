@@ -19,7 +19,15 @@ mod tests {
         assert_eq!(paths::COURSE_APP_API_PREFIX, "/app/v3/api");
         assert_eq!(
             route_manifest_path(),
-            "sdks/_route-manifests/app-api/sdkwork-router-course-app-api.route-manifest.json"
+            "sdks/_route-manifests/app-api/sdkwork-routes-course-app-api.route-manifest.json"
         );
     }
+}
+
+pub fn gateway_route_manifest() -> Value {
+    build_route_manifest()
+}
+
+pub fn gateway_mount() -> Value {
+    build_router()
 }

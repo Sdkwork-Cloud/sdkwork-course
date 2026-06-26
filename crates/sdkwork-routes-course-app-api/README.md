@@ -1,4 +1,4 @@
-# sdkwork-router-course-app-api
+# sdkwork-routes-course-app-api
 
 Domain: content  
 Capability: course  
@@ -16,9 +16,9 @@ materialized from the authored `apis/app-api/course/operations.json` contract.
 
 ## Public API
 
-- `sdkwork_router_course_app_api::*`
+- `sdkwork_routes_course_app_api::*`
 
 ## Verification
 
-- `cargo test -p sdkwork-router-course-app-api`
+- `cargo test -p sdkwork-routes-course-app-api`
 

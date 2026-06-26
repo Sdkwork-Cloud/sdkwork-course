@@ -1,9 +1,9 @@
 [package]
-name = "sdkwork-router-course-app-api"
+name = "sdkwork-routes-course-backend-api"
 version = "0.1.0"
 edition = "2021"
 license = "Apache-2.0"
-description = "SDKWork course app-api route crate skeleton."
+description = "SDKWork course backend-api route crate skeleton."
 
 [lib]
 path = "src/lib.rs"

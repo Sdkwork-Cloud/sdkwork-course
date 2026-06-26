@@ -37,8 +37,8 @@ It is intentionally a skeleton handoff for implementation agents.
   audit/event publication.
 - `crates/sdkwork-content-course-repository-sqlx/src/repository/course_repository.rs`:
   Rust SQLx repository skeleton.
-- `crates/sdkwork-router-course-app-api/src/manifest.rs` and
-  `crates/sdkwork-router-course-backend-api/src/manifest.rs`:
+- `crates/sdkwork-routes-course-app-api/src/manifest.rs` and
+  `crates/sdkwork-routes-course-backend-api/src/manifest.rs`:
   Rust route manifest skeletons.
 
 ## Implementation Status

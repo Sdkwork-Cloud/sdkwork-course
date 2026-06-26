@@ -1,11 +1,12 @@
 [workspace]
 resolver = "2"
 members = [
+    "crates/sdkwork-course-gateway-assembly",
   "crates/sdkwork-course-database-host",
   "crates/sdkwork-content-course-service",
   "crates/sdkwork-content-course-repository-sqlx",
-  "crates/sdkwork-router-course-app-api",
-  "crates/sdkwork-router-course-backend-api",
+  "crates/sdkwork-routes-course-app-api",
+  "crates/sdkwork-routes-course-backend-api",
 ]
 
 [workspace.package]

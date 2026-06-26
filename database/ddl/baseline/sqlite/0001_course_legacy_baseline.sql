@@ -1,0 +1,475 @@
+-- Consolidated legacy baseline for sdkwork-course database module.
+-- source: crates/sdkwork-content-course-repository-sqlx/migrations/0001_course_foundation.sql
+
+CREATE TABLE IF NOT EXISTS course_category (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  parent_id TEXT,
+  category_code TEXT NOT NULL,
+  name TEXT NOT NULL,
+  description TEXT,
+  icon_resource_snapshot TEXT,
+  path TEXT,
+  level_no INTEGER NOT NULL DEFAULT 0,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  course_count_snapshot INTEGER NOT NULL DEFAULT 0,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT,
+  UNIQUE (tenant_id, organization_id, category_code)
+);
+
+CREATE TABLE IF NOT EXISTS course_instructor (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  user_id TEXT,
+  display_name TEXT NOT NULL,
+  title TEXT,
+  bio TEXT,
+  avatar_resource_snapshot TEXT,
+  profile_links_json TEXT NOT NULL DEFAULT '[]',
+  expertise_tags_json TEXT NOT NULL DEFAULT '[]',
+  qualification_status TEXT NOT NULL DEFAULT 'pending',
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT
+);
+
+CREATE TABLE IF NOT EXISTS course_catalog (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  course_code TEXT NOT NULL,
+  category_id TEXT,
+  primary_instructor_id TEXT,
+  title TEXT NOT NULL,
+  subtitle TEXT,
+  summary TEXT,
+  description TEXT,
+  learning_objectives_json TEXT NOT NULL DEFAULT '[]',
+  target_audience_json TEXT NOT NULL DEFAULT '[]',
+  prerequisites_json TEXT NOT NULL DEFAULT '[]',
+  difficulty_level TEXT,
+  language_code TEXT,
+  cover_resource_snapshot TEXT,
+  intro_video_resource_ref_id TEXT,
+  tags_json TEXT NOT NULL DEFAULT '[]',
+  estimated_duration_seconds INTEGER NOT NULL DEFAULT 0,
+  lesson_count_snapshot INTEGER NOT NULL DEFAULT 0,
+  student_count_snapshot INTEGER NOT NULL DEFAULT 0,
+  rating_score_snapshot TEXT NOT NULL DEFAULT '0',
+  rating_count_snapshot INTEGER NOT NULL DEFAULT 0,
+  external_source_id TEXT,
+  body_content TEXT,
+  price_amount TEXT,
+  currency TEXT,
+  is_collection INTEGER NOT NULL DEFAULT 0,
+  visibility TEXT NOT NULL DEFAULT 'tenant',
+  publish_status TEXT NOT NULL DEFAULT 'draft',
+  published_at TEXT,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT,
+  UNIQUE (tenant_id, organization_id, course_code)
+);
+
+CREATE TABLE IF NOT EXISTS course_offering (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  course_id TEXT NOT NULL,
+  offering_code TEXT NOT NULL,
+  title TEXT NOT NULL,
+  offering_type TEXT NOT NULL,
+  delivery_mode TEXT NOT NULL,
+  access_mode TEXT NOT NULL,
+  access_policy_json TEXT NOT NULL DEFAULT '{}',
+  start_at TEXT,
+  end_at TEXT,
+  open_at TEXT,
+  close_at TEXT,
+  capacity INTEGER,
+  enrolled_count_snapshot INTEGER NOT NULL DEFAULT 0,
+  completion_rule_json TEXT NOT NULL DEFAULT '{}',
+  certificate_enabled INTEGER NOT NULL DEFAULT 0,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT,
+  UNIQUE (tenant_id, organization_id, offering_code)
+);
+
+CREATE TABLE IF NOT EXISTS course_section (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  course_id TEXT NOT NULL,
+  section_no TEXT,
+  title TEXT NOT NULL,
+  description TEXT,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  lesson_count_snapshot INTEGER NOT NULL DEFAULT 0,
+  duration_seconds_snapshot INTEGER NOT NULL DEFAULT 0,
+  visibility TEXT NOT NULL DEFAULT 'tenant',
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT,
+  UNIQUE (tenant_id, course_id, section_no)
+);
+
+CREATE TABLE IF NOT EXISTS course_lesson (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  course_id TEXT NOT NULL,
+  section_id TEXT,
+  lesson_no TEXT,
+  lesson_kind TEXT NOT NULL,
+  title TEXT NOT NULL,
+  description TEXT,
+  content TEXT,
+  duration_seconds INTEGER NOT NULL DEFAULT 0,
+  duration_text TEXT,
+  external_source_id TEXT,
+  source_provider TEXT,
+  free_preview INTEGER NOT NULL DEFAULT 0,
+  required_for_completion INTEGER NOT NULL DEFAULT 1,
+  completion_rule_json TEXT NOT NULL DEFAULT '{}',
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  scheduled_start_at TEXT,
+  scheduled_end_at TEXT,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT,
+  UNIQUE (tenant_id, course_id, lesson_no)
+);
+
+CREATE TABLE IF NOT EXISTS course_resource_ref (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  owner_type TEXT NOT NULL,
+  owner_id TEXT NOT NULL,
+  resource_role TEXT NOT NULL,
+  drive_resource_id TEXT NOT NULL,
+  media_resource_snapshot TEXT NOT NULL,
+  mime_type TEXT,
+  duration_seconds INTEGER,
+  file_size_bytes INTEGER,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  visibility TEXT NOT NULL DEFAULT 'tenant',
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT
+);
+
+CREATE TABLE IF NOT EXISTS course_live_session (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  course_id TEXT NOT NULL,
+  offering_id TEXT NOT NULL,
+  lesson_id TEXT,
+  instructor_id TEXT,
+  title TEXT NOT NULL,
+  description TEXT,
+  live_provider_code TEXT,
+  provider_room_ref TEXT,
+  scheduled_start_at TEXT NOT NULL,
+  scheduled_end_at TEXT NOT NULL,
+  actual_start_at TEXT,
+  actual_end_at TEXT,
+  live_status TEXT NOT NULL,
+  replay_resource_ref_id TEXT,
+  replay_available_at TEXT,
+  attendee_count_snapshot INTEGER NOT NULL DEFAULT 0,
+  heartbeat_rule_json TEXT NOT NULL DEFAULT '{}',
+  metadata_json TEXT NOT NULL DEFAULT '{}',
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT
+);
+
+CREATE TABLE IF NOT EXISTS course_enrollment (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  course_id TEXT NOT NULL,
+  offering_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  enrollment_source TEXT NOT NULL,
+  access_snapshot_json TEXT NOT NULL DEFAULT '{}',
+  enrolled_at TEXT NOT NULL,
+  started_at TEXT,
+  completed_at TEXT,
+  expires_at TEXT,
+  enrollment_status TEXT NOT NULL,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT,
+  UNIQUE (tenant_id, offering_id, user_id)
+);
+
+CREATE TABLE IF NOT EXISTS course_learning_progress (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  course_id TEXT NOT NULL,
+  offering_id TEXT NOT NULL,
+  enrollment_id TEXT NOT NULL UNIQUE,
+  user_id TEXT NOT NULL,
+  progress_status TEXT NOT NULL,
+  completed_lesson_count INTEGER NOT NULL DEFAULT 0,
+  required_lesson_count INTEGER NOT NULL DEFAULT 0,
+  progress_percent TEXT NOT NULL DEFAULT '0',
+  watch_seconds INTEGER NOT NULL DEFAULT 0,
+  last_lesson_id TEXT,
+  last_activity_at TEXT,
+  started_at TEXT,
+  completed_at TEXT,
+  completion_snapshot_json TEXT NOT NULL DEFAULT '{}',
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT
+);
+
+CREATE TABLE IF NOT EXISTS course_lesson_progress (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  course_id TEXT NOT NULL,
+  offering_id TEXT NOT NULL,
+  lesson_id TEXT NOT NULL,
+  enrollment_id TEXT NOT NULL,
+  live_session_id TEXT,
+  user_id TEXT NOT NULL,
+  lesson_kind TEXT NOT NULL,
+  progress_status TEXT NOT NULL,
+  watch_position_seconds INTEGER NOT NULL DEFAULT 0,
+  watch_seconds INTEGER NOT NULL DEFAULT 0,
+  required_seconds INTEGER NOT NULL DEFAULT 0,
+  joined_at TEXT,
+  left_at TEXT,
+  last_heartbeat_at TEXT,
+  completed_at TEXT,
+  progress_metadata_json TEXT NOT NULL DEFAULT '{}',
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT,
+  UNIQUE (tenant_id, offering_id, lesson_id, user_id)
+);
+
+CREATE TABLE IF NOT EXISTS course_comment (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  target_type TEXT NOT NULL,
+  target_id TEXT NOT NULL,
+  parent_id TEXT,
+  author_user_id TEXT NOT NULL,
+  author_snapshot TEXT,
+  content TEXT NOT NULL,
+  content_format TEXT NOT NULL DEFAULT 'plain',
+  moderation_status TEXT NOT NULL,
+  moderation_note TEXT,
+  like_count_snapshot INTEGER NOT NULL DEFAULT 0,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT
+);
+
+CREATE TABLE IF NOT EXISTS course_reaction (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  target_type TEXT NOT NULL,
+  target_id TEXT NOT NULL,
+  actor_user_id TEXT NOT NULL,
+  reaction_type TEXT NOT NULL,
+  reaction_value TEXT NOT NULL,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT,
+  UNIQUE (tenant_id, target_type, target_id, actor_user_id, reaction_type)
+);
+
+CREATE TABLE IF NOT EXISTS course_catalog_link (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  course_id TEXT NOT NULL,
+  linked_course_id TEXT NOT NULL,
+  link_type TEXT NOT NULL,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  UNIQUE (tenant_id, course_id, linked_course_id, link_type)
+);
+
+CREATE TABLE IF NOT EXISTS course_application (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  applicant_user_id TEXT NOT NULL,
+  instructor_id TEXT,
+  title TEXT NOT NULL,
+  category_id TEXT,
+  description TEXT NOT NULL,
+  sample_resource_ref_id TEXT,
+  contact_name TEXT,
+  contact_email TEXT,
+  application_status TEXT NOT NULL,
+  reviewed_by TEXT,
+  reviewed_at TEXT,
+  review_note TEXT,
+  converted_course_id TEXT,
+  metadata_json TEXT NOT NULL DEFAULT '{}',
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  updated_by TEXT,
+  version INTEGER NOT NULL DEFAULT 0,
+  deleted_at TEXT,
+  deleted_by TEXT
+);
+
+CREATE TABLE IF NOT EXISTS course_audit_log (
+  id TEXT PRIMARY KEY,
+  uuid TEXT NOT NULL UNIQUE,
+  tenant_id TEXT NOT NULL,
+  organization_id TEXT,
+  actor_type TEXT NOT NULL,
+  actor_id TEXT,
+  operation_id TEXT NOT NULL,
+  audit_event_type TEXT NOT NULL,
+  target_type TEXT NOT NULL,
+  target_id TEXT NOT NULL,
+  request_id TEXT,
+  idempotency_key TEXT,
+  before_snapshot_json TEXT,
+  after_snapshot_json TEXT,
+  metadata_json TEXT NOT NULL DEFAULT '{}',
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_course_category_parent_sort
+  ON course_category (tenant_id, organization_id, parent_id, sort_order);
+CREATE INDEX IF NOT EXISTS idx_course_category_status_sort
+  ON course_category (tenant_id, organization_id, status, sort_order);
+CREATE INDEX IF NOT EXISTS idx_course_instructor_tenant_status
+  ON course_instructor (tenant_id, organization_id, status, sort_order);
+CREATE INDEX IF NOT EXISTS idx_course_catalog_category_status
+  ON course_catalog (tenant_id, organization_id, category_id, publish_status, updated_at);
+CREATE INDEX IF NOT EXISTS idx_course_catalog_visibility_status
+  ON course_catalog (tenant_id, organization_id, visibility, publish_status);
+CREATE INDEX IF NOT EXISTS idx_course_offering_course_status
+  ON course_offering (course_id, status, start_at);
+CREATE INDEX IF NOT EXISTS idx_course_section_course_sort
+  ON course_section (course_id, status, sort_order);
+CREATE INDEX IF NOT EXISTS idx_course_lesson_course_sort
+  ON course_lesson (course_id, status, sort_order);
+CREATE INDEX IF NOT EXISTS idx_course_resource_owner
+  ON course_resource_ref (owner_type, owner_id, resource_role, status);
+CREATE INDEX IF NOT EXISTS idx_course_live_session_status
+  ON course_live_session (tenant_id, organization_id, live_status, scheduled_start_at);
+CREATE INDEX IF NOT EXISTS idx_course_enrollment_user_status
+  ON course_enrollment (tenant_id, user_id, enrollment_status, updated_at);
+CREATE INDEX IF NOT EXISTS idx_course_learning_progress_user
+  ON course_learning_progress (tenant_id, user_id, progress_status, last_activity_at);
+CREATE INDEX IF NOT EXISTS idx_course_lesson_progress_live
+  ON course_lesson_progress (live_session_id, progress_status);
+CREATE INDEX IF NOT EXISTS idx_course_comment_target
+  ON course_comment (target_type, target_id, moderation_status, created_at);
+CREATE INDEX IF NOT EXISTS idx_course_reaction_target
+  ON course_reaction (target_type, target_id, reaction_type, status);
+CREATE INDEX IF NOT EXISTS idx_course_application_status
+  ON course_application (tenant_id, organization_id, application_status, created_at);
+CREATE INDEX IF NOT EXISTS idx_course_audit_target
+  ON course_audit_log (tenant_id, target_type, target_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_course_audit_operation
+  ON course_audit_log (operation_id, created_at);

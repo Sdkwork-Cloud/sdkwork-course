@@ -92,7 +92,7 @@
     "configKeys": [
       ".sdkwork-assembly.json"
     ],
-    "routeManifest": "sdks/_route-manifests/backend-api/sdkwork-router-course-backend-api.route-manifest.json"
+    "routeManifest": "sdks/_route-manifests/backend-api/sdkwork-routes-course-backend-api.route-manifest.json"
   },
   "generator": {
     "package": "@sdkwork/sdk-generator",

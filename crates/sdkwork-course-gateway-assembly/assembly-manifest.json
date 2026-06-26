@@ -1,0 +1,30 @@
+{
+  "kind": "sdkwork.gateway.assembly",
+  "schemaVersion": 1,
+  "applicationCode": "course",
+  "packageName": "sdkwork-course-gateway-assembly",
+  "crateDir": "crates/sdkwork-course-gateway-assembly",
+  "generatedAt": "2026-06-25T13:08:05.524Z",
+  "routeCrates": [
+    {
+      "packageName": "sdkwork-routes-course-app-api",
+      "memberDir": "crates/sdkwork-routes-course-app-api",
+      "libName": "sdkwork_routes_course_app_api",
+      "surface": "app-api",
+      "pathPrefix": "/app/v3/api",
+      "mountOrder": 0,
+      "hasGatewayMount": true,
+      "hasGatewayRouteManifest": true
+    },
+    {
+      "packageName": "sdkwork-routes-course-backend-api",
+      "memberDir": "crates/sdkwork-routes-course-backend-api",
+      "libName": "sdkwork_routes_course_backend_api",
+      "surface": "backend-api",
+      "pathPrefix": "/backend/v3/api",
+      "mountOrder": 1,
+      "hasGatewayMount": true,
+      "hasGatewayRouteManifest": true
+    }
+  ]
+}

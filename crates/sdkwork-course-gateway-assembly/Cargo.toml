@@ -1,0 +1,15 @@
+[package]
+name = "sdkwork-course-gateway-assembly"
+edition.workspace = true
+version.workspace = true
+description = "Generated gateway assembly for sdkwork-course application HTTP plane."
+
+[lib]
+name = "sdkwork_course_gateway_assembly"
+path = "src/lib.rs"
+
+[dependencies]
+axum.workspace = true
+tokio = { version = "1.48", features = ["macros", "rt-multi-thread"] }
+sdkwork_routes_course_app_api = { package = "sdkwork-routes-course-app-api", path = "../sdkwork-routes-course-app-api" }
+sdkwork_routes_course_backend_api = { package = "sdkwork-routes-course-backend-api", path = "../sdkwork-routes-course-backend-api" }

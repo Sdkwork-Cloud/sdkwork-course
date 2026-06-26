@@ -21,8 +21,8 @@ const requiredDesignFiles = [
   "crates/sdkwork-content-course-service/src/service/course_service.rs",
   "crates/sdkwork-content-course-repository-sqlx/src/db/schema.rs",
   "crates/sdkwork-content-course-repository-sqlx/src/repository/course_repository.rs",
-  "crates/sdkwork-router-course-app-api/src/manifest.rs",
-  "crates/sdkwork-router-course-backend-api/src/manifest.rs",
+  "crates/sdkwork-routes-course-app-api/src/manifest.rs",
+  "crates/sdkwork-routes-course-backend-api/src/manifest.rs",
 ];
 
 const requiredTables = [
@@ -210,8 +210,8 @@ test("course authored module skeletons include TODO implementation guidance", ()
     "crates/sdkwork-content-course-service/src/service/course_service.rs",
     "crates/sdkwork-content-course-repository-sqlx/src/db/schema.rs",
     "crates/sdkwork-content-course-repository-sqlx/src/repository/course_repository.rs",
-    "crates/sdkwork-router-course-app-api/src/manifest.rs",
-    "crates/sdkwork-router-course-backend-api/src/manifest.rs",
+    "crates/sdkwork-routes-course-app-api/src/manifest.rs",
+    "crates/sdkwork-routes-course-backend-api/src/manifest.rs",
   ]) {
     const source = fs.readFileSync(path.join(courseRoot, relativePath), "utf8");
     assert.match(source, /TODO\(course\)/u, `${relativePath} must include TODO(course) implementation notes`);
@@ -223,8 +223,8 @@ test("course Rust implementation uses SDKWork crates responsibility layout", () 
   for (const member of [
     "crates/sdkwork-content-course-service",
     "crates/sdkwork-content-course-repository-sqlx",
-    "crates/sdkwork-router-course-app-api",
-    "crates/sdkwork-router-course-backend-api",
+    "crates/sdkwork-routes-course-app-api",
+    "crates/sdkwork-routes-course-backend-api",
   ]) {
     assert.ok(cargo.includes(member), `Cargo workspace must include ${member}`);
   }

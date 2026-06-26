@@ -1,9 +1,9 @@
 # Component Specs
 
 This directory is the local SDKWork component contract for
-`sdkwork-router-course-backend-api`.
+`sdkwork-routes-course-app-api`.
 
-- Component root: `sdkwork-course/crates/sdkwork-router-course-backend-api`
+- Component root: `sdkwork-course/crates/sdkwork-routes-course-app-api`
 - Canonical standards: `../../../../sdkwork-specs/README.md`
 - Machine-readable contract: `specs/component.spec.json`
 

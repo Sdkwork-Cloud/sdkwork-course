@@ -261,14 +261,14 @@ Currently validates section ownership but returns sections as-is without calling
 ## Phase 4: Router Crate Dependency Wiring
 
 **Files:**
-- Modify: `crates/sdkwork-router-course-app-api/Cargo.toml`
-- Modify: `crates/sdkwork-router-course-backend-api/Cargo.toml`
-- Modify: `crates/sdkwork-router-course-app-api/src/error.rs`
-- Modify: `crates/sdkwork-router-course-backend-api/src/error.rs`
+- Modify: `crates/sdkwork-routes-course-app-api/Cargo.toml`
+- Modify: `crates/sdkwork-routes-course-backend-api/Cargo.toml`
+- Modify: `crates/sdkwork-routes-course-app-api/src/error.rs`
+- Modify: `crates/sdkwork-routes-course-backend-api/src/error.rs`
 
 ### Task 4.1: Add service crate dependency to both router crates
 
-- [ ] **Step 1:** Add to `crates/sdkwork-router-course-app-api/Cargo.toml`:
+- [ ] **Step 1:** Add to `crates/sdkwork-routes-course-app-api/Cargo.toml`:
   ```toml
   [dependencies]
   sdkwork-content-course-service = { path = "../sdkwork-content-course-service" }
@@ -276,7 +276,7 @@ Currently validates section ownership but returns sections as-is without calling
   serde_json = "1.0"
   ```
 
-- [ ] **Step 2:** Add to `crates/sdkwork-router-course-backend-api/Cargo.toml`:
+- [ ] **Step 2:** Add to `crates/sdkwork-routes-course-backend-api/Cargo.toml`:
   ```toml
   [dependencies]
   sdkwork-content-course-service = { path = "../sdkwork-content-course-service" }
@@ -284,13 +284,13 @@ Currently validates section ownership but returns sections as-is without calling
   serde_json = "1.0"
   ```
 
-- [ ] **Step 3:** Run `cargo check -p sdkwork-router-course-app-api` and `cargo check -p sdkwork-router-course-backend-api`.
+- [ ] **Step 3:** Run `cargo check -p sdkwork-routes-course-app-api` and `cargo check -p sdkwork-routes-course-backend-api`.
 
 ### Task 4.2: Update error types to support service error conversion
 
 **Files:**
-- Modify: `crates/sdkwork-router-course-app-api/src/error.rs`
-- Modify: `crates/sdkwork-router-course-backend-api/src/error.rs`
+- Modify: `crates/sdkwork-routes-course-app-api/src/error.rs`
+- Modify: `crates/sdkwork-routes-course-backend-api/src/error.rs`
 
 - [ ] **Step 1:** Add `From<CourseError>` implementation for `CourseRouteError` in both error.rs files:
   ```rust
@@ -347,17 +347,17 @@ Currently validates section ownership but returns sections as-is without calling
 ## Phase 5: Request/Response Mapper Implementation
 
 **Files:**
-- Modify: `crates/sdkwork-router-course-app-api/src/mapper/request.rs`
-- Modify: `crates/sdkwork-router-course-app-api/src/mapper/response.rs`
-- Modify: `crates/sdkwork-router-course-app-api/src/mapper/problem.rs`
-- Modify: `crates/sdkwork-router-course-backend-api/src/mapper/request.rs`
-- Modify: `crates/sdkwork-router-course-backend-api/src/mapper/response.rs`
-- Modify: `crates/sdkwork-router-course-backend-api/src/mapper/problem.rs`
+- Modify: `crates/sdkwork-routes-course-app-api/src/mapper/request.rs`
+- Modify: `crates/sdkwork-routes-course-app-api/src/mapper/response.rs`
+- Modify: `crates/sdkwork-routes-course-app-api/src/mapper/problem.rs`
+- Modify: `crates/sdkwork-routes-course-backend-api/src/mapper/request.rs`
+- Modify: `crates/sdkwork-routes-course-backend-api/src/mapper/response.rs`
+- Modify: `crates/sdkwork-routes-course-backend-api/src/mapper/problem.rs`
 
 ### Task 5.1: Implement app-api request mapper
 
 **Files:**
-- Modify: `crates/sdkwork-router-course-app-api/src/mapper/request.rs`
+- Modify: `crates/sdkwork-routes-course-app-api/src/mapper/request.rs`
 
 - [ ] **Step 1:** Replace the pass-through `map_request` with typed functions that convert JSON request bodies into service commands:
   ```rust
@@ -373,7 +373,7 @@ Currently validates section ownership but returns sections as-is without calling
 ### Task 5.2: Implement app-api response mapper
 
 **Files:**
-- Modify: `crates/sdkwork-router-course-app-api/src/mapper/response.rs`
+- Modify: `crates/sdkwork-routes-course-app-api/src/mapper/response.rs`
 
 - [ ] **Step 1:** Replace the pass-through `map_response` with typed functions:
   ```rust
@@ -388,7 +388,7 @@ Currently validates section ownership but returns sections as-is without calling
 ### Task 5.3: Implement app-api problem mapper
 
 **Files:**
-- Modify: `crates/sdkwork-router-course-app-api/src/mapper/problem.rs`
+- Modify: `crates/sdkwork-routes-course-app-api/src/mapper/problem.rs`
 
 - [ ] **Step 1:** Replace the pass-through `map_problem` with:
   ```rust
@@ -400,9 +400,9 @@ Currently validates section ownership but returns sections as-is without calling
 ### Task 5.4: Implement backend-api mappers (same pattern as app-api)
 
 **Files:**
-- Modify: `crates/sdkwork-router-course-backend-api/src/mapper/request.rs`
-- Modify: `crates/sdkwork-router-course-backend-api/src/mapper/response.rs`
-- Modify: `crates/sdkwork-router-course-backend-api/src/mapper/problem.rs`
+- Modify: `crates/sdkwork-routes-course-backend-api/src/mapper/request.rs`
+- Modify: `crates/sdkwork-routes-course-backend-api/src/mapper/response.rs`
+- Modify: `crates/sdkwork-routes-course-backend-api/src/mapper/problem.rs`
 
 - [ ] **Step 1:** Implement backend-specific request parsers (includes instructor, category CRUD, offering management, section/lesson management, live session management, enrollment management, comment moderation, application review, audit log queries).
 
@@ -415,7 +415,7 @@ Currently validates section ownership but returns sections as-is without calling
 ## Phase 6: Handler Implementation — App-API (31 handlers)
 
 **Files:**
-- Modify: `crates/sdkwork-router-course-app-api/src/handlers.rs`
+- Modify: `crates/sdkwork-routes-course-app-api/src/handlers.rs`
 
 ### Task 6.1: Implement app-api handlers with service trait injection
 
@@ -459,7 +459,7 @@ Since we don't have an HTTP framework yet, handlers are pure functions that take
 
 - [ ] **Step 13:** Implement `course_applications_create`, `course_applications_current_list`, `course_applications_retrieve`.
 
-- [ ] **Step 14:** Run `cargo check -p sdkwork-router-course-app-api`.
+- [ ] **Step 14:** Run `cargo check -p sdkwork-routes-course-app-api`.
 
 ### Task 6.2: Add missing service trait methods
 
@@ -481,7 +481,7 @@ Some handlers need service methods not yet on `CourseApplicationService`:
 ## Phase 7: Handler Implementation — Backend-API (57 handlers)
 
 **Files:**
-- Modify: `crates/sdkwork-router-course-backend-api/src/handlers.rs`
+- Modify: `crates/sdkwork-routes-course-backend-api/src/handlers.rs`
 
 ### Task 7.1: Implement backend-api handlers
 
@@ -517,15 +517,15 @@ Same pattern as app-api but with admin/operator capabilities.
 
 - [ ] **Step 15:** Implement audit logs: `course_audit_logs_list`, `course_audit_logs_retrieve`.
 
-- [ ] **Step 16:** Run `cargo check -p sdkwork-router-course-backend-api`.
+- [ ] **Step 16:** Run `cargo check -p sdkwork-routes-course-backend-api`.
 
 ---
 
 ## Phase 8: Route Manifest Implementation
 
 **Files:**
-- Modify: `crates/sdkwork-router-course-app-api/src/manifest.rs`
-- Modify: `crates/sdkwork-router-course-backend-api/src/manifest.rs`
+- Modify: `crates/sdkwork-routes-course-app-api/src/manifest.rs`
+- Modify: `crates/sdkwork-routes-course-backend-api/src/manifest.rs`
 
 ### Task 8.1: Implement app-api route manifest
 
@@ -536,7 +536,7 @@ Same pattern as app-api but with admin/operator capabilities.
   {
     "kind": "sdkwork.route.manifest",
     "schemaVersion": 1,
-    "package": "sdkwork-router-course-app-api",
+    "package": "sdkwork-routes-course-app-api",
     "surface": "app-api",
     "prefix": "/app/v3/api",
     "operations": [
@@ -551,7 +551,7 @@ Same pattern as app-api but with admin/operator capabilities.
   }
   ```
 
-- [ ] **Step 3:** Run `cargo check -p sdkwork-router-course-app-api`.
+- [ ] **Step 3:** Run `cargo check -p sdkwork-routes-course-app-api`.
 
 ### Task 8.2: Implement backend-api route manifest
 
@@ -559,15 +559,15 @@ Same pattern as app-api but with admin/operator capabilities.
 
 - [ ] **Step 2:** Implement `build_route_manifest()` with all backend-api operations.
 
-- [ ] **Step 3:** Run `cargo check -p sdkwork-router-course-backend-api`.
+- [ ] **Step 3:** Run `cargo check -p sdkwork-routes-course-backend-api`.
 
 ---
 
 ## Phase 9: Router/Route Builder Implementation
 
 **Files:**
-- Modify: `crates/sdkwork-router-course-app-api/src/routes.rs`
-- Modify: `crates/sdkwork-router-course-backend-api/src/routes.rs`
+- Modify: `crates/sdkwork-routes-course-app-api/src/routes.rs`
+- Modify: `crates/sdkwork-routes-course-backend-api/src/routes.rs`
 
 ### Task 9.1: Implement app-api route builder
 
@@ -580,21 +580,21 @@ Same pattern as app-api but with admin/operator capabilities.
   }
   ```
 
-- [ ] **Step 2:** Run `cargo check -p sdkwork-router-course-app-api`.
+- [ ] **Step 2:** Run `cargo check -p sdkwork-routes-course-app-api`.
 
 ### Task 9.2: Implement backend-api route builder
 
 - [ ] **Step 1:** Same pattern as app-api.
 
-- [ ] **Step 2:** Run `cargo check -p sdkwork-router-course-backend-api`.
+- [ ] **Step 2:** Run `cargo check -p sdkwork-routes-course-backend-api`.
 
 ---
 
 ## Phase 10: Path Expansion
 
 **Files:**
-- Modify: `crates/sdkwork-router-course-app-api/src/paths.rs`
-- Modify: `crates/sdkwork-router-course-backend-api/src/paths.rs`
+- Modify: `crates/sdkwork-routes-course-app-api/src/paths.rs`
+- Modify: `crates/sdkwork-routes-course-backend-api/src/paths.rs`
 
 ### Task 10.1: Add missing path constants for all operations
 
@@ -620,8 +620,8 @@ Same pattern as app-api but with admin/operator capabilities.
 ### Task 11.2: Run existing tests
 
 - [ ] **Step 1:** Run `cargo test -p sdkwork-content-course-service` — verify existing tests pass.
-- [ ] **Step 2:** Run `cargo test -p sdkwork-router-course-app-api` — verify existing tests pass.
-- [ ] **Step 3:** Run `cargo test -p sdkwork-router-course-backend-api` — verify existing tests pass.
+- [ ] **Step 2:** Run `cargo test -p sdkwork-routes-course-app-api` — verify existing tests pass.
+- [ ] **Step 3:** Run `cargo test -p sdkwork-routes-course-backend-api` — verify existing tests pass.
 - [ ] **Step 4:** Run `cargo test --workspace`.
 
 ### Task 11.3: Format and lint
@@ -649,8 +649,8 @@ Same pattern as app-api but with admin/operator capabilities.
 # Per-crate checks
 cargo check -p sdkwork-content-course-service
 cargo check -p sdkwork-content-course-repository-sqlx
-cargo check -p sdkwork-router-course-app-api
-cargo check -p sdkwork-router-course-backend-api
+cargo check -p sdkwork-routes-course-app-api
+cargo check -p sdkwork-routes-course-backend-api
 
 # Full workspace
 cargo check --workspace
