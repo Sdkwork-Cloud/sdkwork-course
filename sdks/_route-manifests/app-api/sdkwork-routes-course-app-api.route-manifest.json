@@ -1,0 +1,1073 @@
+{
+  "schemaVersion": 1,
+  "kind": "sdkwork.route.manifest",
+  "packageName": "sdkwork-routes-course-app-api",
+  "surface": "app-api",
+  "owner": "sdkwork-course",
+  "domain": "content",
+  "capability": "course",
+  "apiAuthority": "sdkwork-course-app-api",
+  "sdkFamily": "sdkwork-course-app-sdk",
+  "prefix": "/app/v3/api",
+  "source": {
+    "crateRoot": "crates/sdkwork-routes-course-app-api",
+    "crateImport": "sdkwork_routes_course_app_api",
+    "operations": "apis/app-api/course/operations.json"
+  },
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_categories",
+      "operationId": "courseCategories.list",
+      "resource": "courseCategories",
+      "tags": [
+        "courseCategories"
+      ],
+      "auth": {
+        "mode": "dual-token-or-anonymous",
+        "required": true,
+        "permission": "course.categories.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_categories_list"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseCategoryList",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_categories/{categoryId}",
+      "operationId": "courseCategories.retrieve",
+      "resource": "courseCategories",
+      "tags": [
+        "courseCategories"
+      ],
+      "auth": {
+        "mode": "dual-token-or-anonymous",
+        "required": true,
+        "permission": "course.categories.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_categories_retrieve"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseCategoryItem",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/courses",
+      "operationId": "courses.list",
+      "resource": "courses",
+      "tags": [
+        "courses"
+      ],
+      "auth": {
+        "mode": "dual-token-or-anonymous",
+        "required": true,
+        "permission": "course.courses.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "courses_list"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CoursePage",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/courses/{courseId}",
+      "operationId": "courses.retrieve",
+      "resource": "courses",
+      "tags": [
+        "courses"
+      ],
+      "auth": {
+        "mode": "dual-token-or-anonymous",
+        "required": true,
+        "permission": "course.courses.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "courses_retrieve"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseItem",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/courses/{courseId}/offerings",
+      "operationId": "courseOfferings.list",
+      "resource": "courseOfferings",
+      "tags": [
+        "courseOfferings"
+      ],
+      "auth": {
+        "mode": "dual-token-or-anonymous",
+        "required": true,
+        "permission": "course.offerings.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_offerings_list"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_offerings/{offeringId}",
+      "operationId": "courseOfferings.retrieve",
+      "resource": "courseOfferings",
+      "tags": [
+        "courseOfferings"
+      ],
+      "auth": {
+        "mode": "dual-token-or-anonymous",
+        "required": true,
+        "permission": "course.offerings.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_offerings_retrieve"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "POST",
+      "path": "/app/v3/api/course_offerings/{offeringId}/enrollments",
+      "operationId": "courseEnrollments.create",
+      "resource": "courseEnrollments",
+      "tags": [
+        "courseEnrollments"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.enrollments.write",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_enrollments_create"
+      },
+      "schemas": {
+        "request": "CourseOperationCommand",
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": "required",
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_enrollments",
+      "operationId": "courseEnrollments.current.list",
+      "resource": "courseEnrollments",
+      "tags": [
+        "courseEnrollments"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.enrollments.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_enrollments_current_list"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_enrollments/{enrollmentId}",
+      "operationId": "courseEnrollments.retrieve",
+      "resource": "courseEnrollments",
+      "tags": [
+        "courseEnrollments"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.enrollments.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_enrollments_retrieve"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/app/v3/api/course_enrollments/{enrollmentId}",
+      "operationId": "courseEnrollments.cancel",
+      "resource": "courseEnrollments",
+      "tags": [
+        "courseEnrollments"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.enrollments.write",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_enrollments_cancel"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/courses/{courseId}/sections",
+      "operationId": "courseSections.list",
+      "resource": "courseSections",
+      "tags": [
+        "courseSections"
+      ],
+      "auth": {
+        "mode": "dual-token-or-anonymous",
+        "required": true,
+        "permission": "course.lessons.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_sections_list"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseSectionList",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/courses/{courseId}/lessons",
+      "operationId": "courseLessons.list",
+      "resource": "courseLessons",
+      "tags": [
+        "courseLessons"
+      ],
+      "auth": {
+        "mode": "dual-token-or-anonymous",
+        "required": true,
+        "permission": "course.lessons.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_lessons_list"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseLessonList",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_lessons/{lessonId}",
+      "operationId": "courseLessons.retrieve",
+      "resource": "courseLessons",
+      "tags": [
+        "courseLessons"
+      ],
+      "auth": {
+        "mode": "dual-token-or-anonymous",
+        "required": true,
+        "permission": "course.lessons.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_lessons_retrieve"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseLessonItem",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_lessons/{lessonId}/resources",
+      "operationId": "courseLessonResources.list",
+      "resource": "courseLessonResources",
+      "tags": [
+        "courseLessonResources"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.resources.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_lesson_resources_list"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_enrollments/{enrollmentId}/progress",
+      "operationId": "courseProgress.retrieve",
+      "resource": "courseProgress",
+      "tags": [
+        "courseProgress"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.progress.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_progress_retrieve"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/app/v3/api/course_lessons/{lessonId}/progress",
+      "operationId": "courseLessonProgress.update",
+      "resource": "courseLessonProgress",
+      "tags": [
+        "courseLessonProgress"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.progress.write",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_lesson_progress_update"
+      },
+      "schemas": {
+        "request": "CourseOperationCommand",
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": "recommended",
+      "auditEvent": null
+    },
+    {
+      "method": "PATCH",
+      "path": "/app/v3/api/course_lessons/{lessonId}/watch_position",
+      "operationId": "courseLessonProgress.watchPositions.update",
+      "resource": "courseLessonProgress",
+      "tags": [
+        "courseLessonProgress"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.progress.write",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_lesson_progress_watch_positions_update"
+      },
+      "schemas": {
+        "request": "CourseOperationCommand",
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_live_sessions",
+      "operationId": "courseLiveSessions.list",
+      "resource": "courseLiveSessions",
+      "tags": [
+        "courseLiveSessions"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.live_sessions.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_live_sessions_list"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_live_sessions/{liveSessionId}",
+      "operationId": "courseLiveSessions.retrieve",
+      "resource": "courseLiveSessions",
+      "tags": [
+        "courseLiveSessions"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.live_sessions.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_live_sessions_retrieve"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "POST",
+      "path": "/app/v3/api/course_live_sessions/{liveSessionId}/join",
+      "operationId": "courseLiveSessions.join",
+      "resource": "courseLiveSessions",
+      "tags": [
+        "courseLiveSessions"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.live_sessions.join",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_live_sessions_join"
+      },
+      "schemas": {
+        "request": "CourseOperationCommand",
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": "recommended",
+      "auditEvent": null
+    },
+    {
+      "method": "POST",
+      "path": "/app/v3/api/course_live_sessions/{liveSessionId}/heartbeat",
+      "operationId": "courseLiveSessions.heartbeat",
+      "resource": "courseLiveSessions",
+      "tags": [
+        "courseLiveSessions"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.live_sessions.join",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_live_sessions_heartbeat"
+      },
+      "schemas": {
+        "request": "CourseOperationCommand",
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "POST",
+      "path": "/app/v3/api/course_live_sessions/{liveSessionId}/leave",
+      "operationId": "courseLiveSessions.leave",
+      "resource": "courseLiveSessions",
+      "tags": [
+        "courseLiveSessions"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.live_sessions.join",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_live_sessions_leave"
+      },
+      "schemas": {
+        "request": "CourseOperationCommand",
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_live_sessions/{liveSessionId}/replay",
+      "operationId": "courseLiveSessions.replay.retrieve",
+      "resource": "courseLiveSessions",
+      "tags": [
+        "courseLiveSessions"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.live_sessions.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_live_sessions_replay_retrieve"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/courses/{courseId}/comments",
+      "operationId": "courseComments.list",
+      "resource": "courseComments",
+      "tags": [
+        "courseComments"
+      ],
+      "auth": {
+        "mode": "dual-token-or-anonymous",
+        "required": true,
+        "permission": "course.comments.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_comments_list"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "POST",
+      "path": "/app/v3/api/courses/{courseId}/comments",
+      "operationId": "courseComments.create",
+      "resource": "courseComments",
+      "tags": [
+        "courseComments"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.comments.write",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_comments_create"
+      },
+      "schemas": {
+        "request": "CourseOperationCommand",
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": "recommended",
+      "auditEvent": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/app/v3/api/course_comments/{commentId}",
+      "operationId": "courseComments.delete",
+      "resource": "courseComments",
+      "tags": [
+        "courseComments"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.comments.write",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_comments_delete"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "PUT",
+      "path": "/app/v3/api/course_reactions",
+      "operationId": "courseReactions.replace",
+      "resource": "courseReactions",
+      "tags": [
+        "courseReactions"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.reactions.write",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_reactions_replace"
+      },
+      "schemas": {
+        "request": "CourseOperationCommand",
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": "recommended",
+      "auditEvent": null
+    },
+    {
+      "method": "DELETE",
+      "path": "/app/v3/api/course_reactions/{reactionId}",
+      "operationId": "courseReactions.delete",
+      "resource": "courseReactions",
+      "tags": [
+        "courseReactions"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.reactions.write",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_reactions_delete"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "POST",
+      "path": "/app/v3/api/course_applications",
+      "operationId": "courseApplications.create",
+      "resource": "courseApplications",
+      "tags": [
+        "courseApplications"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.applications.write",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_applications_create"
+      },
+      "schemas": {
+        "request": "CourseOperationCommand",
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": "required",
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_applications",
+      "operationId": "courseApplications.current.list",
+      "resource": "courseApplications",
+      "tags": [
+        "courseApplications"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.applications.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_applications_current_list"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    },
+    {
+      "method": "GET",
+      "path": "/app/v3/api/course_applications/{applicationId}",
+      "operationId": "courseApplications.retrieve",
+      "resource": "courseApplications",
+      "tags": [
+        "courseApplications"
+      ],
+      "auth": {
+        "mode": "dual-token",
+        "required": true,
+        "permission": "course.applications.read",
+        "tenantScope": "tenant",
+        "dataScope": "organization"
+      },
+      "handler": {
+        "module": "crate::handlers",
+        "name": "course_applications_retrieve"
+      },
+      "schemas": {
+        "request": null,
+        "response": "CourseOperationResult",
+        "problem": "ProblemDetail"
+      },
+      "ownership": {
+        "owner": "sdkwork-course",
+        "domain": "content",
+        "capability": "course",
+        "apiAuthority": "sdkwork-course-app-api",
+        "sdkFamily": "sdkwork-course-app-sdk"
+      },
+      "idempotency": null,
+      "auditEvent": null
+    }
+  ]
+}

@@ -2,6 +2,12 @@
 
 #![recursion_limit = "512"]
 
+use std::sync::Arc;
+
+use axum::Router;
+use sdkwork_content_course_service::CourseApplicationService;
+use serde_json::Value;
+
 pub mod error;
 pub mod handlers;
 pub mod manifest;
@@ -30,6 +36,6 @@ pub fn gateway_route_manifest() -> Value {
     build_route_manifest()
 }
 
-pub fn gateway_mount() -> Value {
+pub fn gateway_mount(_service: Arc<dyn CourseApplicationService>) -> Router {
     build_router()
 }

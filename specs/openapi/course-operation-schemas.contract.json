@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "kind": "sdkwork.course.openapi.schemas",
+  "owner": "sdkwork-course",
+  "schemas": {
+    "CourseCatalogCreateRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "subtitle": { "type": "string" },
+        "description": { "type": "string" },
+        "categoryId": { "type": "string" },
+        "instructorId": { "type": "string" },
+        "level": { "type": "string", "enum": ["beginner", "intermediate", "advanced", "all"] },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "CourseCatalogUpdateRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "categoryId": { "type": "string" },
+        "instructorId": { "type": "string" },
+        "level": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string" }
+      }
+    },
+    "CourseCategoryCreateRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "slug": { "type": "string" },
+        "description": { "type": "string" },
+        "iconKey": { "type": "string" },
+        "sortWeight": { "type": "integer", "format": "int64" }
+      }
+    },
+    "CourseCategoryUpdateRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "description": { "type": "string" },
+        "iconKey": { "type": "string" },
+        "sortWeight": { "type": "integer", "format": "int64" },
+        "status": { "type": "string" }
+      }
+    },
+    "CourseSectionMutationRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sectionNo": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "durationSeconds": { "type": "integer", "format": "int64" },
+        "sortWeight": { "type": "integer", "format": "int64" },
+        "status": { "type": "string" }
+      }
+    },
+    "CourseLessonMutationRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sectionId": { "type": "string" },
+        "lessonNo": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "externalBvid": { "type": "string" },
+        "durationSeconds": { "type": "integer", "format": "int64" },
+        "freePreview": { "type": "boolean" },
+        "status": { "type": "string" },
+        "metadata": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "CourseOfferingMutationRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "offeringType": { "type": "string", "enum": ["vod", "live", "blended", "cohort"] },
+        "title": { "type": "string" },
+        "startsAt": { "type": "string", "format": "date-time" },
+        "endsAt": { "type": "string", "format": "date-time" },
+        "enrollmentStartsAt": { "type": "string", "format": "date-time" },
+        "enrollmentEndsAt": { "type": "string", "format": "date-time" },
+        "capacityLimit": { "type": "integer", "format": "int32" },
+        "status": { "type": "string" }
+      }
+    },
+    "CourseItem": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string" },
+        "courseCode": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string" },
+        "lessonsCount": { "type": "integer", "format": "int64" },
+        "studentsCount": { "type": "integer", "format": "int64" },
+        "category": { "type": "string" },
+        "instructor": { "type": "string" },
+        "level": { "type": "string" },
+        "tags": { "type": "string" }
+      }
+    },
+    "CourseCategoryItem": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "sortWeight": { "type": "integer", "format": "int64" },
+        "courseCount": { "type": "integer", "format": "int64" }
+      }
+    },
+    "CourseSectionItem": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string" },
+        "courseId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "lessonCount": { "type": "integer", "format": "int64" },
+        "durationSeconds": { "type": "integer", "format": "int64" },
+        "sortWeight": { "type": "integer", "format": "int64" },
+        "status": { "type": "string" }
+      }
+    },
+    "CourseLessonItem": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string" },
+        "courseId": { "type": "string" },
+        "sectionId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "durationSeconds": { "type": "integer", "format": "int64" },
+        "freePreview": { "type": "boolean" },
+        "status": { "type": "string" }
+      }
+    },
+    "CoursePage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "items": { "type": "array", "items": { "$ref": "#/components/schemas/CourseItem" } },
+        "page": { "type": "integer", "format": "int64" },
+        "pageSize": { "type": "integer", "format": "int64" },
+        "total": { "type": "integer", "format": "int64" }
+      }
+    },
+    "CourseCategoryList": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "items": { "type": "array", "items": { "$ref": "#/components/schemas/CourseCategoryItem" } },
+        "total": { "type": "integer", "format": "int64" }
+      }
+    },
+    "CourseSectionList": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "items": { "type": "array", "items": { "$ref": "#/components/schemas/CourseSectionItem" } },
+        "total": { "type": "integer", "format": "int64" }
+      }
+    },
+    "CourseLessonList": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "items": { "type": "array", "items": { "$ref": "#/components/schemas/CourseLessonItem" } },
+        "total": { "type": "integer", "format": "int64" }
+      }
+    },
+    "CourseTypedResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requestId", "data"],
+      "properties": {
+        "requestId": { "type": "string" },
+        "data": { "type": "object", "additionalProperties": true }
+      }
+    }
+  },
+  "operations": {
+    "courses.list": { "response": "CoursePage" },
+    "courses.create": { "request": "CourseCatalogCreateRequest", "response": "CourseItem" },
+    "courses.update": { "request": "CourseCatalogUpdateRequest", "response": "CourseItem" },
+    "courses.retrieve": { "response": "CourseItem" },
+    "courses.publish": { "response": "CourseItem" },
+    "courses.unpublish": { "response": "CourseItem" },
+    "courseCategories.list": { "response": "CourseCategoryList" },
+    "courseCategories.create": { "request": "CourseCategoryCreateRequest", "response": "CourseCategoryItem" },
+    "courseCategories.update": { "request": "CourseCategoryUpdateRequest", "response": "CourseCategoryItem" },
+    "courseCategories.retrieve": { "response": "CourseCategoryItem" },
+    "courseSections.list": { "response": "CourseSectionList" },
+    "courseSections.create": { "request": "CourseSectionMutationRequest", "response": "CourseSectionItem" },
+    "courseSections.update": { "request": "CourseSectionMutationRequest", "response": "CourseSectionItem" },
+    "courseLessons.list": { "response": "CourseLessonList" },
+    "courseLessons.create": { "request": "CourseLessonMutationRequest", "response": "CourseLessonItem" },
+    "courseLessons.update": { "request": "CourseLessonMutationRequest", "response": "CourseLessonItem" },
+    "courseLessons.retrieve": { "response": "CourseLessonItem" },
+    "courseOfferings.create": { "request": "CourseOfferingMutationRequest", "response": "CourseOperationResult" },
+    "courseOfferings.update": { "request": "CourseOfferingMutationRequest", "response": "CourseOperationResult" }
+  }
+}

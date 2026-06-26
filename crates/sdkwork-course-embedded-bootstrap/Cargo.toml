@@ -1,0 +1,25 @@
+[package]
+name = "sdkwork-course-embedded-bootstrap"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Embedded course application bootstrap for unified-process platform consumers."
+
+[lib]
+name = "sdkwork_course_embedded_bootstrap"
+
+[dependencies]
+axum.workspace = true
+async-trait = "0.1"
+dotenvy = "0.15"
+sdkwork-content-course-repository-sqlx = { path = "../sdkwork-content-course-repository-sqlx" }
+sdkwork-content-course-service = { path = "../sdkwork-content-course-service" }
+sdkwork-course-database-host = { path = "../sdkwork-course-database-host" }
+sdkwork-database-sqlx.workspace = true
+sdkwork_routes_course_app_api = { package = "sdkwork-routes-course-app-api", path = "../sdkwork-routes-course-app-api" }
+sdkwork_routes_course_backend_api = { package = "sdkwork-routes-course-backend-api", path = "../sdkwork-routes-course-backend-api" }
+tokio = { version = "1.52", features = ["macros", "rt-multi-thread"] }
+tracing = "0.1"
+ureq = { version = "2.12", default-features = false, features = ["json"] }
+serde_json = "1.0"
+uuid = { version = "1.16", features = ["v4"] }
