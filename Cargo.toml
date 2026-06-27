@@ -2,6 +2,7 @@
 resolver = "2"
 members = [
     "crates/sdkwork-course-gateway-assembly",
+    "crates/sdkwork-course-embedded-bootstrap",
   "crates/sdkwork-course-database-host",
   "crates/sdkwork-content-course-service",
   "crates/sdkwork-content-course-repository-sqlx",

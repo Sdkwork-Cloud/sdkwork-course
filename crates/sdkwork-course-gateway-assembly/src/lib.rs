@@ -1,6 +1,5 @@
 //! Gateway assembly for sdkwork-course.
-//! Route inventory is in `assembly-manifest.json`. Full embedded bootstrap wiring
-//! remains deferred until postgres repository ports are materialized.
+//! Business routes are composed through embedded bootstrap for platform consumers.
 
 mod generated;
 
@@ -8,10 +7,17 @@ pub struct ApplicationAssembly {
     pub router: axum::Router,
 }
 
-pub async fn assemble_application_router() -> Result<ApplicationAssembly, String> {
+pub async fn assemble_application_business_router() -> Result<ApplicationAssembly, String> {
+    let assembly =
+        sdkwork_course_embedded_bootstrap::assemble_embedded_course_application_router_from_env()
+            .await?;
     Ok(ApplicationAssembly {
-        router: axum::Router::new(),
+        router: assembly.router,
     })
+}
+
+pub async fn assemble_application_router() -> Result<ApplicationAssembly, String> {
+    assemble_application_business_router().await
 }
 
 pub fn assembly_route_count() -> usize {

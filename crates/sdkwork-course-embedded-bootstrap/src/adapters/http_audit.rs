@@ -56,7 +56,7 @@ impl HttpCourseAuditEventPort {
         request = apply_service_auth_headers(request);
 
         request.send_json(body).map_err(|error| {
-            CourseError::integration_unavailable(format!("audit integration failed: {error}"))
+            CourseError::storage(format!("audit integration failed: {error}"))
         })?;
         Ok(())
     }

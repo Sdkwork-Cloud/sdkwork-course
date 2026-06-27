@@ -10,7 +10,7 @@ use sdkwork_content_course_service::ports::provider::{
 
 macro_rules! integration_unavailable {
     ($capability:expr) => {
-        CourseError::integration_unavailable(format!(
+        CourseError::storage(format!(
             "{} integration is not configured for embedded course runtime",
             $capability
         ))
