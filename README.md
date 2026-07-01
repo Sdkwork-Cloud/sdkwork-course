@@ -1,4 +1,5 @@
 # SDKWork Course
+repository-kind: application
 
 `sdkwork-course` owns the SDKWork course system. It carries authored API
 contracts, database contracts, Rust service and repository crates, route crates,
