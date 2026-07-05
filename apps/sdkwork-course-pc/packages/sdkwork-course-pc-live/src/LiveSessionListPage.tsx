@@ -2,63 +2,53 @@
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { PageHeader, LoadingSpinner, EmptyState } from '@sdkwork/sdkwork-course-pc-commons'
-import { useCourseSdk } from '@sdkwork/sdkwork-course-pc-core'
-
-interface LiveSession {
-  id: string
-  title: string
-  description?: string
-  liveStatus: string
-  scheduledStartAt: string
-  scheduledEndAt: string
-  actualStartAt?: string
-  instructorId?: string
-  status: string
-}
-
-interface LiveSessionListResponse {
-  code: string
-  msg: string
-  data?: LiveSession[]
-}
+import {
+  useCourseSdk,
+  extractSdkListItems,
+  readEntityString,
+} from '@sdkwork/sdkwork-course-pc-core'
 
 export function LiveSessionListPage() {
   const navigate = useNavigate()
   const sdk = useCourseSdk()
 
-  const { data, isLoading, error } = useQuery<LiveSessionListResponse>({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['liveSessions'],
-    queryFn: async () => sdk.liveSessions.list(),
+    queryFn: async () => sdk.courseLiveSessions.list(),
   })
 
-  const sessions = data?.data || []
+  const sessions = extractSdkListItems(data).map((record) => ({
+    id: readEntityString(record, 'id', 'liveSessionId'),
+    title: readEntityString(record, 'title', 'name'),
+    description: readEntityString(record, 'description') || undefined,
+    liveStatus: readEntityString(record, 'liveStatus', 'live_status', 'status') || 'scheduled',
+    scheduledStartAt: readEntityString(record, 'scheduledStartAt', 'scheduled_start_at') || new Date().toISOString(),
+    scheduledEndAt: readEntityString(record, 'scheduledEndAt', 'scheduled_end_at') || new Date().toISOString(),
+  }))
 
   if (isLoading) {
-    return <LoadingSpinner text="鍔犺浇鐩存挱璇剧▼..." />
+    return <LoadingSpinner text="加载直播课程..." />
   }
 
   if (error) {
     return (
       <EmptyState
-        icon="鉂?
-        title="鍔犺浇澶辫触"
-        description="鏃犳硶鍔犺浇鐩存挱璇剧▼鍒楄〃"
+        icon="!"
+        title="加载失败"
+        description="无法加载直播课程列表"
       />
     )
   }
 
   return (
     <div>
-      <PageHeader
-        title="鐩存挱璇惧爞"
-        subtitle="鍙備笌瀹炴椂浜掑姩瀛︿範"
-      />
+      <PageHeader title="直播课堂" subtitle="参与实时互动学习" />
 
       {sessions.length === 0 ? (
         <EmptyState
-          icon="馃摵"
-          title="鏆傛棤鐩存挱璇剧▼"
-          description="娌℃湁鍗冲皢寮€濮嬬殑鐩存挱璇剧▼"
+          icon="📺"
+          title="暂无直播课程"
+          description="没有即将开始的直播课程"
         />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -72,15 +62,18 @@ export function LiveSessionListPage() {
                 <div className="absolute top-2 left-2">
                   {session.liveStatus === 'live' && (
                     <span className="bg-red-600 text-white px-2 py-1 rounded text-xs font-semibold animate-pulse">
-                      馃敶 鐩存挱涓?                    </span>
+                      直播中
+                    </span>
                   )}
                   {session.liveStatus === 'scheduled' && (
                     <span className="bg-blue-600 text-white px-2 py-1 rounded text-xs font-semibold">
-                      鍗冲皢寮€濮?                    </span>
+                      即将开始
+                    </span>
                   )}
                   {session.liveStatus === 'ended' && (
                     <span className="bg-gray-600 text-white px-2 py-1 rounded text-xs font-semibold">
-                      宸茬粨鏉?                    </span>
+                      已结束
+                    </span>
                   )}
                 </div>
               </div>
@@ -90,8 +83,8 @@ export function LiveSessionListPage() {
                   <p className="text-gray-600 text-sm mb-2 line-clamp-2">{session.description}</p>
                 )}
                 <div className="text-sm text-gray-500">
-                  <p>寮€濮嬫椂闂? {new Date(session.scheduledStartAt).toLocaleString()}</p>
-                  <p>缁撴潫鏃堕棿: {new Date(session.scheduledEndAt).toLocaleString()}</p>
+                  <p>开始时间: {new Date(session.scheduledStartAt).toLocaleString()}</p>
+                  <p>结束时间: {new Date(session.scheduledEndAt).toLocaleString()}</p>
                 </div>
               </div>
             </div>
@@ -101,6 +94,3 @@ export function LiveSessionListPage() {
     </div>
   )
 }
-
-
-

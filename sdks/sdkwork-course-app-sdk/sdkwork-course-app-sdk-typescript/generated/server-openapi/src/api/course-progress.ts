@@ -1,7 +1,6 @@
 import { appApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationResult } from '../types';
 
 
 export class CourseProgressApi {
@@ -12,9 +11,9 @@ export class CourseProgressApi {
   }
 
 
-/** course Progress retrieve */
-  async retrieve(enrollmentId: string): Promise<CourseOperationResult> {
-    return this.client.get<CourseOperationResult>(appApiPath(`/course_enrollments/${serializePathParameter(enrollmentId, { name: 'enrollmentId', style: 'simple', explode: false })}/progress`));
+/** course Progress retrieve. */
+  async retrieve(enrollmentId: string): Promise<Record<string, unknown>> {
+    return this.client.get<Record<string, unknown>>(appApiPath(`/course_enrollments/${serializePathParameter(enrollmentId, { name: 'enrollmentId', style: 'simple', explode: false })}/progress`));
   }
 }
 

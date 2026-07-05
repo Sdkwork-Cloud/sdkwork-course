@@ -6,7 +6,8 @@
   "displayName": "COURSE Database",
   "owner": "course-platform",
   "engines": [
-    "postgres"
+    "postgres",
+    "sqlite"
   ],
   "defaultEngine": "postgres",
   "tablePrefix": "course_",

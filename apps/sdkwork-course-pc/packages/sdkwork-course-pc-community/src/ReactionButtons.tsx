@@ -19,7 +19,7 @@ export function ReactionButtons({ targetType, targetId, reactions }: ReactionBut
 
   const reactionMutation = useMutation({
     mutationFn: async ({ reactionType, reactionValue }: { reactionType: string; reactionValue: string }) => {
-      return sdk.reactions.replace({
+      return sdk.courseReactions.replace({
         targetType,
         targetId,
         reactionType,
@@ -49,7 +49,7 @@ export function ReactionButtons({ targetType, targetId, reactions }: ReactionBut
             : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
         }`}
       >
-        鉂わ笍 {reactions?.like ? '宸茬偣璧? : '鐐硅禐'}
+        赞 {reactions?.like ? '已点赞' : '点赞'}
       </button>
       <button
         onClick={() => handleReaction('favorite')}
@@ -59,7 +59,7 @@ export function ReactionButtons({ targetType, targetId, reactions }: ReactionBut
             : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
         }`}
       >
-        猸?{reactions?.favorite ? '宸叉敹钘? : '鏀惰棌'}
+        ★ {reactions?.favorite ? '已收藏' : '收藏'}
       </button>
       <button
         onClick={() => handleReaction('save')}
@@ -69,17 +69,14 @@ export function ReactionButtons({ targetType, targetId, reactions }: ReactionBut
             : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
         }`}
       >
-        馃敄 {reactions?.save ? '宸蹭繚瀛? : '淇濆瓨'}
+        存 {reactions?.save ? '已保存' : '保存'}
       </button>
       <button
         onClick={() => handleReaction('share')}
         className="flex items-center gap-1 px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
       >
-        馃敆 鍒嗕韩
+        分享
       </button>
     </div>
   )
 }
-
-
-

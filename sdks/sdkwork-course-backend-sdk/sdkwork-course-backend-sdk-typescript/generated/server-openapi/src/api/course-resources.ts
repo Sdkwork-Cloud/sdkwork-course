@@ -1,13 +1,15 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationCommand, CourseOperationResult } from '../types';
+import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../types';
 
 
 export interface CourseResourcesListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -19,30 +21,32 @@ export class CourseResourcesApi {
   }
 
 
-/** course Resources list */
-  async list(lessonId: string, params?: CourseResourcesListParams): Promise<CourseOperationResult> {
+/** course Resources list. */
+  async list(lessonId: string, params?: CourseResourcesListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(backendApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}/resources`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}/resources`), query));
   }
 
-/** course Resources create */
-  async create(lessonId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
-    return this.client.post<CourseOperationResult>(backendApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}/resources`), body, undefined, undefined, 'application/json');
+/** course Resources create. */
+  async create(lessonId: string, body: CourseCommandBody): Promise<Record<string, unknown>> {
+    return this.client.post<Record<string, unknown>>(backendApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}/resources`), body, undefined, undefined, 'application/json');
   }
 
-/** course Resources update */
-  async update(resourceRefId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
-    return this.client.patch<CourseOperationResult>(backendApiPath(`/course_resources/${serializePathParameter(resourceRefId, { name: 'resourceRefId', style: 'simple', explode: false })}`), body, undefined, undefined, 'application/json');
+/** course Resources update. */
+  async update(resourceRefId: string, body: CourseCommandBody): Promise<Record<string, unknown>> {
+    return this.client.patch<Record<string, unknown>>(backendApiPath(`/course_resources/${serializePathParameter(resourceRefId, { name: 'resourceRefId', style: 'simple', explode: false })}`), body, undefined, undefined, 'application/json');
   }
 
-/** course Resources delete */
-  async delete(resourceRefId: string): Promise<CourseOperationResult> {
-    return this.client.delete<CourseOperationResult>(backendApiPath(`/course_resources/${serializePathParameter(resourceRefId, { name: 'resourceRefId', style: 'simple', explode: false })}`));
+/** course Resources delete. */
+  async delete(resourceRefId: string): Promise<SdkWorkCommandData> {
+    return this.client.delete<SdkWorkCommandData>(backendApiPath(`/course_resources/${serializePathParameter(resourceRefId, { name: 'resourceRefId', style: 'simple', explode: false })}`));
   }
 }
 

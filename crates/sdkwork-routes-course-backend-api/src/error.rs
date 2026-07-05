@@ -2,11 +2,10 @@ use std::error::Error;
 use std::fmt::{Display, Formatter};
 
 use sdkwork_content_course_service::CourseError;
-use serde::Serialize;
 
 pub type CourseRouteResult<T> = Result<T, CourseRouteError>;
 
-#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct CourseRouteError {
     code: &'static str,
     message: String,
@@ -41,22 +40,6 @@ impl CourseRouteError {
     pub fn message(&self) -> &str {
         &self.message
     }
-
-    pub fn to_problem_detail(&self) -> ProblemDetail {
-        let status = match self.code {
-            "not_found" => 404,
-            "invalid" => 400,
-            "internal" => 500,
-            _ => 400,
-        };
-        ProblemDetail {
-            r#type: format!("https://sdkwork.com/errors/{}", self.code),
-            title: self.code.to_string(),
-            status,
-            detail: self.message.clone(),
-            instance: None,
-        }
-    }
 }
 
 impl Display for CourseRouteError {
@@ -75,14 +58,4 @@ impl From<CourseError> for CourseRouteError {
             _ => Self::invalid(error.message()),
         }
     }
-}
-
-#[derive(Debug, Clone, Serialize)]
-pub struct ProblemDetail {
-    pub r#type: String,
-    pub title: String,
-    pub status: u16,
-    pub detail: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub instance: Option<String>,
 }

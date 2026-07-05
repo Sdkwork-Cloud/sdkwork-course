@@ -12,7 +12,7 @@
   "mode": "apply",
   "hasChanges": true,
   "hasDestructiveChanges": false,
-  "changeFingerprint": "0ccab9ef59ac2a5903ae467c43c637a1641e9dd5f62f97b79f2bb9c939b8331a",
+  "changeFingerprint": "a826a9dbee5a01fc1ae029265b79465fc76dba7342e96b5cc39ef2b0e92d082c",
   "changeImpact": {
     "schemaVersion": 1,
     "areas": [
@@ -56,10 +56,19 @@
         "area": "models",
         "paths": [
           "src/types/common.ts",
-          "src/types/course-operation-command.ts",
-          "src/types/course-operation-result.ts",
+          "src/types/course-command-body.ts",
+          "src/types/field-error.ts",
           "src/types/index.ts",
-          "src/types/problem-detail.ts"
+          "src/types/page-info.ts",
+          "src/types/problem-detail.ts",
+          "src/types/sdk-work-api-response.ts",
+          "src/types/sdk-work-command-data.ts",
+          "src/types/sdk-work-command-response.ts",
+          "src/types/sdk-work-list-response.ts",
+          "src/types/sdk-work-page-data.ts",
+          "src/types/sdk-work-platform-error-code.ts",
+          "src/types/sdk-work-resource-data.ts",
+          "src/types/sdk-work-resource-response.ts"
         ]
       },
       {
@@ -227,21 +236,21 @@
     "localVersions": []
   },
   "stats": {
-    "totalFiles": 42,
-    "models": 3,
+    "totalFiles": 51,
+    "models": 12,
     "apis": 16,
-    "types": 5
+    "types": 14
   },
   "warnings": [],
   "syncSummary": {
     "dryRun": false,
     "controlPlaneEnabled": true,
-    "writtenFiles": 42,
+    "writtenFiles": 51,
     "skippedScaffoldFiles": 0,
     "skippedUnchangedGeneratedFiles": 0,
     "deletedGeneratedFiles": 0,
     "changeSummaryPath": ".sdkwork/sdkwork-generator-changes.json",
-    "changeFingerprint": "0ccab9ef59ac2a5903ae467c43c637a1641e9dd5f62f97b79f2bb9c939b8331a",
+    "changeFingerprint": "a826a9dbee5a01fc1ae029265b79465fc76dba7342e96b5cc39ef2b0e92d082c",
     "changes": {
       "createdGeneratedFiles": [
         "bin/publish-core.mjs",
@@ -279,10 +288,19 @@
         "src/index.ts",
         "src/sdk.ts",
         "src/types/common.ts",
-        "src/types/course-operation-command.ts",
-        "src/types/course-operation-result.ts",
+        "src/types/course-command-body.ts",
+        "src/types/field-error.ts",
         "src/types/index.ts",
+        "src/types/page-info.ts",
         "src/types/problem-detail.ts",
+        "src/types/sdk-work-api-response.ts",
+        "src/types/sdk-work-command-data.ts",
+        "src/types/sdk-work-command-response.ts",
+        "src/types/sdk-work-list-response.ts",
+        "src/types/sdk-work-page-data.ts",
+        "src/types/sdk-work-platform-error-code.ts",
+        "src/types/sdk-work-resource-data.ts",
+        "src/types/sdk-work-resource-response.ts",
         "tsconfig.json"
       ],
       "updatedGeneratedFiles": [],
@@ -338,10 +356,19 @@
           "area": "models",
           "paths": [
             "src/types/common.ts",
-            "src/types/course-operation-command.ts",
-            "src/types/course-operation-result.ts",
+            "src/types/course-command-body.ts",
+            "src/types/field-error.ts",
             "src/types/index.ts",
-            "src/types/problem-detail.ts"
+            "src/types/page-info.ts",
+            "src/types/problem-detail.ts",
+            "src/types/sdk-work-api-response.ts",
+            "src/types/sdk-work-command-data.ts",
+            "src/types/sdk-work-command-response.ts",
+            "src/types/sdk-work-list-response.ts",
+            "src/types/sdk-work-page-data.ts",
+            "src/types/sdk-work-platform-error-code.ts",
+            "src/types/sdk-work-resource-data.ts",
+            "src/types/sdk-work-resource-response.ts"
           ]
         },
         {

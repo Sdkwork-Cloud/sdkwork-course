@@ -38,12 +38,32 @@ sdkwork-course/
 
 ## Verification
 
-Run the local governance checks:
+Run the local governance checks from the repository root:
 
 ```powershell
-node --test scripts/course-workspace-boundary.test.mjs
-node --test scripts/course-design-contract.test.mjs
-node --test sdks/_shared/course-contracts/tests/course-contracts.test.mjs
+pnpm verify
+pnpm run db:validate
+pnpm run check:openapi-drift
+```
+
+`pnpm verify` includes workspace boundary tests, database contract checks, API envelope validation, OpenAPI drift checks, repository composition checks, PC/H5 TypeScript type checks, and `cargo test --workspace`.
+
+Optional per-app type checks:
+
+```powershell
+cd apps/sdkwork-course-pc
+pnpm typecheck
+
+cd ../sdkwork-course-h5
+pnpm typecheck
+```
+
+Build generated SDK runtimes when OpenAPI authorities change:
+
+```powershell
+pnpm run materialize:openapi
+cd sdks/sdkwork-course-app-sdk/sdkwork-course-app-sdk-typescript/generated/server-openapi
+pnpm run build
 ```
 
 Run Rust verification:
@@ -86,7 +106,7 @@ Extension points are limited to declared public exports, runtime entrypoints, SD
 
 ### Verification
 
-- `pnpm typecheck`
+- `pnpm verify` (includes `typecheck:apps`)
 
 ### Owner And Status
 

@@ -7,6 +7,12 @@
   "types": "./src/index.ts",
   "scripts": {
     "test": "node --test tests/course-contracts.test.mjs"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
   }
 }
-

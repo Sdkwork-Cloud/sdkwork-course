@@ -2,40 +2,19 @@
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { MobileCourseCard, MobilePageHeader, MobileLoading, MobileEmptyState } from '@sdkwork/sdkwork-course-h5-commons'
-import { useCourseSdk } from '@sdkwork/sdkwork-course-h5-core'
-
-interface Course {
-  id: string
-  courseCode: string
-  title: string
-  description?: string
-  thumbnail?: string
-  instructor?: string
-  lessonsCount: number
-  studentsCount: number
-  ratingScore: string
-  category?: string
-  tags: string[]
-  status: string
-}
-
-interface CourseListResponse {
-  code: string
-  msg: string
-  data?: {
-    items: Course[]
-    page: number
-    pageSize: number
-    total: number
-  }
-}
+import {
+  useCourseSdk,
+  extractSdkListItems,
+  readEntityString,
+  readEntityNumber,
+} from '@sdkwork/sdkwork-course-h5-core'
 
 export function MobileCourseListPage() {
   const navigate = useNavigate()
   const sdk = useCourseSdk()
   const [searchQuery, setSearchQuery] = useState('')
 
-  const { data, isLoading, error } = useQuery<CourseListResponse>({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['courses', searchQuery],
     queryFn: async () => {
       const params: Record<string, string> = {}
@@ -44,31 +23,36 @@ export function MobileCourseListPage() {
     },
   })
 
-  const courses = data?.data?.items || []
+  const courses = extractSdkListItems(data).map((record) => ({
+    id: readEntityString(record, 'id', 'courseId'),
+    title: readEntityString(record, 'title', 'name'),
+    description: readEntityString(record, 'description', 'summary') || undefined,
+    thumbnail: readEntityString(record, 'thumbnail', 'cover', 'coverUrl') || undefined,
+    instructor: readEntityString(record, 'instructor', 'instructorName') || undefined,
+    lessonsCount: readEntityNumber(record, 'lessonsCount', 'lessons_count') ?? 0,
+    studentsCount: readEntityNumber(record, 'studentsCount', 'students_count', 'students') ?? 0,
+    ratingScore: readEntityString(record, 'ratingScore', 'rating', 'rating_score') || '暂无评分',
+  }))
 
   if (isLoading) {
-    return <MobileLoading text="鍔犺浇璇剧▼涓?.." />
+    return <MobileLoading text="加载课程中..." />
   }
 
   if (error) {
     return (
-      <MobileEmptyState
-        icon="鉂?
-        title="鍔犺浇澶辫触"
-        description="鏃犳硶鍔犺浇璇剧▼鍒楄〃"
-      />
+      <MobileEmptyState icon="!" title="加载失败" description="无法加载课程列表" />
     )
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <MobilePageHeader title="璇剧▼涓績" />
-      
+      <MobilePageHeader title="课程中心" />
+
       <div className="p-4">
         <div className="mb-4">
           <input
             type="text"
-            placeholder="鎼滅储璇剧▼..."
+            placeholder="搜索课程..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -76,11 +60,7 @@ export function MobileCourseListPage() {
         </div>
 
         {courses.length === 0 ? (
-          <MobileEmptyState
-            icon="馃摎"
-            title="鏆傛棤璇剧▼"
-            description="娌℃湁鎵惧埌绗﹀悎鏉′欢鐨勮绋?
-          />
+          <MobileEmptyState icon="📚" title="暂无课程" description="没有找到符合条件的课程" />
         ) : (
           <div className="grid grid-cols-2 gap-3">
             {courses.map((course) => (
@@ -94,7 +74,7 @@ export function MobileCourseListPage() {
                 lessonsCount={course.lessonsCount}
                 studentsCount={course.studentsCount}
                 rating={course.ratingScore}
-                onClick={(id) => navigate(`/courses/${id}`)}
+                onClick={(courseId) => navigate(`/courses/${courseId}`)}
               />
             ))}
           </div>
@@ -103,4 +83,3 @@ export function MobileCourseListPage() {
     </div>
   )
 }
-

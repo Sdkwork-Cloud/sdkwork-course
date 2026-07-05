@@ -1,13 +1,15 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationResult } from '../types';
+import type { SdkWorkPageData } from '../types';
 
 
 export interface CourseReportsLiveSessionsListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -19,15 +21,17 @@ export class CourseReportsLiveSessionsApi {
   }
 
 
-/** course Reports live Sessions list */
-  async list(params?: CourseReportsLiveSessionsListParams): Promise<CourseOperationResult> {
+/** course Reports live Sessions list. */
+  async list(params?: CourseReportsLiveSessionsListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(backendApiPath(`/course_reports/live_sessions`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_reports/live_sessions`), query));
   }
 }
 
@@ -35,6 +39,8 @@ export interface CourseReportsLearningListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -46,15 +52,17 @@ export class CourseReportsLearningApi {
   }
 
 
-/** course Reports learning list */
-  async list(params?: CourseReportsLearningListParams): Promise<CourseOperationResult> {
+/** course Reports learning list. */
+  async list(params?: CourseReportsLearningListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(backendApiPath(`/course_reports/learning`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_reports/learning`), query));
   }
 }
 
@@ -66,9 +74,9 @@ export class CourseReportsOverviewApi {
   }
 
 
-/** course Reports overview retrieve */
-  async retrieve(): Promise<CourseOperationResult> {
-    return this.client.get<CourseOperationResult>(backendApiPath(`/course_reports/overview`));
+/** course Reports overview retrieve. */
+  async retrieve(): Promise<Record<string, unknown>> {
+    return this.client.get<Record<string, unknown>>(backendApiPath(`/course_reports/overview`));
   }
 }
 

@@ -14,9 +14,6 @@ use sdkwork_content_course_service::{
     CourseSectionItem, CourseServiceContext,
 };
 
-const COURSE_FOUNDATION_MIGRATION_SQL: &str =
-    include_str!("../../migrations/0001_course_foundation.sql");
-
 pub type CourseRepositoryFuture<'a, T> = Pin<Box<dyn Future<Output = CourseResult<T>> + Send + 'a>>;
 
 #[derive(Debug, Clone)]
@@ -320,48 +317,8 @@ impl<Pool> SqlxCourseRepository<Pool> {
         &self.pool
     }
 
-    pub fn foundation_migration_sql(&self) -> &'static str {
-        COURSE_FOUNDATION_MIGRATION_SQL
-    }
-
     pub fn table_names(&self) -> &'static [&'static str] {
         &COURSE_TABLES
-    }
-}
-
-impl SqlxCourseRepository<SqlitePool> {
-    pub async fn apply_foundation_migration(&self) -> CourseResult<()> {
-        for statement in COURSE_FOUNDATION_MIGRATION_SQL.split(';') {
-            let sql = statement.trim();
-            if sql.is_empty() {
-                continue;
-            }
-
-            sqlx::query(sql)
-                .execute(&self.pool)
-                .await
-                .map_err(sqlx_storage_error)?;
-        }
-
-        Ok(())
-    }
-}
-
-impl SqlxCourseRepository<PgPool> {
-    pub async fn apply_foundation_migration(&self) -> CourseResult<()> {
-        for statement in COURSE_FOUNDATION_MIGRATION_SQL.split(';') {
-            let sql = statement.trim();
-            if sql.is_empty() {
-                continue;
-            }
-
-            sqlx::query(sql)
-                .execute(&self.pool)
-                .await
-                .map_err(sqlx_storage_error)?;
-        }
-
-        Ok(())
     }
 }
 

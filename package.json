@@ -9,6 +9,9 @@
     "test:design": "node --test scripts/course-design-contract.test.mjs",
     "test:contracts": "node --test sdks/_shared/course-contracts/tests/course-contracts.test.mjs",
     "typecheck": "tsc --noEmit",
+    "typecheck:apps": "pnpm --filter @sdkwork/sdkwork-course-pc typecheck && pnpm --filter @sdkwork/sdkwork-course-h5 typecheck",
+    "verify": "pnpm run test && pnpm run test:design && pnpm run test:contracts && pnpm run test:contract:database && pnpm run test:route-integration && pnpm run check:api-envelope && pnpm run check:openapi-drift && pnpm run check:app-composition && pnpm run typecheck:apps && cargo test --workspace",
+    "check:api-envelope": "node ../sdkwork-specs/tools/check-api-response-envelope.mjs --workspace .",
     "db:materialize:contract": "node ../sdkwork-specs/tools/materialize-database-contract-from-baseline.mjs --root . --baseline database/ddl/baseline/postgres/0001_course_baseline.sql --module-id course --owner course-platform --prefixes course_ --engines postgres",
     "db:validate": "node ../sdkwork-specs/tools/check-database-framework-standard.mjs --root .",
     "db:plan": "cargo run --manifest-path ../sdkwork-database/Cargo.toml -p sdkwork-database-cli -- --app-root . plan",
@@ -22,10 +25,20 @@
     "test:contract:database": "node ../sdkwork-specs/tools/check-database-framework-standard.mjs --root .",
     "gateway:assembly:materialize": "node scripts/gateway/assembly-materialize.mjs",
     "gateway:assembly:validate": "node scripts/gateway/assembly-validate.mjs",
+    "materialize:openapi": "node scripts/materialize-course-openapi.mjs",
+    "check:openapi-drift": "node scripts/materialize-course-openapi.mjs --check",
+    "test:route-integration": "node scripts/course-route-integration-contract.test.mjs",
     "check:app-composition": "node ../sdkwork-specs/tools/verify-repo.mjs --root ."
   },
   "devDependencies": {
     "@types/node": "^25.5.2",
     "typescript": "^6.0.2"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
   }
 }

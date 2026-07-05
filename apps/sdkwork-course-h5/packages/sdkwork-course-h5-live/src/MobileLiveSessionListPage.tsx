@@ -2,65 +2,49 @@
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { MobilePageHeader, MobileLoading, MobileEmptyState } from '@sdkwork/sdkwork-course-h5-commons'
-import { useCourseSdk } from '@sdkwork/sdkwork-course-h5-core'
-
-interface LiveSession {
-  id: string
-  title: string
-  description?: string
-  liveStatus: string
-  scheduledStartAt: string
-  scheduledEndAt: string
-  actualStartAt?: string
-  instructorId?: string
-  status: string
-}
-
-interface LiveSessionListResponse {
-  code: string
-  msg: string
-  data?: LiveSession[]
-}
+import {
+  useCourseSdk,
+  extractSdkListItems,
+  readEntityString,
+} from '@sdkwork/sdkwork-course-h5-core'
 
 export function MobileLiveSessionListPage() {
   const navigate = useNavigate()
   const sdk = useCourseSdk()
 
-  const { data, isLoading, error } = useQuery<LiveSessionListResponse>({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['liveSessions'],
-    queryFn: async () => sdk.liveSessions.list(),
+    queryFn: async () => sdk.courseLiveSessions.list(),
   })
 
-  const sessions = data?.data || []
+  const sessions = extractSdkListItems(data).map((record) => ({
+    id: readEntityString(record, 'id', 'liveSessionId'),
+    title: readEntityString(record, 'title', 'name'),
+    description: readEntityString(record, 'description') || undefined,
+    liveStatus: readEntityString(record, 'liveStatus', 'live_status', 'status') || 'scheduled',
+    scheduledStartAt: readEntityString(record, 'scheduledStartAt', 'scheduled_start_at') || new Date().toISOString(),
+  }))
 
   if (isLoading) {
-    return <MobileLoading text="鍔犺浇鐩存挱璇剧▼..." />
+    return <MobileLoading text="加载直播课程..." />
   }
 
   if (error) {
     return (
       <div>
-        <MobilePageHeader title="鐩存挱璇惧爞" />
-        <MobileEmptyState
-          icon="鉂?
-          title="鍔犺浇澶辫触"
-          description="鏃犳硶鍔犺浇鐩存挱璇剧▼鍒楄〃"
-        />
+        <MobilePageHeader title="直播课堂" />
+        <MobileEmptyState icon="!" title="加载失败" description="无法加载直播课程列表" />
       </div>
     )
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <MobilePageHeader title="鐩存挱璇惧爞" />
+      <MobilePageHeader title="直播课堂" />
 
       <div className="p-4">
         {sessions.length === 0 ? (
-          <MobileEmptyState
-            icon="馃摵"
-            title="鏆傛棤鐩存挱璇剧▼"
-            description="娌℃湁鍗冲皢寮€濮嬬殑鐩存挱璇剧▼"
-          />
+          <MobileEmptyState icon="📺" title="暂无直播课程" description="没有即将开始的直播课程" />
         ) : (
           <div className="space-y-3">
             {sessions.map((session) => (
@@ -73,15 +57,18 @@ export function MobileLiveSessionListPage() {
                   <div className="absolute top-2 left-2">
                     {session.liveStatus === 'live' && (
                       <span className="bg-red-600 text-white px-2 py-0.5 rounded text-xs font-semibold animate-pulse">
-                        馃敶 鐩存挱涓?                      </span>
+                        直播中
+                      </span>
                     )}
                     {session.liveStatus === 'scheduled' && (
                       <span className="bg-blue-600 text-white px-2 py-0.5 rounded text-xs font-semibold">
-                        鍗冲皢寮€濮?                      </span>
+                        即将开始
+                      </span>
                     )}
                     {session.liveStatus === 'ended' && (
                       <span className="bg-gray-600 text-white px-2 py-0.5 rounded text-xs font-semibold">
-                        宸茬粨鏉?                      </span>
+                        已结束
+                      </span>
                     )}
                   </div>
                 </div>
@@ -102,4 +89,3 @@ export function MobileLiveSessionListPage() {
     </div>
   )
 }
-

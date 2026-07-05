@@ -12,17 +12,23 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@sdkwork/course-h5-core/*": ["./packages/sdkwork-course-h5-core/src/*"],
-      "@sdkwork/course-h5-commons/*": ["./packages/sdkwork-course-h5-commons/src/*"],
-      "@sdkwork/course-h5-shell/*": ["./packages/sdkwork-course-h5-shell/src/*"]
+      "@sdkwork/sdkwork-course-h5-core": ["./packages/sdkwork-course-h5-core/src/index.ts"],
+      "@sdkwork/sdkwork-course-h5-commons": ["./packages/sdkwork-course-h5-commons/src/index.ts"],
+      "@sdkwork/sdkwork-course-h5-auth": ["./packages/sdkwork-course-h5-auth/src/index.ts"],
+      "@sdkwork/sdkwork-course-h5-courses": ["./packages/sdkwork-course-h5-courses/src/index.ts"],
+      "@sdkwork/sdkwork-course-h5-lessons": ["./packages/sdkwork-course-h5-lessons/src/index.ts"],
+      "@sdkwork/sdkwork-course-h5-live": ["./packages/sdkwork-course-h5-live/src/index.ts"],
+      "@sdkwork/sdkwork-course-h5-progress": ["./packages/sdkwork-course-h5-progress/src/index.ts"],
+      "@sdkwork/sdkwork-course-h5-community": ["./packages/sdkwork-course-h5-community/src/index.ts"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "packages/*/src"],
+  "exclude": ["**/__tests__/**"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -10,8 +10,14 @@ name = "sdkwork_routes_course_http_auth"
 
 [dependencies]
 axum.workspace = true
+serde.workspace = true
+serde_json.workspace = true
 sdkwork-content-course-service = { path = "../sdkwork-content-course-service" }
 sdkwork-iam-web-adapter.workspace = true
+sdkwork-utils-rust.workspace = true
 sdkwork-web-axum.workspace = true
 sdkwork-web-contract.workspace = true
 sdkwork-web-core.workspace = true
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }

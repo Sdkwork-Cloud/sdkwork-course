@@ -1,13 +1,15 @@
 import { appApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationCommand, CourseOperationResult } from '../types';
+import type { CourseCommandBody, SdkWorkPageData } from '../types';
 
 
 export interface CourseApplicationsCurrentListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -19,15 +21,17 @@ export class CourseApplicationsCurrentApi {
   }
 
 
-/** course Applications current list */
-  async list(params?: CourseApplicationsCurrentListParams): Promise<CourseOperationResult> {
+/** course Applications current list. */
+  async list(params?: CourseApplicationsCurrentListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(appApiPath(`/course_applications`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(appApiPath(`/course_applications`), query));
   }
 }
 
@@ -45,20 +49,20 @@ export class CourseApplicationsApi {
   }
 
 
-/** course Applications create */
-  async create(body: CourseOperationCommand, params: CourseApplicationsCreateParams): Promise<CourseOperationResult> {
+/** course Applications create. */
+  async create(body: CourseCommandBody, params: CourseApplicationsCreateParams): Promise<Record<string, unknown>> {
     const requestHeaders = buildRequestHeaders(
       {
         'Idempotency-Key': { value: params.idempotencyKey, style: 'simple', explode: false },
       },
       {}
     );
-    return this.client.post<CourseOperationResult>(appApiPath(`/course_applications`), body, undefined, requestHeaders, 'application/json');
+    return this.client.post<Record<string, unknown>>(appApiPath(`/course_applications`), body, undefined, requestHeaders, 'application/json');
   }
 
-/** course Applications retrieve */
-  async retrieve(applicationId: string): Promise<CourseOperationResult> {
-    return this.client.get<CourseOperationResult>(appApiPath(`/course_applications/${serializePathParameter(applicationId, { name: 'applicationId', style: 'simple', explode: false })}`));
+/** course Applications retrieve. */
+  async retrieve(applicationId: string): Promise<Record<string, unknown>> {
+    return this.client.get<Record<string, unknown>>(appApiPath(`/course_applications/${serializePathParameter(applicationId, { name: 'applicationId', style: 'simple', explode: false })}`));
   }
 }
 

@@ -1,4 +1,4 @@
-//! SDKWork course app-api route crate skeleton.
+//! SDKWork course app-api route crate.
 
 use std::sync::Arc;
 
@@ -8,11 +8,15 @@ use serde_json::Value;
 
 pub mod error;
 pub mod handlers;
+pub mod http_handlers;
+pub mod http_route_manifest;
 pub mod manifest;
 pub mod mapper;
 pub mod paths;
 pub mod routes;
+pub mod service_state;
 
+pub use http_route_manifest::course_app_api_http_route_manifest;
 pub use manifest::{build_route_manifest, route_manifest_path, CourseRouteManifestMetadata};
 pub use routes::build_router;
 
@@ -34,6 +38,6 @@ pub fn gateway_route_manifest() -> Value {
     build_route_manifest()
 }
 
-pub fn gateway_mount(_service: Arc<dyn CourseApplicationService>) -> Router {
-    build_router()
+pub fn gateway_mount(service: Arc<dyn CourseApplicationService>) -> Router {
+    build_router(service)
 }

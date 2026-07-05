@@ -29,17 +29,17 @@ describe('CourseCard', () => {
 
   it('renders lessons count', () => {
     render(<CourseCard {...defaultProps} />)
-    expect(screen.getByText('馃摎 10璇?)).toBeInTheDocument()
+    expect(screen.getByText('10 课时')).toBeInTheDocument()
   })
 
   it('renders students count', () => {
     render(<CourseCard {...defaultProps} />)
-    expect(screen.getByText('馃懃 100浜?)).toBeInTheDocument()
+    expect(screen.getByText('100 人')).toBeInTheDocument()
   })
 
   it('renders rating', () => {
     render(<CourseCard {...defaultProps} />)
-    expect(screen.getByText('猸?4.5')).toBeInTheDocument()
+    expect(screen.getByText('★ 4.5')).toBeInTheDocument()
   })
 
   it('calls onClick when clicked', () => {
@@ -59,6 +59,3 @@ describe('CourseCard', () => {
     expect(screen.queryByText('This is a test course')).not.toBeInTheDocument()
   })
 })
-
-
-

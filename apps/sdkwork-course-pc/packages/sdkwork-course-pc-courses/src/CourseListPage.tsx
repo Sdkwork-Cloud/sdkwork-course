@@ -1,8 +1,8 @@
 ﻿import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { CourseCard, PageHeader, LoadingSpinner, EmptyState } from '@sdkwork/sdkwork-course-pc-commons'
-import { useCourseSdk } from '@sdkwork/sdkwork-course-pc-core'
+import { useCourseSdk, extractSdkListItems, readEntityString, readEntityNumber } from '@sdkwork/sdkwork-course-pc-core'
 
 interface Course {
   id: string
@@ -19,14 +19,20 @@ interface Course {
   status: string
 }
 
-interface CourseListResponse {
-  code: string
-  msg: string
-  data?: {
-    items: Course[]
-    page: number
-    pageSize: number
-    total: number
+function mapCourse(record: Record<string, unknown>): Course {
+  return {
+    id: readEntityString(record, 'id', 'courseId'),
+    courseCode: readEntityString(record, 'courseCode', 'course_code'),
+    title: readEntityString(record, 'title', 'name'),
+    description: readEntityString(record, 'description', 'summary') || undefined,
+    thumbnail: readEntityString(record, 'thumbnail', 'cover', 'coverUrl') || undefined,
+    instructor: readEntityString(record, 'instructor', 'instructorName') || undefined,
+    lessonsCount: readEntityNumber(record, 'lessonsCount', 'lessons_count') ?? 0,
+    studentsCount: readEntityNumber(record, 'studentsCount', 'students_count', 'students') ?? 0,
+    ratingScore: readEntityString(record, 'ratingScore', 'rating', 'rating_score') || '0',
+    category: readEntityString(record, 'category', 'categoryId') || undefined,
+    tags: Array.isArray(record.tags) ? (record.tags as string[]) : [],
+    status: readEntityString(record, 'status') || 'draft',
   }
 }
 
@@ -36,7 +42,7 @@ export function CourseListPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('')
 
-  const { data, isLoading, error } = useQuery<CourseListResponse>({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['courses', searchQuery, selectedCategory],
     queryFn: async () => {
       const params: Record<string, string> = {}
@@ -46,18 +52,18 @@ export function CourseListPage() {
     },
   })
 
-  const courses = data?.data?.items || []
+  const courses = extractSdkListItems(data).map(mapCourse)
 
   if (isLoading) {
-    return <LoadingSpinner text="鍔犺浇璇剧▼涓?.." />
+    return <LoadingSpinner text="加载课程中..." />
   }
 
   if (error) {
     return (
       <EmptyState
-        icon="鉂?
-        title="鍔犺浇澶辫触"
-        description="鏃犳硶鍔犺浇璇剧▼鍒楄〃锛岃绋嶅悗鍐嶈瘯"
+        icon="❌"
+        title="加载失败"
+        description="无法加载课程列表，请稍后再试"
       />
     )
   }
@@ -65,14 +71,14 @@ export function CourseListPage() {
   return (
     <div>
       <PageHeader
-        title="璇剧▼涓績"
-        subtitle="鎺㈢储鎴戜滑鐨勭簿鍝佽绋?
+        title="课程中心"
+        subtitle="探索我们的精品课程"
       />
 
       <div className="mb-6 flex gap-4">
         <input
           type="text"
-          placeholder="鎼滅储璇剧▼..."
+          placeholder="搜索课程..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -82,19 +88,19 @@ export function CourseListPage() {
           onChange={(e) => setSelectedCategory(e.target.value)}
           className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <option value="">鎵€鏈夊垎绫?/option>
-          <option value="programming">缂栫▼寮€鍙?/option>
-          <option value="design">璁捐鍒涙剰</option>
-          <option value="business">鍟嗕笟绠＄悊</option>
-          <option value="language">璇█瀛︿範</option>
+          <option value="">所有分类</option>
+          <option value="programming">编程开发</option>
+          <option value="design">设计创意</option>
+          <option value="business">商业管理</option>
+          <option value="language">语言学习</option>
         </select>
       </div>
 
       {courses.length === 0 ? (
         <EmptyState
-          icon="馃摎"
-          title="鏆傛棤璇剧▼"
-          description="娌℃湁鎵惧埌绗﹀悎鏉′欢鐨勮绋?
+          icon="📚"
+          title="暂无课程"
+          description="没有找到符合条件的课程"
         />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -117,6 +123,3 @@ export function CourseListPage() {
     </div>
   )
 }
-
-
-

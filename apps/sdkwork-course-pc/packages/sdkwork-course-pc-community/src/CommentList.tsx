@@ -1,21 +1,10 @@
 ﻿import React, { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useCourseSdk } from '@sdkwork/sdkwork-course-pc-core'
-
-interface Comment {
-  id: string
-  courseId: string
-  author?: string
-  content: string
-  status: string
-  createdAt: string
-}
-
-interface CommentListResponse {
-  code: string
-  msg: string
-  data?: Comment[]
-}
+import {
+  useCourseSdk,
+  extractSdkListItems,
+  readEntityString,
+} from '@sdkwork/sdkwork-course-pc-core'
 
 interface CommentListProps {
   courseId: string
@@ -28,14 +17,14 @@ export function CommentList({ courseId, targetType, targetId }: CommentListProps
   const sdk = useCourseSdk()
   const [newComment, setNewComment] = useState('')
 
-  const { data, isLoading } = useQuery<CommentListResponse>({
+  const { data, isLoading } = useQuery({
     queryKey: ['comments', targetType, targetId],
-    queryFn: async () => sdk.comments.list(courseId),
+    queryFn: async () => sdk.courseComments.list(courseId),
   })
 
   const createMutation = useMutation({
     mutationFn: async (content: string) => {
-      return sdk.comments.create(courseId, {
+      return sdk.courseComments.create(courseId, {
         targetType,
         targetId,
         content,
@@ -47,26 +36,22 @@ export function CommentList({ courseId, targetType, targetId }: CommentListProps
     },
   })
 
-  const deleteMutation = useMutation({
-    mutationFn: async (commentId: string) => {
-      return sdk.comments.delete(commentId)
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments', targetType, targetId] })
-    },
-  })
-
-  const comments = data?.data || []
+  const comments = extractSdkListItems(data).map((record) => ({
+    id: readEntityString(record, 'id', 'commentId'),
+    author: readEntityString(record, 'author', 'authorName', 'userName') || undefined,
+    content: readEntityString(record, 'content', 'body', 'text'),
+    createdAt: readEntityString(record, 'createdAt', 'created_at') || new Date().toISOString(),
+  }))
 
   return (
     <div>
-      <h3 className="font-semibold mb-4">璇勮 ({comments.length})</h3>
+      <h3 className="font-semibold mb-4">评论 ({comments.length})</h3>
 
       <div className="mb-4">
         <textarea
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          placeholder="鍐欎笅浣犵殑璇勮..."
+          placeholder="写下你的评论..."
           className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows={3}
         />
@@ -79,14 +64,14 @@ export function CommentList({ courseId, targetType, targetId }: CommentListProps
           disabled={!newComment.trim() || createMutation.isPending}
           className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
         >
-          {createMutation.isPending ? '鍙戦€佷腑...' : '鍙戣〃璇勮'}
+          {createMutation.isPending ? '发送中...' : '发表评论'}
         </button>
       </div>
 
       {isLoading ? (
-        <p className="text-gray-500">鍔犺浇璇勮涓?..</p>
+        <p className="text-gray-500">加载评论中...</p>
       ) : comments.length === 0 ? (
-        <p className="text-gray-500">鏆傛棤璇勮锛屽揩鏉ュ彂琛ㄧ涓€鏉¤瘎璁哄惂</p>
+        <p className="text-gray-500">暂无评论，快来发表第一条评论吧</p>
       ) : (
         <div className="space-y-4">
           {comments.map((comment) => (
@@ -98,7 +83,7 @@ export function CommentList({ courseId, targetType, targetId }: CommentListProps
                       {comment.author?.charAt(0) || 'U'}
                     </span>
                   </div>
-                  <span className="font-semibold text-sm">{comment.author || '鍖垮悕鐢ㄦ埛'}</span>
+                  <span className="font-semibold text-sm">{comment.author || '匿名用户'}</span>
                 </div>
                 <span className="text-xs text-gray-500">
                   {new Date(comment.createdAt).toLocaleString()}
@@ -112,6 +97,3 @@ export function CommentList({ courseId, targetType, targetId }: CommentListProps
     </div>
   )
 }
-
-
-

@@ -1,13 +1,15 @@
 import { appApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationResult } from '../types';
+import type { SdkWorkPageData } from '../types';
 
 
 export interface CourseLessonResourcesListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -19,15 +21,17 @@ export class CourseLessonResourcesApi {
   }
 
 
-/** course Lesson Resources list */
-  async list(lessonId: string, params?: CourseLessonResourcesListParams): Promise<CourseOperationResult> {
+/** course Lesson Resources list. */
+  async list(lessonId: string, params?: CourseLessonResourcesListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(appApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}/resources`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(appApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}/resources`), query));
   }
 }
 

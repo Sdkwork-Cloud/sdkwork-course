@@ -7,7 +7,7 @@ export interface EmptyStateProps {
   action?: React.ReactNode
 }
 
-export function EmptyState({ icon = '馃摥', title, description, action }: EmptyStateProps) {
+export function EmptyState({ icon = '📭', title, description, action }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center p-8 text-center">
       <span className="text-4xl mb-4">{icon}</span>
@@ -17,6 +17,3 @@ export function EmptyState({ icon = '馃摥', title, description, action }: Empt
     </div>
   )
 }
-
-
-

@@ -1,68 +1,27 @@
-﻿import { createCourseSdk } from '../sdk'
+﻿import { getCourseAppSdkClient } from '../courseAppSdkClient';
 
-describe('CourseSdk', () => {
-  const config = {
-    appApi: {
-      baseUrl: 'http://localhost:8080',
-      prefix: '/app/v3/api',
-    },
-  }
+describe('CourseAppSdkClient', () => {
+  it('creates generated SDK with canonical API groups', () => {
+    const sdk = getCourseAppSdkClient();
+    expect(sdk).toBeDefined();
+    expect(sdk.courseCategories).toBeDefined();
+    expect(sdk.courses).toBeDefined();
+    expect(sdk.courseOfferings).toBeDefined();
+    expect(sdk.courseEnrollments).toBeDefined();
+    expect(sdk.courseSections).toBeDefined();
+    expect(sdk.courseLessons).toBeDefined();
+    expect(sdk.courseProgress).toBeDefined();
+    expect(sdk.courseComments).toBeDefined();
+    expect(sdk.courseReactions).toBeDefined();
+    expect(sdk.courseApplications).toBeDefined();
+  });
 
-  it('creates SDK with correct structure', () => {
-    const sdk = createCourseSdk(config)
-    expect(sdk).toBeDefined()
-    expect(sdk.categories).toBeDefined()
-    expect(sdk.courses).toBeDefined()
-    expect(sdk.offerings).toBeDefined()
-    expect(sdk.enrollments).toBeDefined()
-    expect(sdk.sections).toBeDefined()
-    expect(sdk.lessons).toBeDefined()
-    expect(sdk.progress).toBeDefined()
-    expect(sdk.comments).toBeDefined()
-    expect(sdk.reactions).toBeDefined()
-    expect(sdk.applications).toBeDefined()
-  })
-
-  it('has list method for categories', () => {
-    const sdk = createCourseSdk(config)
-    expect(typeof sdk.categories.list).toBe('function')
-  })
-
-  it('has retrieve method for categories', () => {
-    const sdk = createCourseSdk(config)
-    expect(typeof sdk.categories.retrieve).toBe('function')
-  })
-
-  it('has list method for courses', () => {
-    const sdk = createCourseSdk(config)
-    expect(typeof sdk.courses.list).toBe('function')
-  })
-
-  it('has retrieve method for courses', () => {
-    const sdk = createCourseSdk(config)
-    expect(typeof sdk.courses.retrieve).toBe('function')
-  })
-
-  it('has create method for enrollments', () => {
-    const sdk = createCourseSdk(config)
-    expect(typeof sdk.enrollments.create).toBe('function')
-  })
-
-  it('has list method for enrollments', () => {
-    const sdk = createCourseSdk(config)
-    expect(typeof sdk.enrollments.list).toBe('function')
-  })
-
-  it('has create method for comments', () => {
-    const sdk = createCourseSdk(config)
-    expect(typeof sdk.comments.create).toBe('function')
-  })
-
-  it('has replace method for reactions', () => {
-    const sdk = createCourseSdk(config)
-    expect(typeof sdk.reactions.replace).toBe('function')
-  })
-})
-
-
-
+  it('exposes list methods on generated groups', () => {
+    const sdk = getCourseAppSdkClient();
+    expect(typeof sdk.courseCategories.list).toBe('function');
+    expect(typeof sdk.courses.list).toBe('function');
+    expect(typeof sdk.courseEnrollments.current.list).toBe('function');
+    expect(typeof sdk.courseComments.create).toBe('function');
+    expect(typeof sdk.courseReactions.replace).toBe('function');
+  });
+});

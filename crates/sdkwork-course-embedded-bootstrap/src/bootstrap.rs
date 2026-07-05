@@ -78,16 +78,10 @@ pub async fn assemble_embedded_course_application_router(
 ) -> Result<EmbeddedCourseAssembly, String> {
     let service = match pool {
         DatabasePool::Sqlite(sqlite_pool, _) => {
-            let repository = SqliteCourseRepository::new(sqlite_pool);
-            repository
-                .apply_foundation_migration()
-                .await
-                .map_err(|error| error.message().to_string())?;
-            build_course_service(repository)
+            build_course_service(SqliteCourseRepository::new(sqlite_pool))
         }
         DatabasePool::Postgres(postgres_pool, _) => {
-            let repository = PostgresCourseRepository::new(postgres_pool);
-            build_course_service(repository)
+            build_course_service(PostgresCourseRepository::new(postgres_pool))
         }
     };
 

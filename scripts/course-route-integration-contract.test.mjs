@@ -35,22 +35,34 @@ const gatewayAssembly = fs.readFileSync(
 
 assert.ok(schemaContract.schemas?.CourseCatalogCreateRequest, 'schema contract must define CourseCatalogCreateRequest');
 assert.ok(schemaContract.operations?.['courses.create']?.request, 'schema contract must map courses.create request DTO');
+assert.doesNotMatch(
+  JSON.stringify(schemaContract),
+  /CourseOperationResult|CourseTypedResult|"requestId"/u,
+  'schema contract must not retain legacy HTTP envelopes',
+);
 
 const backendSchemas = backendOpenApi.components?.schemas ?? {};
-assert.ok(backendSchemas.CourseCatalogCreateRequest, 'backend OpenAPI must materialize CourseCatalogCreateRequest');
-assert.ok(backendSchemas.CourseSectionMutationRequest, 'backend OpenAPI must materialize CourseSectionMutationRequest');
+assert.ok(backendSchemas.CourseCommandBody, 'backend OpenAPI must materialize CourseCommandBody');
+assert.ok(backendSchemas.SdkWorkResourceResponse, 'backend OpenAPI must materialize SdkWorkResourceResponse');
+assert.ok(backendSchemas.SdkWorkListResponse, 'backend OpenAPI must materialize SdkWorkListResponse');
+assert.ok(backendSchemas.ProblemDetail, 'backend OpenAPI must materialize ProblemDetail');
 
 const typedCreateRoute = backendManifest.routes.find((route) => route.operationId === 'courses.create');
 assert.equal(
   typedCreateRoute?.schemas?.request,
-  'CourseCatalogCreateRequest',
-  'backend route manifest must bind courses.create to typed request schema',
+  'CourseCommandBody',
+  'backend route manifest must bind courses.create to CourseCommandBody',
+);
+assert.equal(
+  typedCreateRoute?.schemas?.response,
+  'SdkWorkResourceResponse',
+  'backend route manifest must bind courses.create to SdkWorkResourceResponse',
 );
 
 assert.match(
   backendSdkCourses,
-  /create\(body: CourseCatalogCreateRequest\): Promise<CourseItem>/u,
-  'regenerated backend SDK must expose typed course create API',
+  /create\(body: CourseCommandBody\): Promise<Record<string, unknown>>/u,
+  'regenerated backend SDK must expose CourseCommandBody create API',
 );
 
 assert.equal(backendManifest.routes.length, 67, 'backend route manifest must expose 67 operations');
@@ -63,8 +75,8 @@ assert.equal(backendOperationCount, 67, 'backend OpenAPI must expose 67 HTTP ope
 
 assert.match(
   gatewayAssembly,
-  /SDKWORK_COURSE_EMBEDDED_STRICT/u,
-  'gateway assembly must support embedded strict bootstrap mode',
+  /assemble_embedded_course_application_router_from_env/u,
+  'gateway assembly must delegate to embedded bootstrap router assembly',
 );
 
 console.log('sdkwork course route integration contract passed.');

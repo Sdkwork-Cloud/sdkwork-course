@@ -1,5 +1,3 @@
-import type { CourseOperationResult } from '@sdkwork/course-app-sdk';
-
 export function asRecord(value: unknown): Record<string, unknown> | null {
   if (value == null || typeof value !== 'object' || Array.isArray(value)) {
     return null;
@@ -101,8 +99,6 @@ export function extractCourseEntity(payload: unknown): Record<string, unknown> |
   return dataRecord;
 }
 
-export function courseOperationData(
-  payload: CourseOperationResult | unknown,
-): Record<string, unknown> | null {
+export function courseOperationData(payload: unknown): Record<string, unknown> | null {
   return extractCoursePayload(payload);
 }

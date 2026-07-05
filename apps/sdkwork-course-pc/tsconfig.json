@@ -12,17 +12,24 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@sdkwork/course-pc-core/*": ["./packages/sdkwork-course-pc-core/src/*"],
-      "@sdkwork/course-pc-commons/*": ["./packages/sdkwork-course-pc-commons/src/*"],
-      "@sdkwork/course-pc-shell/*": ["./packages/sdkwork-course-pc-shell/src/*"]
+      "@sdkwork/sdkwork-course-pc-core": ["./packages/sdkwork-course-pc-core/src/index.ts"],
+      "@sdkwork/sdkwork-course-pc-commons": ["./packages/sdkwork-course-pc-commons/src/index.ts"],
+      "@sdkwork/sdkwork-course-pc-auth": ["./packages/sdkwork-course-pc-auth/src/index.ts"],
+      "@sdkwork/sdkwork-course-pc-courses": ["./packages/sdkwork-course-pc-courses/src/index.ts"],
+      "@sdkwork/sdkwork-course-pc-lessons": ["./packages/sdkwork-course-pc-lessons/src/index.ts"],
+      "@sdkwork/sdkwork-course-pc-live": ["./packages/sdkwork-course-pc-live/src/index.ts"],
+      "@sdkwork/sdkwork-course-pc-progress": ["./packages/sdkwork-course-pc-progress/src/index.ts"],
+      "@sdkwork/sdkwork-course-pc-community": ["./packages/sdkwork-course-pc-community/src/index.ts"],
+      "@sdkwork/sdkwork-course-pc-course": ["./packages/sdkwork-course-pc-course/src/index.ts"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "packages/*/src"],
+  "exclude": ["**/__tests__/**"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

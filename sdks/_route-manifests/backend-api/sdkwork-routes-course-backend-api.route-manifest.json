@@ -36,7 +36,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseCategoryList",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -69,8 +69,8 @@
         "name": "course_categories_create"
       },
       "schemas": {
-        "request": "CourseCategoryCreateRequest",
-        "response": "CourseCategoryItem",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -103,8 +103,8 @@
         "name": "course_categories_update"
       },
       "schemas": {
-        "request": "CourseCategoryUpdateRequest",
-        "response": "CourseCategoryItem",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -138,7 +138,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -171,8 +171,8 @@
         "name": "course_categories_reorder"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -206,7 +206,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -239,8 +239,8 @@
         "name": "course_instructors_create"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -274,7 +274,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -307,8 +307,8 @@
         "name": "course_instructors_update"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -341,8 +341,8 @@
         "name": "course_instructors_status_update"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -376,7 +376,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CoursePage",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -409,8 +409,8 @@
         "name": "courses_create"
       },
       "schemas": {
-        "request": "CourseCatalogCreateRequest",
-        "response": "CourseItem",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -444,7 +444,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseItem",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -477,8 +477,8 @@
         "name": "courses_update"
       },
       "schemas": {
-        "request": "CourseCatalogUpdateRequest",
-        "response": "CourseItem",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -512,7 +512,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -545,8 +545,8 @@
         "name": "courses_publish"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseItem",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -579,8 +579,8 @@
         "name": "courses_unpublish"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseItem",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -614,7 +614,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -647,8 +647,8 @@
         "name": "course_offerings_create"
       },
       "schemas": {
-        "request": "CourseOfferingMutationRequest",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -682,7 +682,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -715,8 +715,8 @@
         "name": "course_offerings_update"
       },
       "schemas": {
-        "request": "CourseOfferingMutationRequest",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -749,8 +749,8 @@
         "name": "course_offerings_publish"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -783,8 +783,8 @@
         "name": "course_offerings_close"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -818,7 +818,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -852,7 +852,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseSectionList",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -885,8 +885,8 @@
         "name": "course_sections_create"
       },
       "schemas": {
-        "request": "CourseSectionMutationRequest",
-        "response": "CourseSectionItem",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -919,8 +919,8 @@
         "name": "course_sections_update"
       },
       "schemas": {
-        "request": "CourseSectionMutationRequest",
-        "response": "CourseSectionItem",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -954,7 +954,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -987,8 +987,8 @@
         "name": "course_sections_reorder"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1022,7 +1022,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseLessonList",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1055,8 +1055,8 @@
         "name": "course_lessons_create"
       },
       "schemas": {
-        "request": "CourseLessonMutationRequest",
-        "response": "CourseLessonItem",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1090,7 +1090,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseLessonItem",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1123,8 +1123,8 @@
         "name": "course_lessons_update"
       },
       "schemas": {
-        "request": "CourseLessonMutationRequest",
-        "response": "CourseLessonItem",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1158,7 +1158,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1191,8 +1191,8 @@
         "name": "course_lessons_reorder"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1226,7 +1226,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1259,8 +1259,8 @@
         "name": "course_resources_create"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1293,8 +1293,8 @@
         "name": "course_resources_update"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1328,7 +1328,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1362,7 +1362,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1395,8 +1395,8 @@
         "name": "course_live_sessions_create"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1430,7 +1430,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1463,8 +1463,8 @@
         "name": "course_live_sessions_update"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1497,8 +1497,8 @@
         "name": "course_live_sessions_start"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1531,8 +1531,8 @@
         "name": "course_live_sessions_end"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1565,8 +1565,8 @@
         "name": "course_live_sessions_cancel"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1599,8 +1599,8 @@
         "name": "course_live_sessions_replay_attach"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1633,8 +1633,8 @@
         "name": "course_live_sessions_replay_publish"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1668,7 +1668,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1701,8 +1701,8 @@
         "name": "course_enrollments_grant"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1735,8 +1735,8 @@
         "name": "course_enrollments_revoke"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1770,7 +1770,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1804,7 +1804,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1837,8 +1837,8 @@
         "name": "course_lesson_progress_repair"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1872,7 +1872,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1905,8 +1905,8 @@
         "name": "course_comments_moderate"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1940,7 +1940,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1974,7 +1974,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -2008,7 +2008,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -2042,7 +2042,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -2075,8 +2075,8 @@
         "name": "course_applications_review"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -2109,8 +2109,8 @@
         "name": "course_applications_convert_to_course"
       },
       "schemas": {
-        "request": "CourseOperationCommand",
-        "response": "CourseOperationResult",
+        "request": "CourseCommandBody",
+        "response": "SdkWorkCommandResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -2144,7 +2144,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -2178,7 +2178,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -2212,7 +2212,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -2246,7 +2246,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkListResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -2280,7 +2280,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "CourseOperationResult",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {

@@ -277,38 +277,3 @@ pub struct CourseEngagementItem {
     pub discussions: i64,
     pub students_count: i64,
 }
-
-#[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]
-#[serde(rename_all = "camelCase")]
-pub struct CourseApiResult<T>
-where
-    T: Serialize,
-{
-    pub code: String,
-    pub msg: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub data: Option<T>,
-}
-
-impl<T> CourseApiResult<T>
-where
-    T: Serialize,
-{
-    pub fn success(data: T) -> Self {
-        Self {
-            code: "2000".to_owned(),
-            msg: "SUCCESS".to_owned(),
-            data: Some(data),
-        }
-    }
-}
-
-impl CourseApiResult<()> {
-    pub fn error(code: impl Into<String>, msg: impl Into<String>) -> Self {
-        Self {
-            code: code.into(),
-            msg: msg.into(),
-            data: None,
-        }
-    }
-}

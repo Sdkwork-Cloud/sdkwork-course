@@ -22,4 +22,6 @@ tokio = { version = "1.52", features = ["macros", "rt-multi-thread"] }
 tracing = "0.1"
 ureq = { version = "2.12", default-features = false, features = ["json"] }
 serde_json = "1.0"
+sdkwork-utils-rust.workspace = true
+sdkwork-drive-app-sdk-generated-rust.workspace = true
 uuid = { version = "1.16", features = ["v4"] }

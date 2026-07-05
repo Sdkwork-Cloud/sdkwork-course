@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "sdkFamily": "sdkwork-course-app-sdk",
+  "sdkName": "sdkwork-course-app-sdk",
+  "packageName": "@sdkwork/course-app-sdk",
+  "transportPackageName": "sdkwork-course-app-sdk-generated-typescript",
+  "typescript": {
+    "composedRoot": "sdkwork-course-app-sdk-typescript",
+    "composedEntry": "sdkwork-course-app-sdk-typescript/src/index.ts",
+    "transportRoot": "sdkwork-course-app-sdk-typescript/generated/server-openapi",
+    "transportEntry": "sdkwork-course-app-sdk-typescript/generated/server-openapi/src/index.ts"
+  },
+  "workspace": "sdkwork-course-app-sdk",
+  "title": "SDKWork Course App API SDK",
+  "apiVersion": "1.0.0",
+  "openapiVersion": "3.1.2",
+  "authoritySpec": "openapi/sdkwork-course-app-api.openapi.yaml",
+  "generationInputSpec": "openapi/sdkwork-course-app-api.sdkgen.yaml",
+  "derivedSpecs": {
+    "default": "openapi/sdkwork-course-app-api.sdkgen.yaml"
+  },
+  "sdkOwner": "sdkwork-course",
+  "apiAuthority": "sdkwork-course-app-api",
+  "discoverySurface": {
+    "sdkTarget": "app",
+    "apiPrefix": "/app/v3/api",
+    "schemaUrl": "/app/v3/openapi.json",
+    "generatedProtocols": [
+      "http-openapi"
+    ],
+    "manualTransports": []
+  },
+  "sdkDependencies": [],
+  "metadata": {
+    "managedBy": "sdkwork-course",
+    "standardProfile": "sdkwork-v3",
+    "standardVersion": "2026-06-06",
+    "supportedLanguageSubset": [
+      "typescript"
+    ]
+  },
+  "languages": [
+    {
+      "language": "typescript",
+      "workspace": "sdkwork-course-app-sdk-typescript",
+      "generationState": "source_ready",
+      "releaseState": "not_published",
+      "packagePath": "sdkwork-course-app-sdk-typescript/generated/server-openapi",
+      "manifestPath": "sdkwork-course-app-sdk-typescript/generated/server-openapi/package.json",
+      "version": "1.0.0",
+      "description": "Generator-owned TypeScript transport SDK for SDKWork Course App API.",
+      "generatedPath": "sdkwork-course-app-sdk-typescript/generated/server-openapi",
+      "consumerPackageName": "@sdkwork/course-app-sdk",
+      "transportPackageName": "sdkwork-course-app-sdk-generated-typescript"
+    }
+  ]
+}

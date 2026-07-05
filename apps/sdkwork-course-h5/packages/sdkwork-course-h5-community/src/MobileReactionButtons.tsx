@@ -19,7 +19,7 @@ export function MobileReactionButtons({ targetType, targetId, reactions }: Mobil
 
   const reactionMutation = useMutation({
     mutationFn: async ({ reactionType, reactionValue }: { reactionType: string; reactionValue: string }) => {
-      return sdk.reactions.replace({
+      return sdk.courseReactions.replace({
         targetType,
         targetId,
         reactionType,
@@ -49,7 +49,7 @@ export function MobileReactionButtons({ targetType, targetId, reactions }: Mobil
             : 'bg-gray-100 text-gray-600 active:bg-gray-200'
         }`}
       >
-        鉂わ笍 {reactions?.like ? '宸茶禐' : '鐐硅禐'}
+        赞 {reactions?.like ? '已赞' : '点赞'}
       </button>
       <button
         onClick={() => handleReaction('favorite')}
@@ -59,7 +59,7 @@ export function MobileReactionButtons({ targetType, targetId, reactions }: Mobil
             : 'bg-gray-100 text-gray-600 active:bg-gray-200'
         }`}
       >
-        猸?{reactions?.favorite ? '宸茶棌' : '鏀惰棌'}
+        ★ {reactions?.favorite ? '已藏' : '收藏'}
       </button>
       <button
         onClick={() => handleReaction('save')}
@@ -69,15 +69,14 @@ export function MobileReactionButtons({ targetType, targetId, reactions }: Mobil
             : 'bg-gray-100 text-gray-600 active:bg-gray-200'
         }`}
       >
-        馃敄 {reactions?.save ? '宸插瓨' : '淇濆瓨'}
+        存 {reactions?.save ? '已存' : '保存'}
       </button>
       <button
         onClick={() => handleReaction('share')}
         className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs whitespace-nowrap bg-gray-100 text-gray-600 active:bg-gray-200 transition-colors"
       >
-        馃敆 鍒嗕韩
+        分享
       </button>
     </div>
   )
 }
-

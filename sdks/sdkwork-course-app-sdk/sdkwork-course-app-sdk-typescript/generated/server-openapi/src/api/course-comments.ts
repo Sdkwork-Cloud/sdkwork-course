@@ -1,13 +1,15 @@
 import { appApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationCommand, CourseOperationResult } from '../types';
+import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../types';
 
 
 export interface CourseCommentsListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -23,31 +25,33 @@ export class CourseCommentsApi {
   }
 
 
-/** course Comments list */
-  async list(courseId: string, params?: CourseCommentsListParams): Promise<CourseOperationResult> {
+/** course Comments list. */
+  async list(courseId: string, params?: CourseCommentsListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(appApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/comments`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(appApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/comments`), query));
   }
 
-/** course Comments create */
-  async create(courseId: string, body: CourseOperationCommand, params?: CourseCommentsCreateParams): Promise<CourseOperationResult> {
+/** course Comments create. */
+  async create(courseId: string, body: CourseCommandBody, params?: CourseCommentsCreateParams): Promise<Record<string, unknown>> {
     const requestHeaders = buildRequestHeaders(
       {
         'Idempotency-Key': { value: params?.idempotencyKey, style: 'simple', explode: false },
       },
       {}
     );
-    return this.client.post<CourseOperationResult>(appApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/comments`), body, undefined, requestHeaders, 'application/json');
+    return this.client.post<Record<string, unknown>>(appApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/comments`), body, undefined, requestHeaders, 'application/json');
   }
 
-/** course Comments delete */
-  async delete(commentId: string): Promise<CourseOperationResult> {
-    return this.client.delete<CourseOperationResult>(appApiPath(`/course_comments/${serializePathParameter(commentId, { name: 'commentId', style: 'simple', explode: false })}`));
+/** course Comments delete. */
+  async delete(commentId: string): Promise<SdkWorkCommandData> {
+    return this.client.delete<SdkWorkCommandData>(appApiPath(`/course_comments/${serializePathParameter(commentId, { name: 'commentId', style: 'simple', explode: false })}`));
   }
 }
 

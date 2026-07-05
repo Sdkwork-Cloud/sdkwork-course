@@ -12,7 +12,6 @@ export interface CourseOperationPlan {
   permission?: string;
   auditEvent?: string;
   idempotency?: "required" | "recommended";
-  todo: string;
 }
 
 export const COURSE_APP_API_PREFIX = "/app/v3/api";
@@ -142,5 +141,3 @@ export const COURSE_API_MATERIALIZATION_PLAN = {
     sdkFamily: "sdkwork-course-backend-sdk",
   },
 } as const;
-
-// TODO(course): Replace the planning constants with generated OpenAPI-derived exports after operations.json is materialized.

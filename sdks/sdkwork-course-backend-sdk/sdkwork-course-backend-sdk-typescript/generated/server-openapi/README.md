@@ -76,11 +76,13 @@ const client = new SdkworkBackendClient({
 ### course_categories
 
 ```typescript
-// course Categories list
+// course Categories list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseCategories.list(params);
@@ -89,11 +91,13 @@ const result = await client.courseCategories.list(params);
 ### course_instructors
 
 ```typescript
-// course Instructors list
+// course Instructors list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseInstructors.list(params);
@@ -102,11 +106,13 @@ const result = await client.courseInstructors.list(params);
 ### courses
 
 ```typescript
-// courses list
+// courses list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courses.list(params);
@@ -115,7 +121,7 @@ const result = await client.courses.list(params);
 ### course_offerings
 
 ```typescript
-// course Offerings retrieve
+// course Offerings retrieve.
 const offeringId = '1';
 const result = await client.courseOfferings.retrieve(offeringId);
 ```
@@ -123,7 +129,7 @@ const result = await client.courseOfferings.retrieve(offeringId);
 ### course_sections
 
 ```typescript
-// course Sections delete
+// course Sections delete.
 const sectionId = '1';
 const result = await client.courseSections.delete(sectionId);
 ```
@@ -131,7 +137,7 @@ const result = await client.courseSections.delete(sectionId);
 ### course_lessons
 
 ```typescript
-// course Lessons retrieve
+// course Lessons retrieve.
 const lessonId = '1';
 const result = await client.courseLessons.retrieve(lessonId);
 ```
@@ -139,7 +145,7 @@ const result = await client.courseLessons.retrieve(lessonId);
 ### course_resources
 
 ```typescript
-// course Resources delete
+// course Resources delete.
 const resourceRefId = '1';
 const result = await client.courseResources.delete(resourceRefId);
 ```
@@ -147,11 +153,13 @@ const result = await client.courseResources.delete(resourceRefId);
 ### course_live_sessions
 
 ```typescript
-// course Live Sessions list
+// course Live Sessions list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseLiveSessions.list(params);
@@ -160,11 +168,13 @@ const result = await client.courseLiveSessions.list(params);
 ### course_enrollments
 
 ```typescript
-// course Enrollments list
+// course Enrollments list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseEnrollments.list(params);
@@ -173,11 +183,13 @@ const result = await client.courseEnrollments.list(params);
 ### course_progress
 
 ```typescript
-// course Progress list
+// course Progress list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseProgress.list(params);
@@ -186,7 +198,7 @@ const result = await client.courseProgress.list(params);
 ### course_lesson_progress
 
 ```typescript
-// course Lesson Progress repair
+// course Lesson Progress repair.
 const lessonProgressId = '1';
 const body = {};
 const result = await client.courseLessonProgress.repair(lessonProgressId, body);
@@ -195,11 +207,13 @@ const result = await client.courseLessonProgress.repair(lessonProgressId, body);
 ### course_comments
 
 ```typescript
-// course Comments list
+// course Comments list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseComments.list(params);
@@ -208,11 +222,13 @@ const result = await client.courseComments.list(params);
 ### course_reactions
 
 ```typescript
-// course Reactions list
+// course Reactions list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseReactions.list(params);
@@ -221,11 +237,13 @@ const result = await client.courseReactions.list(params);
 ### course_applications
 
 ```typescript
-// course Applications list
+// course Applications list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseApplications.list(params);
@@ -234,18 +252,20 @@ const result = await client.courseApplications.list(params);
 ### course_reports
 
 ```typescript
-// course Reports overview retrieve
+// course Reports overview retrieve.
 const result = await client.courseReports.overview.retrieve();
 ```
 
 ### course_audit_logs
 
 ```typescript
-// course Audit Logs list
+// course Audit Logs list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseAuditLogs.list(params);

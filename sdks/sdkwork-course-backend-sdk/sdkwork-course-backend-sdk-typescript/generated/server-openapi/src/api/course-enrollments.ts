@@ -1,13 +1,15 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationCommand, CourseOperationResult } from '../types';
+import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../types';
 
 
 export interface CourseEnrollmentsListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -19,25 +21,27 @@ export class CourseEnrollmentsApi {
   }
 
 
-/** course Enrollments list */
-  async list(params?: CourseEnrollmentsListParams): Promise<CourseOperationResult> {
+/** course Enrollments list. */
+  async list(params?: CourseEnrollmentsListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(backendApiPath(`/course_enrollments`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_enrollments`), query));
   }
 
-/** course Enrollments grant */
-  async grant(body: CourseOperationCommand): Promise<CourseOperationResult> {
-    return this.client.post<CourseOperationResult>(backendApiPath(`/course_enrollments/grants`), body, undefined, undefined, 'application/json');
+/** course Enrollments grant. */
+  async grant(body: CourseCommandBody): Promise<SdkWorkCommandData> {
+    return this.client.post<SdkWorkCommandData>(backendApiPath(`/course_enrollments/grants`), body, undefined, undefined, 'application/json');
   }
 
-/** course Enrollments revoke */
-  async revoke(enrollmentId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
-    return this.client.post<CourseOperationResult>(backendApiPath(`/course_enrollments/${serializePathParameter(enrollmentId, { name: 'enrollmentId', style: 'simple', explode: false })}/revoke`), body, undefined, undefined, 'application/json');
+/** course Enrollments revoke. */
+  async revoke(enrollmentId: string, body: CourseCommandBody): Promise<SdkWorkCommandData> {
+    return this.client.post<SdkWorkCommandData>(backendApiPath(`/course_enrollments/${serializePathParameter(enrollmentId, { name: 'enrollmentId', style: 'simple', explode: false })}/revoke`), body, undefined, undefined, 'application/json');
   }
 }
 

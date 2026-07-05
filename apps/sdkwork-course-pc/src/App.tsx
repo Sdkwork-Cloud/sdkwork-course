@@ -11,13 +11,6 @@ import { ErrorBoundary } from '@sdkwork/sdkwork-course-pc-commons'
 
 const queryClient = new QueryClient()
 
-const sdkConfig = {
-  appApi: {
-    baseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080',
-    prefix: '/app/v3/api',
-  },
-}
-
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAppStore()
   
@@ -34,7 +27,7 @@ function App() {
   return (
     <ErrorBoundary>
       <I18nextProvider i18n={i18n}>
-        <CourseSdkProvider config={sdkConfig}>
+        <CourseSdkProvider>
           <QueryClientProvider client={queryClient}>
             <BrowserRouter>
               <div className="min-h-screen bg-gray-50">

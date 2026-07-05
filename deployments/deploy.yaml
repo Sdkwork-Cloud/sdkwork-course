@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "sdkwork.deploy.application",
+  "applicationCode": "course",
+  "displayName": "SDKWork Course",
+  "deploymentProfile": "cloud",
+  "runtimeTargets": [
+    {
+      "id": "course-gateway",
+      "kind": "rust-gateway-assembly",
+      "crate": "sdkwork-course-gateway-assembly",
+      "mountPrefix": "/"
+    }
+  ],
+  "dependencies": {
+    "database": {
+      "moduleId": "course",
+      "serviceCode": "COURSE"
+    },
+    "drive": {
+      "requiredForMedia": true,
+      "envKeys": [
+        "SDKWORK_DRIVE_FACADE_URL",
+        "SDKWORK_DRIVE_APP_API_BASE_URL"
+      ]
+    },
+    "iam": {
+      "requiredForAuth": true,
+      "envKeys": [
+        "SDKWORK_ACCESS_TOKEN"
+      ]
+    }
+  },
+  "clientSurfaces": [
+    "apps/sdkwork-course-pc",
+    "apps/sdkwork-course-h5",
+    "apps/sdkwork-course-mini-program"
+  ]
+}

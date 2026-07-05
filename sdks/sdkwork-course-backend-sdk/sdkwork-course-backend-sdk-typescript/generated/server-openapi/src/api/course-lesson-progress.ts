@@ -1,7 +1,7 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationCommand, CourseOperationResult } from '../types';
+import type { CourseCommandBody, SdkWorkCommandData } from '../types';
 
 
 export class CourseLessonProgressApi {
@@ -12,9 +12,9 @@ export class CourseLessonProgressApi {
   }
 
 
-/** course Lesson Progress repair */
-  async repair(lessonProgressId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
-    return this.client.patch<CourseOperationResult>(backendApiPath(`/course_lesson_progress/${serializePathParameter(lessonProgressId, { name: 'lessonProgressId', style: 'simple', explode: false })}`), body, undefined, undefined, 'application/json');
+/** course Lesson Progress repair. */
+  async repair(lessonProgressId: string, body: CourseCommandBody): Promise<SdkWorkCommandData> {
+    return this.client.patch<SdkWorkCommandData>(backendApiPath(`/course_lesson_progress/${serializePathParameter(lessonProgressId, { name: 'lessonProgressId', style: 'simple', explode: false })}`), body, undefined, undefined, 'application/json');
   }
 }
 

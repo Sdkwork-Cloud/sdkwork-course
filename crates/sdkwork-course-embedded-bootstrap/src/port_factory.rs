@@ -5,12 +5,15 @@ use sdkwork_content_course_service::ports::provider::{
 
 use crate::adapters::{
     HttpCourseAuditEventPort, HttpCourseNotificationPort, LoggingCourseAuditEventPort,
-    LoggingCourseNotificationPort,
+    LoggingCourseNotificationPort, SdkDriveCoursePort,
 };
 use crate::provider_ports::{
     EmbeddedLocalEntitlementPort, EmbeddedPassThroughDrivePort, UnconfiguredAuditEventPort,
     UnconfiguredLiveProviderPort, UnconfiguredNotificationPort,
 };
+
+const DRIVE_FACADE_URL_ENV: &str = "SDKWORK_DRIVE_FACADE_URL";
+const DRIVE_APP_API_BASE_ENV: &str = "SDKWORK_DRIVE_APP_API_BASE_URL";
 
 const COURSE_AUDIT_URL_ENV: &str = "SDKWORK_COURSE_AUDIT_URL";
 const COURSE_NOTIFICATION_URL_ENV: &str = "SDKWORK_COURSE_NOTIFICATION_URL";
@@ -19,7 +22,17 @@ const IM_NOTIFICATION_UPSTREAM_ENV: &str = "SDKWORK_IM_NOTIFICATION_SERVICE_UPST
 const COURSE_INTEGRATION_LOG_ENV: &str = "SDKWORK_COURSE_INTEGRATION_LOG";
 
 pub fn build_drive_port() -> Box<dyn CourseDrivePort> {
+    if drive_integration_configured() {
+        match SdkDriveCoursePort::from_env() {
+            Ok(port) => return Box::new(port),
+            Err(error) => tracing::warn!(%error, "drive SDK port init failed; using pass-through port"),
+        }
+    }
     Box::new(EmbeddedPassThroughDrivePort)
+}
+
+fn drive_integration_configured() -> bool {
+    read_env_url(DRIVE_FACADE_URL_ENV).is_some() || read_env_url(DRIVE_APP_API_BASE_ENV).is_some()
 }
 
 pub fn build_entitlement_port() -> Box<dyn CourseEntitlementPort> {

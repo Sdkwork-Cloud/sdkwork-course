@@ -1,28 +1,11 @@
 ﻿import React from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { useCourseSdk } from '@sdkwork/sdkwork-course-pc-core'
-
-interface ProgressData {
-  id: string
-  courseId: string
-  offeringId: string
-  enrollmentId: string
-  userId: string
-  progressStatus: string
-  completedLessonCount: number
-  requiredLessonCount: number
-  progressPercent: string
-  watchSeconds: number
-  lastLessonId?: string
-  startedAt?: string
-  completedAt?: string
-}
-
-interface ProgressResponse {
-  code: string
-  msg: string
-  data?: ProgressData
-}
+import {
+  useCourseSdk,
+  extractSdkItem,
+  readEntityString,
+  readEntityNumber,
+} from '@sdkwork/sdkwork-course-pc-core'
 
 interface LearningProgressProps {
   enrollmentId: string
@@ -31,20 +14,31 @@ interface LearningProgressProps {
 export function LearningProgress({ enrollmentId }: LearningProgressProps) {
   const sdk = useCourseSdk()
 
-  const { data, isLoading } = useQuery<ProgressResponse>({
+  const { data, isLoading } = useQuery({
     queryKey: ['progress', enrollmentId],
-    queryFn: async () => sdk.progress.retrieve(enrollmentId),
+    queryFn: async () => sdk.courseProgress.retrieve(enrollmentId),
     enabled: !!enrollmentId,
   })
 
-  const progress = data?.data
+  const record = extractSdkItem(data)
+  const progress = record
+    ? {
+        completedLessonCount: readEntityNumber(record, 'completedLessonCount', 'completed_lesson_count') ?? 0,
+        requiredLessonCount: readEntityNumber(record, 'requiredLessonCount', 'required_lesson_count') ?? 0,
+        progressPercent: readEntityString(record, 'progressPercent', 'progress_percent') || '0',
+        watchSeconds: readEntityNumber(record, 'watchSeconds', 'watch_seconds') ?? 0,
+        progressStatus: readEntityString(record, 'progressStatus', 'progress_status', 'status') || 'in_progress',
+        startedAt: readEntityString(record, 'startedAt', 'started_at') || undefined,
+        completedAt: readEntityString(record, 'completedAt', 'completed_at') || undefined,
+      }
+    : null
 
   if (isLoading) {
-    return <div className="p-4 text-gray-500">鍔犺浇瀛︿範杩涘害...</div>
+    return <div className="p-4 text-gray-500">加载学习进度...</div>
   }
 
   if (!progress) {
-    return <div className="p-4 text-gray-500">鏆傛棤瀛︿範杩涘害</div>
+    return <div className="p-4 text-gray-500">暂无学习进度</div>
   }
 
   const percent = parseFloat(progress.progressPercent) || 0
@@ -53,11 +47,11 @@ export function LearningProgress({ enrollmentId }: LearningProgressProps) {
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h3 className="font-semibold mb-4">瀛︿範杩涘害</h3>
-      
+      <h3 className="font-semibold mb-4">学习进度</h3>
+
       <div className="mb-4">
         <div className="flex justify-between text-sm mb-1">
-          <span>瀹屾垚杩涘害</span>
+          <span>完成进度</span>
           <span>{percent.toFixed(1)}%</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
@@ -70,33 +64,29 @@ export function LearningProgress({ enrollmentId }: LearningProgressProps) {
 
       <div className="grid grid-cols-2 gap-4 text-center">
         <div>
-          <div className="text-2xl font-bold text-blue-600">
-            {progress.completedLessonCount}
-          </div>
-          <div className="text-sm text-gray-500">宸插畬鎴愯鏃?/div>
+          <div className="text-2xl font-bold text-blue-600">{progress.completedLessonCount}</div>
+          <div className="text-sm text-gray-500">已完成课时</div>
         </div>
         <div>
-          <div className="text-2xl font-bold text-gray-600">
-            {progress.requiredLessonCount}
-          </div>
-          <div className="text-sm text-gray-500">鎬昏鏃?/div>
+          <div className="text-2xl font-bold text-gray-600">{progress.requiredLessonCount}</div>
+          <div className="text-sm text-gray-500">总课时</div>
         </div>
       </div>
 
       <div className="mt-4 pt-4 border-t">
         <div className="flex justify-between text-sm">
-          <span className="text-gray-500">瀛︿範鏃堕暱</span>
-          <span>{watchHours}灏忔椂{watchMinutes}鍒嗛挓</span>
+          <span className="text-gray-500">学习时长</span>
+          <span>{watchHours} 小时 {watchMinutes} 分钟</span>
         </div>
         {progress.startedAt && (
           <div className="flex justify-between text-sm mt-2">
-            <span className="text-gray-500">寮€濮嬫椂闂?/span>
+            <span className="text-gray-500">开始时间</span>
             <span>{new Date(progress.startedAt).toLocaleDateString()}</span>
           </div>
         )}
         {progress.completedAt && (
           <div className="flex justify-between text-sm mt-2">
-            <span className="text-gray-500">瀹屾垚鏃堕棿</span>
+            <span className="text-gray-500">完成时间</span>
             <span>{new Date(progress.completedAt).toLocaleDateString()}</span>
           </div>
         )}
@@ -104,11 +94,9 @@ export function LearningProgress({ enrollmentId }: LearningProgressProps) {
 
       {progress.progressStatus === 'completed' && (
         <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
-          馃帀 鎭枩锛佷綘宸插畬鎴愭湰璇剧▼鐨勫涔?        </div>
+          恭喜！你已完成本课程的学习
+        </div>
       )}
     </div>
   )
 }
-
-
-

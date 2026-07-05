@@ -1,66 +1,79 @@
-﻿import React from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+﻿import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import { PageHeader, LoadingSpinner, EmptyState } from '@sdkwork/sdkwork-course-pc-commons'
-import { useCourseSdk } from '@sdkwork/sdkwork-course-pc-core'
-
-interface CourseDetail {
-  id: string
-  courseCode: string
-  title: string
-  subtitle?: string
-  description?: string
-  thumbnail?: string
-  instructor?: string
-  lessonsCount: number
-  studentsCount: number
-  ratingScore: string
-  category?: string
-  tags: string[]
-  status: string
-  visibility: string
-  publishStatus: string
-}
-
-interface CourseDetailResponse {
-  code: string
-  msg: string
-  data?: CourseDetail
-}
+import {
+  useCourseSdk,
+  extractSdkItem,
+  readEntityString,
+  readEntityNumber,
+  enrollInFirstCourseOffering,
+  CourseEnrollmentError,
+} from '@sdkwork/sdkwork-course-pc-core'
 
 export function CourseDetailPage() {
   const { id } = useParams<{ id: string }>()
-  const navigate = useNavigate()
   const sdk = useCourseSdk()
+  const [enrollFeedback, setEnrollFeedback] = useState<{ tone: 'success' | 'error'; message: string } | null>(null)
 
-  const { data, isLoading, error } = useQuery<CourseDetailResponse>({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['course', id],
     queryFn: async () => sdk.courses.retrieve(id!),
     enabled: !!id,
   })
 
-  const course = data?.data
+  const enrollMutation = useMutation({
+    mutationFn: async () => enrollInFirstCourseOffering(sdk, id!),
+    onSuccess: () => {
+      setEnrollFeedback({ tone: 'success', message: '报名成功' })
+    },
+    onError: (mutationError) => {
+      const message =
+        mutationError instanceof CourseEnrollmentError
+          ? mutationError.message
+          : '报名失败，请稍后再试'
+      setEnrollFeedback({ tone: 'error', message })
+    },
+  })
+
+  const courseRecord = extractSdkItem(data)
+  const course = courseRecord
+    ? {
+        id: readEntityString(courseRecord, 'id', 'courseId'),
+        courseCode: readEntityString(courseRecord, 'courseCode', 'course_code'),
+        title: readEntityString(courseRecord, 'title', 'name'),
+        subtitle: readEntityString(courseRecord, 'subtitle') || undefined,
+        description: readEntityString(courseRecord, 'description', 'summary') || undefined,
+        thumbnail: readEntityString(courseRecord, 'thumbnail', 'cover', 'coverUrl') || undefined,
+        instructor: readEntityString(courseRecord, 'instructor', 'instructorName') || undefined,
+        lessonsCount: readEntityNumber(courseRecord, 'lessonsCount', 'lessons_count') ?? 0,
+        studentsCount: readEntityNumber(courseRecord, 'studentsCount', 'students_count', 'students') ?? 0,
+        ratingScore: readEntityString(courseRecord, 'ratingScore', 'rating', 'rating_score') || '暂无评分',
+        category: readEntityString(courseRecord, 'category', 'categoryId') || undefined,
+        tags: Array.isArray(courseRecord.tags) ? (courseRecord.tags as string[]) : [],
+        status: readEntityString(courseRecord, 'status') || 'draft',
+        visibility: readEntityString(courseRecord, 'visibility') || 'public',
+        publishStatus: readEntityString(courseRecord, 'publishStatus', 'publish_status') || readEntityString(courseRecord, 'status'),
+      }
+    : null
 
   if (isLoading) {
-    return <LoadingSpinner text="鍔犺浇璇剧▼璇︽儏..." />
+    return <LoadingSpinner text="加载课程详情..." />
   }
 
   if (error || !course) {
     return (
       <EmptyState
-        icon="鉂?
-        title="璇剧▼涓嶅瓨鍦?
-        description="鏃犳硶鎵惧埌璇ヨ绋嬶紝璇锋鏌ラ摼鎺ユ槸鍚︽纭?
+        icon="!"
+        title="课程不存在"
+        description="无法找到该课程，请检查链接是否正确"
       />
     )
   }
 
   return (
     <div>
-      <PageHeader
-        title={course.title}
-        subtitle={course.subtitle}
-      />
+      <PageHeader title={course.title} subtitle={course.subtitle} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
@@ -70,13 +83,13 @@ export function CourseDetailPage() {
                 <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover rounded-lg" />
               )}
             </div>
-            <h2 className="text-xl font-semibold mb-2">璇剧▼绠€浠?/h2>
-            <p className="text-gray-600">{course.description || '鏆傛棤绠€浠?}</p>
+            <h2 className="text-xl font-semibold mb-2">课程简介</h2>
+            <p className="text-gray-600">{course.description || '暂无简介'}</p>
           </div>
 
           <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-semibold mb-4">璇剧▼鐩綍</h2>
-            <p className="text-gray-600">璇剧▼鍐呭鍔犺浇涓?..</p>
+            <h2 className="text-xl font-semibold mb-4">课程目录</h2>
+            <p className="text-gray-600">课程内容加载中...</p>
           </div>
         </div>
 
@@ -84,50 +97,45 @@ export function CourseDetailPage() {
           <div className="bg-white rounded-lg shadow p-6 sticky top-4">
             <div className="text-center mb-4">
               <div className="text-3xl font-bold text-blue-600 mb-2">
-                {course.ratingScore || '鏆傛棤璇勫垎'}
+                {course.ratingScore || '暂无评分'}
               </div>
-              <div className="text-sm text-gray-500">璇剧▼璇勫垎</div>
+              <div className="text-sm text-gray-500">课程评分</div>
             </div>
 
             <div className="space-y-3 mb-6">
               <div className="flex justify-between">
-                <span className="text-gray-600">璇炬椂鏁?/span>
-                <span className="font-semibold">{course.lessonsCount}璇?/span>
+                <span className="text-gray-600">课时数</span>
+                <span className="font-semibold">{course.lessonsCount} 课时</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">瀛︿範浜烘暟</span>
-                <span className="font-semibold">{course.studentsCount}浜?/span>
+                <span className="text-gray-600">学习人数</span>
+                <span className="font-semibold">{course.studentsCount} 人</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">璇剧▼鐘舵€?/span>
+                <span className="text-gray-600">课程状态</span>
                 <span className="font-semibold">{course.publishStatus}</span>
               </div>
             </div>
 
+            {enrollFeedback && (
+              <p
+                className={`mb-3 text-sm ${
+                  enrollFeedback.tone === 'success' ? 'text-green-600' : 'text-red-600'
+                }`}
+              >
+                {enrollFeedback.message}
+              </p>
+            )}
+
             <button
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-              onClick={async () => {
-                try {
-                  // Get offerings for this course
-                  const offeringsResponse = await sdk.offerings.list(id!)
-                  const offerings = offeringsResponse?.data || []
-                  
-                  if (offerings.length > 0) {
-                    // Enroll in the first offering
-                    const offeringId = offerings[0].id
-                    await sdk.enrollments.create(offeringId, {
-                      source: 'self_service'
-                    })
-                    alert('鎶ュ悕鎴愬姛锛?)
-                  } else {
-                    alert('鏆傛棤鍙姤鍚嶇殑璇剧▼鐝')
-                  }
-                } catch (error) {
-                  alert('鎶ュ悕澶辫触锛岃绋嶅悗鍐嶈瘯')
-                }
+              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50"
+              disabled={enrollMutation.isPending}
+              onClick={() => {
+                setEnrollFeedback(null)
+                enrollMutation.mutate()
               }}
             >
-              绔嬪嵆鎶ュ悕
+              {enrollMutation.isPending ? '报名中...' : '立即报名'}
             </button>
           </div>
         </div>
@@ -135,6 +143,3 @@ export function CourseDetailPage() {
     </div>
   )
 }
-
-
-

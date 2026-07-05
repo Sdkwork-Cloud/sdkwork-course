@@ -79,7 +79,7 @@ export interface CourseRequestContext {
   organizationId: string;
   userId?: string;
   actorId?: string;
-  requestId?: string;
+  correlationId?: string;
   traceId?: string;
   permissions: readonly string[];
 }
@@ -175,5 +175,3 @@ export interface CourseAuditCommand {
   beforeSnapshot?: Record<string, unknown>;
   afterSnapshot?: Record<string, unknown>;
 }
-
-// TODO(course): Materialize these contracts into OpenAPI schemas and database migration DTOs after the final schema review.

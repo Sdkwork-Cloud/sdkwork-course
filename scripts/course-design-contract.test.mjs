@@ -12,6 +12,9 @@ const requiredDesignFiles = [
   "specs/database/course-schema.contract.json",
   "specs/database/README.md",
   "specs/design/course-module-plan.md",
+  "deployments/deploy.yaml",
+  "database/database.manifest.json",
+  "database/ddl/baseline/postgres/0001_course_baseline.sql",
   "sdks/_shared/course-contracts/src/course-domain.ts",
   "sdks/_shared/course-contracts/src/course-api.ts",
   "crates/sdkwork-content-course-service/src/domain/commands.rs",
@@ -21,8 +24,14 @@ const requiredDesignFiles = [
   "crates/sdkwork-content-course-service/src/service/course_service.rs",
   "crates/sdkwork-content-course-repository-sqlx/src/db/schema.rs",
   "crates/sdkwork-content-course-repository-sqlx/src/repository/course_repository.rs",
+  "crates/sdkwork-routes-course-http-auth/src/api_response.rs",
+  "crates/sdkwork-routes-course-app-api/src/routes.rs",
+  "crates/sdkwork-routes-course-backend-api/src/routes.rs",
   "crates/sdkwork-routes-course-app-api/src/manifest.rs",
   "crates/sdkwork-routes-course-backend-api/src/manifest.rs",
+  "crates/sdkwork-course-embedded-bootstrap/src/adapters/drive_sdk.rs",
+  "apps/sdkwork-course-pc/packages/sdkwork-course-pc-core/src/courseAppSdkClient.ts",
+  "apps/sdkwork-course-h5/packages/sdkwork-course-h5-core/src/courseAppSdkClient.ts",
 ];
 
 const requiredTables = [
@@ -148,7 +157,12 @@ const requiredBackendOperations = [
 ];
 
 function readJson(relativePath) {
-  return JSON.parse(fs.readFileSync(path.join(courseRoot, relativePath), "utf8"));
+  const raw = fs.readFileSync(path.join(courseRoot, relativePath));
+  const text =
+    raw[0] === 0xef && raw[1] === 0xbb && raw[2] === 0xbf
+      ? raw.slice(3).toString("utf8")
+      : raw.toString("utf8");
+  return JSON.parse(text);
 }
 
 test("course design contract files exist", () => {
@@ -195,26 +209,24 @@ test("course API operation lists define complete app and backend surfaces", () =
     assert.ok(operation.path, `${operation.operationId} must declare path`);
     assert.ok(operation.resource, `${operation.operationId} must declare resource`);
     assert.ok(operation.authMode, `${operation.operationId} must declare authMode`);
-    assert.ok(operation.todo, `${operation.operationId} must include TODO guidance`);
+    assert.ok(operation.path.startsWith(app.apiPrefix) || operation.path.startsWith(backend.apiPrefix));
   }
 });
 
-test("course authored module skeletons include TODO implementation guidance", () => {
-  for (const relativePath of [
-    "sdks/_shared/course-contracts/src/course-domain.ts",
-    "sdks/_shared/course-contracts/src/course-api.ts",
-    "crates/sdkwork-content-course-service/src/domain/commands.rs",
-    "crates/sdkwork-content-course-service/src/domain/models.rs",
-    "crates/sdkwork-content-course-service/src/ports/repository.rs",
-    "crates/sdkwork-content-course-service/src/ports/provider.rs",
-    "crates/sdkwork-content-course-service/src/service/course_service.rs",
-    "crates/sdkwork-content-course-repository-sqlx/src/db/schema.rs",
-    "crates/sdkwork-content-course-repository-sqlx/src/repository/course_repository.rs",
-    "crates/sdkwork-routes-course-app-api/src/manifest.rs",
-    "crates/sdkwork-routes-course-backend-api/src/manifest.rs",
-  ]) {
+test("course production modules integrate sdkwork-web-framework, database, utils, and drive", () => {
+  const checks = [
+    ["crates/sdkwork-routes-course-http-auth/src/api_response.rs", /SdkWorkApiResponse/u],
+    ["crates/sdkwork-routes-course-app-api/src/routes.rs", /build_sdkwork_course/u],
+    ["crates/sdkwork-course-embedded-bootstrap/src/adapters/drive_sdk.rs", /sdkwork_drive_app_sdk_generated_rust/u],
+    ["crates/sdkwork-course-database-host/src/lib.rs", /LifecycleOrchestrator/u],
+    ["apps/sdkwork-course-pc/packages/sdkwork-course-pc-core/src/courseAppSdkClient.ts", /@sdkwork\/course-app-sdk/u],
+    ["apps/sdkwork-course-pc/packages/sdkwork-course-pc-core/src/driveAppSdkClient.ts", /@sdkwork\/drive-app-sdk/u],
+    ["apps/sdkwork-course-pc/packages/sdkwork-course-pc-core/src/iamAppSdkClient.ts", /@sdkwork\/iam-app-sdk/u],
+  ];
+
+  for (const [relativePath, pattern] of checks) {
     const source = fs.readFileSync(path.join(courseRoot, relativePath), "utf8");
-    assert.match(source, /TODO\(course\)/u, `${relativePath} must include TODO(course) implementation notes`);
+    assert.match(source, pattern, `${relativePath} must integrate the expected SDKWork platform module`);
   }
 });
 
@@ -223,11 +235,19 @@ test("course Rust implementation uses SDKWork crates responsibility layout", () 
   for (const member of [
     "crates/sdkwork-content-course-service",
     "crates/sdkwork-content-course-repository-sqlx",
+    "crates/sdkwork-routes-course-http-auth",
     "crates/sdkwork-routes-course-app-api",
     "crates/sdkwork-routes-course-backend-api",
+    "crates/sdkwork-course-embedded-bootstrap",
+    "crates/sdkwork-course-database-host",
+    "crates/sdkwork-course-gateway-assembly",
   ]) {
     assert.ok(cargo.includes(member), `Cargo workspace must include ${member}`);
   }
+
+  assert.match(cargo, /sdkwork-web-core/u);
+  assert.match(cargo, /sdkwork-utils-rust/u);
+  assert.match(cargo, /sdkwork-drive-app-sdk-generated-rust/u);
 
   assert.ok(
     !fs.existsSync(path.join(courseRoot, "packages/native-rust/course/sdkwork-course-rust/Cargo.toml")),

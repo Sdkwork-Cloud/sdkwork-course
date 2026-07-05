@@ -1,6 +1,12 @@
 ﻿import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { useAppStore } from '@sdkwork/sdkwork-course-h5-core'
+import {
+  useAppStore,
+  getIamAppSdkClient,
+  readIamSessionTokens,
+  persistIamSession,
+  assertIamSessionTokens,
+} from '@sdkwork/sdkwork-course-h5-core'
 import { MobilePageHeader } from '@sdkwork/sdkwork-course-h5-commons'
 
 export function MobileRegisterPage() {
@@ -19,33 +25,29 @@ export function MobileRegisterPage() {
     setError('')
 
     if (password !== confirmPassword) {
-      setError('涓ゆ杈撳叆鐨勫瘑鐮佷笉涓€鑷?)
+      setError('两次输入的密码不一致')
       setIsLoading(false)
       return
     }
 
     try {
-      // Call auth API through SDK
-      const response = await fetch('/app/v3/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
-      })
-      
-      const data = await response.json()
-      
-      if (data.code === '2000' && data.data) {
-        setUser({
-          id: data.data.id || '1',
-          name: name,
-          email: email,
-        })
-        navigate('/')
-      } else {
-        setError(data.msg || '娉ㄥ唽澶辫触锛岃绋嶅悗鍐嶈瘯')
-      }
-    } catch {
-      setError('娉ㄥ唽澶辫触锛岃绋嶅悗鍐嶈瘯')
+      const iamClient = getIamAppSdkClient()
+      await iamClient.auth.registrations.create({ name, email, password })
+      const response = await iamClient.auth.sessions.create({ email, password })
+      const tokens = readIamSessionTokens(response)
+      assertIamSessionTokens(tokens)
+      const session = persistIamSession(
+        {
+          ...tokens,
+          user: tokens.user ?? { id: email, name, email },
+        },
+        email,
+      )
+      setUser(session.user!)
+      navigate('/')
+    } catch (submitError) {
+      const message = submitError instanceof Error ? submitError.message : '注册失败，请稍后再试'
+      setError(message)
     } finally {
       setIsLoading(false)
     }
@@ -53,12 +55,12 @@ export function MobileRegisterPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <MobilePageHeader title="娉ㄥ唽" showBack onBack={() => navigate(-1)} />
-      
+      <MobilePageHeader title="注册" showBack onBack={() => navigate(-1)} />
+
       <div className="p-4">
         <div className="mb-6">
-          <h2 className="text-xl font-bold">鍒涘缓鏂拌处鎴?/h2>
-          <p className="text-gray-600 text-sm mt-1">娉ㄥ唽鍚庡紑濮嬩綘鐨勫涔犱箣鏃?/p>
+          <h2 className="text-xl font-bold">创建新账户</h2>
+          <p className="text-gray-600 text-sm mt-1">注册后开始你的学习之旅</p>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -71,7 +73,7 @@ export function MobileRegisterPage() {
           <div className="space-y-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                濮撳悕
+                姓名
               </label>
               <input
                 id="name"
@@ -81,13 +83,13 @@ export function MobileRegisterPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="璇疯緭鍏ュ鍚?
+                placeholder="请输入姓名"
               />
             </div>
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                閭鍦板潃
+                邮箱地址
               </label>
               <input
                 id="email"
@@ -97,13 +99,13 @@ export function MobileRegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="璇疯緭鍏ラ偖绠?
+                placeholder="请输入邮箱"
               />
             </div>
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                瀵嗙爜
+                密码
               </label>
               <input
                 id="password"
@@ -113,13 +115,13 @@ export function MobileRegisterPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="璇疯緭鍏ュ瘑鐮?
+                placeholder="请输入密码"
               />
             </div>
 
             <div>
               <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-1">
-                纭瀵嗙爜
+                确认密码
               </label>
               <input
                 id="confirm-password"
@@ -129,7 +131,7 @@ export function MobileRegisterPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="璇峰啀娆¤緭鍏ュ瘑鐮?
+                placeholder="请再次输入密码"
               />
             </div>
 
@@ -138,16 +140,16 @@ export function MobileRegisterPage() {
               disabled={isLoading}
               className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold active:bg-blue-700 transition-colors disabled:opacity-50"
             >
-              {isLoading ? '娉ㄥ唽涓?..' : '娉ㄥ唽'}
+              {isLoading ? '注册中...' : '注册'}
             </button>
           </div>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            宸叉湁璐︽埛锛焮' '}
+            已有账户？{' '}
             <Link to="/login" className="text-blue-600 hover:text-blue-500 font-medium">
-              绔嬪嵆鐧诲綍
+              立即登录
             </Link>
           </p>
         </div>
@@ -155,4 +157,3 @@ export function MobileRegisterPage() {
     </div>
   )
 }
-

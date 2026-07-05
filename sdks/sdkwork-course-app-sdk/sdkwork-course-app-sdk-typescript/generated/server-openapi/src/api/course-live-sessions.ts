@@ -1,7 +1,7 @@
 import { appApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationCommand, CourseOperationResult } from '../types';
+import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../types';
 
 
 export class CourseLiveSessionsReplayApi {
@@ -12,9 +12,9 @@ export class CourseLiveSessionsReplayApi {
   }
 
 
-/** course Live Sessions replay retrieve */
-  async retrieve(liveSessionId: string): Promise<CourseOperationResult> {
-    return this.client.get<CourseOperationResult>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/replay`));
+/** course Live Sessions replay retrieve. */
+  async retrieve(liveSessionId: string): Promise<Record<string, unknown>> {
+    return this.client.get<Record<string, unknown>>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/replay`));
   }
 }
 
@@ -22,6 +22,8 @@ export interface CourseLiveSessionsListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -39,41 +41,43 @@ export class CourseLiveSessionsApi {
   }
 
 
-/** course Live Sessions list */
-  async list(params?: CourseLiveSessionsListParams): Promise<CourseOperationResult> {
+/** course Live Sessions list. */
+  async list(params?: CourseLiveSessionsListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(appApiPath(`/course_live_sessions`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(appApiPath(`/course_live_sessions`), query));
   }
 
-/** course Live Sessions retrieve */
-  async retrieve(liveSessionId: string): Promise<CourseOperationResult> {
-    return this.client.get<CourseOperationResult>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}`));
+/** course Live Sessions retrieve. */
+  async retrieve(liveSessionId: string): Promise<Record<string, unknown>> {
+    return this.client.get<Record<string, unknown>>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}`));
   }
 
-/** course Live Sessions join */
-  async join(liveSessionId: string, body: CourseOperationCommand, params?: CourseLiveSessionsJoinParams): Promise<CourseOperationResult> {
+/** course Live Sessions join. */
+  async join(liveSessionId: string, body: CourseCommandBody, params?: CourseLiveSessionsJoinParams): Promise<SdkWorkCommandData> {
     const requestHeaders = buildRequestHeaders(
       {
         'Idempotency-Key': { value: params?.idempotencyKey, style: 'simple', explode: false },
       },
       {}
     );
-    return this.client.post<CourseOperationResult>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/join`), body, undefined, requestHeaders, 'application/json');
+    return this.client.post<SdkWorkCommandData>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/join`), body, undefined, requestHeaders, 'application/json');
   }
 
-/** course Live Sessions heartbeat */
-  async heartbeat(liveSessionId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
-    return this.client.post<CourseOperationResult>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/heartbeat`), body, undefined, undefined, 'application/json');
+/** course Live Sessions heartbeat. */
+  async heartbeat(liveSessionId: string, body: CourseCommandBody): Promise<SdkWorkCommandData> {
+    return this.client.post<SdkWorkCommandData>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/heartbeat`), body, undefined, undefined, 'application/json');
   }
 
-/** course Live Sessions leave */
-  async leave(liveSessionId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
-    return this.client.post<CourseOperationResult>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/leave`), body, undefined, undefined, 'application/json');
+/** course Live Sessions leave. */
+  async leave(liveSessionId: string, body: CourseCommandBody): Promise<SdkWorkCommandData> {
+    return this.client.post<SdkWorkCommandData>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/leave`), body, undefined, undefined, 'application/json');
   }
 }
 

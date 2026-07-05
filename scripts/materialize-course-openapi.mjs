@@ -1,7 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
+import {
+  isCreateOperation,
+  sdkWorkEnvelopeComponentSchemas,
+} from "../../sdkwork-specs/tools/lib/openapi-envelope-schemas.mjs";
 
 const courseRoot = path.resolve(import.meta.dirname, "..");
+const checkOnly = process.argv.includes("--check");
 
 const surfaces = [
   {
@@ -14,6 +19,8 @@ const surfaces = [
     routeCrate: "sdkwork-routes-course-app-api",
     routeCrateRoot: "crates/sdkwork-routes-course-app-api",
     title: "SDKWork Course App API",
+    audience:
+      "Learner and client applications for course discovery, enrollment, progress, live sessions, comments, and applications.",
   },
   {
     operationsPath: "apis/backend-api/course/operations.json",
@@ -27,8 +34,12 @@ const surfaces = [
     routeCrate: "sdkwork-routes-course-backend-api",
     routeCrateRoot: "crates/sdkwork-routes-course-backend-api",
     title: "SDKWork Course Backend API",
+    audience:
+      "Operator and admin consoles for course catalog governance, moderation, reporting, and audit workflows.",
   },
 ];
+
+const driftErrors = [];
 
 for (const surface of surfaces) {
   const operationPlan = readJson(surface.operationsPath);
@@ -37,20 +48,64 @@ for (const surface of surfaces) {
   const routeManifest = buildRouteManifest(operationPlan, surface);
   const openApi = buildOpenApi(operationPlan, surface);
 
+  if (checkOnly) {
+    assertNoDrift(surface.routeManifestPath, routeManifest);
+    assertNoDrift(surface.authorityPath, openApi);
+    assertNoDrift(surface.sdkgenPath, openApi);
+    assertAssemblyCount(surface.assemblyPath, operationPlan.operations.length);
+    continue;
+  }
+
   writeJson(surface.routeManifestPath, routeManifest);
   writeJson(surface.authorityPath, openApi);
   writeJson(surface.sdkgenPath, openApi);
   syncAssemblyCount(surface.assemblyPath, operationPlan.operations.length);
 }
 
+if (checkOnly) {
+  if (driftErrors.length > 0) {
+    console.error(driftErrors.join("\n"));
+    process.exit(1);
+  }
+  console.log("course OpenAPI authorities are materialized and in sync");
+}
+
+function assertNoDrift(relativePath, expectedValue) {
+  const fullPath = path.join(courseRoot, relativePath);
+  if (!fs.existsSync(fullPath)) {
+    driftErrors.push(`missing materialized artifact: ${relativePath}`);
+    return;
+  }
+  const actual = readJson(relativePath);
+  const expectedText = `${JSON.stringify(expectedValue, null, 2)}\n`;
+  const actualText = `${JSON.stringify(actual, null, 2)}\n`;
+  if (actualText !== expectedText) {
+    driftErrors.push(`OpenAPI drift detected: ${relativePath} (run pnpm run materialize:openapi)`);
+  }
+}
+
+function assertAssemblyCount(relativePath, expectedCount) {
+  const assembly = readJson(relativePath);
+  if (assembly.ownerOnlyOperationCount !== expectedCount) {
+    driftErrors.push(
+      `assembly drift detected: ${relativePath} expected ${expectedCount} operations (run pnpm run materialize:openapi)`,
+    );
+  }
+}
+
 function readJson(relativePath) {
-  return JSON.parse(fs.readFileSync(path.join(courseRoot, relativePath), "utf8"));
+  const raw = fs.readFileSync(path.join(courseRoot, relativePath));
+  const text =
+    raw[0] === 0xef && raw[1] === 0xbb && raw[2] === 0xbf
+      ? raw.slice(3).toString("utf8")
+      : raw.toString("utf8");
+  return JSON.parse(text);
 }
 
 function writeJson(relativePath, value) {
   const fullPath = path.join(courseRoot, relativePath);
   fs.mkdirSync(path.dirname(fullPath), { recursive: true });
-  fs.writeFileSync(fullPath, `${JSON.stringify(value, null, 2)}\n`);
+  fs.writeFileSync(fullPath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
 function validateOperationPlan(operationPlan, surface) {
@@ -86,8 +141,10 @@ function validateOperationPlan(operationPlan, surface) {
       throw new Error(`${operation.operationId} must start with ${operationPlan.apiPrefix}`);
     }
 
-    if (!operation.todo?.startsWith("TODO(course):")) {
-      throw new Error(`${operation.operationId} must include precise TODO(course) guidance`);
+    for (const field of ["method", "path", "operationId", "resource", "authMode"]) {
+      if (!operation[field]) {
+        throw new Error(`${operation.operationId} must declare ${field}`);
+      }
     }
   }
 }
@@ -127,8 +184,8 @@ function buildRouteManifest(operationPlan, surface) {
         name: handlerName(operation.operationId),
       },
       schemas: {
-        request: hasRequestBody(operation.method) ? "CourseOperationCommand" : null,
-        response: "CourseOperationResult",
+        request: hasRequestBody(operation.method) ? "CourseCommandBody" : null,
+        response: responseSchemaName(operation),
         problem: "ProblemDetail",
       },
       ownership: {
@@ -140,7 +197,6 @@ function buildRouteManifest(operationPlan, surface) {
       },
       idempotency: operation.idempotency ?? null,
       auditEvent: operation.auditEvent ?? null,
-      todo: operation.todo,
     })),
   };
 }
@@ -161,8 +217,10 @@ function buildOpenApi(operationPlan, surface) {
     info: {
       title: surface.title,
       version: "1.0.0",
-      description:
-        "SDKWork Course authority generated from apis/*/course/operations.json. TODO(course): Replace generic schemas with reviewed per-operation request and response DTOs before SDK publication.",
+      description: surface.audience,
+      "x-sdkwork-api-authority": operationPlan.apiAuthority,
+      "x-sdkwork-sdk-family": operationPlan.sdkFamily,
+      "x-sdkwork-audience": surface.audience,
     },
     "x-sdkwork-owner": operationPlan.owner,
     "x-sdkwork-domain": operationPlan.domain,
@@ -170,21 +228,29 @@ function buildOpenApi(operationPlan, surface) {
     "x-sdkwork-sdk-family": operationPlan.sdkFamily,
     servers: [
       {
-        url: operationPlan.apiPrefix,
-        description: `${operationPlan.surface} canonical SDKWork v3 prefix`,
+        url: "http://localhost:8080",
+        description: "Local sdkwork-course runtime",
       },
     ],
     security: [{ AuthToken: [], AccessToken: [] }],
     paths,
     components: buildComponents(),
+    "x-sdkwork-request-context": {
+      contextObject: "AppRequestContext",
+      serverRequestId: "server-owned",
+      clientRequestIdHeader: "forbidden",
+      tenantSource: "AuthToken + AccessToken",
+      organizationSource: "AuthToken + AccessToken",
+      userSource: "AuthToken + AccessToken",
+    },
   };
 }
 
 function buildOpenApiOperation(operationPlan, surface, operation) {
   const operationObject = {
     tags: [operation.resource],
-    summary: toTitle(operation.operationId),
-    description: operation.todo,
+    summary: `${toTitle(operation.operationId)}.`,
+    description: operationDescription(operation),
     operationId: operation.operationId,
     parameters: [
       ...pathParameters(operation.path),
@@ -192,19 +258,13 @@ function buildOpenApiOperation(operationPlan, surface, operation) {
       ...idempotencyParameters(operation),
     ],
     responses: {
-      "200": {
-        description: "Course operation result. TODO(course): Specialize the response schema for this operation.",
-        content: {
-          "application/json": {
-            schema: { $ref: "#/components/schemas/CourseOperationResult" },
-          },
-        },
-      },
-      "400": problemResponse("Invalid request"),
-      "401": problemResponse("Authentication required"),
-      "403": problemResponse("Permission denied"),
-      "404": problemResponse("Course resource not found"),
-      "409": problemResponse("Conflict or idempotency mismatch"),
+      200: successResponse(operation),
+      400: problemResponse("Invalid request"),
+      401: problemResponse("Authentication required"),
+      403: problemResponse("Permission denied"),
+      404: problemResponse("Course resource not found"),
+      409: problemResponse("Conflict or idempotency mismatch"),
+      500: problemResponse("Internal server error"),
     },
     security: [{ AuthToken: [], AccessToken: [] }],
     "x-sdkwork-owner": operationPlan.owner,
@@ -212,23 +272,24 @@ function buildOpenApiOperation(operationPlan, surface, operation) {
     "x-sdkwork-domain": operationPlan.domain,
     "x-sdkwork-resource": operation.resource,
     "x-sdkwork-permission": operation.permission ?? null,
-    "x-sdkwork-auth-mode": "dual-token",
+    "x-sdkwork-auth-mode": operation.authMode,
     "x-sdkwork-tenant-scope": "tenant",
     "x-sdkwork-data-scope": "organization",
     "x-sdkwork-audit-event": operation.auditEvent ?? null,
     "x-sdkwork-idempotent": operation.idempotency ?? null,
     "x-sdkwork-source": surface.operationsPath,
     "x-sdkwork-source-route-crate": surface.routeCrate,
+    "x-sdkwork-request-context": "AppRequestContext",
+    "x-sdkwork-server-request-id": true,
   };
 
   if (hasRequestBody(operation.method)) {
     operationObject.requestBody = {
       required: true,
-      description:
-        "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
+      description: `Typed command body for ${operation.operationId}.`,
       content: {
         "application/json": {
-          schema: { $ref: "#/components/schemas/CourseOperationCommand" },
+          schema: { $ref: "#/components/schemas/CourseCommandBody" },
         },
       },
     };
@@ -254,39 +315,69 @@ function buildComponents() {
       },
     },
     schemas: {
-      ProblemDetail: {
-        type: "object",
-        additionalProperties: false,
-        required: ["type", "title", "status"],
-        properties: {
-          type: { type: "string" },
-          title: { type: "string" },
-          status: { type: "integer", format: "int32" },
-          detail: { type: "string" },
-          code: { type: "string" },
-          traceId: { type: "string" },
-          requestId: { type: "string" },
-        },
-      },
-      CourseOperationCommand: {
+      ...sdkWorkEnvelopeComponentSchemas,
+      CourseCommandBody: {
         type: "object",
         additionalProperties: true,
         description:
-          "TODO(course): Materialize operation-specific command DTOs from the service contracts.",
+          "Operation-specific command payload. Domain fields are validated by the course service layer.",
       },
-      CourseOperationResult: {
-        type: "object",
-        additionalProperties: false,
-        required: ["requestId", "data"],
-        properties: {
-          requestId: { type: "string" },
-          data: {
-            type: "object",
-            additionalProperties: true,
-            description:
-              "TODO(course): Materialize operation-specific result DTOs from the service contracts.",
-          },
-        },
+    },
+  };
+}
+
+function courseSuccessResponseSchemaRef(operation) {
+  const method = operation.method.toUpperCase();
+  const action = operation.operationId.split(".").pop() ?? "";
+
+  if (method === "GET" && operation.operationId.endsWith(".list")) {
+    return "#/components/schemas/SdkWorkListResponse";
+  }
+
+  const commandActions = new Set([
+    "cancel",
+    "delete",
+    "publish",
+    "unpublish",
+    "close",
+    "grant",
+    "revoke",
+    "start",
+    "end",
+    "attach",
+    "reorder",
+    "replace",
+    "heartbeat",
+    "leave",
+    "join",
+    "repair",
+    "moderate",
+    "review",
+    "convertToCourse",
+  ]);
+
+  if (method === "DELETE" || commandActions.has(action)) {
+    return "#/components/schemas/SdkWorkCommandResponse";
+  }
+
+  if (isCreateOperation({ method: method.toLowerCase(), operationId: operation.operationId })) {
+    return "#/components/schemas/SdkWorkResourceResponse";
+  }
+
+  return "#/components/schemas/SdkWorkResourceResponse";
+}
+
+function responseSchemaName(operation) {
+  const ref = courseSuccessResponseSchemaRef(operation);
+  return ref.split("/").pop();
+}
+
+function successResponse(operation, description = "Success") {
+  return {
+    description,
+    content: {
+      "application/json": {
+        schema: { $ref: courseSuccessResponseSchemaRef(operation) },
       },
     },
   };
@@ -307,8 +398,7 @@ function queryParameters(operation) {
     return [];
   }
 
-  const isList = operation.operationId.endsWith(".list");
-  if (!isList) {
+  if (!operation.operationId.endsWith(".list")) {
     return [];
   }
 
@@ -321,6 +411,8 @@ function queryParameters(operation) {
       required: false,
       schema: { type: "integer", format: "int32", minimum: 1, maximum: 200 },
     },
+    { name: "page", in: "query", required: false, schema: { type: "integer", format: "int32", minimum: 1 } },
+    { name: "pageSize", in: "query", required: false, schema: { type: "integer", format: "int32", minimum: 1, maximum: 200 } },
     { name: "status", in: "query", required: false, schema: { type: "string" } },
   ];
 }
@@ -336,7 +428,7 @@ function idempotencyParameters(operation) {
       in: "header",
       required: operation.idempotency === "required",
       schema: { type: "string", minLength: 8, maxLength: 256 },
-      description: "Client retry idempotency key. This is not the server requestId.",
+      description: "Client retry idempotency key.",
     },
   ];
 }
@@ -370,6 +462,11 @@ function toTitle(operationId) {
     .replace(/[A-Z]/gu, (match) => ` ${match}`)
     .replace(/\s+/gu, " ")
     .trim();
+}
+
+function operationDescription(operation) {
+  const action = operation.operationId.split(".").pop() ?? "execute";
+  return `${toTitle(operation.resource)} ${action} operation for the course learning domain.`;
 }
 
 function syncAssemblyCount(relativePath, count) {

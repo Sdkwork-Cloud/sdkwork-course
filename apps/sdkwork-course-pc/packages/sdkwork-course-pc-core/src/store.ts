@@ -26,7 +26,12 @@ export const useAppStore = create<AppState>((set) => ({
   setUser: (user) => set({ user, isAuthenticated: !!user }),
   setLoading: (isLoading) => set({ isLoading }),
   setError: (error) => set({ error }),
-  logout: () => set({ user: null, isAuthenticated: false }),
+  logout: () => {
+    if (typeof window !== 'undefined') {
+      window.sessionStorage.removeItem('sdkwork-course:session:v1')
+    }
+    set({ user: null, isAuthenticated: false })
+  },
 }))
 
 

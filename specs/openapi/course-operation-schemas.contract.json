@@ -186,13 +186,15 @@
         "total": { "type": "integer", "format": "int64" }
       }
     },
-    "CourseTypedResult": {
+    "CourseOfferingItem": {
       "type": "object",
-      "additionalProperties": false,
-      "required": ["requestId", "data"],
+      "additionalProperties": true,
       "properties": {
-        "requestId": { "type": "string" },
-        "data": { "type": "object", "additionalProperties": true }
+        "id": { "type": "string" },
+        "courseId": { "type": "string" },
+        "offeringType": { "type": "string" },
+        "title": { "type": "string" },
+        "status": { "type": "string" }
       }
     }
   },
@@ -214,7 +216,7 @@
     "courseLessons.create": { "request": "CourseLessonMutationRequest", "response": "CourseLessonItem" },
     "courseLessons.update": { "request": "CourseLessonMutationRequest", "response": "CourseLessonItem" },
     "courseLessons.retrieve": { "response": "CourseLessonItem" },
-    "courseOfferings.create": { "request": "CourseOfferingMutationRequest", "response": "CourseOperationResult" },
-    "courseOfferings.update": { "request": "CourseOfferingMutationRequest", "response": "CourseOperationResult" }
+    "courseOfferings.create": { "request": "CourseOfferingMutationRequest", "response": "CourseOfferingItem" },
+    "courseOfferings.update": { "request": "CourseOfferingMutationRequest", "response": "CourseOfferingItem" }
   }
 }

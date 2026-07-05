@@ -1,8 +1,59 @@
-﻿export { createCourseSdk } from './sdk'
-export type { CourseSdk, CourseSdkConfig, CourseApiClient } from './sdk'
+﻿export {
+  getCourseAppSdkClient,
+  initCourseAppSdkClient,
+  resetCourseAppSdkClient,
+  createCourseAppSdkClientConfig,
+  createCourseSdk,
+  type CourseAppSdkClient,
+  type CourseAppSdkClientConfig,
+  type CourseSdk,
+  type CourseSdkConfig,
+} from './courseAppSdkClient';
 
-export { CourseSdkProvider, useCourseSdk } from './context'
-export type { CourseSdkProviderProps } from './context'
+export { CourseSdkProvider, useCourseSdk } from './context';
+export type { CourseSdkProviderProps } from './context';
 
-export { useAppStore } from './store'
+export {
+  loadCourseSession,
+  saveCourseSession,
+  getCourseGlobalTokenManager,
+  resetCourseGlobalTokenManager,
+  resolveAppApiBaseUrl,
+  COURSE_SESSION_STORAGE_KEY,
+  COURSE_SESSION_CHANGED_EVENT,
+  type CourseSession,
+  type CourseSessionUser,
+} from './session';
 
+export {
+  getIamAppSdkClient,
+  resetIamAppSdkClient,
+} from './iamAppSdkClient';
+
+export {
+  readIamSessionTokens,
+  persistIamSession,
+  assertIamSessionTokens,
+  type IamSessionTokens,
+} from './iamSession';
+
+export {
+  getDriveAppSdkClient,
+  resetDriveAppSdkClient,
+  uploadCourseMediaFile,
+  type CourseDriveUploadResult,
+} from './driveAppSdkClient';
+
+export {
+  extractSdkListItems,
+  extractSdkItem,
+  readEntityString,
+  readEntityNumber,
+} from './courseSdkPayload';
+
+export {
+  enrollInFirstCourseOffering,
+  CourseEnrollmentError,
+} from './courseEnrollment';
+
+export { useAppStore } from './store';

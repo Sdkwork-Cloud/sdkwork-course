@@ -7,7 +7,7 @@ export interface MobileEmptyStateProps {
   action?: React.ReactNode
 }
 
-export function MobileEmptyState({ icon = '馃摥', title, description, action }: MobileEmptyStateProps) {
+export function MobileEmptyState({ icon = '📭', title, description, action }: MobileEmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center p-6 text-center">
       <span className="text-3xl mb-3">{icon}</span>
@@ -17,4 +17,3 @@ export function MobileEmptyState({ icon = '馃摥', title, description, action }
     </div>
   )
 }
-

@@ -1,13 +1,15 @@
 import { appApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationCommand, CourseOperationResult } from '../types';
+import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../types';
 
 
 export interface CourseEnrollmentsCurrentListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -19,15 +21,17 @@ export class CourseEnrollmentsCurrentApi {
   }
 
 
-/** course Enrollments current list */
-  async list(params?: CourseEnrollmentsCurrentListParams): Promise<CourseOperationResult> {
+/** course Enrollments current list. */
+  async list(params?: CourseEnrollmentsCurrentListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(appApiPath(`/course_enrollments`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(appApiPath(`/course_enrollments`), query));
   }
 }
 
@@ -45,25 +49,25 @@ export class CourseEnrollmentsApi {
   }
 
 
-/** course Enrollments create */
-  async create(offeringId: string, body: CourseOperationCommand, params: CourseEnrollmentsCreateParams): Promise<CourseOperationResult> {
+/** course Enrollments create. */
+  async create(offeringId: string, body: CourseCommandBody, params: CourseEnrollmentsCreateParams): Promise<Record<string, unknown>> {
     const requestHeaders = buildRequestHeaders(
       {
         'Idempotency-Key': { value: params.idempotencyKey, style: 'simple', explode: false },
       },
       {}
     );
-    return this.client.post<CourseOperationResult>(appApiPath(`/course_offerings/${serializePathParameter(offeringId, { name: 'offeringId', style: 'simple', explode: false })}/enrollments`), body, undefined, requestHeaders, 'application/json');
+    return this.client.post<Record<string, unknown>>(appApiPath(`/course_offerings/${serializePathParameter(offeringId, { name: 'offeringId', style: 'simple', explode: false })}/enrollments`), body, undefined, requestHeaders, 'application/json');
   }
 
-/** course Enrollments retrieve */
-  async retrieve(enrollmentId: string): Promise<CourseOperationResult> {
-    return this.client.get<CourseOperationResult>(appApiPath(`/course_enrollments/${serializePathParameter(enrollmentId, { name: 'enrollmentId', style: 'simple', explode: false })}`));
+/** course Enrollments retrieve. */
+  async retrieve(enrollmentId: string): Promise<Record<string, unknown>> {
+    return this.client.get<Record<string, unknown>>(appApiPath(`/course_enrollments/${serializePathParameter(enrollmentId, { name: 'enrollmentId', style: 'simple', explode: false })}`));
   }
 
-/** course Enrollments cancel */
-  async cancel(enrollmentId: string): Promise<CourseOperationResult> {
-    return this.client.delete<CourseOperationResult>(appApiPath(`/course_enrollments/${serializePathParameter(enrollmentId, { name: 'enrollmentId', style: 'simple', explode: false })}`));
+/** course Enrollments cancel. */
+  async cancel(enrollmentId: string): Promise<SdkWorkCommandData> {
+    return this.client.delete<SdkWorkCommandData>(appApiPath(`/course_enrollments/${serializePathParameter(enrollmentId, { name: 'enrollmentId', style: 'simple', explode: false })}`));
   }
 }
 

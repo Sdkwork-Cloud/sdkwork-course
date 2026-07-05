@@ -1,7 +1,7 @@
 import { appApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationCommand, CourseOperationResult } from '../types';
+import type { CourseCommandBody } from '../types';
 
 
 export class CourseLessonProgressWatchPositionsApi {
@@ -12,9 +12,9 @@ export class CourseLessonProgressWatchPositionsApi {
   }
 
 
-/** course Lesson Progress watch Positions update */
-  async update(lessonId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
-    return this.client.patch<CourseOperationResult>(appApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}/watch_position`), body, undefined, undefined, 'application/json');
+/** course Lesson Progress watch Positions update. */
+  async update(lessonId: string, body: CourseCommandBody): Promise<Record<string, unknown>> {
+    return this.client.patch<Record<string, unknown>>(appApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}/watch_position`), body, undefined, undefined, 'application/json');
   }
 }
 
@@ -32,15 +32,15 @@ export class CourseLessonProgressApi {
   }
 
 
-/** course Lesson Progress update */
-  async update(lessonId: string, body: CourseOperationCommand, params?: CourseLessonProgressUpdateParams): Promise<CourseOperationResult> {
+/** course Lesson Progress update. */
+  async update(lessonId: string, body: CourseCommandBody, params?: CourseLessonProgressUpdateParams): Promise<Record<string, unknown>> {
     const requestHeaders = buildRequestHeaders(
       {
         'Idempotency-Key': { value: params?.idempotencyKey, style: 'simple', explode: false },
       },
       {}
     );
-    return this.client.patch<CourseOperationResult>(appApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}/progress`), body, undefined, requestHeaders, 'application/json');
+    return this.client.patch<Record<string, unknown>>(appApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}/progress`), body, undefined, requestHeaders, 'application/json');
   }
 }
 

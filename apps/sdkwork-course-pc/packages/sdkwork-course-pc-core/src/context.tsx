@@ -1,29 +1,33 @@
-﻿import React, { createContext, useContext } from 'react'
-import { createCourseSdk, CourseSdk, CourseSdkConfig } from './sdk'
+﻿import React, { createContext, useContext, useMemo } from 'react';
+import {
+  getCourseAppSdkClient,
+  initCourseAppSdkClient,
+  type CourseAppSdkClient,
+} from './courseAppSdkClient';
+import { createCourseAppSdkClientConfig } from './courseAppSdkClient';
 
-const CourseSdkContext = createContext<CourseSdk | null>(null)
+const CourseSdkContext = createContext<CourseAppSdkClient | null>(null);
 
 export interface CourseSdkProviderProps {
-  config: CourseSdkConfig
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-export function CourseSdkProvider({ config, children }: CourseSdkProviderProps) {
-  const sdk = createCourseSdk(config)
+export function CourseSdkProvider({ children }: CourseSdkProviderProps) {
+  const sdk = useMemo(
+    () => initCourseAppSdkClient(createCourseAppSdkClientConfig()),
+    [],
+  );
   return (
     <CourseSdkContext.Provider value={sdk}>
       {children}
     </CourseSdkContext.Provider>
-  )
+  );
 }
 
-export function useCourseSdk(): CourseSdk {
-  const sdk = useContext(CourseSdkContext)
+export function useCourseSdk(): CourseAppSdkClient {
+  const sdk = useContext(CourseSdkContext);
   if (!sdk) {
-    throw new Error('useCourseSdk must be used within a CourseSdkProvider')
+    return getCourseAppSdkClient();
   }
-  return sdk
+  return sdk;
 }
-
-
-

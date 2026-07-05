@@ -34,7 +34,7 @@ export function CourseCard({
         )}
         {rating && (
           <div className="absolute top-2 right-2 bg-yellow-400 text-black px-2 py-1 rounded text-sm font-semibold">
-            猸?{rating}
+            ★ {rating}
           </div>
         )}
       </div>
@@ -46,14 +46,11 @@ export function CourseCard({
         <div className="flex items-center justify-between text-sm text-gray-500">
           {instructor && <span>{instructor}</span>}
           <div className="flex gap-2">
-            {lessonsCount && <span>馃摎 {lessonsCount}璇?/span>}
-            {studentsCount && <span>馃懃 {studentsCount}浜?/span>}
+            {lessonsCount != null && <span>{lessonsCount} 课时</span>}
+            {studentsCount != null && <span>{studentsCount} 人</span>}
           </div>
         </div>
       </div>
     </div>
   )
 }
-
-
-

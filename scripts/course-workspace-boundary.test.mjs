@@ -3,6 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
 
+import { parseYaml } from "../../sdkwork-specs/tools/deploy/yaml-resolver.mjs";
+
 const courseRoot = path.resolve(import.meta.dirname, "..");
 
 const requiredFiles = [
@@ -10,12 +12,17 @@ const requiredFiles = [
   "package.json",
   "pnpm-workspace.yaml",
   "Cargo.toml",
+  "sdkwork.app.config.json",
+  "deployments/deploy.yaml",
   "specs/course-capabilities.yaml",
   "specs/database/course-schema.contract.json",
+  "database/database.manifest.json",
+  "database/ddl/baseline/postgres/0001_course_baseline.sql",
   "apis/README.md",
   "apis/app-api/course/operations.json",
   "apis/backend-api/course/operations.json",
   "scripts/materialize-course-openapi.mjs",
+  "scripts/dev/generate-course-http-layers.mjs",
   "sdks/README.md",
   "sdks/_route-manifests/app-api/sdkwork-routes-course-app-api.route-manifest.json",
   "sdks/_route-manifests/backend-api/sdkwork-routes-course-backend-api.route-manifest.json",
@@ -48,20 +55,26 @@ const requiredFiles = [
   "crates/sdkwork-content-course-service/src/service/course_service.rs",
   "crates/sdkwork-content-course-repository-sqlx/Cargo.toml",
   "crates/sdkwork-content-course-repository-sqlx/specs/component.spec.json",
-  "crates/sdkwork-content-course-repository-sqlx/migrations/0001_course_foundation.sql",
   "crates/sdkwork-content-course-repository-sqlx/src/lib.rs",
   "crates/sdkwork-content-course-repository-sqlx/src/db/schema.rs",
   "crates/sdkwork-content-course-repository-sqlx/src/repository/course_repository.rs",
+  "crates/sdkwork-routes-course-http-auth/Cargo.toml",
+  "crates/sdkwork-routes-course-http-auth/src/api_response.rs",
   "crates/sdkwork-routes-course-app-api/Cargo.toml",
   "crates/sdkwork-routes-course-app-api/specs/component.spec.json",
   "crates/sdkwork-routes-course-app-api/src/lib.rs",
   "crates/sdkwork-routes-course-app-api/src/routes.rs",
+  "crates/sdkwork-routes-course-app-api/src/http_handlers.rs",
   "crates/sdkwork-routes-course-app-api/src/manifest.rs",
   "crates/sdkwork-routes-course-backend-api/Cargo.toml",
   "crates/sdkwork-routes-course-backend-api/specs/component.spec.json",
   "crates/sdkwork-routes-course-backend-api/src/lib.rs",
   "crates/sdkwork-routes-course-backend-api/src/routes.rs",
+  "crates/sdkwork-routes-course-backend-api/src/http_handlers.rs",
   "crates/sdkwork-routes-course-backend-api/src/manifest.rs",
+  "crates/sdkwork-course-embedded-bootstrap/Cargo.toml",
+  "crates/sdkwork-course-database-host/Cargo.toml",
+  "crates/sdkwork-course-gateway-assembly/Cargo.toml",
 ];
 
 const forbiddenOwnershipPatterns = [
@@ -81,6 +94,20 @@ const forbiddenOwnershipPatterns = [
 
 const forbiddenScanAllowlist = new Set([
   "README.md",
+  "scripts/course-workspace-boundary.test.mjs",
+]);
+
+const legacyRuntimePatterns = [
+  /"code"\s*:\s*"2000"/u,
+  /"msg"\s*:\s*"SUCCESS"/u,
+  /localStorage\.getItem\(['"]token['"]\)/u,
+  /apply_foundation_migration/u,
+  /\bfetch\(\s*['"]\/app\/v3\/api\/auth\//u,
+  /\balert\s*\(/u,
+  /开发中/u,
+];
+
+const legacyRuntimeAllowlist = new Set([
   "scripts/course-workspace-boundary.test.mjs",
 ]);
 
@@ -138,8 +165,25 @@ const sdkFamilies = [
   },
 ];
 
+function readText(relativePath) {
+  const raw = fs.readFileSync(path.join(courseRoot, relativePath));
+  if (raw[0] === 0xef && raw[1] === 0xbb && raw[2] === 0xbf) {
+    return raw.slice(3).toString("utf8");
+  }
+  return raw.toString("utf8");
+}
+
 function readJson(relativePath) {
-  return JSON.parse(fs.readFileSync(path.join(courseRoot, relativePath), "utf8"));
+  return JSON.parse(readText(relativePath));
+}
+
+function readApiSpec(relativePath) {
+  const fullPath = path.join(courseRoot, relativePath);
+  const source = readText(relativePath);
+  if (relativePath.endsWith(".yaml") || relativePath.endsWith(".yml")) {
+    return parseYaml(source, courseRoot);
+  }
+  return JSON.parse(source);
 }
 
 function collectTextFiles(directory) {
@@ -259,11 +303,19 @@ test("course Rust crates use SDKWork responsibility-specific workspace layout", 
   for (const member of [
     "crates/sdkwork-content-course-service",
     "crates/sdkwork-content-course-repository-sqlx",
+    "crates/sdkwork-routes-course-http-auth",
     "crates/sdkwork-routes-course-app-api",
     "crates/sdkwork-routes-course-backend-api",
+    "crates/sdkwork-course-embedded-bootstrap",
+    "crates/sdkwork-course-database-host",
+    "crates/sdkwork-course-gateway-assembly",
   ]) {
     assert.ok(cargo.includes(member), `Cargo workspace must include ${member}`);
   }
+
+  assert.match(cargo, /sdkwork-web-core/u, "Cargo workspace must declare sdkwork-web-framework dependencies");
+  assert.match(cargo, /sdkwork-utils-rust/u, "Cargo workspace must declare sdkwork-utils-rust");
+  assert.match(cargo, /sdkwork-drive-app-sdk-generated-rust/u, "Cargo workspace must declare Drive Rust SDK");
 
   assert.ok(
     !fs.existsSync(path.join(courseRoot, "packages/native-rust/course/sdkwork-course-rust/Cargo.toml")),
@@ -279,8 +331,8 @@ test("course API operation plans, route manifests, and OpenAPI documents stay al
   for (const family of sdkFamilies) {
     const operationPlan = readJson(family.operationsPath);
     const routeManifest = readJson(family.routeManifestPath);
-    const openApi = readJson(`${family.root}/${family.authoritySpec}`);
-    const sdkgen = readJson(`${family.root}/${family.generationInputSpec}`);
+    const openApi = readApiSpec(`${family.root}/${family.authoritySpec}`);
+    const sdkgen = readApiSpec(`${family.root}/${family.generationInputSpec}`);
 
     assert.equal(operationPlan.surface, family.surface);
     assert.equal(operationPlan.apiAuthority, family.apiAuthority);
@@ -302,8 +354,8 @@ test("course API operation plans, route manifests, and OpenAPI documents stay al
 
 test("course OpenAPI documents use SDKWork v3 path, ownership, and security standards", () => {
   for (const family of sdkFamilies) {
-    assertSdkworkV3PathAndSecurity(readJson(`${family.root}/${family.authoritySpec}`), family);
-    assertSdkworkV3PathAndSecurity(readJson(`${family.root}/${family.generationInputSpec}`), family);
+    assertSdkworkV3PathAndSecurity(readApiSpec(`${family.root}/${family.authoritySpec}`), family);
+    assertSdkworkV3PathAndSecurity(readApiSpec(`${family.root}/${family.generationInputSpec}`), family);
   }
 });
 
@@ -392,10 +444,10 @@ test("course SDK language declarations match generated transport workspaces", ()
   }
 });
 
-test("course database contract and SQL migration define the professional VOD and live course tables", () => {
+test("course database contract and baseline DDL define the professional VOD and live course tables", () => {
   const contract = readJson("specs/database/course-schema.contract.json");
-  const migration = fs.readFileSync(
-    path.join(courseRoot, "crates/sdkwork-content-course-repository-sqlx/migrations/0001_course_foundation.sql"),
+  const baseline = fs.readFileSync(
+    path.join(courseRoot, "database/ddl/baseline/postgres/0001_course_baseline.sql"),
     "utf8",
   );
 
@@ -406,27 +458,69 @@ test("course database contract and SQL migration define the professional VOD and
   const contractTables = new Set(contract.tables.map((table) => table.name));
   assert.deepEqual(requiredCourseTables.filter((tableName) => !contractTables.has(tableName)), []);
 
-  const missingTables = requiredCourseTables.filter((tableName) => !migration.includes(`CREATE TABLE IF NOT EXISTS ${tableName}`));
+  const missingTables = requiredCourseTables.filter(
+    (tableName) => !baseline.includes(`CREATE TABLE IF NOT EXISTS ${tableName}`),
+  );
   assert.deepEqual(missingTables, []);
-  assert.doesNotMatch(migration, /\b(?:commerce|product|order|payment|wallet|checkout|subscription|membership|invoice|refund)_/iu);
+  assert.doesNotMatch(baseline, /\b(?:commerce|product|order|payment|wallet|checkout|subscription|membership|invoice|refund)_/iu);
 });
 
-test("course authored Rust modules keep TODO guidance at method interfaces", () => {
+test("course HTTP route crates mount sdkwork-web-framework handlers", () => {
   for (const relativePath of [
-    "crates/sdkwork-content-course-service/src/domain/commands.rs",
-    "crates/sdkwork-content-course-service/src/domain/models.rs",
-    "crates/sdkwork-content-course-service/src/ports/repository.rs",
-    "crates/sdkwork-content-course-service/src/ports/provider.rs",
-    "crates/sdkwork-content-course-service/src/service/course_service.rs",
-    "crates/sdkwork-content-course-repository-sqlx/src/db/schema.rs",
-    "crates/sdkwork-content-course-repository-sqlx/src/repository/course_repository.rs",
     "crates/sdkwork-routes-course-app-api/src/routes.rs",
     "crates/sdkwork-routes-course-backend-api/src/routes.rs",
-    "crates/sdkwork-routes-course-app-api/src/manifest.rs",
-    "crates/sdkwork-routes-course-backend-api/src/manifest.rs",
   ]) {
     const source = fs.readFileSync(path.join(courseRoot, relativePath), "utf8");
-    assert.match(source, /TODO\(course\)/u, `${relativePath} must include TODO(course) implementation notes`);
+    assert.match(source, /http_handlers/u, `${relativePath} must wire http_handlers`);
+    assert.match(source, /build_sdkwork_course/u, `${relativePath} must expose mounted router builder`);
+    assert.doesNotMatch(source, /"code"\s*:\s*"2000"/u, `${relativePath} must not use legacy success envelope`);
+  }
+
+  for (const relativePath of [
+    "crates/sdkwork-routes-course-app-api/src/http_handlers.rs",
+    "crates/sdkwork-routes-course-backend-api/src/http_handlers.rs",
+  ]) {
+    const source = fs.readFileSync(path.join(courseRoot, relativePath), "utf8");
+    assert.match(source, /handler_value_to_response/u, `${relativePath} must map handler output through sdkwork-web-framework`);
+    assert.doesNotMatch(source, /"code"\s*:\s*"2000"/u, `${relativePath} must not use legacy success envelope`);
+  }
+
+  const apiResponse = fs.readFileSync(
+    path.join(courseRoot, "crates/sdkwork-routes-course-http-auth/src/api_response.rs"),
+    "utf8",
+  );
+  assert.match(apiResponse, /SdkWorkApiResponse/u, "api_response.rs must serialize SdkWorkApiResponse");
+  assert.match(apiResponse, /SdkWorkProblemDetail/u, "api_response.rs must serialize ProblemDetail");
+});
+
+test("course runtime source avoids legacy HTTP, auth, and migration debt", () => {
+  const violations = collectTextFiles(courseRoot).flatMap((fullPath) => {
+    const relativePath = path.relative(courseRoot, fullPath).replaceAll("\\", "/");
+    if (legacyRuntimeAllowlist.has(relativePath)) {
+      return [];
+    }
+    if (!/\.(?:rs|ts|tsx|mjs|js)$/u.test(relativePath)) {
+      return [];
+    }
+
+    const content = fs.readFileSync(fullPath, "utf8");
+    return legacyRuntimePatterns.flatMap((pattern) => {
+      const match = content.match(pattern);
+      return match ? [`${relativePath}: ${match[0]}`] : [];
+    });
+  });
+
+  assert.deepEqual(violations, []);
+});
+
+test("course OpenAPI authorities contain no legacy TODO placeholders", () => {
+  for (const family of sdkFamilies) {
+    for (const specPath of [family.authoritySpec, family.generationInputSpec]) {
+      const source = readText(`${family.root}/${specPath}`);
+      assert.doesNotMatch(source, /TODO\(course\)/u, `${family.root}/${specPath} must not contain TODO(course)`);
+      assert.doesNotMatch(source, /CourseOperationResult/u, `${family.root}/${specPath} must not use legacy CourseOperationResult envelope`);
+      assert.doesNotMatch(source, /"requestId"/u, `${family.root}/${specPath} must not use legacy requestId field`);
+    }
   }
 });
 

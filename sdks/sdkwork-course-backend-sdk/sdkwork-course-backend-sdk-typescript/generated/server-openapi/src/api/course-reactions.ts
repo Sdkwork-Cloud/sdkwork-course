@@ -1,13 +1,15 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationResult } from '../types';
+import type { SdkWorkPageData } from '../types';
 
 
 export interface CourseReactionsListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -19,15 +21,17 @@ export class CourseReactionsApi {
   }
 
 
-/** course Reactions list */
-  async list(params?: CourseReactionsListParams): Promise<CourseOperationResult> {
+/** course Reactions list. */
+  async list(params?: CourseReactionsListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(backendApiPath(`/course_reactions`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_reactions`), query));
   }
 }
 

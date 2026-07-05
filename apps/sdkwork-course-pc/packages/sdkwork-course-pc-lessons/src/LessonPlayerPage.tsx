@@ -1,54 +1,46 @@
-﻿import React, { useState } from 'react'
+﻿import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { PageHeader, LoadingSpinner, EmptyState } from '@sdkwork/sdkwork-course-pc-commons'
-import { useCourseSdk } from '@sdkwork/sdkwork-course-pc-core'
-
-interface Lesson {
-  id: string
-  courseId: string
-  sectionId?: string
-  lessonNo?: string
-  title: string
-  description?: string
-  content?: string
-  durationSeconds: number
-  freePreview: boolean
-  sortWeight: number
-  status: string
-}
-
-interface LessonListResponse {
-  code: string
-  msg: string
-  data?: Lesson[]
-}
+import { LoadingSpinner, EmptyState } from '@sdkwork/sdkwork-course-pc-commons'
+import { CommentList } from '@sdkwork/sdkwork-course-pc-community'
+import {
+  useCourseSdk,
+  extractSdkListItems,
+  readEntityString,
+  readEntityNumber,
+} from '@sdkwork/sdkwork-course-pc-core'
 
 export function LessonPlayerPage() {
   const { courseId, lessonId } = useParams<{ courseId: string; lessonId: string }>()
   const navigate = useNavigate()
   const sdk = useCourseSdk()
-  const [activeTab, setActiveTab] = useState<'content' | 'notes' | 'comments'>('content')
+  const [activeTab, setActiveTab] = useState<'content' | 'comments'>('content')
 
-  const { data: lessonsData, isLoading: lessonsLoading } = useQuery<LessonListResponse>({
+  const { data: lessonsData, isLoading: lessonsLoading } = useQuery({
     queryKey: ['lessons', courseId],
-    queryFn: async () => sdk.lessons.list(courseId!),
+    queryFn: async () => sdk.courseLessons.list(courseId!),
     enabled: !!courseId,
   })
 
-  const lessons = lessonsData?.data || []
-  const currentLesson = lessons.find((l) => l.id === lessonId) || lessons[0]
+  const lessons = extractSdkListItems(lessonsData).map((record) => ({
+    id: readEntityString(record, 'id', 'lessonId'),
+    title: readEntityString(record, 'title', 'name'),
+    description: readEntityString(record, 'description') || undefined,
+    durationSeconds: readEntityNumber(record, 'durationSeconds', 'duration_seconds') ?? 0,
+  }))
+
+  const currentLesson = lessons.find((lesson) => lesson.id === lessonId) || lessons[0]
 
   if (lessonsLoading) {
-    return <LoadingSpinner text="鍔犺浇璇剧▼鍐呭..." />
+    return <LoadingSpinner text="加载课程内容..." />
   }
 
   if (!currentLesson) {
     return (
       <EmptyState
-        icon="馃摎"
-        title="鏆傛棤璇剧▼鍐呭"
-        description="璇ヨ绋嬭繕娌℃湁娣诲姞瀛︿範鍐呭"
+        icon="📚"
+        title="暂无课程内容"
+        description="该课程还没有添加学习内容"
       />
     )
   }
@@ -57,7 +49,7 @@ export function LessonPlayerPage() {
     <div className="flex h-screen">
       <div className="w-80 border-r bg-white overflow-y-auto">
         <div className="p-4 border-b">
-          <h2 className="font-semibold">璇剧▼鐩綍</h2>
+          <h2 className="font-semibold">课程目录</h2>
         </div>
         <div className="divide-y">
           {lessons.map((lesson, index) => (
@@ -74,7 +66,7 @@ export function LessonPlayerPage() {
               </div>
               {lesson.durationSeconds > 0 && (
                 <span className="text-xs text-gray-400 ml-6">
-                  {Math.floor(lesson.durationSeconds / 60)}鍒嗛挓
+                  {Math.floor(lesson.durationSeconds / 60)} 分钟
                 </span>
               )}
             </div>
@@ -85,12 +77,12 @@ export function LessonPlayerPage() {
       <div className="flex-1 flex flex-col">
         <div className="h-96 bg-black flex items-center justify-center">
           <div className="text-white text-center">
-            <div className="text-6xl mb-4">鈻讹笍</div>
+            <div className="text-6xl mb-4">▶</div>
             <p className="text-lg">{currentLesson.title}</p>
             <p className="text-sm text-gray-400 mt-2">
               {currentLesson.durationSeconds > 0
-                ? `${Math.floor(currentLesson.durationSeconds / 60)}鍒嗛挓`
-                : '鏃堕暱鏈煡'}
+                ? `${Math.floor(currentLesson.durationSeconds / 60)} 分钟`
+                : '时长未知'}
             </p>
           </div>
         </div>
@@ -101,45 +93,28 @@ export function LessonPlayerPage() {
               className={`pb-2 ${activeTab === 'content' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-600'}`}
               onClick={() => setActiveTab('content')}
             >
-              璇剧▼鍐呭
-            </button>
-            <button
-              className={`pb-2 ${activeTab === 'notes' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-600'}`}
-              onClick={() => setActiveTab('notes')}
-            >
-              瀛︿範绗旇
+              课程内容
             </button>
             <button
               className={`pb-2 ${activeTab === 'comments' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-600'}`}
               onClick={() => setActiveTab('comments')}
             >
-              璇勮
+              评论
             </button>
           </div>
 
           {activeTab === 'content' && (
             <div>
               <h3 className="font-semibold mb-2">{currentLesson.title}</h3>
-              <p className="text-gray-600">{currentLesson.description || '鏆傛棤鍐呭鎻忚堪'}</p>
+              <p className="text-gray-600">{currentLesson.description || '暂无内容描述'}</p>
             </div>
           )}
 
-          {activeTab === 'notes' && (
-            <div className="text-gray-600">
-              <p>瀛︿範绗旇鍔熻兘寮€鍙戜腑...</p>
-            </div>
-          )}
-
-          {activeTab === 'comments' && (
-            <div className="text-gray-600">
-              <p>璇勮鍔熻兘寮€鍙戜腑...</p>
-            </div>
+          {activeTab === 'comments' && courseId && currentLesson.id && (
+            <CommentList courseId={courseId} targetType="lesson" targetId={currentLesson.id} />
           )}
         </div>
       </div>
     </div>
   )
 }
-
-
-

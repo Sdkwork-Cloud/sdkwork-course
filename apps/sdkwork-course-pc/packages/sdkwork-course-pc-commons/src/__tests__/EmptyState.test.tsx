@@ -10,12 +10,12 @@ describe('EmptyState', () => {
 
   it('renders default icon', () => {
     render(<EmptyState title="No Data" />)
-    expect(screen.getByText('馃摥')).toBeInTheDocument()
+    expect(screen.getByText('📭')).toBeInTheDocument()
   })
 
   it('renders custom icon', () => {
-    render(<EmptyState title="No Data" icon="馃攳" />)
-    expect(screen.getByText('馃攳')).toBeInTheDocument()
+    render(<EmptyState title="No Data" icon="🔍" />)
+    expect(screen.getByText('🔍')).toBeInTheDocument()
   })
 
   it('renders description when provided', () => {
@@ -38,6 +38,3 @@ describe('EmptyState', () => {
     expect(screen.getByText('Retry')).toBeInTheDocument()
   })
 })
-
-
-

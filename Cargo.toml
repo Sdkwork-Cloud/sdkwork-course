@@ -3,11 +3,12 @@ resolver = "2"
 members = [
     "crates/sdkwork-course-gateway-assembly",
     "crates/sdkwork-course-embedded-bootstrap",
-  "crates/sdkwork-course-database-host",
-  "crates/sdkwork-content-course-service",
-  "crates/sdkwork-content-course-repository-sqlx",
-  "crates/sdkwork-routes-course-app-api",
-  "crates/sdkwork-routes-course-backend-api",
+    "crates/sdkwork-course-database-host",
+    "crates/sdkwork-content-course-service",
+    "crates/sdkwork-content-course-repository-sqlx",
+    "crates/sdkwork-routes-course-http-auth",
+    "crates/sdkwork-routes-course-app-api",
+    "crates/sdkwork-routes-course-backend-api",
 ]
 
 [workspace.package]
@@ -17,12 +18,22 @@ license = "Apache-2.0"
 
 [workspace.dependencies]
 axum = { version = "0.8", features = ["macros"] }
+tokio = { version = "1.52", features = ["macros", "rt-multi-thread", "net", "sync"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+async-trait = "0.1"
+dotenvy = "0.15"
+tracing = "0.1"
 sdkwork-course-database-host = { path = "crates/sdkwork-course-database-host" }
 sdkwork-database-config = { path = "../sdkwork-database/crates/sdkwork-database-config", package = "sdkwork-database-config" }
 sdkwork-database-lifecycle = { path = "../sdkwork-database/crates/sdkwork-database-lifecycle", package = "sdkwork-database-lifecycle" }
 sdkwork-database-spi = { path = "../sdkwork-database/crates/sdkwork-database-spi", package = "sdkwork-database-spi" }
 sdkwork-database-sqlx = { path = "../sdkwork-database/crates/sdkwork-database-sqlx", package = "sdkwork-database-sqlx" }
-sdkwork_database_config = { path = "../sdkwork-database/crates/sdkwork-database-config", package = "sdkwork-database-config" }
-sdkwork_database_lifecycle = { path = "../sdkwork-database/crates/sdkwork-database-lifecycle", package = "sdkwork-database-lifecycle" }
-sdkwork_database_spi = { path = "../sdkwork-database/crates/sdkwork-database-spi", package = "sdkwork-database-spi" }
-sdkwork_database_sqlx = { path = "../sdkwork-database/crates/sdkwork-database-sqlx", package = "sdkwork-database-sqlx" }
+sdkwork-web-core = { path = "../sdkwork-web-framework/crates/sdkwork-web-core" }
+sdkwork-web-axum = { path = "../sdkwork-web-framework/crates/sdkwork-web-axum" }
+sdkwork-web-contract = { path = "../sdkwork-web-framework/crates/sdkwork-web-contract" }
+sdkwork-web-bootstrap = { path = "../sdkwork-web-framework/crates/sdkwork-web-bootstrap" }
+sdkwork-iam-web-adapter = { path = "../sdkwork-iam/crates/sdkwork-iam-web-adapter" }
+sdkwork_iam_context_service = { path = "../sdkwork-iam/crates/sdkwork-iam-context-service", package = "sdkwork-iam-context-service" }
+sdkwork-utils-rust = { path = "../sdkwork-utils/packages/sdkwork-utils-rust" }
+sdkwork-drive-app-sdk-generated-rust = { path = "../sdkwork-drive/sdks/sdkwork-drive-app-sdk/sdkwork-drive-app-sdk-rust/generated/server-openapi", package = "sdkwork-drive-app-sdk-generated-rust" }

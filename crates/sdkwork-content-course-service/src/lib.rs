@@ -12,7 +12,7 @@ pub use domain::commands::{
     CourseServiceContext,
 };
 pub use domain::models::{
-    CourseApiResult, CourseApplicationCreateRequest, CourseApplicationItem,
+    CourseApplicationCreateRequest, CourseApplicationItem,
     CourseApplicationReviewRequest, CourseAuditLogItem, CourseCategoryItem, CourseCommentItem,
     CourseCommentModerationRequest, CourseEngagementItem, CourseError, CourseItem,
     CourseLessonItem, CourseLessonMutationRequest, CourseMutationRequest, CoursePage, CourseQuery,

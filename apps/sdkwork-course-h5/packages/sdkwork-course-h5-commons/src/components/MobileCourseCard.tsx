@@ -34,7 +34,7 @@ export function MobileCourseCard({
         )}
         {rating && (
           <div className="absolute top-2 right-2 bg-yellow-400 text-black px-2 py-0.5 rounded text-xs font-semibold">
-            猸?{rating}
+            ★ {rating}
           </div>
         )}
       </div>
@@ -46,12 +46,11 @@ export function MobileCourseCard({
         <div className="flex items-center justify-between text-xs text-gray-500">
           {instructor && <span>{instructor}</span>}
           <div className="flex gap-2">
-            {lessonsCount && <span>馃摎 {lessonsCount}</span>}
-            {studentsCount && <span>馃懃 {studentsCount}</span>}
+            {lessonsCount != null && <span>{lessonsCount} 课时</span>}
+            {studentsCount != null && <span>{studentsCount} 人</span>}
           </div>
         </div>
       </div>
     </div>
   )
 }
-

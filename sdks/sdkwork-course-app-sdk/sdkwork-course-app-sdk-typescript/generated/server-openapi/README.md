@@ -31,6 +31,8 @@ const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseApplications.current.list(params);
@@ -79,11 +81,13 @@ const client = new SdkworkAppClient({
 ### course_categories
 
 ```typescript
-// course Categories list
+// course Categories list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseCategories.list(params);
@@ -92,11 +96,13 @@ const result = await client.courseCategories.list(params);
 ### courses
 
 ```typescript
-// courses list
+// courses list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courses.list(params);
@@ -105,7 +111,7 @@ const result = await client.courses.list(params);
 ### course_offerings
 
 ```typescript
-// course Offerings retrieve
+// course Offerings retrieve.
 const offeringId = '1';
 const result = await client.courseOfferings.retrieve(offeringId);
 ```
@@ -113,11 +119,13 @@ const result = await client.courseOfferings.retrieve(offeringId);
 ### course_enrollments
 
 ```typescript
-// course Enrollments current list
+// course Enrollments current list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseEnrollments.current.list(params);
@@ -126,12 +134,14 @@ const result = await client.courseEnrollments.current.list(params);
 ### course_sections
 
 ```typescript
-// course Sections list
+// course Sections list.
 const courseId = '1';
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseSections.list(courseId, params);
@@ -140,7 +150,7 @@ const result = await client.courseSections.list(courseId, params);
 ### course_lessons
 
 ```typescript
-// course Lessons retrieve
+// course Lessons retrieve.
 const lessonId = '1';
 const result = await client.courseLessons.retrieve(lessonId);
 ```
@@ -148,12 +158,14 @@ const result = await client.courseLessons.retrieve(lessonId);
 ### course_lesson_resources
 
 ```typescript
-// course Lesson Resources list
+// course Lesson Resources list.
 const lessonId = '1';
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseLessonResources.list(lessonId, params);
@@ -162,7 +174,7 @@ const result = await client.courseLessonResources.list(lessonId, params);
 ### course_progress
 
 ```typescript
-// course Progress retrieve
+// course Progress retrieve.
 const enrollmentId = '1';
 const result = await client.courseProgress.retrieve(enrollmentId);
 ```
@@ -170,7 +182,7 @@ const result = await client.courseProgress.retrieve(enrollmentId);
 ### course_lesson_progress
 
 ```typescript
-// course Lesson Progress watch Positions update
+// course Lesson Progress watch Positions update.
 const lessonId = '1';
 const body = {};
 const result = await client.courseLessonProgress.watchPositions.update(lessonId, body);
@@ -179,11 +191,13 @@ const result = await client.courseLessonProgress.watchPositions.update(lessonId,
 ### course_live_sessions
 
 ```typescript
-// course Live Sessions list
+// course Live Sessions list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseLiveSessions.list(params);
@@ -192,7 +206,7 @@ const result = await client.courseLiveSessions.list(params);
 ### course_comments
 
 ```typescript
-// course Comments delete
+// course Comments delete.
 const commentId = '1';
 const result = await client.courseComments.delete(commentId);
 ```
@@ -200,7 +214,7 @@ const result = await client.courseComments.delete(commentId);
 ### course_reactions
 
 ```typescript
-// course Reactions replace
+// course Reactions replace.
 const body = {};
 const idempotencyKey = 'Idempotency-Key';
 const params = {
@@ -212,11 +226,13 @@ const result = await client.courseReactions.replace(body, params);
 ### course_applications
 
 ```typescript
-// course Applications current list
+// course Applications current list.
 const params = {
   q: 'q',
   cursor: 'cursor',
   limit: 3,
+  page: 4,
+  pageSize: 5,
   status: 'status',
 };
 const result = await client.courseApplications.current.list(params);
@@ -232,6 +248,8 @@ try {
     q: 'q',
     cursor: 'cursor',
     limit: 3,
+    page: 4,
+    pageSize: 5,
     status: 'status',
   };
   const result = await client.courseApplications.current.list(params);

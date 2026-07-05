@@ -5,20 +5,19 @@
 }
 
 export const appRoutes: RouteConfig[] = [
-  { path: '/', title: '棣栭〉', icon: '馃彔' },
-  { path: '/courses', title: '璇剧▼', icon: '馃摎' },
-  { path: '/live', title: '鐩存挱', icon: '馃摵' },
-  { path: '/my', title: '鎴戠殑', icon: '馃懁' },
+  { path: '/', title: '首页', icon: '🏠' },
+  { path: '/courses', title: '课程', icon: '📚' },
+  { path: '/live', title: '直播', icon: '📺' },
+  { path: '/my', title: '我的', icon: '👤' },
 ]
 
 export const courseRoutes: RouteConfig[] = [
-  { path: '/courses', title: '璇剧▼鍒楄〃' },
-  { path: '/courses/:id', title: '璇剧▼璇︽儏' },
-  { path: '/courses/:id/learn', title: '璇剧▼瀛︿範' },
+  { path: '/courses', title: '课程列表' },
+  { path: '/courses/:id', title: '课程详情' },
+  { path: '/courses/:id/learn', title: '课程学习' },
 ]
 
 export const liveRoutes: RouteConfig[] = [
-  { path: '/live', title: '鐩存挱鍒楄〃' },
-  { path: '/live/:id', title: '鐩存挱璇︽儏' },
+  { path: '/live', title: '直播列表' },
+  { path: '/live/:id', title: '直播详情' },
 ]
-

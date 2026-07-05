@@ -1,28 +1,11 @@
 ﻿import React from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { useCourseSdk } from '@sdkwork/sdkwork-course-h5-core'
-
-interface ProgressData {
-  id: string
-  courseId: string
-  offeringId: string
-  enrollmentId: string
-  userId: string
-  progressStatus: string
-  completedLessonCount: number
-  requiredLessonCount: number
-  progressPercent: string
-  watchSeconds: number
-  lastLessonId?: string
-  startedAt?: string
-  completedAt?: string
-}
-
-interface ProgressResponse {
-  code: string
-  msg: string
-  data?: ProgressData
-}
+import {
+  useCourseSdk,
+  extractSdkItem,
+  readEntityString,
+  readEntityNumber,
+} from '@sdkwork/sdkwork-course-h5-core'
 
 interface MobileLearningProgressProps {
   enrollmentId: string
@@ -31,20 +14,29 @@ interface MobileLearningProgressProps {
 export function MobileLearningProgress({ enrollmentId }: MobileLearningProgressProps) {
   const sdk = useCourseSdk()
 
-  const { data, isLoading } = useQuery<ProgressResponse>({
+  const { data, isLoading } = useQuery({
     queryKey: ['progress', enrollmentId],
-    queryFn: async () => sdk.progress.retrieve(enrollmentId),
+    queryFn: async () => sdk.courseProgress.retrieve(enrollmentId),
     enabled: !!enrollmentId,
   })
 
-  const progress = data?.data
+  const record = extractSdkItem(data)
+  const progress = record
+    ? {
+        completedLessonCount: readEntityNumber(record, 'completedLessonCount', 'completed_lesson_count') ?? 0,
+        requiredLessonCount: readEntityNumber(record, 'requiredLessonCount', 'required_lesson_count') ?? 0,
+        progressPercent: readEntityString(record, 'progressPercent', 'progress_percent') || '0',
+        watchSeconds: readEntityNumber(record, 'watchSeconds', 'watch_seconds') ?? 0,
+        progressStatus: readEntityString(record, 'progressStatus', 'progress_status', 'status') || 'in_progress',
+      }
+    : null
 
   if (isLoading) {
-    return <div className="p-3 text-gray-500 text-sm">鍔犺浇瀛︿範杩涘害...</div>
+    return <div className="p-3 text-gray-500 text-sm">加载学习进度...</div>
   }
 
   if (!progress) {
-    return <div className="p-3 text-gray-500 text-sm">鏆傛棤瀛︿範杩涘害</div>
+    return <div className="p-3 text-gray-500 text-sm">暂无学习进度</div>
   }
 
   const percent = parseFloat(progress.progressPercent) || 0
@@ -53,11 +45,11 @@ export function MobileLearningProgress({ enrollmentId }: MobileLearningProgressP
 
   return (
     <div className="bg-white rounded-lg shadow p-4">
-      <h3 className="font-semibold mb-3 text-sm">瀛︿範杩涘害</h3>
-      
+      <h3 className="font-semibold mb-3 text-sm">学习进度</h3>
+
       <div className="mb-3">
         <div className="flex justify-between text-xs mb-1">
-          <span>瀹屾垚杩涘害</span>
+          <span>完成进度</span>
           <span>{percent.toFixed(1)}%</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-1.5">
@@ -70,31 +62,26 @@ export function MobileLearningProgress({ enrollmentId }: MobileLearningProgressP
 
       <div className="grid grid-cols-3 gap-2 text-center text-xs">
         <div>
-          <div className="text-lg font-bold text-blue-600">
-            {progress.completedLessonCount}
-          </div>
-          <div className="text-gray-500">宸插畬鎴?/div>
+          <div className="text-lg font-bold text-blue-600">{progress.completedLessonCount}</div>
+          <div className="text-gray-500">已完成</div>
         </div>
         <div>
-          <div className="text-lg font-bold text-gray-600">
-            {progress.requiredLessonCount}
-          </div>
-          <div className="text-gray-500">鎬昏鏃?/div>
+          <div className="text-lg font-bold text-gray-600">{progress.requiredLessonCount}</div>
+          <div className="text-gray-500">总课时</div>
         </div>
         <div>
           <div className="text-lg font-bold text-green-600">
             {watchHours}h{watchMinutes}m
           </div>
-          <div className="text-gray-500">瀛︿範鏃堕暱</div>
+          <div className="text-gray-500">学习时长</div>
         </div>
       </div>
 
       {progress.progressStatus === 'completed' && (
         <div className="mt-3 p-2 bg-green-50 border border-green-200 rounded-lg text-green-700 text-xs">
-          馃帀 鎭枩瀹屾垚瀛︿範
+          恭喜完成学习
         </div>
       )}
     </div>
   )
 }
-

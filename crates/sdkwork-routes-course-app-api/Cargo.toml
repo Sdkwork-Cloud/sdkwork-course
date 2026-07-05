@@ -1,17 +1,19 @@
 [package]
 name = "sdkwork-routes-course-app-api"
-version = "0.1.0"
-edition = "2021"
-license = "Apache-2.0"
-description = "SDKWork course app-api route crate skeleton."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "SDKWork course app-api route crate."
 
 [lib]
 path = "src/lib.rs"
 
 [dependencies]
-async-trait = "0.1"
-axum = { version = "0.8", features = ["macros"] }
+axum.workspace = true
+serde.workspace = true
+serde_json.workspace = true
 sdkwork-content-course-service = { path = "../sdkwork-content-course-service" }
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-
+sdkwork-routes-course-http-auth = { path = "../sdkwork-routes-course-http-auth" }
+sdkwork-utils-rust.workspace = true
+sdkwork-web-contract.workspace = true
+sdkwork-web-core.workspace = true

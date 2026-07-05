@@ -1,13 +1,15 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationResult } from '../types';
+import type { SdkWorkPageData } from '../types';
 
 
 export interface CourseAuditLogsListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -19,20 +21,22 @@ export class CourseAuditLogsApi {
   }
 
 
-/** course Audit Logs list */
-  async list(params?: CourseAuditLogsListParams): Promise<CourseOperationResult> {
+/** course Audit Logs list. */
+  async list(params?: CourseAuditLogsListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(backendApiPath(`/course_audit_logs`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_audit_logs`), query));
   }
 
-/** course Audit Logs retrieve */
-  async retrieve(auditLogId: string): Promise<CourseOperationResult> {
-    return this.client.get<CourseOperationResult>(backendApiPath(`/course_audit_logs/${serializePathParameter(auditLogId, { name: 'auditLogId', style: 'simple', explode: false })}`));
+/** course Audit Logs retrieve. */
+  async retrieve(auditLogId: string): Promise<Record<string, unknown>> {
+    return this.client.get<Record<string, unknown>>(backendApiPath(`/course_audit_logs/${serializePathParameter(auditLogId, { name: 'auditLogId', style: 'simple', explode: false })}`));
   }
 }
 

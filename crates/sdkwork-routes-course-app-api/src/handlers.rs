@@ -6,8 +6,8 @@ use sdkwork_content_course_service::{
     CourseServiceContext,
 };
 
-fn success(data: Value) -> Value {
-    serde_json::json!({ "code": "2000", "msg": "SUCCESS", "data": data })
+fn ok(data: Value) -> Value {
+    data
 }
 
 pub async fn course_categories_list(
@@ -16,7 +16,7 @@ pub async fn course_categories_list(
     query: CourseQuery,
 ) -> CourseRouteResult<Value> {
     let items = service.list_categories(context, query).await?;
-    Ok(success(serde_json::to_value(items).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(items).unwrap_or_default()))
 }
 
 pub async fn course_categories_retrieve(
@@ -27,7 +27,7 @@ pub async fn course_categories_retrieve(
     let items = service
         .list_categories(context, CourseQuery::default())
         .await?;
-    Ok(success(serde_json::to_value(items).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(items).unwrap_or_default()))
 }
 
 pub async fn courses_list(
@@ -36,7 +36,7 @@ pub async fn courses_list(
     query: CourseQuery,
 ) -> CourseRouteResult<Value> {
     let page = service.list_courses(context, query).await?;
-    Ok(success(serde_json::to_value(page).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(page).unwrap_or_default()))
 }
 
 pub async fn courses_retrieve(
@@ -46,7 +46,7 @@ pub async fn courses_retrieve(
 ) -> CourseRouteResult<Value> {
     let item = service.retrieve_course(context, course_id).await?;
     match item {
-        Some(course) => Ok(success(serde_json::to_value(course).unwrap_or_default())),
+        Some(course) => Ok(ok(serde_json::to_value(course).unwrap_or_default())),
         None => Err(CourseRouteError::not_found("Course not found")),
     }
 }
@@ -57,7 +57,7 @@ pub async fn course_offerings_list(
     course_id: String,
 ) -> CourseRouteResult<Value> {
     let items = service.list_offerings(context, course_id).await?;
-    Ok(success(serde_json::to_value(items).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(items).unwrap_or_default()))
 }
 
 pub async fn course_offerings_retrieve(
@@ -67,7 +67,7 @@ pub async fn course_offerings_retrieve(
 ) -> CourseRouteResult<Value> {
     let item = service.retrieve_offering(context, offering_id).await?;
     match item {
-        Some(offering) => Ok(success(serde_json::to_value(offering).unwrap_or_default())),
+        Some(offering) => Ok(ok(serde_json::to_value(offering).unwrap_or_default())),
         None => Err(CourseRouteError::not_found("Offering not found")),
     }
 }
@@ -92,7 +92,7 @@ pub async fn course_enrollments_create(
             .map(|s| s.to_string()),
     };
     let enrollment_id = service.enroll(context, command).await?;
-    Ok(success(
+    Ok(ok(
         serde_json::json!({ "enrollmentId": enrollment_id }),
     ))
 }
@@ -103,7 +103,7 @@ pub async fn course_enrollments_current_list(
     query: CourseQuery,
 ) -> CourseRouteResult<Value> {
     let items = service.list_enrollments(context, query).await?;
-    Ok(success(serde_json::to_value(items).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(items).unwrap_or_default()))
 }
 
 pub async fn course_enrollments_retrieve(
@@ -112,7 +112,7 @@ pub async fn course_enrollments_retrieve(
     enrollment_id: String,
 ) -> CourseRouteResult<Value> {
     let result = service.retrieve_enrollment(context, enrollment_id).await?;
-    Ok(success(serde_json::to_value(result).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(result).unwrap_or_default()))
 }
 
 pub async fn course_enrollments_cancel(
@@ -121,7 +121,7 @@ pub async fn course_enrollments_cancel(
     enrollment_id: String,
 ) -> CourseRouteResult<Value> {
     service.revoke_enrollment(context, enrollment_id).await?;
-    Ok(success(serde_json::json!(null)))
+    Ok(ok(serde_json::json!(null)))
 }
 
 pub async fn course_sections_list(
@@ -130,7 +130,7 @@ pub async fn course_sections_list(
     course_id: String,
 ) -> CourseRouteResult<Value> {
     let items = service.list_sections(context, course_id).await?;
-    Ok(success(serde_json::to_value(items).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(items).unwrap_or_default()))
 }
 
 pub async fn course_lessons_list(
@@ -139,7 +139,7 @@ pub async fn course_lessons_list(
     course_id: String,
 ) -> CourseRouteResult<Value> {
     let items = service.list_lessons(context, course_id).await?;
-    Ok(success(serde_json::to_value(items).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(items).unwrap_or_default()))
 }
 
 pub async fn course_lessons_retrieve(
@@ -148,7 +148,7 @@ pub async fn course_lessons_retrieve(
     lesson_id: String,
 ) -> CourseRouteResult<Value> {
     let result = service.retrieve_lesson(context, lesson_id).await?;
-    Ok(success(serde_json::to_value(result).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(result).unwrap_or_default()))
 }
 
 pub async fn course_lesson_resources_list(
@@ -159,7 +159,7 @@ pub async fn course_lesson_resources_list(
     let result = service
         .list_resources(context, "lesson".to_string(), lesson_id)
         .await?;
-    Ok(success(serde_json::to_value(result).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(result).unwrap_or_default()))
 }
 
 pub async fn course_progress_retrieve(
@@ -168,7 +168,7 @@ pub async fn course_progress_retrieve(
     enrollment_id: String,
 ) -> CourseRouteResult<Value> {
     let item = service.retrieve_progress(context, enrollment_id).await?;
-    Ok(success(serde_json::to_value(item).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(item).unwrap_or_default()))
 }
 
 pub async fn course_lesson_progress_update(
@@ -198,7 +198,7 @@ pub async fn course_lesson_progress_update(
         idempotency_key: None,
     };
     service.update_lesson_progress(context, command).await?;
-    Ok(success(serde_json::json!(null)))
+    Ok(ok(serde_json::json!(null)))
 }
 
 pub async fn course_lesson_progress_watch_positions_update(
@@ -220,7 +220,7 @@ pub async fn course_lesson_progress_watch_positions_update(
         idempotency_key: None,
     };
     service.update_lesson_progress(context, command).await?;
-    Ok(success(serde_json::json!(null)))
+    Ok(ok(serde_json::json!(null)))
 }
 
 pub async fn course_live_sessions_list(
@@ -229,7 +229,7 @@ pub async fn course_live_sessions_list(
     query: CourseQuery,
 ) -> CourseRouteResult<Value> {
     let items = service.list_live_sessions(context, query).await?;
-    Ok(success(serde_json::to_value(items).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(items).unwrap_or_default()))
 }
 
 pub async fn course_live_sessions_retrieve(
@@ -241,7 +241,7 @@ pub async fn course_live_sessions_retrieve(
         .retrieve_live_session(context, live_session_id)
         .await?;
     match item {
-        Some(session) => Ok(success(serde_json::to_value(session).unwrap_or_default())),
+        Some(session) => Ok(ok(serde_json::to_value(session).unwrap_or_default())),
         None => Err(CourseRouteError::not_found("Live session not found")),
     }
 }
@@ -252,7 +252,7 @@ pub async fn course_live_sessions_join(
     live_session_id: String,
 ) -> CourseRouteResult<Value> {
     let grant = service.join_live_session(context, live_session_id).await?;
-    Ok(success(serde_json::to_value(grant).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(grant).unwrap_or_default()))
 }
 
 pub async fn course_live_sessions_heartbeat(
@@ -263,7 +263,7 @@ pub async fn course_live_sessions_heartbeat(
     service
         .heartbeat_live_session(context, live_session_id)
         .await?;
-    Ok(success(serde_json::json!(null)))
+    Ok(ok(serde_json::json!(null)))
 }
 
 pub async fn course_live_sessions_leave(
@@ -272,7 +272,7 @@ pub async fn course_live_sessions_leave(
     live_session_id: String,
 ) -> CourseRouteResult<Value> {
     service.leave_live_session(context, live_session_id).await?;
-    Ok(success(serde_json::json!(null)))
+    Ok(ok(serde_json::json!(null)))
 }
 
 pub async fn course_live_sessions_replay_retrieve(
@@ -284,8 +284,8 @@ pub async fn course_live_sessions_replay_retrieve(
         .retrieve_live_session_replay(context, live_session_id)
         .await?;
     match result {
-        Some(replay) => Ok(success(replay)),
-        None => Ok(success(serde_json::json!(null))),
+        Some(replay) => Ok(ok(replay)),
+        None => Ok(ok(serde_json::json!(null))),
     }
 }
 
@@ -295,7 +295,7 @@ pub async fn course_comments_list(
     query: CourseQuery,
 ) -> CourseRouteResult<Value> {
     let items = service.list_comments(context, query).await?;
-    Ok(success(serde_json::to_value(items).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(items).unwrap_or_default()))
 }
 
 pub async fn course_comments_create(
@@ -305,7 +305,7 @@ pub async fn course_comments_create(
     body: Value,
 ) -> CourseRouteResult<Value> {
     let item = service.create_comment(context, body).await?;
-    Ok(success(serde_json::to_value(item).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(item).unwrap_or_default()))
 }
 
 pub async fn course_comments_delete(
@@ -314,7 +314,7 @@ pub async fn course_comments_delete(
     comment_id: String,
 ) -> CourseRouteResult<Value> {
     service.delete_comment(context, comment_id).await?;
-    Ok(success(serde_json::json!(null)))
+    Ok(ok(serde_json::json!(null)))
 }
 
 pub async fn course_reactions_replace(
@@ -323,7 +323,7 @@ pub async fn course_reactions_replace(
     body: Value,
 ) -> CourseRouteResult<Value> {
     let result = service.save_reaction(context, body).await?;
-    Ok(success(result))
+    Ok(ok(result))
 }
 
 pub async fn course_reactions_delete(
@@ -332,7 +332,7 @@ pub async fn course_reactions_delete(
     reaction_id: String,
 ) -> CourseRouteResult<Value> {
     service.delete_reaction(context, reaction_id).await?;
-    Ok(success(serde_json::json!(null)))
+    Ok(ok(serde_json::json!(null)))
 }
 
 pub async fn course_applications_create(
@@ -376,7 +376,7 @@ pub async fn course_applications_create(
         metadata: body.get("metadata").cloned(),
     };
     let item = service.submit_application(context, request).await?;
-    Ok(success(serde_json::to_value(item).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(item).unwrap_or_default()))
 }
 
 pub async fn course_applications_current_list(
@@ -385,7 +385,7 @@ pub async fn course_applications_current_list(
     query: CourseQuery,
 ) -> CourseRouteResult<Value> {
     let items = service.list_applications(context, query).await?;
-    Ok(success(serde_json::to_value(items).unwrap_or_default()))
+    Ok(ok(serde_json::to_value(items).unwrap_or_default()))
 }
 
 pub async fn course_applications_retrieve(
@@ -397,9 +397,9 @@ pub async fn course_applications_retrieve(
         .retrieve_application(context, application_id)
         .await?;
     match result {
-        Some(application) => Ok(success(
+        Some(application) => Ok(ok(
             serde_json::to_value(application).unwrap_or_default(),
         )),
-        None => Ok(success(serde_json::json!(null))),
+        None => Ok(ok(serde_json::json!(null))),
     }
 }

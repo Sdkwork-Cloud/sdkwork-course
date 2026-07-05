@@ -1,10 +1,16 @@
 ﻿import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { useAppStore } from '@sdkwork/sdkwork-course-pc-core'
+import {
+  useAppStore,
+  getIamAppSdkClient,
+  readIamSessionTokens,
+  persistIamSession,
+  assertIamSessionTokens,
+} from '@sdkwork/sdkwork-course-pc-core'
 
 export function LoginPage() {
   const navigate = useNavigate()
-  const { setUser, setLoading, setError } = useAppStore()
+  const { setUser, setError } = useAppStore()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -16,27 +22,17 @@ export function LoginPage() {
     setErrorLocal('')
 
     try {
-      // Call auth API through SDK
-      const response = await fetch('/app/v3/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      })
-      
-      const data = await response.json()
-      
-      if (data.code === '2000' && data.data) {
-        setUser({
-          id: data.data.id || '1',
-          name: data.data.name || email.split('@')[0],
-          email: email,
-        })
-        navigate('/')
-      } else {
-        setErrorLocal(data.msg || '鐧诲綍澶辫触锛岃妫€鏌ラ偖绠卞拰瀵嗙爜')
-      }
-    } catch {
-      setErrorLocal('鐧诲綍澶辫触锛岃绋嶅悗鍐嶈瘯')
+      const iamClient = getIamAppSdkClient()
+      const response = await iamClient.auth.sessions.create({ email, password })
+      const tokens = readIamSessionTokens(response)
+      assertIamSessionTokens(tokens)
+      const session = persistIamSession(tokens, email)
+      setUser(session.user!)
+      navigate('/')
+    } catch (submitError) {
+      const message = submitError instanceof Error ? submitError.message : '登录失败，请稍后再试'
+      setErrorLocal(message)
+      setError(message)
     } finally {
       setIsLoading(false)
     }
@@ -47,12 +43,13 @@ export function LoginPage() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            鐧诲綍鎮ㄧ殑璐︽埛
+            登录您的账户
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            鎴栬€厈' '}
+            或者{' '}
             <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">
-              娉ㄥ唽鏂拌处鎴?            </Link>
+              注册新账户
+            </Link>
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -64,7 +61,7 @@ export function LoginPage() {
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email" className="sr-only">
-                閭鍦板潃
+                邮箱地址
               </label>
               <input
                 id="email"
@@ -75,12 +72,12 @@ export function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="閭鍦板潃"
+                placeholder="邮箱地址"
               />
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
-                瀵嗙爜
+                密码
               </label>
               <input
                 id="password"
@@ -91,26 +88,8 @@ export function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="瀵嗙爜"
+                placeholder="密码"
               />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                璁颁綇鎴?              </label>
-            </div>
-
-            <div className="text-sm">
-              <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
-                蹇樿瀵嗙爜锛?              </a>
             </div>
           </div>
 
@@ -120,7 +99,7 @@ export function LoginPage() {
               disabled={isLoading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
             >
-              {isLoading ? '鐧诲綍涓?..' : '鐧诲綍'}
+              {isLoading ? '登录中...' : '登录'}
             </button>
           </div>
         </form>
@@ -128,6 +107,3 @@ export function LoginPage() {
     </div>
   )
 }
-
-
-

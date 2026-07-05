@@ -1,13 +1,15 @@
 import { appApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationResult } from '../types';
+import type { SdkWorkPageData } from '../types';
 
 
 export interface CourseLessonsListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -19,20 +21,22 @@ export class CourseLessonsApi {
   }
 
 
-/** course Lessons list */
-  async list(courseId: string, params?: CourseLessonsListParams): Promise<CourseOperationResult> {
+/** course Lessons list. */
+  async list(courseId: string, params?: CourseLessonsListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(appApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/lessons`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(appApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/lessons`), query));
   }
 
-/** course Lessons retrieve */
-  async retrieve(lessonId: string): Promise<CourseOperationResult> {
-    return this.client.get<CourseOperationResult>(appApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}`));
+/** course Lessons retrieve. */
+  async retrieve(lessonId: string): Promise<Record<string, unknown>> {
+    return this.client.get<Record<string, unknown>>(appApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}`));
   }
 }
 

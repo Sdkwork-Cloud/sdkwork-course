@@ -1,13 +1,15 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseOperationCommand, CourseOperationResult } from '../types';
+import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../types';
 
 
 export interface CourseCategoriesListParams {
   q?: string;
   cursor?: string;
   limit?: number;
+  page?: number;
+  pageSize?: number;
   status?: string;
 }
 
@@ -19,35 +21,37 @@ export class CourseCategoriesApi {
   }
 
 
-/** course Categories list */
-  async list(params?: CourseCategoriesListParams): Promise<CourseOperationResult> {
+/** course Categories list. */
+  async list(params?: CourseCategoriesListParams): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
       { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
+      { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
+      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<CourseOperationResult>(appendQueryString(backendApiPath(`/course_categories`), query));
+    return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_categories`), query));
   }
 
-/** course Categories create */
-  async create(body: CourseOperationCommand): Promise<CourseOperationResult> {
-    return this.client.post<CourseOperationResult>(backendApiPath(`/course_categories`), body, undefined, undefined, 'application/json');
+/** course Categories create. */
+  async create(body: CourseCommandBody): Promise<Record<string, unknown>> {
+    return this.client.post<Record<string, unknown>>(backendApiPath(`/course_categories`), body, undefined, undefined, 'application/json');
   }
 
-/** course Categories update */
-  async update(categoryId: string, body: CourseOperationCommand): Promise<CourseOperationResult> {
-    return this.client.patch<CourseOperationResult>(backendApiPath(`/course_categories/${serializePathParameter(categoryId, { name: 'categoryId', style: 'simple', explode: false })}`), body, undefined, undefined, 'application/json');
+/** course Categories update. */
+  async update(categoryId: string, body: CourseCommandBody): Promise<Record<string, unknown>> {
+    return this.client.patch<Record<string, unknown>>(backendApiPath(`/course_categories/${serializePathParameter(categoryId, { name: 'categoryId', style: 'simple', explode: false })}`), body, undefined, undefined, 'application/json');
   }
 
-/** course Categories delete */
-  async delete(categoryId: string): Promise<CourseOperationResult> {
-    return this.client.delete<CourseOperationResult>(backendApiPath(`/course_categories/${serializePathParameter(categoryId, { name: 'categoryId', style: 'simple', explode: false })}`));
+/** course Categories delete. */
+  async delete(categoryId: string): Promise<SdkWorkCommandData> {
+    return this.client.delete<SdkWorkCommandData>(backendApiPath(`/course_categories/${serializePathParameter(categoryId, { name: 'categoryId', style: 'simple', explode: false })}`));
   }
 
-/** course Categories reorder */
-  async reorder(body: CourseOperationCommand): Promise<CourseOperationResult> {
-    return this.client.put<CourseOperationResult>(backendApiPath(`/course_categories/reorder`), body, undefined, undefined, 'application/json');
+/** course Categories reorder. */
+  async reorder(body: CourseCommandBody): Promise<SdkWorkCommandData> {
+    return this.client.put<SdkWorkCommandData>(backendApiPath(`/course_categories/reorder`), body, undefined, undefined, 'application/json');
   }
 }
 

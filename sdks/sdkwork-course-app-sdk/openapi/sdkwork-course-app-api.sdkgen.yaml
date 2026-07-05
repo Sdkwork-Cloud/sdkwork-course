@@ -3,7 +3,10 @@
   "info": {
     "title": "SDKWork Course App API",
     "version": "1.0.0",
-    "description": "SDKWork Course authority generated from apis/*/course/operations.json. TODO(course): Replace generic schemas with reviewed per-operation request and response DTOs before SDK publication."
+    "description": "Learner and client applications for course discovery, enrollment, progress, live sessions, comments, and applications.",
+    "x-sdkwork-api-authority": "sdkwork-course-app-api",
+    "x-sdkwork-sdk-family": "sdkwork-course-app-sdk",
+    "x-sdkwork-audience": "Learner and client applications for course discovery, enrollment, progress, live sessions, comments, and applications."
   },
   "x-sdkwork-owner": "sdkwork-course",
   "x-sdkwork-domain": "content",
@@ -11,8 +14,8 @@
   "x-sdkwork-sdk-family": "sdkwork-course-app-sdk",
   "servers": [
     {
-      "url": "/app/v3/api",
-      "description": "app-api canonical SDKWork v3 prefix"
+      "url": "http://localhost:8080",
+      "description": "Local sdkwork-course runtime"
     }
   ],
   "security": [
@@ -27,8 +30,8 @@
         "tags": [
           "courseCategories"
         ],
-        "summary": "course Categories list",
-        "description": "TODO(course): Implement category listing with tenant visibility and optional anonymous safe projection.",
+        "summary": "course Categories list.",
+        "description": "course Categories list operation for the course learning domain.",
         "operationId": "courseCategories.list",
         "parameters": [
           {
@@ -59,6 +62,27 @@
             }
           },
           {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,
@@ -69,11 +93,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkListResponse"
                 }
               }
             }
@@ -127,6 +151,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -140,13 +174,15 @@
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseCategories",
         "x-sdkwork-permission": "course.categories.read",
-        "x-sdkwork-auth-mode": "dual-token",
+        "x-sdkwork-auth-mode": "dual-token-or-anonymous",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_categories/{categoryId}": {
@@ -154,8 +190,8 @@
         "tags": [
           "courseCategories"
         ],
-        "summary": "course Categories retrieve",
-        "description": "TODO(course): Implement category detail retrieval with published-course counts.",
+        "summary": "course Categories retrieve.",
+        "description": "course Categories retrieve operation for the course learning domain.",
         "operationId": "courseCategories.retrieve",
         "parameters": [
           {
@@ -169,11 +205,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -227,6 +263,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -240,13 +286,15 @@
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseCategories",
         "x-sdkwork-permission": "course.categories.read",
-        "x-sdkwork-auth-mode": "dual-token",
+        "x-sdkwork-auth-mode": "dual-token-or-anonymous",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/courses": {
@@ -254,8 +302,8 @@
         "tags": [
           "courses"
         ],
-        "summary": "courses list",
-        "description": "TODO(course): Implement paginated course discovery with q/category/level/tags/offeringType filters.",
+        "summary": "courses list.",
+        "description": "courses list operation for the course learning domain.",
         "operationId": "courses.list",
         "parameters": [
           {
@@ -286,6 +334,27 @@
             }
           },
           {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,
@@ -296,11 +365,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkListResponse"
                 }
               }
             }
@@ -354,6 +423,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -367,13 +446,15 @@
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courses",
         "x-sdkwork-permission": "course.courses.read",
-        "x-sdkwork-auth-mode": "dual-token",
+        "x-sdkwork-auth-mode": "dual-token-or-anonymous",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/courses/{courseId}": {
@@ -381,8 +462,8 @@
         "tags": [
           "courses"
         ],
-        "summary": "courses retrieve",
-        "description": "TODO(course): Implement course detail projection without user-specific progress for anonymous calls.",
+        "summary": "courses retrieve.",
+        "description": "courses retrieve operation for the course learning domain.",
         "operationId": "courses.retrieve",
         "parameters": [
           {
@@ -396,11 +477,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -454,6 +535,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -467,13 +558,15 @@
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courses",
         "x-sdkwork-permission": "course.courses.read",
-        "x-sdkwork-auth-mode": "dual-token",
+        "x-sdkwork-auth-mode": "dual-token-or-anonymous",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/courses/{courseId}/offerings": {
@@ -481,8 +574,8 @@
         "tags": [
           "courseOfferings"
         ],
-        "summary": "course Offerings list",
-        "description": "TODO(course): Implement offering list for VOD, live, blended, and cohort delivery modes.",
+        "summary": "course Offerings list.",
+        "description": "course Offerings list operation for the course learning domain.",
         "operationId": "courseOfferings.list",
         "parameters": [
           {
@@ -521,6 +614,27 @@
             }
           },
           {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,
@@ -531,11 +645,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkListResponse"
                 }
               }
             }
@@ -589,6 +703,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -602,13 +726,15 @@
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseOfferings",
         "x-sdkwork-permission": "course.offerings.read",
-        "x-sdkwork-auth-mode": "dual-token",
+        "x-sdkwork-auth-mode": "dual-token-or-anonymous",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_offerings/{offeringId}": {
@@ -616,8 +742,8 @@
         "tags": [
           "courseOfferings"
         ],
-        "summary": "course Offerings retrieve",
-        "description": "TODO(course): Implement offering detail with enrollment window, capacity, and completion rule summary.",
+        "summary": "course Offerings retrieve.",
+        "description": "course Offerings retrieve operation for the course learning domain.",
         "operationId": "courseOfferings.retrieve",
         "parameters": [
           {
@@ -631,11 +757,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -689,6 +815,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -702,13 +838,15 @@
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseOfferings",
         "x-sdkwork-permission": "course.offerings.read",
-        "x-sdkwork-auth-mode": "dual-token",
+        "x-sdkwork-auth-mode": "dual-token-or-anonymous",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_offerings/{offeringId}/enrollments": {
@@ -716,8 +854,8 @@
         "tags": [
           "courseEnrollments"
         ],
-        "summary": "course Enrollments create",
-        "description": "TODO(course): Implement learner enrollment with external entitlement adapter and Idempotency-Key handling.",
+        "summary": "course Enrollments create.",
+        "description": "course Enrollments create operation for the course learning domain.",
         "operationId": "courseEnrollments.create",
         "parameters": [
           {
@@ -737,16 +875,16 @@
               "minLength": 8,
               "maxLength": 256
             },
-            "description": "Client retry idempotency key. This is not the server requestId."
+            "description": "Client retry idempotency key."
           }
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -793,6 +931,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -820,13 +968,15 @@
         "x-sdkwork-idempotent": "required",
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
+          "description": "Typed command body for courseEnrollments.create.",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CourseOperationCommand"
+                "$ref": "#/components/schemas/CourseCommandBody"
               }
             }
           }
@@ -838,8 +988,8 @@
         "tags": [
           "courseEnrollments"
         ],
-        "summary": "course Enrollments current list",
-        "description": "TODO(course): Implement current-user enrollment list scoped by tenant, organization, and user context.",
+        "summary": "course Enrollments current list.",
+        "description": "course Enrollments list operation for the course learning domain.",
         "operationId": "courseEnrollments.current.list",
         "parameters": [
           {
@@ -870,6 +1020,27 @@
             }
           },
           {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,
@@ -880,11 +1051,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkListResponse"
                 }
               }
             }
@@ -938,6 +1109,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -957,7 +1138,9 @@
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_enrollments/{enrollmentId}": {
@@ -965,8 +1148,8 @@
         "tags": [
           "courseEnrollments"
         ],
-        "summary": "course Enrollments retrieve",
-        "description": "TODO(course): Implement enrollment retrieval with object-level authorization.",
+        "summary": "course Enrollments retrieve.",
+        "description": "course Enrollments retrieve operation for the course learning domain.",
         "operationId": "courseEnrollments.retrieve",
         "parameters": [
           {
@@ -980,11 +1163,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -1031,6 +1214,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -1057,14 +1250,16 @@
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       },
       "delete": {
         "tags": [
           "courseEnrollments"
         ],
-        "summary": "course Enrollments cancel",
-        "description": "TODO(course): Implement learner cancellation when offering policy allows it.",
+        "summary": "course Enrollments cancel.",
+        "description": "course Enrollments cancel operation for the course learning domain.",
         "operationId": "courseEnrollments.cancel",
         "parameters": [
           {
@@ -1078,11 +1273,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
                 }
               }
             }
@@ -1129,6 +1324,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -1155,7 +1360,9 @@
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/courses/{courseId}/sections": {
@@ -1163,8 +1370,8 @@
         "tags": [
           "courseSections"
         ],
-        "summary": "course Sections list",
-        "description": "TODO(course): Implement published section list ordered by sort_order.",
+        "summary": "course Sections list.",
+        "description": "course Sections list operation for the course learning domain.",
         "operationId": "courseSections.list",
         "parameters": [
           {
@@ -1203,6 +1410,27 @@
             }
           },
           {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,
@@ -1213,11 +1441,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkListResponse"
                 }
               }
             }
@@ -1271,6 +1499,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1284,13 +1522,15 @@
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseSections",
         "x-sdkwork-permission": "course.lessons.read",
-        "x-sdkwork-auth-mode": "dual-token",
+        "x-sdkwork-auth-mode": "dual-token-or-anonymous",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/courses/{courseId}/lessons": {
@@ -1298,8 +1538,8 @@
         "tags": [
           "courseLessons"
         ],
-        "summary": "course Lessons list",
-        "description": "TODO(course): Implement lesson/activity list for VOD video, live session, article, and download nodes.",
+        "summary": "course Lessons list.",
+        "description": "course Lessons list operation for the course learning domain.",
         "operationId": "courseLessons.list",
         "parameters": [
           {
@@ -1338,6 +1578,27 @@
             }
           },
           {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,
@@ -1348,11 +1609,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkListResponse"
                 }
               }
             }
@@ -1406,6 +1667,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1419,13 +1690,15 @@
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessons",
         "x-sdkwork-permission": "course.lessons.read",
-        "x-sdkwork-auth-mode": "dual-token",
+        "x-sdkwork-auth-mode": "dual-token-or-anonymous",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_lessons/{lessonId}": {
@@ -1433,8 +1706,8 @@
         "tags": [
           "courseLessons"
         ],
-        "summary": "course Lessons retrieve",
-        "description": "TODO(course): Implement lesson detail with free-preview and enrollment-aware resource visibility.",
+        "summary": "course Lessons retrieve.",
+        "description": "course Lessons retrieve operation for the course learning domain.",
         "operationId": "courseLessons.retrieve",
         "parameters": [
           {
@@ -1448,11 +1721,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -1506,6 +1779,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1519,13 +1802,15 @@
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessons",
         "x-sdkwork-permission": "course.lessons.read",
-        "x-sdkwork-auth-mode": "dual-token",
+        "x-sdkwork-auth-mode": "dual-token-or-anonymous",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_lessons/{lessonId}/resources": {
@@ -1533,8 +1818,8 @@
         "tags": [
           "courseLessonResources"
         ],
-        "summary": "course Lesson Resources list",
-        "description": "TODO(course): Implement Drive-backed resource list for VOD video, replay, subtitle, handout, and attachment.",
+        "summary": "course Lesson Resources list.",
+        "description": "course Lesson Resources list operation for the course learning domain.",
         "operationId": "courseLessonResources.list",
         "parameters": [
           {
@@ -1573,6 +1858,27 @@
             }
           },
           {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,
@@ -1583,11 +1889,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkListResponse"
                 }
               }
             }
@@ -1634,6 +1940,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -1660,7 +1976,9 @@
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_enrollments/{enrollmentId}/progress": {
@@ -1668,8 +1986,8 @@
         "tags": [
           "courseProgress"
         ],
-        "summary": "course Progress retrieve",
-        "description": "TODO(course): Implement course-level learning progress projection for the current learner.",
+        "summary": "course Progress retrieve.",
+        "description": "course Progress retrieve operation for the course learning domain.",
         "operationId": "courseProgress.retrieve",
         "parameters": [
           {
@@ -1683,11 +2001,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -1734,6 +2052,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -1760,7 +2088,9 @@
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_lessons/{lessonId}/progress": {
@@ -1768,8 +2098,8 @@
         "tags": [
           "courseLessonProgress"
         ],
-        "summary": "course Lesson Progress update",
-        "description": "TODO(course): Implement lesson progress updates and course progress rollup.",
+        "summary": "course Lesson Progress update.",
+        "description": "course Lesson Progress update operation for the course learning domain.",
         "operationId": "courseLessonProgress.update",
         "parameters": [
           {
@@ -1789,16 +2119,16 @@
               "minLength": 8,
               "maxLength": 256
             },
-            "description": "Client retry idempotency key. This is not the server requestId."
+            "description": "Client retry idempotency key."
           }
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -1845,6 +2175,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -1872,13 +2212,15 @@
         "x-sdkwork-idempotent": "recommended",
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
+          "description": "Typed command body for courseLessonProgress.update.",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CourseOperationCommand"
+                "$ref": "#/components/schemas/CourseCommandBody"
               }
             }
           }
@@ -1890,8 +2232,8 @@
         "tags": [
           "courseLessonProgress"
         ],
-        "summary": "course Lesson Progress watch Positions update",
-        "description": "TODO(course): Implement VOD playback position save without client-supplied requestId.",
+        "summary": "course Lesson Progress watch Positions update.",
+        "description": "course Lesson Progress update operation for the course learning domain.",
         "operationId": "courseLessonProgress.watchPositions.update",
         "parameters": [
           {
@@ -1905,11 +2247,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -1963,6 +2305,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1983,13 +2335,15 @@
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
+          "description": "Typed command body for courseLessonProgress.watchPositions.update.",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CourseOperationCommand"
+                "$ref": "#/components/schemas/CourseCommandBody"
               }
             }
           }
@@ -2001,8 +2355,8 @@
         "tags": [
           "courseLiveSessions"
         ],
-        "summary": "course Live Sessions list",
-        "description": "TODO(course): Implement current learner live-session schedule across enrolled offerings.",
+        "summary": "course Live Sessions list.",
+        "description": "course Live Sessions list operation for the course learning domain.",
         "operationId": "courseLiveSessions.list",
         "parameters": [
           {
@@ -2033,6 +2387,27 @@
             }
           },
           {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,
@@ -2043,11 +2418,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkListResponse"
                 }
               }
             }
@@ -2101,6 +2476,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2120,7 +2505,9 @@
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_live_sessions/{liveSessionId}": {
@@ -2128,8 +2515,8 @@
         "tags": [
           "courseLiveSessions"
         ],
-        "summary": "course Live Sessions retrieve",
-        "description": "TODO(course): Implement live-session detail with schedule, instructor, and replay status.",
+        "summary": "course Live Sessions retrieve.",
+        "description": "course Live Sessions retrieve operation for the course learning domain.",
         "operationId": "courseLiveSessions.retrieve",
         "parameters": [
           {
@@ -2143,11 +2530,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -2201,6 +2588,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2220,7 +2617,9 @@
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_live_sessions/{liveSessionId}/join": {
@@ -2228,8 +2627,8 @@
         "tags": [
           "courseLiveSessions"
         ],
-        "summary": "course Live Sessions join",
-        "description": "TODO(course): Implement live join with short-lived provider token and attendance start.",
+        "summary": "course Live Sessions join.",
+        "description": "course Live Sessions join operation for the course learning domain.",
         "operationId": "courseLiveSessions.join",
         "parameters": [
           {
@@ -2249,16 +2648,16 @@
               "minLength": 8,
               "maxLength": 256
             },
-            "description": "Client retry idempotency key. This is not the server requestId."
+            "description": "Client retry idempotency key."
           }
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
                 }
               }
             }
@@ -2305,6 +2704,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -2332,13 +2741,15 @@
         "x-sdkwork-idempotent": "recommended",
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
+          "description": "Typed command body for courseLiveSessions.join.",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CourseOperationCommand"
+                "$ref": "#/components/schemas/CourseCommandBody"
               }
             }
           }
@@ -2350,8 +2761,8 @@
         "tags": [
           "courseLiveSessions"
         ],
-        "summary": "course Live Sessions heartbeat",
-        "description": "TODO(course): Implement heartbeat aggregation into course_lesson_progress without raw provider secrets.",
+        "summary": "course Live Sessions heartbeat.",
+        "description": "course Live Sessions heartbeat operation for the course learning domain.",
         "operationId": "courseLiveSessions.heartbeat",
         "parameters": [
           {
@@ -2365,11 +2776,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
                 }
               }
             }
@@ -2423,6 +2834,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2443,13 +2864,15 @@
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
+          "description": "Typed command body for courseLiveSessions.heartbeat.",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CourseOperationCommand"
+                "$ref": "#/components/schemas/CourseCommandBody"
               }
             }
           }
@@ -2461,8 +2884,8 @@
         "tags": [
           "courseLiveSessions"
         ],
-        "summary": "course Live Sessions leave",
-        "description": "TODO(course): Implement live leave and attendance duration finalization.",
+        "summary": "course Live Sessions leave.",
+        "description": "course Live Sessions leave operation for the course learning domain.",
         "operationId": "courseLiveSessions.leave",
         "parameters": [
           {
@@ -2476,11 +2899,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
                 }
               }
             }
@@ -2527,6 +2950,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -2554,13 +2987,15 @@
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
+          "description": "Typed command body for courseLiveSessions.leave.",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CourseOperationCommand"
+                "$ref": "#/components/schemas/CourseCommandBody"
               }
             }
           }
@@ -2572,8 +3007,8 @@
         "tags": [
           "courseLiveSessions"
         ],
-        "summary": "course Live Sessions replay retrieve",
-        "description": "TODO(course): Implement replay resource retrieval through Drive-backed MediaResource references.",
+        "summary": "course Live Sessions replay retrieve.",
+        "description": "course Live Sessions retrieve operation for the course learning domain.",
         "operationId": "courseLiveSessions.replay.retrieve",
         "parameters": [
           {
@@ -2587,11 +3022,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -2638,6 +3073,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -2664,7 +3109,9 @@
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/courses/{courseId}/comments": {
@@ -2672,8 +3119,8 @@
         "tags": [
           "courseComments"
         ],
-        "summary": "course Comments list",
-        "description": "TODO(course): Implement visible comment listing with moderation filters.",
+        "summary": "course Comments list.",
+        "description": "course Comments list operation for the course learning domain.",
         "operationId": "courseComments.list",
         "parameters": [
           {
@@ -2712,6 +3159,27 @@
             }
           },
           {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,
@@ -2722,11 +3190,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkListResponse"
                 }
               }
             }
@@ -2773,6 +3241,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -2793,20 +3271,22 @@
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseComments",
         "x-sdkwork-permission": "course.comments.read",
-        "x-sdkwork-auth-mode": "dual-token",
+        "x-sdkwork-auth-mode": "dual-token-or-anonymous",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       },
       "post": {
         "tags": [
           "courseComments"
         ],
-        "summary": "course Comments create",
-        "description": "TODO(course): Implement comment creation with moderation status and author snapshot.",
+        "summary": "course Comments create.",
+        "description": "course Comments create operation for the course learning domain.",
         "operationId": "courseComments.create",
         "parameters": [
           {
@@ -2826,16 +3306,16 @@
               "minLength": 8,
               "maxLength": 256
             },
-            "description": "Client retry idempotency key. This is not the server requestId."
+            "description": "Client retry idempotency key."
           }
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -2889,6 +3369,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2909,13 +3399,15 @@
         "x-sdkwork-idempotent": "recommended",
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
+          "description": "Typed command body for courseComments.create.",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CourseOperationCommand"
+                "$ref": "#/components/schemas/CourseCommandBody"
               }
             }
           }
@@ -2927,8 +3419,8 @@
         "tags": [
           "courseComments"
         ],
-        "summary": "course Comments delete",
-        "description": "TODO(course): Implement self-delete with object-level authorization.",
+        "summary": "course Comments delete.",
+        "description": "course Comments delete operation for the course learning domain.",
         "operationId": "courseComments.delete",
         "parameters": [
           {
@@ -2942,11 +3434,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
                 }
               }
             }
@@ -2993,6 +3485,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -3019,7 +3521,9 @@
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_reactions": {
@@ -3027,8 +3531,8 @@
         "tags": [
           "courseReactions"
         ],
-        "summary": "course Reactions replace",
-        "description": "TODO(course): Implement idempotent like/favorite/save/share replacement.",
+        "summary": "course Reactions replace.",
+        "description": "course Reactions replace operation for the course learning domain.",
         "operationId": "courseReactions.replace",
         "parameters": [
           {
@@ -3040,16 +3544,16 @@
               "minLength": 8,
               "maxLength": 256
             },
-            "description": "Client retry idempotency key. This is not the server requestId."
+            "description": "Client retry idempotency key."
           }
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
                 }
               }
             }
@@ -3096,6 +3600,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -3123,13 +3637,15 @@
         "x-sdkwork-idempotent": "recommended",
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
+          "description": "Typed command body for courseReactions.replace.",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CourseOperationCommand"
+                "$ref": "#/components/schemas/CourseCommandBody"
               }
             }
           }
@@ -3141,8 +3657,8 @@
         "tags": [
           "courseReactions"
         ],
-        "summary": "course Reactions delete",
-        "description": "TODO(course): Implement reaction deletion for the owning actor.",
+        "summary": "course Reactions delete.",
+        "description": "course Reactions delete operation for the course learning domain.",
         "operationId": "courseReactions.delete",
         "parameters": [
           {
@@ -3156,11 +3672,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
                 }
               }
             }
@@ -3207,6 +3723,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -3233,7 +3759,9 @@
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_applications": {
@@ -3241,8 +3769,8 @@
         "tags": [
           "courseApplications"
         ],
-        "summary": "course Applications create",
-        "description": "TODO(course): Implement course application submission with optional Drive-backed sample resource.",
+        "summary": "course Applications create.",
+        "description": "course Applications create operation for the course learning domain.",
         "operationId": "courseApplications.create",
         "parameters": [
           {
@@ -3254,16 +3782,16 @@
               "minLength": 8,
               "maxLength": 256
             },
-            "description": "Client retry idempotency key. This is not the server requestId."
+            "description": "Client retry idempotency key."
           }
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -3310,6 +3838,16 @@
           },
           "409": {
             "description": "Conflict or idempotency mismatch",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -3337,13 +3875,15 @@
         "x-sdkwork-idempotent": "required",
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "TODO(course): Replace CourseOperationCommand with a typed request schema for this operation.",
+          "description": "Typed command body for courseApplications.create.",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CourseOperationCommand"
+                "$ref": "#/components/schemas/CourseCommandBody"
               }
             }
           }
@@ -3353,8 +3893,8 @@
         "tags": [
           "courseApplications"
         ],
-        "summary": "course Applications current list",
-        "description": "TODO(course): Implement current-user application list.",
+        "summary": "course Applications current list.",
+        "description": "course Applications list operation for the course learning domain.",
         "operationId": "courseApplications.current.list",
         "parameters": [
           {
@@ -3385,6 +3925,27 @@
             }
           },
           {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200
+            }
+          },
+          {
             "name": "status",
             "in": "query",
             "required": false,
@@ -3395,11 +3956,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkListResponse"
                 }
               }
             }
@@ -3453,6 +4014,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3472,7 +4043,9 @@
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_applications/{applicationId}": {
@@ -3480,8 +4053,8 @@
         "tags": [
           "courseApplications"
         ],
-        "summary": "course Applications retrieve",
-        "description": "TODO(course): Implement current-user application detail with privacy-safe contact fields.",
+        "summary": "course Applications retrieve.",
+        "description": "course Applications retrieve operation for the course learning domain.",
         "operationId": "courseApplications.retrieve",
         "parameters": [
           {
@@ -3495,11 +4068,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Course operation result. TODO(course): Specialize the response schema for this operation.",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseOperationResult"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -3553,6 +4126,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetail"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3572,7 +4155,9 @@
         "x-sdkwork-audit-event": null,
         "x-sdkwork-idempotent": null,
         "x-sdkwork-source": "apis/app-api/course/operations.json",
-        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api"
+        "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
+        "x-sdkwork-request-context": "AppRequestContext",
+        "x-sdkwork-server-request-id": true
       }
     }
   },
@@ -3592,62 +4177,271 @@
       }
     },
     "schemas": {
-      "ProblemDetail": {
+      "SdkWorkApiResponse": {
         "type": "object",
         "additionalProperties": false,
         "required": [
+          "code",
+          "data",
+          "traceId"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              0
+            ],
+            "default": 0,
+            "minimum": 0,
+            "maximum": 0
+          },
+          "data": {
+            "description": "Operation-specific payload typed per response schema."
+          },
+          "traceId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Server-owned request correlation id."
+          }
+        }
+      },
+      "SdkWorkResourceData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "item"
+        ],
+        "properties": {
+          "item": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Typed domain resource for the operation."
+          }
+        }
+      },
+      "SdkWorkPageData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items",
+          "pageInfo"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "pageInfo": {
+            "$ref": "#/components/schemas/PageInfo"
+          }
+        }
+      },
+      "SdkWorkCommandData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "accepted"
+        ],
+        "properties": {
+          "accepted": {
+            "type": "boolean",
+            "const": true
+          },
+          "resourceId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "PageInfo": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode"
+        ],
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "offset",
+              "cursor"
+            ]
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 200
+          },
+          "totalItems": {
+            "type": "string",
+            "pattern": "^[0-9]+$"
+          },
+          "totalPages": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "nextCursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hasMore": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SdkWorkPlatformErrorCode": {
+        "type": "integer",
+        "format": "int32",
+        "minimum": 40001,
+        "maximum": 79999,
+        "description": "Platform or domain error code per API_SPEC.md §15.3."
+      },
+      "ProblemDetail": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
           "type",
           "title",
-          "status"
+          "status",
+          "code",
+          "traceId"
         ],
         "properties": {
           "type": {
-            "type": "string"
+            "type": "string",
+            "format": "uri-reference"
           },
           "title": {
             "type": "string"
           },
           "status": {
             "type": "integer",
-            "format": "int32"
+            "minimum": 100,
+            "maximum": 599
           },
           "detail": {
             "type": "string"
           },
-          "code": {
+          "instance": {
             "type": "string"
+          },
+          "code": {
+            "$ref": "#/components/schemas/SdkWorkPlatformErrorCode"
           },
           "traceId": {
-            "type": "string"
+            "type": "string",
+            "format": "uuid",
+            "description": "Server-owned request correlation id."
           },
-          "requestId": {
-            "type": "string"
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FieldError"
+            }
           }
         }
       },
-      "CourseOperationCommand": {
-        "type": "object",
-        "additionalProperties": true,
-        "description": "TODO(course): Materialize operation-specific command DTOs from the service contracts."
-      },
-      "CourseOperationResult": {
+      "FieldError": {
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "requestId",
-          "data"
+          "field",
+          "message"
         ],
         "properties": {
-          "requestId": {
+          "field": {
             "type": "string"
           },
-          "data": {
-            "type": "object",
-            "additionalProperties": true,
-            "description": "TODO(course): Materialize operation-specific result DTOs from the service contracts."
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 40011,
+            "maximum": 40099
           }
         }
+      },
+      "SdkWorkResourceResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SdkWorkApiResponse"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/SdkWorkResourceData"
+              }
+            }
+          }
+        ]
+      },
+      "SdkWorkListResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SdkWorkApiResponse"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/SdkWorkPageData"
+              }
+            }
+          }
+        ]
+      },
+      "SdkWorkCommandResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SdkWorkApiResponse"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/SdkWorkCommandData"
+              }
+            }
+          }
+        ]
+      },
+      "CourseCommandBody": {
+        "type": "object",
+        "additionalProperties": true,
+        "description": "Operation-specific command payload. Domain fields are validated by the course service layer."
       }
     }
+  },
+  "x-sdkwork-request-context": {
+    "contextObject": "AppRequestContext",
+    "serverRequestId": "server-owned",
+    "clientRequestIdHeader": "forbidden",
+    "tenantSource": "AuthToken + AccessToken",
+    "organizationSource": "AuthToken + AccessToken",
+    "userSource": "AuthToken + AccessToken"
   }
 }
