@@ -21,10 +21,6 @@ export const COURSE_SESSION_CHANGED_EVENT = 'sdkwork-course:session-changed';
 let globalTokenManager: AuthTokenManager | null = null;
 
 function readBootstrapAccessToken(): string | undefined {
-  const fromVite = trim(import.meta.env.VITE_SDKWORK_ACCESS_TOKEN ?? '');
-  if (!isBlank(fromVite)) {
-    return fromVite;
-  }
   const fromProcess = trim(
     typeof process !== 'undefined'
       ? String((process.env as Record<string, string | undefined>).SDKWORK_ACCESS_TOKEN ?? '')
