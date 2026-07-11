@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "kind": "sdkwork.iam.module",
+  "moduleId": "course",
+  "domain": "course",
+  "permissions": {
+    "catalog": [
+      {
+        "code": "course.applications.read",
+        "description": "Permission course.applications.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.applications.review",
+        "description": "Permission course.applications.review",
+        "source": "openapi"
+      },
+      {
+        "code": "course.applications.write",
+        "description": "Permission course.applications.write",
+        "source": "openapi"
+      },
+      {
+        "code": "course.audit_logs.read",
+        "description": "Permission course.audit_logs.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.categories.read",
+        "description": "Permission course.categories.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.categories.write",
+        "description": "Permission course.categories.write",
+        "source": "openapi"
+      },
+      {
+        "code": "course.comments.moderate",
+        "description": "Permission course.comments.moderate",
+        "source": "openapi"
+      },
+      {
+        "code": "course.comments.read",
+        "description": "Permission course.comments.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.comments.write",
+        "description": "Permission course.comments.write",
+        "source": "openapi"
+      },
+      {
+        "code": "course.courses.publish",
+        "description": "Permission course.courses.publish",
+        "source": "openapi"
+      },
+      {
+        "code": "course.courses.read",
+        "description": "Permission course.courses.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.courses.write",
+        "description": "Permission course.courses.write",
+        "source": "openapi"
+      },
+      {
+        "code": "course.enrollments.read",
+        "description": "Permission course.enrollments.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.enrollments.write",
+        "description": "Permission course.enrollments.write",
+        "source": "openapi"
+      },
+      {
+        "code": "course.instructors.read",
+        "description": "Permission course.instructors.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.instructors.write",
+        "description": "Permission course.instructors.write",
+        "source": "openapi"
+      },
+      {
+        "code": "course.lessons.read",
+        "description": "Permission course.lessons.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.lessons.write",
+        "description": "Permission course.lessons.write",
+        "source": "openapi"
+      },
+      {
+        "code": "course.live_sessions.join",
+        "description": "Permission course.live_sessions.join",
+        "source": "openapi"
+      },
+      {
+        "code": "course.live_sessions.operate",
+        "description": "Permission course.live_sessions.operate",
+        "source": "openapi"
+      },
+      {
+        "code": "course.live_sessions.read",
+        "description": "Permission course.live_sessions.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.live_sessions.write",
+        "description": "Permission course.live_sessions.write",
+        "source": "openapi"
+      },
+      {
+        "code": "course.offerings.read",
+        "description": "Permission course.offerings.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.offerings.write",
+        "description": "Permission course.offerings.write",
+        "source": "openapi"
+      },
+      {
+        "code": "course.progress.read",
+        "description": "Permission course.progress.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.progress.repair",
+        "description": "Permission course.progress.repair",
+        "source": "openapi"
+      },
+      {
+        "code": "course.progress.write",
+        "description": "Permission course.progress.write",
+        "source": "openapi"
+      },
+      {
+        "code": "course.reactions.read",
+        "description": "Permission course.reactions.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.reactions.write",
+        "description": "Permission course.reactions.write",
+        "source": "openapi"
+      },
+      {
+        "code": "course.reports.read",
+        "description": "Permission course.reports.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.resources.read",
+        "description": "Permission course.resources.read",
+        "source": "openapi"
+      },
+      {
+        "code": "course.resources.write",
+        "description": "Permission course.resources.write",
+        "source": "openapi"
+      }
+    ]
+  }
+}

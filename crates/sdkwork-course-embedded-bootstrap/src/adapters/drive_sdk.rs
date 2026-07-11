@@ -1,9 +1,11 @@
 use async_trait::async_trait;
-use sdkwork_content_course_service::domain::commands::{CourseMediaResourceRef, CourseServiceContext};
+use sdkwork_content_course_service::domain::commands::{
+    CourseMediaResourceRef, CourseServiceContext,
+};
 use sdkwork_content_course_service::domain::models::{CourseError, CourseResult};
 use sdkwork_content_course_service::ports::provider::CourseDrivePort;
 use sdkwork_drive_app_sdk_generated_rust::{
-    CreateDownloadGrantRequest, SdkworkAppClient, SdkworkError,
+    CreateDownloadGrantRequest, CreateDownloadUrlResponse, SdkworkAppClient, SdkworkError,
 };
 use sdkwork_utils_rust::string::{is_blank, trim};
 
@@ -24,9 +26,7 @@ impl SdkDriveCoursePort {
             .map(|value| trim(&value).to_string())
             .filter(|value| !is_blank(Some(value.as_str())))
             .ok_or_else(|| {
-                format!(
-                    "{DRIVE_FACADE_URL_ENV} or {DRIVE_APP_API_BASE_ENV} must be configured"
-                )
+                format!("{DRIVE_FACADE_URL_ENV} or {DRIVE_APP_API_BASE_ENV} must be configured")
             })?;
         Ok(Self { base_url })
     }
@@ -35,8 +35,8 @@ impl SdkDriveCoursePort {
         &self,
         context: &CourseServiceContext,
     ) -> Result<SdkworkAppClient, CourseError> {
-        let client = SdkworkAppClient::new_with_base_url(&self.base_url)
-            .map_err(map_drive_error)?;
+        let client =
+            SdkworkAppClient::new_with_base_url(&self.base_url).map_err(map_drive_error)?;
         if let Some(token) = std::env::var("SDKWORK_ACCESS_TOKEN")
             .ok()
             .map(|value| trim(&value).to_string())
@@ -75,7 +75,7 @@ impl CourseDrivePort for SdkDriveCoursePort {
         let client = self.client_for_context(context)?;
         client
             .drive()
-            .nodes_get(&resource.drive_resource_id)
+            .nodes_retrieve(&resource.drive_resource_id)
             .await
             .map_err(map_drive_error)?;
         Ok(resource)
@@ -100,7 +100,11 @@ impl CourseDrivePort for SdkDriveCoursePort {
             )
             .await
             .map_err(map_drive_error)?;
-        Ok(grant.download_url)
+        let download_data: CreateDownloadUrlResponse =
+            serde_json::from_value(grant.data).map_err(|err| {
+                CourseError::storage(format!("failed to parse download grant response: {err}"))
+            })?;
+        Ok(download_data.download_url)
     }
 }
 

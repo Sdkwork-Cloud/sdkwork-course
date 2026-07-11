@@ -4,7 +4,7 @@
   "applicationCode": "course",
   "packageName": "sdkwork-course-gateway-assembly",
   "crateDir": "crates/sdkwork-course-gateway-assembly",
-  "generatedAt": "2026-06-25T13:08:05.524Z",
+  "generatedAt": "2026-07-08T01:33:37.382Z",
   "routeCrates": [
     {
       "packageName": "sdkwork-routes-course-app-api",
@@ -25,6 +25,16 @@
       "mountOrder": 1,
       "hasGatewayMount": true,
       "hasGatewayRouteManifest": true
+    },
+    {
+      "packageName": "sdkwork-routes-course-http-auth",
+      "memberDir": "crates/sdkwork-routes-course-http-auth",
+      "libName": "sdkwork_routes_course_http_auth",
+      "surface": "unknown",
+      "pathPrefix": null,
+      "mountOrder": 2,
+      "hasGatewayMount": true,
+      "hasGatewayRouteManifest": false
     }
   ]
 }

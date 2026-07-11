@@ -1,6 +1,7 @@
 [package]
 name = "sdkwork-course-gateway-assembly"
 edition.workspace = true
+license.workspace = true
 version.workspace = true
 description = "Generated gateway assembly for sdkwork-course application HTTP plane."
 
@@ -10,5 +11,8 @@ path = "src/lib.rs"
 
 [dependencies]
 axum.workspace = true
-sdkwork-course-embedded-bootstrap = { path = "../sdkwork-course-embedded-bootstrap" }
 tokio = { version = "1.48", features = ["macros", "rt-multi-thread"] }
+sdkwork-course-embedded-bootstrap = { path = "../sdkwork-course-embedded-bootstrap" }
+sdkwork_routes_course_app_api = { package = "sdkwork-routes-course-app-api", path = "../sdkwork-routes-course-app-api" }
+sdkwork_routes_course_backend_api = { package = "sdkwork-routes-course-backend-api", path = "../sdkwork-routes-course-backend-api" }
+sdkwork_routes_course_http_auth = { package = "sdkwork-routes-course-http-auth", path = "../sdkwork-routes-course-http-auth" }
