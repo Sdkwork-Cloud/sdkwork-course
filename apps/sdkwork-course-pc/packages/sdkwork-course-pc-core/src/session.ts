@@ -35,11 +35,17 @@ export function loadCourseSession(): CourseSession | null {
     return accessToken ? { accessToken } : null;
   }
 
-  const raw = window.sessionStorage.getItem(COURSE_SESSION_STORAGE_KEY);
+  const legacyRaw = window.sessionStorage.getItem(COURSE_SESSION_STORAGE_KEY);
+  const raw = window.localStorage.getItem(COURSE_SESSION_STORAGE_KEY) ?? legacyRaw;
+  if (legacyRaw && !window.localStorage.getItem(COURSE_SESSION_STORAGE_KEY)) {
+    window.localStorage.setItem(COURSE_SESSION_STORAGE_KEY, legacyRaw);
+    window.sessionStorage.removeItem(COURSE_SESSION_STORAGE_KEY);
+  }
   if (raw) {
     try {
       return JSON.parse(raw) as CourseSession;
     } catch {
+      window.localStorage.removeItem(COURSE_SESSION_STORAGE_KEY);
       window.sessionStorage.removeItem(COURSE_SESSION_STORAGE_KEY);
     }
   }
@@ -53,9 +59,11 @@ export function saveCourseSession(session: CourseSession | null): void {
     return;
   }
   if (!session) {
+    window.localStorage.removeItem(COURSE_SESSION_STORAGE_KEY);
     window.sessionStorage.removeItem(COURSE_SESSION_STORAGE_KEY);
   } else {
-    window.sessionStorage.setItem(COURSE_SESSION_STORAGE_KEY, JSON.stringify(session));
+    window.localStorage.setItem(COURSE_SESSION_STORAGE_KEY, JSON.stringify(session));
+    window.sessionStorage.removeItem(COURSE_SESSION_STORAGE_KEY);
   }
   window.dispatchEvent(
     new CustomEvent(COURSE_SESSION_CHANGED_EVENT, { detail: { session } }),

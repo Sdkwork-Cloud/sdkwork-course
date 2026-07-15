@@ -34,6 +34,7 @@ export {
   readIamSessionTokens,
   persistIamSession,
   assertIamSessionTokens,
+  restoreCourseIamSession,
   type IamSessionTokens,
 } from './iamSession';
 
@@ -56,6 +57,6 @@ export {
   CourseEnrollmentError,
 } from './courseEnrollment';
 
-export { useAppStore } from './store';
+export { restoreCourseAuthState, useAppStore } from './store';
 
 export { default as i18n } from './i18n';

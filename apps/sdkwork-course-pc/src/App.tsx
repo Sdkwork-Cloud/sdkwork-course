@@ -1,6 +1,7 @@
+import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useAppStore, CourseSdkProvider, i18n } from '@sdkwork/sdkwork-course-pc-core'
+import { restoreCourseAuthState, useAppStore, CourseSdkProvider, i18n } from '@sdkwork/sdkwork-course-pc-core'
 import { I18nextProvider } from 'react-i18next'
 import { LoginPage, RegisterPage } from '@sdkwork/sdkwork-course-pc-auth'
 import { CourseListPage, CourseDetailPage } from '@sdkwork/sdkwork-course-pc-courses'
@@ -23,6 +24,15 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
 function App() {
   const { isAuthenticated, user, logout } = useAppStore()
+  const isLoading = useAppStore((state) => state.isLoading)
+
+  useEffect(() => {
+    void restoreCourseAuthState()
+  }, [])
+
+  if (isLoading) {
+    return <div className="min-h-screen" />
+  }
 
   return (
     <ErrorBoundary>

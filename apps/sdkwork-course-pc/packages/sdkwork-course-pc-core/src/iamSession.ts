@@ -2,6 +2,7 @@ import { isBlank } from '@sdkwork/utils/string';
 
 import {
   getCourseGlobalTokenManager,
+  loadCourseSession,
   resetCourseGlobalTokenManager,
   saveCourseSession,
   type CourseSession,
@@ -10,6 +11,7 @@ import {
 import { resetCourseAppSdkClient } from './courseAppSdkClient';
 import { resetIamAppSdkClient } from './iamAppSdkClient';
 import { resetDriveAppSdkClient } from './driveAppSdkClient';
+import { getIamAppSdkClient } from './iamAppSdkClient';
 
 function asRecord(value: unknown): Record<string, unknown> | null {
   if (value == null || typeof value !== 'object' || Array.isArray(value)) {
@@ -26,6 +28,7 @@ function emailFallback(userRecord: Record<string, unknown>): string {
 export interface IamSessionTokens {
   authToken?: string;
   accessToken?: string;
+  refreshToken?: string;
   user?: CourseSessionUser;
 }
 
@@ -34,6 +37,7 @@ export function readIamSessionTokens(payload: unknown): IamSessionTokens {
   const item = asRecord(record.item) ?? record;
   const authToken = typeof item.authToken === 'string' ? item.authToken : undefined;
   const accessToken = typeof item.accessToken === 'string' ? item.accessToken : undefined;
+  const refreshToken = typeof item.refreshToken === 'string' ? item.refreshToken : undefined;
   const userRecord = asRecord(item.user) ?? asRecord(item.profile);
   const user = userRecord
     ? {
@@ -42,7 +46,7 @@ export function readIamSessionTokens(payload: unknown): IamSessionTokens {
         email: String(userRecord.email ?? ''),
       }
     : undefined;
-  return { authToken, accessToken, user };
+  return { authToken, accessToken, refreshToken, user };
 }
 
 export function persistIamSession(
@@ -52,6 +56,7 @@ export function persistIamSession(
   const session: CourseSession = {
     accessToken: tokens.accessToken,
     authToken: tokens.authToken,
+    refreshToken: tokens.refreshToken,
     user:
       tokens.user ??
       ({
@@ -72,7 +77,43 @@ export function persistIamSession(
 }
 
 export function assertIamSessionTokens(tokens: IamSessionTokens): void {
-  if (isBlank(tokens.accessToken) && isBlank(tokens.authToken)) {
+  if (isBlank(tokens.accessToken) || isBlank(tokens.authToken)) {
     throw new Error('IAM session did not return tokens');
+  }
+}
+
+export async function restoreCourseIamSession(): Promise<CourseSession | null> {
+  const stored = loadCourseSession();
+  if (!stored?.accessToken || !stored.authToken) {
+    return null;
+  }
+
+  try {
+    const current = await getIamAppSdkClient().auth.sessions.current.retrieve();
+    const tokens = readIamSessionTokens(current);
+    assertIamSessionTokens(tokens);
+    return persistIamSession(
+      { ...tokens, refreshToken: tokens.refreshToken ?? stored.refreshToken },
+      stored.user?.email ?? 'learner',
+    );
+  } catch {
+    if (!stored.refreshToken) {
+      saveCourseSession(null);
+      return null;
+    }
+    try {
+      const refreshed = await getIamAppSdkClient().auth.sessions.refresh({
+        refreshToken: stored.refreshToken,
+      });
+      const tokens = readIamSessionTokens(refreshed);
+      assertIamSessionTokens(tokens);
+      return persistIamSession(
+        { ...tokens, refreshToken: tokens.refreshToken ?? stored.refreshToken },
+        stored.user?.email ?? 'learner',
+      );
+    } catch {
+      saveCourseSession(null);
+      return null;
+    }
   }
 }
