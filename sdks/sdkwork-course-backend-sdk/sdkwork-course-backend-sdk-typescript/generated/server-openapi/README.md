@@ -80,9 +80,8 @@ const client = new SdkworkBackendClient({
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseCategories.list(params);
@@ -95,9 +94,8 @@ const result = await client.courseCategories.list(params);
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseInstructors.list(params);
@@ -110,9 +108,8 @@ const result = await client.courseInstructors.list(params);
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courses.list(params);
@@ -157,9 +154,8 @@ const result = await client.courseResources.delete(resourceRefId);
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseLiveSessions.list(params);
@@ -172,9 +168,8 @@ const result = await client.courseLiveSessions.list(params);
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseEnrollments.list(params);
@@ -187,9 +182,8 @@ const result = await client.courseEnrollments.list(params);
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseProgress.list(params);
@@ -198,10 +192,10 @@ const result = await client.courseProgress.list(params);
 ### course_lesson_progress
 
 ```typescript
-// course Lesson Progress repair.
+// course Lesson Progress update.
 const lessonProgressId = '1';
 const body = {};
-const result = await client.courseLessonProgress.repair(lessonProgressId, body);
+const result = await client.courseLessonProgress.update(lessonProgressId, body);
 ```
 
 ### course_comments
@@ -211,9 +205,8 @@ const result = await client.courseLessonProgress.repair(lessonProgressId, body);
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseComments.list(params);
@@ -226,9 +219,8 @@ const result = await client.courseComments.list(params);
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseReactions.list(params);
@@ -241,9 +233,8 @@ const result = await client.courseReactions.list(params);
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseApplications.list(params);
@@ -263,9 +254,8 @@ const result = await client.courseReports.overview.retrieve();
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseAuditLogs.list(params);

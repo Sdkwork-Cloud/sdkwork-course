@@ -51,17 +51,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -70,7 +59,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -182,8 +183,8 @@
         "operationId": "courseCategories.create",
         "parameters": [],
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -426,15 +427,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
-                }
-              }
-            }
+          "204": {
+            "description": "Deleted"
           },
           "400": {
             "description": "Invalid request",
@@ -524,9 +518,9 @@
         "tags": [
           "courseCategories"
         ],
-        "summary": "course Categories reorder.",
-        "description": "course Categories reorder operation for the course learning domain.",
-        "operationId": "courseCategories.reorder",
+        "summary": "course Categories update.",
+        "description": "course Categories update operation for the course learning domain.",
+        "operationId": "courseCategories.update",
         "parameters": [],
         "responses": {
           "200": {
@@ -534,7 +528,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -622,7 +616,7 @@
         "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "Typed command body for courseCategories.reorder.",
+          "description": "Typed command body for courseCategories.update.",
           "content": {
             "application/json": {
               "schema": {
@@ -659,17 +653,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -678,7 +661,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -790,8 +785,8 @@
         "operationId": "courseInstructors.create",
         "parameters": [],
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -1276,17 +1271,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -1295,7 +1279,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -1407,8 +1403,8 @@
         "operationId": "courses.create",
         "parameters": [],
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -1761,15 +1757,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
-                }
-              }
-            }
+          "204": {
+            "description": "Deleted"
           },
           "400": {
             "description": "Invalid request",
@@ -2134,17 +2123,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -2153,7 +2131,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -2274,8 +2264,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -2628,15 +2618,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
-                }
-              }
-            }
+          "204": {
+            "description": "Deleted"
           },
           "400": {
             "description": "Invalid request",
@@ -3001,17 +2984,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -3020,7 +2992,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -3141,8 +3125,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -3385,15 +3369,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
-                }
-              }
-            }
+          "204": {
+            "description": "Deleted"
           },
           "400": {
             "description": "Invalid request",
@@ -3483,9 +3460,9 @@
         "tags": [
           "courseSections"
         ],
-        "summary": "course Sections reorder.",
-        "description": "course Sections reorder operation for the course learning domain.",
-        "operationId": "courseSections.reorder",
+        "summary": "course Sections update.",
+        "description": "course Sections update operation for the course learning domain.",
+        "operationId": "courseSections.update",
         "parameters": [
           {
             "name": "courseId",
@@ -3502,7 +3479,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -3590,7 +3567,7 @@
         "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "Typed command body for courseSections.reorder.",
+          "description": "Typed command body for courseSections.update.",
           "content": {
             "application/json": {
               "schema": {
@@ -3635,17 +3612,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -3654,7 +3620,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -3775,8 +3753,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -4129,15 +4107,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
-                }
-              }
-            }
+          "204": {
+            "description": "Deleted"
           },
           "400": {
             "description": "Invalid request",
@@ -4227,9 +4198,9 @@
         "tags": [
           "courseLessons"
         ],
-        "summary": "course Lessons reorder.",
-        "description": "course Lessons reorder operation for the course learning domain.",
-        "operationId": "courseLessons.reorder",
+        "summary": "course Lessons update.",
+        "description": "course Lessons update operation for the course learning domain.",
+        "operationId": "courseLessons.update",
         "parameters": [
           {
             "name": "courseId",
@@ -4246,7 +4217,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -4334,7 +4305,7 @@
         "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "Typed command body for courseLessons.reorder.",
+          "description": "Typed command body for courseLessons.update.",
           "content": {
             "application/json": {
               "schema": {
@@ -4379,17 +4350,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -4398,7 +4358,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -4519,8 +4491,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -4763,15 +4735,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
-                }
-              }
-            }
+          "204": {
+            "description": "Deleted"
           },
           "400": {
             "description": "Invalid request",
@@ -4882,17 +4847,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -4901,7 +4855,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -5013,8 +4979,8 @@
         "operationId": "courseLiveSessions.create",
         "parameters": [],
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -5724,9 +5690,9 @@
         "tags": [
           "courseLiveSessions"
         ],
-        "summary": "course Live Sessions replay attach.",
-        "description": "course Live Sessions attach operation for the course learning domain.",
-        "operationId": "courseLiveSessions.replay.attach",
+        "summary": "course Live Sessions replay create.",
+        "description": "course Live Sessions create operation for the course learning domain.",
+        "operationId": "courseLiveSessions.replay.create",
         "parameters": [
           {
             "name": "liveSessionId",
@@ -5738,12 +5704,12 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -5831,7 +5797,7 @@
         "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "Typed command body for courseLiveSessions.replay.attach.",
+          "description": "Typed command body for courseLiveSessions.replay.create.",
           "content": {
             "application/json": {
               "schema": {
@@ -5991,17 +5957,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -6010,7 +5965,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -6119,17 +6086,17 @@
         "tags": [
           "courseEnrollments"
         ],
-        "summary": "course Enrollments grant.",
-        "description": "course Enrollments grant operation for the course learning domain.",
-        "operationId": "courseEnrollments.grant",
+        "summary": "course Enrollments create.",
+        "description": "course Enrollments create operation for the course learning domain.",
+        "operationId": "courseEnrollments.create",
         "parameters": [],
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -6217,7 +6184,7 @@
         "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "Typed command body for courseEnrollments.grant.",
+          "description": "Typed command body for courseEnrollments.create.",
           "content": {
             "application/json": {
               "schema": {
@@ -6377,17 +6344,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -6396,7 +6352,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -6617,9 +6585,9 @@
         "tags": [
           "courseLessonProgress"
         ],
-        "summary": "course Lesson Progress repair.",
-        "description": "course Lesson Progress repair operation for the course learning domain.",
-        "operationId": "courseLessonProgress.repair",
+        "summary": "course Lesson Progress update.",
+        "description": "course Lesson Progress update operation for the course learning domain.",
+        "operationId": "courseLessonProgress.update",
         "parameters": [
           {
             "name": "lessonProgressId",
@@ -6636,7 +6604,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -6724,7 +6692,7 @@
         "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "Typed command body for courseLessonProgress.repair.",
+          "description": "Typed command body for courseLessonProgress.update.",
           "content": {
             "application/json": {
               "schema": {
@@ -6761,17 +6729,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -6780,7 +6737,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -6889,9 +6858,9 @@
         "tags": [
           "courseComments"
         ],
-        "summary": "course Comments moderate.",
-        "description": "course Comments moderate operation for the course learning domain.",
-        "operationId": "courseComments.moderate",
+        "summary": "course Comments update.",
+        "description": "course Comments update operation for the course learning domain.",
+        "operationId": "courseComments.update",
         "parameters": [
           {
             "name": "commentId",
@@ -6908,7 +6877,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -6996,7 +6965,7 @@
         "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "Typed command body for courseComments.moderate.",
+          "description": "Typed command body for courseComments.update.",
           "content": {
             "application/json": {
               "schema": {
@@ -7026,15 +6995,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
-                }
-              }
-            }
+          "204": {
+            "description": "Deleted"
           },
           "400": {
             "description": "Invalid request",
@@ -7145,17 +7107,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -7164,7 +7115,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -7294,17 +7257,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -7313,7 +7265,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -7534,9 +7498,9 @@
         "tags": [
           "courseApplications"
         ],
-        "summary": "course Applications review.",
-        "description": "course Applications review operation for the course learning domain.",
-        "operationId": "courseApplications.review",
+        "summary": "course Applications update.",
+        "description": "course Applications update operation for the course learning domain.",
+        "operationId": "courseApplications.update",
         "parameters": [
           {
             "name": "applicationId",
@@ -7553,7 +7517,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -7641,7 +7605,7 @@
         "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "Typed command body for courseApplications.review.",
+          "description": "Typed command body for courseApplications.update.",
           "content": {
             "application/json": {
               "schema": {
@@ -7657,9 +7621,9 @@
         "tags": [
           "courseApplications"
         ],
-        "summary": "course Applications convert To Course.",
-        "description": "course Applications convertToCourse operation for the course learning domain.",
-        "operationId": "courseApplications.convertToCourse",
+        "summary": "course Applications convert.",
+        "description": "course Applications convert operation for the course learning domain.",
+        "operationId": "courseApplications.convert",
         "parameters": [
           {
             "name": "applicationId",
@@ -7676,7 +7640,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SdkWorkCommandResponse"
+                  "$ref": "#/components/schemas/SdkWorkResourceResponse"
                 }
               }
             }
@@ -7764,7 +7728,7 @@
         "x-sdkwork-server-request-id": true,
         "requestBody": {
           "required": true,
-          "description": "Typed command body for courseApplications.convertToCourse.",
+          "description": "Typed command body for courseApplications.convert.",
           "content": {
             "application/json": {
               "schema": {
@@ -7904,17 +7868,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -7923,7 +7876,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -8053,17 +8018,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -8072,7 +8026,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -8202,17 +8168,6 @@
             }
           },
           {
-            "name": "page_size",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": false,
@@ -8221,7 +8176,19 @@
               "format": "int32",
               "minimum": 1
             }
-          },},
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 20
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -8622,6 +8589,14 @@
             "format": "uuid",
             "description": "Server-owned request correlation id."
           },
+          "i18nKey": {
+            "type": "string",
+            "description": "Optional stable localization key such as errors.result.40001."
+          },
+          "locale": {
+            "type": "string",
+            "description": "Optional effective BCP 47 locale used by framework message mapping."
+          },
           "errors": {
             "type": "array",
             "items": {
@@ -8649,6 +8624,28 @@
             "format": "int32",
             "minimum": 40011,
             "maximum": 40099
+          },
+          "i18nKey": {
+            "type": "string"
+          },
+          "params": {
+            "type": "object",
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            }
           }
         }
       },

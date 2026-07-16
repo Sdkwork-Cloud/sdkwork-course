@@ -26,14 +26,14 @@ const requiredFiles = [
   "sdks/README.md",
   "sdks/_route-manifests/app-api/sdkwork-routes-course-app-api.route-manifest.json",
   "sdks/_route-manifests/backend-api/sdkwork-routes-course-backend-api.route-manifest.json",
-  "sdks/sdkwork-course-app-sdk/.sdkwork-assembly.json",
+  "sdks/sdkwork-course-app-sdk/sdk-manifest.json",
   "sdks/sdkwork-course-app-sdk/README.md",
   "sdks/sdkwork-course-app-sdk/bin/generate-sdk.ps1",
   "sdks/sdkwork-course-app-sdk/openapi/sdkwork-course-app-api.openapi.yaml",
   "sdks/sdkwork-course-app-sdk/openapi/sdkwork-course-app-api.sdkgen.yaml",
   "sdks/sdkwork-course-app-sdk/specs/README.md",
   "sdks/sdkwork-course-app-sdk/specs/component.spec.json",
-  "sdks/sdkwork-course-backend-sdk/.sdkwork-assembly.json",
+  "sdks/sdkwork-course-backend-sdk/sdk-manifest.json",
   "sdks/sdkwork-course-backend-sdk/README.md",
   "sdks/sdkwork-course-backend-sdk/bin/generate-sdk.ps1",
   "sdks/sdkwork-course-backend-sdk/openapi/sdkwork-course-backend-api.openapi.yaml",
@@ -361,7 +361,7 @@ test("course OpenAPI documents use SDKWork v3 path, ownership, and security stan
 
 test("course SDK families declare discoverable ownership metadata outside generated output", () => {
   for (const family of sdkFamilies) {
-    const assembly = readJson(`${family.root}/.sdkwork-assembly.json`);
+    const assembly = readJson(`${family.root}/sdk-manifest.json`);
     const componentSpec = readJson(`${family.root}/specs/component.spec.json`);
     const familyReadme = fs.readFileSync(path.join(courseRoot, family.root, "README.md"), "utf8");
     const specsReadme = fs.readFileSync(path.join(courseRoot, family.root, "specs/README.md"), "utf8");
@@ -413,7 +413,7 @@ test("course SDK families declare discoverable ownership metadata outside genera
 
 test("course SDK language declarations match generated transport workspaces", () => {
   for (const family of sdkFamilies) {
-    const assembly = readJson(`${family.root}/.sdkwork-assembly.json`);
+    const assembly = readJson(`${family.root}/sdk-manifest.json`);
     const declaredLanguages = assembly.languages.map((language) => language.language).sort();
     assert.deepEqual(declaredLanguages, family.languages);
 

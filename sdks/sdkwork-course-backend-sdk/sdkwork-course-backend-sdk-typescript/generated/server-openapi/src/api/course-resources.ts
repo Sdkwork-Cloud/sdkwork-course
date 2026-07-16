@@ -1,13 +1,12 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../types';
+import type { CourseCommandBody, SdkWorkPageData } from '../types';
 
 
 export interface CourseResourcesListParams {
   q?: string;
   cursor?: string;
-  limit?: number;
   page?: number;
   pageSize?: number;
   status?: string;
@@ -26,9 +25,8 @@ export class CourseResourcesApi {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
-      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
-      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
+      { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
     return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_lessons/${serializePathParameter(lessonId, { name: 'lessonId', style: 'simple', explode: false })}/resources`), query));
@@ -45,8 +43,8 @@ export class CourseResourcesApi {
   }
 
 /** course Resources delete. */
-  async delete(resourceRefId: string): Promise<SdkWorkCommandData> {
-    return this.client.delete<SdkWorkCommandData>(backendApiPath(`/course_resources/${serializePathParameter(resourceRefId, { name: 'resourceRefId', style: 'simple', explode: false })}`));
+  async delete(resourceRefId: string): Promise<void> {
+    return this.client.delete<void>(backendApiPath(`/course_resources/${serializePathParameter(resourceRefId, { name: 'resourceRefId', style: 'simple', explode: false })}`));
   }
 }
 

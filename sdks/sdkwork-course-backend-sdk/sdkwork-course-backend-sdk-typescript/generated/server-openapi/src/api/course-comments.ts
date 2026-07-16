@@ -1,13 +1,12 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../types';
+import type { CourseCommandBody, SdkWorkPageData } from '../types';
 
 
 export interface CourseCommentsListParams {
   q?: string;
   cursor?: string;
-  limit?: number;
   page?: number;
   pageSize?: number;
   status?: string;
@@ -26,22 +25,21 @@ export class CourseCommentsApi {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
-      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
-      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
+      { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
     return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_comments`), query));
   }
 
-/** course Comments moderate. */
-  async moderate(commentId: string, body: CourseCommandBody): Promise<SdkWorkCommandData> {
-    return this.client.patch<SdkWorkCommandData>(backendApiPath(`/course_comments/${serializePathParameter(commentId, { name: 'commentId', style: 'simple', explode: false })}/moderation`), body, undefined, undefined, 'application/json');
+/** course Comments update. */
+  async update(commentId: string, body: CourseCommandBody): Promise<Record<string, unknown>> {
+    return this.client.patch<Record<string, unknown>>(backendApiPath(`/course_comments/${serializePathParameter(commentId, { name: 'commentId', style: 'simple', explode: false })}/moderation`), body, undefined, undefined, 'application/json');
   }
 
 /** course Comments delete. */
-  async delete(commentId: string): Promise<SdkWorkCommandData> {
-    return this.client.delete<SdkWorkCommandData>(backendApiPath(`/course_comments/${serializePathParameter(commentId, { name: 'commentId', style: 'simple', explode: false })}`));
+  async delete(commentId: string): Promise<void> {
+    return this.client.delete<void>(backendApiPath(`/course_comments/${serializePathParameter(commentId, { name: 'commentId', style: 'simple', explode: false })}`));
   }
 }
 

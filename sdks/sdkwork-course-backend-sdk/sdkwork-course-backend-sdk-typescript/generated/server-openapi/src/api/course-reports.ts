@@ -7,7 +7,6 @@ import type { SdkWorkPageData } from '../types';
 export interface CourseReportsLiveSessionsListParams {
   q?: string;
   cursor?: string;
-  limit?: number;
   page?: number;
   pageSize?: number;
   status?: string;
@@ -26,9 +25,8 @@ export class CourseReportsLiveSessionsApi {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
-      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
-      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
+      { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
     return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_reports/live_sessions`), query));
@@ -38,7 +36,6 @@ export class CourseReportsLiveSessionsApi {
 export interface CourseReportsLearningListParams {
   q?: string;
   cursor?: string;
-  limit?: number;
   page?: number;
   pageSize?: number;
   status?: string;
@@ -57,9 +54,8 @@ export class CourseReportsLearningApi {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
-      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
-      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
+      { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
     return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_reports/learning`), query));

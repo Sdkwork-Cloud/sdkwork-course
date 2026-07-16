@@ -30,9 +30,8 @@ client.setAccessToken('your-access-token');
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseApplications.current.list(params);
@@ -85,9 +84,8 @@ const client = new SdkworkAppClient({
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseCategories.list(params);
@@ -100,9 +98,8 @@ const result = await client.courseCategories.list(params);
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courses.list(params);
@@ -123,9 +120,8 @@ const result = await client.courseOfferings.retrieve(offeringId);
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseEnrollments.current.list(params);
@@ -139,9 +135,8 @@ const courseId = '1';
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseSections.list(courseId, params);
@@ -163,9 +158,8 @@ const lessonId = '1';
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseLessonResources.list(lessonId, params);
@@ -195,9 +189,8 @@ const result = await client.courseLessonProgress.watchPositions.update(lessonId,
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseLiveSessions.list(params);
@@ -214,13 +207,13 @@ const result = await client.courseComments.delete(commentId);
 ### course_reactions
 
 ```typescript
-// course Reactions replace.
+// course Reactions update.
 const body = {};
 const idempotencyKey = 'Idempotency-Key';
 const params = {
   idempotencyKey,
 };
-const result = await client.courseReactions.replace(body, params);
+const result = await client.courseReactions.update(body, params);
 ```
 
 ### course_applications
@@ -230,9 +223,8 @@ const result = await client.courseReactions.replace(body, params);
 const params = {
   q: 'q',
   cursor: 'cursor',
-  limit: 3,
-  page: 4,
-  pageSize: 5,
+  page: 3,
+  page_size: 4,
   status: 'status',
 };
 const result = await client.courseApplications.current.list(params);
@@ -247,9 +239,8 @@ try {
   const params = {
     q: 'q',
     cursor: 'cursor',
-    limit: 3,
-    page: 4,
-    pageSize: 5,
+    page: 3,
+    page_size: 4,
     status: 'status',
   };
   const result = await client.courseApplications.current.list(params);

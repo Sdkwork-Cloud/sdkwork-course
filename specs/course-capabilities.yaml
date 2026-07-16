@@ -42,10 +42,10 @@ capabilities:
         manifest: Cargo.toml
       - kind: app_sdk
         path: sdks/sdkwork-course-app-sdk
-        manifest: .sdkwork-assembly.json
+        manifest: sdk-manifest.json
       - kind: backend_sdk
         path: sdks/sdkwork-course-backend-sdk
-        manifest: .sdkwork-assembly.json
+        manifest: sdk-manifest.json
     qualityGates:
       - category: contract
         command: pnpm run test:contracts

@@ -7,7 +7,6 @@ import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../
 export interface CoursesListParams {
   q?: string;
   cursor?: string;
-  limit?: number;
   page?: number;
   pageSize?: number;
   status?: string;
@@ -26,9 +25,8 @@ export class CoursesApi {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
-      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
-      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
+      { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
     return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/courses`), query));
@@ -50,8 +48,8 @@ export class CoursesApi {
   }
 
 /** courses delete. */
-  async delete(courseId: string): Promise<SdkWorkCommandData> {
-    return this.client.delete<SdkWorkCommandData>(backendApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}`));
+  async delete(courseId: string): Promise<void> {
+    return this.client.delete<void>(backendApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}`));
   }
 
 /** courses publish. */

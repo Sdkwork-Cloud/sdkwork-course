@@ -85,7 +85,7 @@
     {
       "method": "DELETE",
       "path": "/app/v3/api/course_enrollments/{enrollmentId}",
-      "operationId": "courseEnrollments.cancel",
+      "operationId": "courseEnrollments.delete",
       "resource": "courseEnrollments",
       "authMode": "dual-token",
       "permission": "course.enrollments.write"
@@ -224,7 +224,7 @@
     {
       "method": "PUT",
       "path": "/app/v3/api/course_reactions",
-      "operationId": "courseReactions.replace",
+      "operationId": "courseReactions.update",
       "resource": "courseReactions",
       "authMode": "dual-token",
       "permission": "course.reactions.write",

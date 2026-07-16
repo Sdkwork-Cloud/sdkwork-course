@@ -1,10 +1,10 @@
 import { appApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseCommandBody, SdkWorkCommandData } from '../types';
+import type { CourseCommandBody } from '../types';
 
 
-export interface CourseReactionsReplaceParams {
+export interface CourseReactionsUpdateParams {
   idempotencyKey?: string;
 }
 
@@ -16,20 +16,20 @@ export class CourseReactionsApi {
   }
 
 
-/** course Reactions replace. */
-  async replace(body: CourseCommandBody, params?: CourseReactionsReplaceParams): Promise<SdkWorkCommandData> {
+/** course Reactions update. */
+  async update(body: CourseCommandBody, params?: CourseReactionsUpdateParams): Promise<Record<string, unknown>> {
     const requestHeaders = buildRequestHeaders(
       {
         'Idempotency-Key': { value: params?.idempotencyKey, style: 'simple', explode: false },
       },
       {}
     );
-    return this.client.put<SdkWorkCommandData>(appApiPath(`/course_reactions`), body, undefined, requestHeaders, 'application/json');
+    return this.client.put<Record<string, unknown>>(appApiPath(`/course_reactions`), body, undefined, requestHeaders, 'application/json');
   }
 
 /** course Reactions delete. */
-  async delete(reactionId: string): Promise<SdkWorkCommandData> {
-    return this.client.delete<SdkWorkCommandData>(appApiPath(`/course_reactions/${serializePathParameter(reactionId, { name: 'reactionId', style: 'simple', explode: false })}`));
+  async delete(reactionId: string): Promise<void> {
+    return this.client.delete<void>(appApiPath(`/course_reactions/${serializePathParameter(reactionId, { name: 'reactionId', style: 'simple', explode: false })}`));
   }
 }
 

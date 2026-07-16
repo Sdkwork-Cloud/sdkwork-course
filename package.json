@@ -5,7 +5,7 @@
   "type": "module",
   "packageManager": "pnpm@10.33.0",
   "scripts": {
-    "test": "node --test scripts/course-workspace-boundary.test.mjs",
+    "stop": "node ../sdkwork-specs/tools/stop-sdkwork-workspace-processes.mjs --workspace .",    "test": "node --test scripts/course-workspace-boundary.test.mjs",
     "test:design": "node --test scripts/course-design-contract.test.mjs",
     "test:contracts": "node --test sdks/_shared/course-contracts/tests/course-contracts.test.mjs",
     "typecheck": "tsc --noEmit",

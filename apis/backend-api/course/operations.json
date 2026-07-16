@@ -48,7 +48,7 @@
     {
       "method": "PUT",
       "path": "/backend/v3/api/course_categories/reorder",
-      "operationId": "courseCategories.reorder",
+      "operationId": "courseCategories.update",
       "resource": "courseCategories",
       "authMode": "dual-token",
       "permission": "course.categories.write",
@@ -264,7 +264,7 @@
     {
       "method": "PUT",
       "path": "/backend/v3/api/courses/{courseId}/sections/reorder",
-      "operationId": "courseSections.reorder",
+      "operationId": "courseSections.update",
       "resource": "courseSections",
       "authMode": "dual-token",
       "permission": "course.lessons.write",
@@ -318,7 +318,7 @@
     {
       "method": "PUT",
       "path": "/backend/v3/api/courses/{courseId}/lessons/reorder",
-      "operationId": "courseLessons.reorder",
+      "operationId": "courseLessons.update",
       "resource": "courseLessons",
       "authMode": "dual-token",
       "permission": "course.lessons.write",
@@ -426,7 +426,7 @@
     {
       "method": "POST",
       "path": "/backend/v3/api/course_live_sessions/{liveSessionId}/replay",
-      "operationId": "courseLiveSessions.replay.attach",
+      "operationId": "courseLiveSessions.replay.create",
       "resource": "courseLiveSessions",
       "authMode": "dual-token",
       "permission": "course.live_sessions.write",
@@ -453,7 +453,7 @@
     {
       "method": "POST",
       "path": "/backend/v3/api/course_enrollments/grants",
-      "operationId": "courseEnrollments.grant",
+      "operationId": "courseEnrollments.create",
       "resource": "courseEnrollments",
       "authMode": "dual-token",
       "permission": "course.enrollments.write",
@@ -489,7 +489,7 @@
     {
       "method": "PATCH",
       "path": "/backend/v3/api/course_lesson_progress/{lessonProgressId}",
-      "operationId": "courseLessonProgress.repair",
+      "operationId": "courseLessonProgress.update",
       "resource": "courseLessonProgress",
       "authMode": "dual-token",
       "permission": "course.progress.repair",
@@ -507,7 +507,7 @@
     {
       "method": "PATCH",
       "path": "/backend/v3/api/course_comments/{commentId}/moderation",
-      "operationId": "courseComments.moderate",
+      "operationId": "courseComments.update",
       "resource": "courseComments",
       "authMode": "dual-token",
       "permission": "course.comments.moderate",
@@ -552,7 +552,7 @@
     {
       "method": "PATCH",
       "path": "/backend/v3/api/course_applications/{applicationId}/review",
-      "operationId": "courseApplications.review",
+      "operationId": "courseApplications.update",
       "resource": "courseApplications",
       "authMode": "dual-token",
       "permission": "course.applications.review",
@@ -561,7 +561,7 @@
     {
       "method": "POST",
       "path": "/backend/v3/api/course_applications/{applicationId}/convert",
-      "operationId": "courseApplications.convertToCourse",
+      "operationId": "courseApplications.convert",
       "resource": "courseApplications",
       "authMode": "dual-token",
       "permission": "course.applications.review",

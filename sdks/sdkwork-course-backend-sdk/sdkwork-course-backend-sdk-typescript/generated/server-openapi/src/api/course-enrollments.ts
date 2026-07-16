@@ -7,7 +7,6 @@ import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../
 export interface CourseEnrollmentsListParams {
   q?: string;
   cursor?: string;
-  limit?: number;
   page?: number;
   pageSize?: number;
   status?: string;
@@ -26,17 +25,16 @@ export class CourseEnrollmentsApi {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
-      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
-      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
+      { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
     return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_enrollments`), query));
   }
 
-/** course Enrollments grant. */
-  async grant(body: CourseCommandBody): Promise<SdkWorkCommandData> {
-    return this.client.post<SdkWorkCommandData>(backendApiPath(`/course_enrollments/grants`), body, undefined, undefined, 'application/json');
+/** course Enrollments create. */
+  async create(body: CourseCommandBody): Promise<Record<string, unknown>> {
+    return this.client.post<Record<string, unknown>>(backendApiPath(`/course_enrollments/grants`), body, undefined, undefined, 'application/json');
   }
 
 /** course Enrollments revoke. */

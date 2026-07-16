@@ -12,9 +12,9 @@ export class CourseLiveSessionsReplayApi {
   }
 
 
-/** course Live Sessions replay attach. */
-  async attach(liveSessionId: string, body: CourseCommandBody): Promise<SdkWorkCommandData> {
-    return this.client.post<SdkWorkCommandData>(backendApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/replay`), body, undefined, undefined, 'application/json');
+/** course Live Sessions replay create. */
+  async create(liveSessionId: string, body: CourseCommandBody): Promise<Record<string, unknown>> {
+    return this.client.post<Record<string, unknown>>(backendApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/replay`), body, undefined, undefined, 'application/json');
   }
 
 /** course Live Sessions replay publish. */
@@ -26,7 +26,6 @@ export class CourseLiveSessionsReplayApi {
 export interface CourseLiveSessionsListParams {
   q?: string;
   cursor?: string;
-  limit?: number;
   page?: number;
   pageSize?: number;
   status?: string;
@@ -47,9 +46,8 @@ export class CourseLiveSessionsApi {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
-      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
-      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
+      { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
     return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_live_sessions`), query));

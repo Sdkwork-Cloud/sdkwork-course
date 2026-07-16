@@ -138,7 +138,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "SdkWorkCommandResponse",
+        "response": null,
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -154,7 +154,7 @@
     {
       "method": "PUT",
       "path": "/backend/v3/api/course_categories/reorder",
-      "operationId": "courseCategories.reorder",
+      "operationId": "courseCategories.update",
       "resource": "courseCategories",
       "tags": [
         "courseCategories"
@@ -168,11 +168,11 @@
       },
       "handler": {
         "module": "crate::handlers",
-        "name": "course_categories_reorder"
+        "name": "course_categories_update"
       },
       "schemas": {
         "request": "CourseCommandBody",
-        "response": "SdkWorkCommandResponse",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -512,7 +512,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "SdkWorkCommandResponse",
+        "response": null,
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -818,7 +818,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "SdkWorkCommandResponse",
+        "response": null,
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -954,7 +954,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "SdkWorkCommandResponse",
+        "response": null,
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -970,7 +970,7 @@
     {
       "method": "PUT",
       "path": "/backend/v3/api/courses/{courseId}/sections/reorder",
-      "operationId": "courseSections.reorder",
+      "operationId": "courseSections.update",
       "resource": "courseSections",
       "tags": [
         "courseSections"
@@ -984,11 +984,11 @@
       },
       "handler": {
         "module": "crate::handlers",
-        "name": "course_sections_reorder"
+        "name": "course_sections_update"
       },
       "schemas": {
         "request": "CourseCommandBody",
-        "response": "SdkWorkCommandResponse",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1158,7 +1158,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "SdkWorkCommandResponse",
+        "response": null,
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1174,7 +1174,7 @@
     {
       "method": "PUT",
       "path": "/backend/v3/api/courses/{courseId}/lessons/reorder",
-      "operationId": "courseLessons.reorder",
+      "operationId": "courseLessons.update",
       "resource": "courseLessons",
       "tags": [
         "courseLessons"
@@ -1188,11 +1188,11 @@
       },
       "handler": {
         "module": "crate::handlers",
-        "name": "course_lessons_reorder"
+        "name": "course_lessons_update"
       },
       "schemas": {
         "request": "CourseCommandBody",
-        "response": "SdkWorkCommandResponse",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1328,7 +1328,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "SdkWorkCommandResponse",
+        "response": null,
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1582,7 +1582,7 @@
     {
       "method": "POST",
       "path": "/backend/v3/api/course_live_sessions/{liveSessionId}/replay",
-      "operationId": "courseLiveSessions.replay.attach",
+      "operationId": "courseLiveSessions.replay.create",
       "resource": "courseLiveSessions",
       "tags": [
         "courseLiveSessions"
@@ -1596,11 +1596,11 @@
       },
       "handler": {
         "module": "crate::handlers",
-        "name": "course_live_sessions_replay_attach"
+        "name": "course_live_sessions_replay_create"
       },
       "schemas": {
         "request": "CourseCommandBody",
-        "response": "SdkWorkCommandResponse",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1684,7 +1684,7 @@
     {
       "method": "POST",
       "path": "/backend/v3/api/course_enrollments/grants",
-      "operationId": "courseEnrollments.grant",
+      "operationId": "courseEnrollments.create",
       "resource": "courseEnrollments",
       "tags": [
         "courseEnrollments"
@@ -1698,11 +1698,11 @@
       },
       "handler": {
         "module": "crate::handlers",
-        "name": "course_enrollments_grant"
+        "name": "course_enrollments_create"
       },
       "schemas": {
         "request": "CourseCommandBody",
-        "response": "SdkWorkCommandResponse",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1820,7 +1820,7 @@
     {
       "method": "PATCH",
       "path": "/backend/v3/api/course_lesson_progress/{lessonProgressId}",
-      "operationId": "courseLessonProgress.repair",
+      "operationId": "courseLessonProgress.update",
       "resource": "courseLessonProgress",
       "tags": [
         "courseLessonProgress"
@@ -1834,11 +1834,11 @@
       },
       "handler": {
         "module": "crate::handlers",
-        "name": "course_lesson_progress_repair"
+        "name": "course_lesson_progress_update"
       },
       "schemas": {
         "request": "CourseCommandBody",
-        "response": "SdkWorkCommandResponse",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1888,7 +1888,7 @@
     {
       "method": "PATCH",
       "path": "/backend/v3/api/course_comments/{commentId}/moderation",
-      "operationId": "courseComments.moderate",
+      "operationId": "courseComments.update",
       "resource": "courseComments",
       "tags": [
         "courseComments"
@@ -1902,11 +1902,11 @@
       },
       "handler": {
         "module": "crate::handlers",
-        "name": "course_comments_moderate"
+        "name": "course_comments_update"
       },
       "schemas": {
         "request": "CourseCommandBody",
-        "response": "SdkWorkCommandResponse",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -1940,7 +1940,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "SdkWorkCommandResponse",
+        "response": null,
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -2058,7 +2058,7 @@
     {
       "method": "PATCH",
       "path": "/backend/v3/api/course_applications/{applicationId}/review",
-      "operationId": "courseApplications.review",
+      "operationId": "courseApplications.update",
       "resource": "courseApplications",
       "tags": [
         "courseApplications"
@@ -2072,11 +2072,11 @@
       },
       "handler": {
         "module": "crate::handlers",
-        "name": "course_applications_review"
+        "name": "course_applications_update"
       },
       "schemas": {
         "request": "CourseCommandBody",
-        "response": "SdkWorkCommandResponse",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -2092,7 +2092,7 @@
     {
       "method": "POST",
       "path": "/backend/v3/api/course_applications/{applicationId}/convert",
-      "operationId": "courseApplications.convertToCourse",
+      "operationId": "courseApplications.convert",
       "resource": "courseApplications",
       "tags": [
         "courseApplications"
@@ -2106,11 +2106,11 @@
       },
       "handler": {
         "module": "crate::handlers",
-        "name": "course_applications_convert_to_course"
+        "name": "course_applications_convert"
       },
       "schemas": {
         "request": "CourseCommandBody",
-        "response": "SdkWorkCommandResponse",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {

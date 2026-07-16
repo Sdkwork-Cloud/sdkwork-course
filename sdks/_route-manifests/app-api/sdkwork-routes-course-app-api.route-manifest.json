@@ -324,7 +324,7 @@
     {
       "method": "DELETE",
       "path": "/app/v3/api/course_enrollments/{enrollmentId}",
-      "operationId": "courseEnrollments.cancel",
+      "operationId": "courseEnrollments.delete",
       "resource": "courseEnrollments",
       "tags": [
         "courseEnrollments"
@@ -338,11 +338,11 @@
       },
       "handler": {
         "module": "crate::handlers",
-        "name": "course_enrollments_cancel"
+        "name": "course_enrollments_delete"
       },
       "schemas": {
         "request": null,
-        "response": "SdkWorkCommandResponse",
+        "response": null,
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -886,7 +886,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "SdkWorkCommandResponse",
+        "response": null,
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -902,7 +902,7 @@
     {
       "method": "PUT",
       "path": "/app/v3/api/course_reactions",
-      "operationId": "courseReactions.replace",
+      "operationId": "courseReactions.update",
       "resource": "courseReactions",
       "tags": [
         "courseReactions"
@@ -916,11 +916,11 @@
       },
       "handler": {
         "module": "crate::handlers",
-        "name": "course_reactions_replace"
+        "name": "course_reactions_update"
       },
       "schemas": {
         "request": "CourseCommandBody",
-        "response": "SdkWorkCommandResponse",
+        "response": "SdkWorkResourceResponse",
         "problem": "ProblemDetail"
       },
       "ownership": {
@@ -954,7 +954,7 @@
       },
       "schemas": {
         "request": null,
-        "response": "SdkWorkCommandResponse",
+        "response": null,
         "problem": "ProblemDetail"
       },
       "ownership": {

@@ -1,13 +1,12 @@
 import { appApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../types';
+import type { CourseCommandBody, SdkWorkPageData } from '../types';
 
 
 export interface CourseCommentsListParams {
   q?: string;
   cursor?: string;
-  limit?: number;
   page?: number;
   pageSize?: number;
   status?: string;
@@ -30,9 +29,8 @@ export class CourseCommentsApi {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
-      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
-      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
+      { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
     return this.client.get<SdkWorkPageData>(appendQueryString(appApiPath(`/courses/${serializePathParameter(courseId, { name: 'courseId', style: 'simple', explode: false })}/comments`), query));
@@ -50,8 +48,8 @@ export class CourseCommentsApi {
   }
 
 /** course Comments delete. */
-  async delete(commentId: string): Promise<SdkWorkCommandData> {
-    return this.client.delete<SdkWorkCommandData>(appApiPath(`/course_comments/${serializePathParameter(commentId, { name: 'commentId', style: 'simple', explode: false })}`));
+  async delete(commentId: string): Promise<void> {
+    return this.client.delete<void>(appApiPath(`/course_comments/${serializePathParameter(commentId, { name: 'commentId', style: 'simple', explode: false })}`));
   }
 }
 

@@ -15,7 +15,7 @@ const surfaces = [
       "sdks/_route-manifests/app-api/sdkwork-routes-course-app-api.route-manifest.json",
     authorityPath: "sdks/sdkwork-course-app-sdk/openapi/sdkwork-course-app-api.openapi.yaml",
     sdkgenPath: "sdks/sdkwork-course-app-sdk/openapi/sdkwork-course-app-api.sdkgen.yaml",
-    assemblyPath: "sdks/sdkwork-course-app-sdk/.sdkwork-assembly.json",
+    assemblyPath: "sdks/sdkwork-course-app-sdk/sdk-manifest.json",
     routeCrate: "sdkwork-routes-course-app-api",
     routeCrateRoot: "crates/sdkwork-routes-course-app-api",
     title: "SDKWork Course App API",
@@ -30,7 +30,7 @@ const surfaces = [
       "sdks/sdkwork-course-backend-sdk/openapi/sdkwork-course-backend-api.openapi.yaml",
     sdkgenPath:
       "sdks/sdkwork-course-backend-sdk/openapi/sdkwork-course-backend-api.sdkgen.yaml",
-    assemblyPath: "sdks/sdkwork-course-backend-sdk/.sdkwork-assembly.json",
+    assemblyPath: "sdks/sdkwork-course-backend-sdk/sdk-manifest.json",
     routeCrate: "sdkwork-routes-course-backend-api",
     routeCrateRoot: "crates/sdkwork-routes-course-backend-api",
     title: "SDKWork Course Backend API",
@@ -185,7 +185,7 @@ function buildRouteManifest(operationPlan, surface) {
       },
       schemas: {
         request: hasRequestBody(operation.method) ? "CourseCommandBody" : null,
-        response: responseSchemaName(operation),
+        response: operation.method === "DELETE" ? null : responseSchemaName(operation),
         problem: "ProblemDetail",
       },
       ownership: {
@@ -258,7 +258,7 @@ function buildOpenApiOperation(operationPlan, surface, operation) {
       ...idempotencyParameters(operation),
     ],
     responses: {
-      200: successResponse(operation),
+      ...successResponses(operation),
       400: problemResponse("Invalid request"),
       401: problemResponse("Authentication required"),
       403: problemResponse("Permission denied"),
@@ -383,6 +383,18 @@ function successResponse(operation, description = "Success") {
   };
 }
 
+function successResponses(operation) {
+  const method = operation.method.toUpperCase();
+  const action = operation.operationId.split(".").at(-1);
+  if (method === "DELETE") {
+    return { 204: { description: "Deleted" } };
+  }
+  if (method === "POST" && action === "create") {
+    return { 201: successResponse(operation, "Created") };
+  }
+  return { 200: successResponse(operation) };
+}
+
 function pathParameters(routePath) {
   const parameters = [...routePath.matchAll(/\{([^}]+)\}/gu)].map((match) => match[1]);
   return parameters.map((name) => ({
@@ -405,14 +417,8 @@ function queryParameters(operation) {
   return [
     { name: "q", in: "query", required: false, schema: { type: "string" } },
     { name: "cursor", in: "query", required: false, schema: { type: "string" } },
-    {
-      name: "limit",
-      in: "query",
-      required: false,
-      schema: { type: "integer", format: "int32", minimum: 1, maximum: 200 },
-    },
     { name: "page", in: "query", required: false, schema: { type: "integer", format: "int32", minimum: 1 } },
-    { name: "pageSize", in: "query", required: false, schema: { type: "integer", format: "int32", minimum: 1, maximum: 200 } },
+    { name: "page_size", in: "query", required: false, schema: { type: "integer", format: "int32", minimum: 1, maximum: 200, default: 20 } },
     { name: "status", in: "query", required: false, schema: { type: "string" } },
   ];
 }

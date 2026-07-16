@@ -53,5 +53,6 @@
       "consumerPackageName": "@sdkwork/course-app-sdk",
       "transportPackageName": "sdkwork-course-app-sdk-generated-typescript"
     }
-  ]
+  ],
+  "ownerOnlyOperationCount": 31
 }

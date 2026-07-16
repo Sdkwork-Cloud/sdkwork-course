@@ -1,13 +1,12 @@
 import { backendApiPath } from './paths';
 import type { HttpClient } from '../http/client';
 
-import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../types';
+import type { CourseCommandBody, SdkWorkPageData } from '../types';
 
 
 export interface CourseApplicationsListParams {
   q?: string;
   cursor?: string;
-  limit?: number;
   page?: number;
   pageSize?: number;
   status?: string;
@@ -26,9 +25,8 @@ export class CourseApplicationsApi {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
-      { name: 'limit', value: params?.limit, style: 'form', explode: true, allowReserved: false },
       { name: 'page', value: params?.page, style: 'form', explode: true, allowReserved: false },
-      { name: 'pageSize', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
+      { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
     return this.client.get<SdkWorkPageData>(appendQueryString(backendApiPath(`/course_applications`), query));
@@ -39,14 +37,14 @@ export class CourseApplicationsApi {
     return this.client.get<Record<string, unknown>>(backendApiPath(`/course_applications/${serializePathParameter(applicationId, { name: 'applicationId', style: 'simple', explode: false })}`));
   }
 
-/** course Applications review. */
-  async review(applicationId: string, body: CourseCommandBody): Promise<SdkWorkCommandData> {
-    return this.client.patch<SdkWorkCommandData>(backendApiPath(`/course_applications/${serializePathParameter(applicationId, { name: 'applicationId', style: 'simple', explode: false })}/review`), body, undefined, undefined, 'application/json');
+/** course Applications update. */
+  async update(applicationId: string, body: CourseCommandBody): Promise<Record<string, unknown>> {
+    return this.client.patch<Record<string, unknown>>(backendApiPath(`/course_applications/${serializePathParameter(applicationId, { name: 'applicationId', style: 'simple', explode: false })}/review`), body, undefined, undefined, 'application/json');
   }
 
-/** course Applications convert To Course. */
-  async convertToCourse(applicationId: string, body: CourseCommandBody): Promise<SdkWorkCommandData> {
-    return this.client.post<SdkWorkCommandData>(backendApiPath(`/course_applications/${serializePathParameter(applicationId, { name: 'applicationId', style: 'simple', explode: false })}/convert`), body, undefined, undefined, 'application/json');
+/** course Applications convert. */
+  async convert(applicationId: string, body: CourseCommandBody): Promise<Record<string, unknown>> {
+    return this.client.post<Record<string, unknown>>(backendApiPath(`/course_applications/${serializePathParameter(applicationId, { name: 'applicationId', style: 'simple', explode: false })}/convert`), body, undefined, undefined, 'application/json');
   }
 }
 

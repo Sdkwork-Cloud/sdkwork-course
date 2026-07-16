@@ -14,7 +14,7 @@
     ],
     "generated": true,
     "manifests": [
-      ".sdkwork-assembly.json",
+      "sdk-manifest.json",
       "sdkwork-course-app-sdk-typescript/generated/server-openapi/package.json",
       "sdkwork-course-app-sdk-typescript/generated/server-openapi/sdkwork-sdk.json"
     ]
@@ -90,7 +90,7 @@
     "sdkDependencies": [],
     "events": [],
     "configKeys": [
-      ".sdkwork-assembly.json"
+      "sdk-manifest.json"
     ],
     "routeManifest": "sdks/_route-manifests/app-api/sdkwork-routes-course-app-api.route-manifest.json"
   },
