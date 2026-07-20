@@ -1678,6 +1678,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "sdkwork-api-course-standalone-gateway"
+version = "0.1.0"
+dependencies = [
+ "sdkwork-api-course-assembly",
+ "sdkwork-web-bootstrap",
+ "tokio",
+]
+
+[[package]]
 name = "sdkwork-content-course-repository-sqlx"
 version = "0.1.0"
 dependencies = [
