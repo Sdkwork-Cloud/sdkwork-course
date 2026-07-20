@@ -8,7 +8,7 @@ pub struct ApiAssembly {
     pub router: Router,
 }
 
-pub async fn assemble_business_router() -> Result<ApiAssembly, String> {
+pub async fn assemble_api_router() -> Result<ApiAssembly, String> {
     let embedded =
         sdkwork_course_embedded_bootstrap::assemble_embedded_course_application_router_from_env()
             .await?;
