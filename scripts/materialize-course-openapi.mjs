@@ -80,7 +80,7 @@ function assertNoDrift(relativePath, expectedValue) {
   const expectedText = `${JSON.stringify(expectedValue, null, 2)}\n`;
   const actualText = `${JSON.stringify(actual, null, 2)}\n`;
   if (actualText !== expectedText) {
-    driftErrors.push(`OpenAPI drift detected: ${relativePath} (run pnpm run materialize:openapi)`);
+    driftErrors.push(`OpenAPI drift detected: ${relativePath} (run pnpm run api:materialize)`);
   }
 }
 
@@ -88,7 +88,7 @@ function assertAssemblyCount(relativePath, expectedCount) {
   const assembly = readJson(relativePath);
   if (assembly.ownerOnlyOperationCount !== expectedCount) {
     driftErrors.push(
-      `assembly drift detected: ${relativePath} expected ${expectedCount} operations (run pnpm run materialize:openapi)`,
+      `assembly drift detected: ${relativePath} expected ${expectedCount} operations (run pnpm run api:materialize)`,
     );
   }
 }

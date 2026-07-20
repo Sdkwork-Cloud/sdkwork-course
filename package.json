@@ -5,7 +5,8 @@
   "type": "module",
   "packageManager": "pnpm@10.33.0",
   "scripts": {
-    "stop": "node ../sdkwork-specs/tools/stop-sdkwork-workspace-processes.mjs --workspace .",    "test": "node --test scripts/course-workspace-boundary.test.mjs",
+    "stop": "node ../sdkwork-specs/tools/stop-sdkwork-workspace-processes.mjs --workspace .",
+    "test": "node --test scripts/course-workspace-boundary.test.mjs",
     "test:design": "node --test scripts/course-design-contract.test.mjs",
     "test:contracts": "node --test sdks/_shared/course-contracts/tests/course-contracts.test.mjs",
     "typecheck": "tsc --noEmit",
@@ -23,9 +24,9 @@
     "db:drift:check": "cargo run --manifest-path ../sdkwork-database/Cargo.toml -p sdkwork-database-cli -- --app-root . drift-check",
     "db:bootstrap": "cargo run --manifest-path ../sdkwork-database/Cargo.toml -p sdkwork-database-cli -- --app-root . bootstrap",
     "test:contract:database": "node ../sdkwork-specs/tools/check-database-framework-standard.mjs --root .",
-    "gateway:assembly:materialize": "node scripts/gateway/assembly-materialize.mjs",
-    "gateway:assembly:validate": "node scripts/gateway/assembly-validate.mjs",
-    "materialize:openapi": "node scripts/materialize-course-openapi.mjs",
+    "api:assembly:materialize": "node scripts/gateway/assembly-materialize.mjs",
+    "api:assembly:validate": "node scripts/gateway/assembly-validate.mjs",
+    "api:materialize": "node scripts/materialize-course-openapi.mjs",
     "check:openapi-drift": "node scripts/materialize-course-openapi.mjs --check",
     "test:route-integration": "node scripts/course-route-integration-contract.test.mjs",
     "check:app-composition": "node ../sdkwork-specs/tools/verify-repo.mjs --root ."

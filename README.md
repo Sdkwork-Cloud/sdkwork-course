@@ -61,7 +61,7 @@ pnpm typecheck
 Build generated SDK runtimes when OpenAPI authorities change:
 
 ```powershell
-pnpm run materialize:openapi
+pnpm run api:materialize
 cd sdks/sdkwork-course-app-sdk/sdkwork-course-app-sdk-typescript/generated/server-openapi
 pnpm run build
 ```
