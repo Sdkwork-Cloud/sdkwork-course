@@ -1,7 +1,8 @@
 [workspace]
 resolver = "2"
 members = [
-    "crates/sdkwork-course-gateway-assembly",
+    "crates/sdkwork-api-course-assembly",
+    "crates/sdkwork-api-course-assembly",
     "crates/sdkwork-course-embedded-bootstrap",
     "crates/sdkwork-course-database-host",
     "crates/sdkwork-content-course-service",

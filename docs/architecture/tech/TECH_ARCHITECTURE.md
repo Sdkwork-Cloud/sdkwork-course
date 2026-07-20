@@ -9,7 +9,7 @@ Specs: `../sdkwork-specs/ARCHITECTURE_DECISION_SPEC.md`, `../sdkwork-specs/DOCUM
 
 `sdkwork-course` is a standalone SDKWork application for online course catalog, learning progress, live sessions, and governance workflows. It ships as:
 
-- Rust gateway assembly (`sdkwork-course-gateway-assembly`) embedded into the platform HTTP process
+- Rust gateway assembly (`sdkwork-api-course-assembly`) embedded into the platform HTTP process
 - Generated app/backend SDK families for typed clients
 - PC/H5/mini-program client roots under `apps/`
 

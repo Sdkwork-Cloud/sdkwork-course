@@ -8,7 +8,7 @@
     {
       "id": "course-gateway",
       "kind": "rust-gateway-assembly",
-      "crate": "sdkwork-course-gateway-assembly",
+      "crate": "sdkwork-api-course-assembly",
       "mountPrefix": "/"
     }
   ],

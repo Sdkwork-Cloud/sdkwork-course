@@ -240,7 +240,7 @@ test("course Rust implementation uses SDKWork crates responsibility layout", () 
     "crates/sdkwork-routes-course-backend-api",
     "crates/sdkwork-course-embedded-bootstrap",
     "crates/sdkwork-course-database-host",
-    "crates/sdkwork-course-gateway-assembly",
+    "crates/sdkwork-api-course-assembly",
   ]) {
     assert.ok(cargo.includes(member), `Cargo workspace must include ${member}`);
   }

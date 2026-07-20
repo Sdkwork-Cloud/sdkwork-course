@@ -74,7 +74,7 @@ const requiredFiles = [
   "crates/sdkwork-routes-course-backend-api/src/manifest.rs",
   "crates/sdkwork-course-embedded-bootstrap/Cargo.toml",
   "crates/sdkwork-course-database-host/Cargo.toml",
-  "crates/sdkwork-course-gateway-assembly/Cargo.toml",
+  "crates/sdkwork-api-course-assembly/Cargo.toml",
 ];
 
 const forbiddenOwnershipPatterns = [
@@ -308,7 +308,7 @@ test("course Rust crates use SDKWork responsibility-specific workspace layout", 
     "crates/sdkwork-routes-course-backend-api",
     "crates/sdkwork-course-embedded-bootstrap",
     "crates/sdkwork-course-database-host",
-    "crates/sdkwork-course-gateway-assembly",
+    "crates/sdkwork-api-course-assembly",
   ]) {
     assert.ok(cargo.includes(member), `Cargo workspace must include ${member}`);
   }

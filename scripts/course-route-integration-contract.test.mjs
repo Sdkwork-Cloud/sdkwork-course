@@ -29,8 +29,8 @@ const backendSdkCourses = fs.readFileSync(
   'utf8',
 );
 const gatewayAssembly = [
-  'crates/sdkwork-course-gateway-assembly/src/lib.rs',
-  'crates/sdkwork-course-gateway-assembly/src/bootstrap.rs',
+  'crates/sdkwork-api-course-assembly/src/lib.rs',
+  'crates/sdkwork-api-course-assembly/src/bootstrap.rs',
 ].map((relativePath) => fs.readFileSync(path.join(courseRoot, relativePath), 'utf8')).join('\n');
 
 assert.ok(schemaContract.schemas?.CourseCatalogCreateRequest, 'schema contract must define CourseCatalogCreateRequest');

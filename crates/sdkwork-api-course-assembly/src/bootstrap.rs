@@ -4,16 +4,16 @@
 
 use axum::Router;
 
-pub struct ApplicationAssembly {
+pub struct ApiAssembly {
     pub router: Router,
 }
 
-pub async fn assemble_application_business_router() -> Result<ApplicationAssembly, String> {
+pub async fn assemble_business_router() -> Result<ApiAssembly, String> {
     let embedded =
         sdkwork_course_embedded_bootstrap::assemble_embedded_course_application_router_from_env()
             .await?;
     let router = embedded
         .router
         .merge(sdkwork_routes_course_http_auth::gateway_mount());
-    Ok(ApplicationAssembly { router })
+    Ok(ApiAssembly { router })
 }
