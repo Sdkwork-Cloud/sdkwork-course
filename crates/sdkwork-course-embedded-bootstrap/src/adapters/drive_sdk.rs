@@ -5,7 +5,7 @@ use sdkwork_content_course_service::domain::commands::{
 use sdkwork_content_course_service::domain::models::{CourseError, CourseResult};
 use sdkwork_content_course_service::ports::provider::CourseDrivePort;
 use sdkwork_drive_app_sdk_generated_rust::{
-    CreateDownloadGrantRequest, CreateDownloadUrlResponse, SdkworkAppClient, SdkworkError,
+    CreateDownloadGrantRequest, SdkworkAppClient, SdkworkError,
 };
 use sdkwork_utils_rust::string::{is_blank, trim};
 
@@ -100,11 +100,7 @@ impl CourseDrivePort for SdkDriveCoursePort {
             )
             .await
             .map_err(map_drive_error)?;
-        let download_data: CreateDownloadUrlResponse =
-            serde_json::from_value(grant.data).map_err(|err| {
-                CourseError::storage(format!("failed to parse download grant response: {err}"))
-            })?;
-        Ok(download_data.download_url)
+        Ok(grant.download_url)
     }
 }
 
