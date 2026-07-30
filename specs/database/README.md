@@ -22,4 +22,4 @@ pnpm run db:materialize:contract
 pnpm run db:drift:check
 ```
 
-The SQLx repository tests apply `database/ddl/baseline/sqlite/0001_course_baseline.sql` directly; application services must not embed legacy migration helpers.
+The SQLx repository tests apply `tests/fixtures/database/sqlite/ddl/baseline/0001_course_baseline.sql` directly; application services must not embed legacy migration helpers.

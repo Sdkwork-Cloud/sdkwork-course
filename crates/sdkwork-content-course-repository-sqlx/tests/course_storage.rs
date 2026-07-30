@@ -7,7 +7,7 @@ use sqlx::SqlitePool;
 
 fn sqlite_baseline_sql() -> String {
     let baseline_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("../../database/ddl/baseline/sqlite/0001_course_baseline.sql");
+        .join("../../tests/fixtures/database/sqlite/ddl/baseline/0001_course_baseline.sql");
     fs::read_to_string(baseline_path).expect("course sqlite baseline ddl")
 }
 
