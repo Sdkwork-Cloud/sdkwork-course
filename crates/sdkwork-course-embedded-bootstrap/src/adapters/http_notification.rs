@@ -1,9 +1,9 @@
 use std::sync::Arc;
 
-use sdkwork_content_course_service::CourseError;
 use sdkwork_content_course_service::domain::commands::CourseServiceContext;
 use sdkwork_content_course_service::domain::models::CourseResult;
 use sdkwork_content_course_service::ports::provider::CourseNotificationPort;
+use sdkwork_content_course_service::CourseError;
 
 pub struct HttpCourseNotificationPort {
     base_url: Arc<String>,

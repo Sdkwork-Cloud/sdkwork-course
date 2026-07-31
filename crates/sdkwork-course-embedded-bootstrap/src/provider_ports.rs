@@ -1,4 +1,3 @@
-use sdkwork_content_course_service::CourseError;
 use sdkwork_content_course_service::domain::commands::{
     CourseLiveJoinGrant, CourseMediaResourceRef, CourseServiceContext,
 };
@@ -7,6 +6,7 @@ use sdkwork_content_course_service::ports::provider::{
     CourseAuditEventPort, CourseDrivePort, CourseEntitlementPort, CourseLiveProviderPort,
     CourseNotificationPort,
 };
+use sdkwork_content_course_service::CourseError;
 
 macro_rules! integration_unavailable {
     ($capability:expr) => {

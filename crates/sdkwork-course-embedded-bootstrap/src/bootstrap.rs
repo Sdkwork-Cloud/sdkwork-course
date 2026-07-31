@@ -3,7 +3,6 @@ use std::sync::Arc;
 use axum::Router;
 use sdkwork_content_course_repository_sqlx::{
     connect_and_bootstrap_course_database_from_env, PostgresCourseRepository,
-    SqliteCourseRepository,
 };
 use sdkwork_content_course_service::{
     ports::repository::{
@@ -64,6 +63,7 @@ where
 
 pub struct EmbeddedCourseAssembly {
     pub router: Router,
+    pub database_pool: DatabasePool,
 }
 
 pub async fn assemble_embedded_course_application_router_from_env(
@@ -76,15 +76,16 @@ pub async fn assemble_embedded_course_application_router_from_env(
 pub async fn assemble_embedded_course_application_router(
     pool: DatabasePool,
 ) -> Result<EmbeddedCourseAssembly, String> {
-    let service = match pool {
-        DatabasePool::Sqlite(sqlite_pool, _) => {
-            build_course_service(SqliteCourseRepository::new(sqlite_pool))
-        }
-        DatabasePool::Postgres(postgres_pool, _) => {
-            build_course_service(PostgresCourseRepository::new(postgres_pool))
-        }
-    };
+    let postgres_pool = pool
+        .as_postgres()
+        .ok_or_else(|| "embedded Course API requires PostgreSQL".to_owned())?
+        .clone();
+    let service = build_course_service(PostgresCourseRepository::new(postgres_pool));
 
-    let router = mount_course_app_api(Arc::clone(&service)).merge(mount_course_backend_api(service));
-    Ok(EmbeddedCourseAssembly { router })
+    let router =
+        mount_course_app_api(Arc::clone(&service)).merge(mount_course_backend_api(service));
+    Ok(EmbeddedCourseAssembly {
+        router,
+        database_pool: pool,
+    })
 }

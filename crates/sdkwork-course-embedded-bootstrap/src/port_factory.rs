@@ -25,7 +25,9 @@ pub fn build_drive_port() -> Box<dyn CourseDrivePort> {
     if drive_integration_configured() {
         match SdkDriveCoursePort::from_env() {
             Ok(port) => return Box::new(port),
-            Err(error) => tracing::warn!(%error, "drive SDK port init failed; using pass-through port"),
+            Err(error) => {
+                tracing::warn!(%error, "drive SDK port init failed; using pass-through port")
+            }
         }
     }
     Box::new(EmbeddedPassThroughDrivePort)
@@ -44,7 +46,8 @@ pub fn build_live_provider_port() -> Box<dyn CourseLiveProviderPort> {
 }
 
 pub fn build_notification_port() -> Box<dyn CourseNotificationPort> {
-    if let Some(url) = resolve_integration_url(COURSE_NOTIFICATION_URL_ENV, IM_NOTIFICATION_UPSTREAM_ENV)
+    if let Some(url) =
+        resolve_integration_url(COURSE_NOTIFICATION_URL_ENV, IM_NOTIFICATION_UPSTREAM_ENV)
     {
         return Box::new(HttpCourseNotificationPort::new(url));
     }

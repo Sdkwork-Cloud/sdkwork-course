@@ -1,9 +1,9 @@
 use std::sync::Arc;
 
-use sdkwork_content_course_service::CourseError;
 use sdkwork_content_course_service::domain::commands::CourseServiceContext;
 use sdkwork_content_course_service::domain::models::CourseResult;
 use sdkwork_content_course_service::ports::provider::CourseAuditEventPort;
+use sdkwork_content_course_service::CourseError;
 
 pub struct HttpCourseAuditEventPort {
     base_url: Arc<String>,
@@ -33,10 +33,7 @@ impl HttpCourseAuditEventPort {
         } else {
             context.organization_id.clone()
         };
-        let url = format!(
-            "{}/backend/v3/api/audit/records",
-            self.base_url.as_str()
-        );
+        let url = format!("{}/backend/v3/api/audit/records", self.base_url.as_str());
         let body = serde_json::json!({
             "recordId": record_id,
             "aggregateType": "course",
@@ -55,9 +52,9 @@ impl HttpCourseAuditEventPort {
             .set("Content-Type", "application/json");
         request = apply_service_auth_headers(request);
 
-        request.send_json(body).map_err(|error| {
-            CourseError::storage(format!("audit integration failed: {error}"))
-        })?;
+        request
+            .send_json(body)
+            .map_err(|error| CourseError::storage(format!("audit integration failed: {error}")))?;
         Ok(())
     }
 }
