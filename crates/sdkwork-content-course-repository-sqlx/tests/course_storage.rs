@@ -23,7 +23,7 @@ async fn apply_baseline_sql(pool: &SqlitePool, baseline_sql: &str) {
         if sql.is_empty() {
             continue;
         }
-        sqlx::query(sql)
+        sqlx::query(sqlx::AssertSqlSafe(sql))
             .execute(pool)
             .await
             .expect("baseline statement applies");

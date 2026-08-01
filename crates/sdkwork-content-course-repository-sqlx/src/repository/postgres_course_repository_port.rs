@@ -484,7 +484,7 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 LIMIT $5 OFFSET $6
             "#;
 
-            let instructors = sqlx::query(sql)
+            let instructors = sqlx::query(sqlx::AssertSqlSafe(sql))
                 .bind(&context.tenant_id)
                 .bind(&context.organization_id)
                 .bind(status_filter)
@@ -529,7 +529,7 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
             "#;
 
-            let instructor = sqlx::query(sql)
+            let instructor = sqlx::query(sqlx::AssertSqlSafe(sql))
                 .bind(&instructor_id)
                 .bind(&context.tenant_id)
                 .fetch_optional(self.pool())

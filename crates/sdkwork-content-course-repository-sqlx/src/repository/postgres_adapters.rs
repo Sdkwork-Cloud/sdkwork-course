@@ -420,7 +420,7 @@ impl CourseEnrollmentRepository for PostgresCourseRepository {
             WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
         "#;
 
-        let enrollment = sqlx::query(sql)
+        let enrollment = sqlx::query(sqlx::AssertSqlSafe(sql))
             .bind(&enrollment_id)
             .bind(&context.tenant_id)
             .fetch_optional(self.pool())
@@ -860,7 +860,7 @@ impl CourseResourceRepository for PostgresCourseRepository {
             ORDER BY sort_order ASC, created_at ASC
         "#;
 
-        let resources = sqlx::query(sql)
+        let resources = sqlx::query(sqlx::AssertSqlSafe(sql))
             .bind(&owner_type)
             .bind(&owner_id)
             .bind(&context.tenant_id)
@@ -956,7 +956,7 @@ impl CourseReactionRepository for PostgresCourseRepository {
             LIMIT $3 OFFSET $4
         "#;
 
-        let reactions = sqlx::query(sql)
+        let reactions = sqlx::query(sqlx::AssertSqlSafe(sql))
             .bind(&context.tenant_id)
             .bind(status_filter)
             .bind(limit)
