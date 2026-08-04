@@ -1,4 +1,5 @@
 import React from "react";
+import { formatMoney } from "@sdkwork/utils/money";
 import { CourseData } from "../services/CourseService";
 import { NavigateFunction } from "react-router";
 
@@ -24,13 +25,25 @@ export const CourseFooterBar: React.FC<CourseFooterBarProps> = ({
           ) : (
             <div className="flex flex-col justify-center">
               <div className="flex items-baseline gap-1 -mb-0.5">
-                <span className="text-[12px] text-red-500 font-bold">¥</span>
                 <span className="text-[22px] text-red-500 font-bold leading-none">
-                  {course.price}
+                  {formatMoney(course.price, {
+                    currency: "CNY",
+                    locale: "zh-CN",
+                    mode: "symbol",
+                    minFractionDigits: 0,
+                    maxFractionDigits: 2,
+                  }) ?? "--"}
                 </span>
               </div>
               <span className="text-[11px] text-text-sub line-through">
-                原价 ¥{course.originalPrice}
+                原价{" "}
+                {formatMoney(course.originalPrice, {
+                  currency: "CNY",
+                  locale: "zh-CN",
+                  mode: "symbol",
+                  minFractionDigits: 0,
+                  maxFractionDigits: 2,
+                }) ?? ""}
               </span>
             </div>
           )}

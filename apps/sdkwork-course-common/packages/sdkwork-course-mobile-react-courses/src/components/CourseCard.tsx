@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { Clock, Users } from "lucide-react";
+import { formatMoney } from "@sdkwork/utils/money";
 import { CourseData } from "../services/CourseService";
 
 export interface CourseCardProps {
@@ -9,7 +10,8 @@ export interface CourseCardProps {
 }
 
 export const CourseCard: React.FC<CourseCardProps> = ({ course, onClick }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.resolvedLanguage || "zh-CN";
 return (
     <div 
       className="flex items-start gap-4 p-4 active:bg-black/5 dark:active:bg-white/5 transition-colors cursor-pointer border-b border-black/5 dark:border-white/5 select-none"
@@ -43,9 +45,25 @@ return (
                 <span className="text-[13px] text-blue-500 font-medium bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded">已购</span>
              ) : (
                 <div className="flex items-baseline gap-1.5">
-                   <span className="text-[16px] font-bold text-red-500 leading-none">¥{course.price}</span>
+                   <span className="text-[16px] font-bold text-red-500 leading-none">
+                     {formatMoney(course.price, {
+                       currency: "CNY",
+                       locale,
+                       mode: "symbol",
+                       minFractionDigits: 0,
+                       maxFractionDigits: 2,
+                     }) ?? "--"}
+                   </span>
                    {course.originalPrice && course.originalPrice > course.price && (
-                      <span className="text-[11px] text-text-sub line-through opacity-70">¥{course.originalPrice}</span>
+                      <span className="text-[11px] text-text-sub line-through opacity-70">
+                        {formatMoney(course.originalPrice, {
+                          currency: "CNY",
+                          locale,
+                          mode: "symbol",
+                          minFractionDigits: 0,
+                          maxFractionDigits: 2,
+                        }) ?? ""}
+                      </span>
                    )}
                 </div>
              )}
