@@ -40,12 +40,6 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
-        '@sdkwork/course-app-sdk': generatedCourseAppSdkEntry,
-        '@sdkwork/iam-app-sdk': generatedIamAppSdkEntry,
-        '@sdkwork/drive-app-sdk': generatedDriveAppSdkEntry,
-        '@sdkwork/utils': path.join(sdkworkUtilsSourceRoot, 'index.ts'),
-        '@sdkwork/utils/string': path.join(sdkworkUtilsSourceRoot, 'string.ts'),
-        '@sdkwork/sdk-common': path.join(sdkworkSdkCommonSourceRoot, 'index.ts'),
       },
     },
     server: {

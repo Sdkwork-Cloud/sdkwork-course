@@ -1,4 +1,4 @@
--- Root course category for composed Claw Router bootstrap (tenant 100001 / org 0).
+-- Root course category for composed Cloud Router bootstrap (tenant 100001 / org 0).
 INSERT INTO course_category
     (
         id,

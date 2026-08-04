@@ -14,18 +14,19 @@
     "@sdkwork/sdkwork-course-pc-auth": "workspace:*",
     "@sdkwork/sdkwork-course-pc-commons": "workspace:*",
     "@sdkwork/sdkwork-course-pc-community": "workspace:*",
+    "@sdkwork/sdkwork-course-pc-core": "workspace:*",
     "@sdkwork/sdkwork-course-pc-courses": "workspace:*",
     "@sdkwork/sdkwork-course-pc-lessons": "workspace:*",
     "@sdkwork/sdkwork-course-pc-live": "workspace:*",
     "@sdkwork/sdkwork-course-pc-progress": "workspace:*",
+    "@tailwindcss/vite": "^4.0.0",
     "@tanstack/react-query": "^5.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.0.0",
     "react-i18next": "^17.0.7",
-    "zustand": "^5.0.0",
+    "react-router-dom": "^7.0.0",
     "tailwindcss": "^4.0.0",
-    "@tailwindcss/vite": "^4.0.0"
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
