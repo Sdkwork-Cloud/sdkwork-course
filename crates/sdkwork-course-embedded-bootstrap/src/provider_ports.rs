@@ -18,6 +18,11 @@ macro_rules! integration_unavailable {
 }
 
 /// Unified-process embedded runtime: catalog mutations without external Drive validation.
+///
+/// The pass-through accepts resources unchecked so catalog authoring keeps
+/// working when no Drive facade is configured; the SDK-backed
+/// [`SdkDriveCoursePort`](crate::adapters::SdkDriveCoursePort) is preferred
+/// whenever a Drive facade URL is present. Download grants fail closed.
 pub struct EmbeddedPassThroughDrivePort;
 
 #[async_trait::async_trait]
@@ -39,18 +44,23 @@ impl CourseDrivePort for EmbeddedPassThroughDrivePort {
     }
 }
 
-/// Unified-process embedded runtime: learning access until commerce entitlement adapter is wired.
-pub struct EmbeddedLocalEntitlementPort;
+/// Fail-closed entitlement port for the unified-process embedded runtime.
+///
+/// Until a commerce entitlement adapter is wired, learning access is denied
+/// (`Ok(false)`). Self-service enrollment therefore fails with an entitlement
+/// error instead of silently granting paid-course access. Operator visibility
+/// is provided by the startup warning in `build_entitlement_port`.
+pub struct FailClosedEntitlementPort;
 
 #[async_trait::async_trait]
-impl CourseEntitlementPort for EmbeddedLocalEntitlementPort {
+impl CourseEntitlementPort for FailClosedEntitlementPort {
     async fn verify_learning_access(
         &self,
         _context: &CourseServiceContext,
         _offering_id: String,
         _learner_user_id: String,
     ) -> CourseResult<bool> {
-        Ok(true)
+        Ok(false)
     }
 }
 

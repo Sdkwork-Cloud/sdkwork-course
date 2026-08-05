@@ -4,7 +4,7 @@ use serde_json::Value;
 pub fn parse_course_query(params: &Value) -> CourseQuery {
     CourseQuery {
         page: params.get("page").and_then(|v| v.as_i64()),
-        page_size: params.get("pageSize").and_then(|v| v.as_i64()),
+        page_size: params.get("page_size").and_then(|v| v.as_i64()),
         q: params
             .get("q")
             .and_then(|v| v.as_str())

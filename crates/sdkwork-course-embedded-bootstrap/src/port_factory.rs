@@ -8,7 +8,7 @@ use crate::adapters::{
     LoggingCourseNotificationPort, SdkDriveCoursePort,
 };
 use crate::provider_ports::{
-    EmbeddedLocalEntitlementPort, EmbeddedPassThroughDrivePort, UnconfiguredAuditEventPort,
+    EmbeddedPassThroughDrivePort, FailClosedEntitlementPort, UnconfiguredAuditEventPort,
     UnconfiguredLiveProviderPort, UnconfiguredNotificationPort,
 };
 
@@ -38,7 +38,13 @@ fn drive_integration_configured() -> bool {
 }
 
 pub fn build_entitlement_port() -> Box<dyn CourseEntitlementPort> {
-    Box::new(EmbeddedLocalEntitlementPort)
+    // Fail closed: without a commerce entitlement adapter, learning access is
+    // denied and self-service enrollment rejects. Wire a real adapter before
+    // enabling paid-course self-service enrollment in production.
+    tracing::warn!(
+        "course entitlement verification is not configured; learning access fails closed"
+    );
+    Box::new(FailClosedEntitlementPort)
 }
 
 pub fn build_live_provider_port() -> Box<dyn CourseLiveProviderPort> {
