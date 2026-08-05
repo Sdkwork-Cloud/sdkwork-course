@@ -19,7 +19,7 @@ export function MobileReactionButtons({ targetType, targetId, reactions }: Mobil
 
   const reactionMutation = useMutation({
     mutationFn: async ({ reactionType, reactionValue }: { reactionType: string; reactionValue: string }) => {
-      return sdk.courseReactions.replace({
+      return sdk.courseReactions.update({
         targetType,
         targetId,
         reactionType,

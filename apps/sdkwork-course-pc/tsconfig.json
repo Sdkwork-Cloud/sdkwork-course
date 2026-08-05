@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
     "moduleResolution": "bundler",
@@ -15,21 +19,22 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@sdkwork/sdkwork-course-pc-core": ["./packages/sdkwork-course-pc-core/src/index.ts"],
-      "@sdkwork/sdkwork-course-pc-commons": ["./packages/sdkwork-course-pc-commons/src/index.ts"],
-      "@sdkwork/sdkwork-course-pc-auth": ["./packages/sdkwork-course-pc-auth/src/index.ts"],
-      "@sdkwork/sdkwork-course-pc-courses": ["./packages/sdkwork-course-pc-courses/src/index.ts"],
-      "@sdkwork/sdkwork-course-pc-lessons": ["./packages/sdkwork-course-pc-lessons/src/index.ts"],
-      "@sdkwork/sdkwork-course-pc-live": ["./packages/sdkwork-course-pc-live/src/index.ts"],
-      "@sdkwork/sdkwork-course-pc-progress": ["./packages/sdkwork-course-pc-progress/src/index.ts"],
-      "@sdkwork/sdkwork-course-pc-community": ["./packages/sdkwork-course-pc-community/src/index.ts"],
-      "@sdkwork/sdkwork-course-pc-course": ["./packages/sdkwork-course-pc-course/src/index.ts"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
-  "include": ["src", "packages/*/src"],
-  "exclude": ["**/__tests__/**"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src",
+    "packages/*/src"
+  ],
+  "exclude": [
+    "**/__tests__/**"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

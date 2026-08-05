@@ -31,6 +31,7 @@ packages:
   - "../sdkwork-utils/packages/sdkwork-utils-typescript"
   - "../sdkwork-drive/sdks/sdkwork-drive-app-sdk/sdkwork-drive-app-sdk-typescript"
 
+  - "../sdkwork-iam/apps/sdkwork-iam-pc/packages/sdkwork-user-center-core-pc-react"
 catalog:
   "@monaco-editor/react": ^4.7.0
   "@playwright/test": ^1.52.0
@@ -139,4 +140,3 @@ catalog:
   vite-plugin-dts: ^4.5.4
   vitest: ^4.1.8
   zustand: ^5.0.12
-  - "../../sdkwork-iam/apps/sdkwork-iam-pc/packages/sdkwork-user-center-core-pc-react"

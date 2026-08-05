@@ -5,17 +5,48 @@ export function asRecord(value: unknown): Record<string, unknown> {
   return value as Record<string, unknown>;
 }
 
-export function readString(record: Record<string, unknown>, ...keys: string[]): string {
+type ReadKeyArg = string | string[] | number;
+
+function splitReadArgs(
+  args: ReadKeyArg[],
+): { keys: string[]; fallback?: string | number } {
+  const last = args[args.length - 1];
+  const penultimate = args[args.length - 2];
+  if (
+    args.length > 1
+    && (typeof last === 'number' || typeof last === 'string')
+    && Array.isArray(penultimate)
+  ) {
+    return {
+      keys: args.slice(0, -1).flat().filter((key): key is string => typeof key === 'string'),
+      fallback: last,
+    };
+  }
+  return {
+    keys: args.flat().filter((key): key is string => typeof key === 'string'),
+    fallback: undefined,
+  };
+}
+
+export function readString(
+  record: Record<string, unknown>,
+  ...args: ReadKeyArg[]
+): string {
+  const { keys, fallback } = splitReadArgs(args);
   for (const key of keys) {
     const value = record[key];
     if (typeof value === 'string' && value.trim().length > 0) {
       return value.trim();
     }
   }
-  return keys.length > 1 ? '' : '';
+  return typeof fallback === 'string' ? fallback : '';
 }
 
-export function readNumber(record: Record<string, unknown>, ...keys: string[]): number {
+export function readNumber(
+  record: Record<string, unknown>,
+  ...args: ReadKeyArg[]
+): number {
+  const { keys, fallback } = splitReadArgs(args);
   for (const key of keys) {
     const value = record[key];
     if (typeof value === 'number' && Number.isFinite(value)) {
@@ -28,7 +59,7 @@ export function readNumber(record: Record<string, unknown>, ...keys: string[]): 
       }
     }
   }
-  return 0;
+  return typeof fallback === 'number' ? fallback : 0;
 }
 
 export function unwrapCourseBackendEnvelope<T = unknown>(value: unknown): T {

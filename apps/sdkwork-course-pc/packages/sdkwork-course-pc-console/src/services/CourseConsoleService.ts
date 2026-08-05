@@ -132,7 +132,7 @@ export const courseConsoleService = {
     const response = await client.courses.list({
       q: params?.q,
       status: params?.status,
-      limit: params?.limit ?? 50,
+      pageSize: params?.limit ?? 50,
     });
     const items = readRecords(response, ['items', 'records', 'data', 'list', 'rows', 'content', 'courses'])
       .map(mapCourseItem)
@@ -174,7 +174,7 @@ export const courseConsoleService = {
     const client = getCourseConsolePcHost().getBackendClientWithSession();
     const response = await client.courseCategories.list({
       q: params?.q,
-      limit: params?.limit ?? 100,
+      pageSize: params?.limit ?? 100,
     });
     const items = readRecords(response, ['items', 'records', 'data', 'list', 'rows', 'content', 'categories'])
       .map(mapCategoryItem)
@@ -201,7 +201,7 @@ export const courseConsoleService = {
 
   async listSections(courseId: string): Promise<ConsoleCourseSectionItem[]> {
     const client = getCourseConsolePcHost().getBackendClientWithSession();
-    const response = await client.courseSections.list(courseId, { limit: 200 });
+    const response = await client.courseSections.list(courseId, { pageSize: 200 });
     return readRecords(response, ['items', 'records', 'data', 'list', 'rows', 'content', 'sections'])
       .map(mapSectionItem)
       .filter((item) => item.id);
@@ -226,7 +226,7 @@ export const courseConsoleService = {
 
   async listLessons(courseId: string): Promise<ConsoleCourseLessonItem[]> {
     const client = getCourseConsolePcHost().getBackendClientWithSession();
-    const response = await client.courseLessons.list(courseId, { limit: 500 });
+    const response = await client.courseLessons.list(courseId, { pageSize: 500 });
     return readRecords(response, ['items', 'records', 'data', 'list', 'rows', 'content', 'lessons'])
       .map(mapLessonItem)
       .filter((item) => item.id);

@@ -22,6 +22,6 @@ describe('CourseAppSdkClient', () => {
     expect(typeof sdk.courses.list).toBe('function');
     expect(typeof sdk.courseEnrollments.current.list).toBe('function');
     expect(typeof sdk.courseComments.create).toBe('function');
-    expect(typeof sdk.courseReactions.replace).toBe('function');
+    expect(typeof sdk.courseReactions.update).toBe('function');
   });
 });
