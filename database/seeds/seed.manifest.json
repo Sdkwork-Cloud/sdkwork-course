@@ -23,7 +23,8 @@
     },
     "standard": {
       "common": [
-        "common/002_default_category.sql"
+        "common/002_default_category.sql",
+        "001_bootstrap.sql"
       ],
       "locales": {
         "zh-CN": []
