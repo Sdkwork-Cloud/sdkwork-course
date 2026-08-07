@@ -20,7 +20,7 @@ pub use db::schema::{
 };
 pub use repository::course_repository::{
     CourseRepositoryFuture, CourseSqlxRepositoryPort, EmptyCourseRepository,
-    PostgresCourseRepository, SqliteCourseRepository, SqlxCourseRepository,
+    PostgresCourseRepository, SqlxCourseRepository,
 };
 
 // Re-export for compatibility
