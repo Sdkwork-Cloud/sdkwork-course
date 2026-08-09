@@ -38,7 +38,7 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                        sort_order as sort_weight, course_count_snapshot as course_count
                 FROM course_category
                 WHERE tenant_id = $1 
-                  AND (organization_id = $2 OR organization_id IS NULL)
+                  AND (organization_id = $2 OR organization_id = '0')
                   AND status = $3
                   AND (name LIKE '%' || $4 || '%' OR description LIKE '%' || $4 || '%' OR $4 = '')
                   AND deleted_at IS NULL
@@ -476,7 +476,7 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                        qualification_status, sort_order, status
                 FROM course_instructor
                 WHERE tenant_id = $1
-                  AND (organization_id = $2 OR organization_id IS NULL)
+                  AND (organization_id = $2 OR organization_id = '0')
                   AND status = $3
                   AND (display_name LIKE '%' || $4 || '%' OR title LIKE '%' || $4 || '%' OR $4 = '')
                   AND deleted_at IS NULL
@@ -603,7 +603,7 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 r#"
                 SELECT COUNT(*) FROM course_catalog 
                 WHERE tenant_id = $1 
-                  AND (organization_id = $2 OR organization_id IS NULL)
+                  AND (organization_id = $2 OR organization_id = '0')
                   AND publish_status = $3
                   AND deleted_at IS NULL
                   AND (title LIKE '%' || $4 || '%' OR $4 = '')
@@ -631,7 +631,7 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                        category_id as category, status
                 FROM course_catalog
                 WHERE tenant_id = $1 
-                  AND (organization_id = $2 OR organization_id IS NULL)
+                  AND (organization_id = $2 OR organization_id = '0')
                   AND publish_status = $3
                   AND deleted_at IS NULL
                   AND (title LIKE '%' || $4 || '%' OR $4 = '')
@@ -678,7 +678,7 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 FROM course_catalog
                 WHERE id = $1 
                   AND tenant_id = $2 
-                  AND (organization_id = $3 OR organization_id IS NULL)
+                  AND (organization_id = $3 OR organization_id = '0')
                   AND deleted_at IS NULL
                 "#
             )
