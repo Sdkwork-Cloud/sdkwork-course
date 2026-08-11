@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import React from "react";
-import { PlayCircle, Lock } from "lucide-react";
+import { PlayCircle, Lock, FileText, Download, Radio } from "lucide-react";
 
 export interface PlayerLesson {
   id: string;
@@ -8,6 +8,8 @@ export interface PlayerLesson {
   duration: string;
   completed?: boolean;
   free?: boolean;
+  /** Lesson form: vod_video / live_session / article / download / quiz / assignment. */
+  kind?: string;
 }
 
 export interface PlayerSection {
@@ -22,6 +24,32 @@ export interface PlayerCatalogProps {
   onLessonSelect: (lessonId: string) => void;
 }
 
+function lessonKindIcon(kind: string | undefined) {
+  switch (kind) {
+    case "article":
+      return <FileText className="w-4 h-4 text-text-sub shrink-0 opacity-40" />;
+    case "download":
+      return <Download className="w-4 h-4 text-text-sub shrink-0 opacity-40" />;
+    case "live_session":
+      return <Radio className="w-4 h-4 text-red-400 shrink-0 opacity-70" />;
+    default:
+      return <PlayCircle className="w-5 h-5 text-text-sub shrink-0 opacity-40" />;
+  }
+}
+
+function lessonKindLabel(kind: string | undefined) {
+  switch (kind) {
+    case "article":
+      return "图文";
+    case "download":
+      return "资料";
+    case "live_session":
+      return "直播";
+    default:
+      return undefined;
+  }
+}
+
 export const PlayerCatalog: React.FC<PlayerCatalogProps> = ({ curriculum = [], activeLesson, isPurchased, onLessonSelect }) => {
   const { t } = useTranslation();
 return (
@@ -33,6 +61,7 @@ return (
                 <div className="flex flex-col gap-1.5 pl-2 border-l-2 border-black/5 dark:border-white/5">
                   {section.lessons.map((lesson) => {
                     const isLocked = !isPurchased && !lesson.free;
+                    const kindLabel = lessonKindLabel(lesson.kind);
                     return (
                     <div 
                       key={lesson.id} 
@@ -57,11 +86,16 @@ return (
                                 <span className="text-white text-[10px] font-bold">✓</span>
                             </div>
                           ) : (
-                            <PlayCircle className="w-5 h-5 text-text-sub shrink-0 opacity-40" />
+                            lessonKindIcon(lesson.kind)
                           )}
                           <span className={`text-[14px] truncate ${activeLesson === lesson.id ? "text-blue-500 font-bold" : lesson.completed ? "text-text-sub" : "text-text-main"}`}>
                             {lesson.title}
                           </span>
+                          {kindLabel && (
+                            <span className="text-[10px] text-text-sub border border-black/10 dark:border-white/10 rounded px-1.5 py-0.5 shrink-0">
+                              {kindLabel}
+                            </span>
+                          )}
                         </div>
                         <span className={`text-[12px] font-mono shrink-0 ml-3 ${activeLesson === lesson.id ? "text-blue-500" : "text-text-sub opacity-70"}`}>
                           {lesson.duration}

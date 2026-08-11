@@ -14,48 +14,42 @@
       "path": "/app/v3/api/course_categories",
       "operationId": "courseCategories.list",
       "resource": "courseCategories",
-      "authMode": "dual-token",
-      "permission": "course.categories.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/course_categories/{categoryId}",
       "operationId": "courseCategories.retrieve",
       "resource": "courseCategories",
-      "authMode": "dual-token",
-      "permission": "course.categories.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/courses",
       "operationId": "courses.list",
       "resource": "courses",
-      "authMode": "dual-token",
-      "permission": "course.courses.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/courses/{courseId}",
       "operationId": "courses.retrieve",
       "resource": "courses",
-      "authMode": "dual-token",
-      "permission": "course.courses.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/courses/{courseId}/offerings",
       "operationId": "courseOfferings.list",
       "resource": "courseOfferings",
-      "authMode": "dual-token",
-      "permission": "course.offerings.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/course_offerings/{offeringId}",
       "operationId": "courseOfferings.retrieve",
       "resource": "courseOfferings",
-      "authMode": "dual-token",
-      "permission": "course.offerings.read"
+      "authMode": "dual-token"
     },
     {
       "method": "POST",
@@ -95,32 +89,28 @@
       "path": "/app/v3/api/courses/{courseId}/sections",
       "operationId": "courseSections.list",
       "resource": "courseSections",
-      "authMode": "dual-token",
-      "permission": "course.lessons.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/courses/{courseId}/lessons",
       "operationId": "courseLessons.list",
       "resource": "courseLessons",
-      "authMode": "dual-token",
-      "permission": "course.lessons.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/course_lessons/{lessonId}",
       "operationId": "courseLessons.retrieve",
       "resource": "courseLessons",
-      "authMode": "dual-token",
-      "permission": "course.lessons.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/course_lessons/{lessonId}/resources",
       "operationId": "courseLessonResources.list",
       "resource": "courseLessonResources",
-      "authMode": "dual-token",
-      "permission": "course.resources.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
@@ -152,16 +142,14 @@
       "path": "/app/v3/api/course_live_sessions",
       "operationId": "courseLiveSessions.list",
       "resource": "courseLiveSessions",
-      "authMode": "dual-token",
-      "permission": "course.live_sessions.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/course_live_sessions/{liveSessionId}",
       "operationId": "courseLiveSessions.retrieve",
       "resource": "courseLiveSessions",
-      "authMode": "dual-token",
-      "permission": "course.live_sessions.read"
+      "authMode": "dual-token"
     },
     {
       "method": "POST",
@@ -193,16 +181,14 @@
       "path": "/app/v3/api/course_live_sessions/{liveSessionId}/replay",
       "operationId": "courseLiveSessions.replay.retrieve",
       "resource": "courseLiveSessions",
-      "authMode": "dual-token",
-      "permission": "course.live_sessions.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/courses/{courseId}/comments",
       "operationId": "courseComments.list",
       "resource": "courseComments",
-      "authMode": "dual-token",
-      "permission": "course.comments.read"
+      "authMode": "dual-token"
     },
     {
       "method": "POST",

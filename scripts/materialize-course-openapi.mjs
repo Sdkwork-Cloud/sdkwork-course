@@ -247,6 +247,19 @@ function buildOpenApi(operationPlan, surface) {
 }
 
 function buildOpenApiOperation(operationPlan, surface, operation) {
+  const requiresPermission = Boolean(operation.permission);
+  const responses = {
+    ...successResponses(operation),
+    400: problemResponse("Invalid request"),
+    401: problemResponse("Authentication required"),
+    404: problemResponse("Course resource not found"),
+    409: problemResponse("Conflict or idempotency mismatch"),
+    500: problemResponse("Internal server error"),
+  };
+  if (requiresPermission) {
+    responses[403] = problemResponse("Permission denied");
+  }
+
   const operationObject = {
     tags: [operation.resource],
     summary: `${toTitle(operation.operationId)}.`,
@@ -257,21 +270,12 @@ function buildOpenApiOperation(operationPlan, surface, operation) {
       ...queryParameters(operation),
       ...idempotencyParameters(operation),
     ],
-    responses: {
-      ...successResponses(operation),
-      400: problemResponse("Invalid request"),
-      401: problemResponse("Authentication required"),
-      403: problemResponse("Permission denied"),
-      404: problemResponse("Course resource not found"),
-      409: problemResponse("Conflict or idempotency mismatch"),
-      500: problemResponse("Internal server error"),
-    },
+    responses,
     security: [{ AuthToken: [], AccessToken: [] }],
     "x-sdkwork-owner": operationPlan.owner,
     "x-sdkwork-api-authority": operationPlan.apiAuthority,
     "x-sdkwork-domain": operationPlan.domain,
     "x-sdkwork-resource": operation.resource,
-    "x-sdkwork-permission": operation.permission ?? null,
     "x-sdkwork-auth-mode": operation.authMode,
     "x-sdkwork-tenant-scope": "tenant",
     "x-sdkwork-data-scope": "organization",
@@ -282,6 +286,10 @@ function buildOpenApiOperation(operationPlan, surface, operation) {
     "x-sdkwork-request-context": "AppRequestContext",
     "x-sdkwork-server-request-id": true,
   };
+
+  if (requiresPermission) {
+    operationObject["x-sdkwork-permission"] = operation.permission;
+  }
 
   if (hasRequestBody(operation.method)) {
     operationObject.requestBody = {

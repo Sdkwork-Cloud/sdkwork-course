@@ -94,6 +94,7 @@ const forbiddenOwnershipPatterns = [
 
 const forbiddenScanAllowlist = new Set([
   "README.md",
+  "AGENTS.md",
   "scripts/course-workspace-boundary.test.mjs",
 ]);
 

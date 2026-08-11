@@ -112,16 +112,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -163,7 +153,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseCategories",
-        "x-sdkwork-permission": "course.categories.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -224,16 +213,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -275,7 +254,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseCategories",
-        "x-sdkwork-permission": "course.categories.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -374,16 +352,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -425,7 +393,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courses",
-        "x-sdkwork-permission": "course.courses.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -486,16 +453,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -537,7 +494,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courses",
-        "x-sdkwork-permission": "course.courses.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -644,16 +600,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -695,7 +641,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseOfferings",
-        "x-sdkwork-permission": "course.offerings.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -756,16 +701,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -807,7 +742,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseOfferings",
-        "x-sdkwork-permission": "course.offerings.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -930,7 +864,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseEnrollments",
-        "x-sdkwork-permission": "course.enrollments.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -940,6 +873,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.enrollments.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseEnrollments.create.",
@@ -1091,7 +1025,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseEnrollments",
-        "x-sdkwork-permission": "course.enrollments.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1100,7 +1033,8 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.enrollments.read"
       }
     },
     "/app/v3/api/course_enrollments/{enrollmentId}": {
@@ -1203,7 +1137,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseEnrollments",
-        "x-sdkwork-permission": "course.enrollments.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1212,7 +1145,8 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.enrollments.read"
       },
       "delete": {
         "tags": [
@@ -1306,7 +1240,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseEnrollments",
-        "x-sdkwork-permission": "course.enrollments.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1315,7 +1248,8 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.enrollments.write"
       }
     },
     "/app/v3/api/courses/{courseId}/sections": {
@@ -1413,16 +1347,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -1464,7 +1388,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseSections",
-        "x-sdkwork-permission": "course.lessons.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1571,16 +1494,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -1622,7 +1535,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessons",
-        "x-sdkwork-permission": "course.lessons.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1683,16 +1595,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -1734,7 +1636,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessons",
-        "x-sdkwork-permission": "course.lessons.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1841,16 +1742,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -1892,7 +1783,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessonResources",
-        "x-sdkwork-permission": "course.resources.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2004,7 +1894,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseProgress",
-        "x-sdkwork-permission": "course.progress.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2013,7 +1902,8 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.progress.read"
       }
     },
     "/app/v3/api/course_lessons/{lessonId}/progress": {
@@ -2127,7 +2017,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessonProgress",
-        "x-sdkwork-permission": "course.progress.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2137,6 +2026,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.progress.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLessonProgress.update.",
@@ -2250,7 +2140,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessonProgress",
-        "x-sdkwork-permission": "course.progress.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2260,6 +2149,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.progress.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLessonProgress.watchPositions.update.",
@@ -2360,16 +2250,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -2411,7 +2291,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2472,16 +2351,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -2523,7 +2392,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2646,7 +2514,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.join",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2656,6 +2523,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.live_sessions.join",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.join.",
@@ -2769,7 +2637,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.join",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2779,6 +2646,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.live_sessions.join",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.heartbeat.",
@@ -2892,7 +2760,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.join",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2902,6 +2769,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.live_sessions.join",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.leave.",
@@ -2964,16 +2832,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -3015,7 +2873,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3122,16 +2979,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -3173,7 +3020,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseComments",
-        "x-sdkwork-permission": "course.comments.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3294,7 +3140,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseComments",
-        "x-sdkwork-permission": "course.comments.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3304,6 +3149,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.comments.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseComments.create.",
@@ -3410,7 +3256,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseComments",
-        "x-sdkwork-permission": "course.comments.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3419,7 +3264,8 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.comments.write"
       }
     },
     "/app/v3/api/course_reactions": {
@@ -3525,7 +3371,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseReactions",
-        "x-sdkwork-permission": "course.reactions.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3535,6 +3380,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.reactions.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseReactions.update.",
@@ -3641,7 +3487,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseReactions",
-        "x-sdkwork-permission": "course.reactions.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3650,7 +3495,8 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.reactions.write"
       }
     },
     "/app/v3/api/course_applications": {
@@ -3756,7 +3602,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseApplications",
-        "x-sdkwork-permission": "course.applications.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3766,6 +3611,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.applications.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseApplications.create.",
@@ -3915,7 +3761,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseApplications",
-        "x-sdkwork-permission": "course.applications.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3924,7 +3769,8 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.applications.read"
       }
     },
     "/app/v3/api/course_applications/{applicationId}": {
@@ -4027,7 +3873,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-app-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseApplications",
-        "x-sdkwork-permission": "course.applications.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -4036,7 +3881,8 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.applications.read"
       }
     }
   },

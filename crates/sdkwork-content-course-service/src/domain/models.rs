@@ -172,7 +172,6 @@ pub struct CourseItem {
     pub category: Option<String>,
     pub tags: String,
     pub content: Option<String>,
-    pub external_bvid: Option<String>,
     pub status: String,
 }
 
@@ -208,14 +207,20 @@ pub struct CourseLessonItem {
     pub lesson_no: Option<String>,
     pub title: String,
     pub description: Option<String>,
-    pub video: Option<String>,
-    pub external_bvid: Option<String>,
     pub duration_seconds: i64,
     pub duration_text: Option<String>,
     pub content: Option<String>,
     pub free_preview: bool,
     pub sort_weight: i64,
     pub status: String,
+    /// Normalized lesson kind (`vod_video` / `live_session` / `article` /
+    /// `download` / `quiz` / `assignment`), trimmed of legacy quote-wrapped
+    /// JSON string storage.
+    pub kind: Option<String>,
+    /// External source id (e.g. bilibili BV id) for connected lessons.
+    pub external_source_id: Option<String>,
+    /// External source provider (`bilibili`, `manual`, ...).
+    pub source_provider: Option<String>,
 }
 
 #[derive(Debug, Clone, Default, Deserialize, Serialize, PartialEq, Eq, FromRow)]

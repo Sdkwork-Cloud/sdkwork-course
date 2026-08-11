@@ -13,6 +13,7 @@ export const PlayerDiscussion: React.FC<PlayerDiscussionProps> = ({ courseId, le
   const { t } = useTranslation();
 const [discussions, setDiscussions] = useState<CourseDiscussion[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [inputVal, setInputVal] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -23,8 +24,10 @@ const [discussions, setDiscussions] = useState<CourseDiscussion[]>([]);
       try {
         const data = await CourseService.getCourseDiscussions(courseId, lessonId);
         setDiscussions([...data]);
+        setLoadFailed(false);
       } catch (error) {
         console.error("Failed to fetch discussions", error);
+        setLoadFailed(true);
       } finally {
         setLoading(false);
       }
@@ -40,7 +43,7 @@ const [discussions, setDiscussions] = useState<CourseDiscussion[]>([]);
       setDiscussions(prev => [newComment, ...prev]);
       setInputVal("");
     } catch (e) {
-      showToast(t('course.auto_fn_nb6b6249', '发送失败，请重试'));
+      showToast(t('course.sendFailed', '发送失败，请重试'));
     } finally {
       setSubmitting(false);
     }
@@ -50,10 +53,32 @@ const [discussions, setDiscussions] = useState<CourseDiscussion[]>([]);
     <>
       <div className="p-4 mt-2 bg-white dark:bg-[#1C1C1E] min-h-full" ref={scrollRef}>
          {loading ? (
-             <div className="flex items-center justify-center p-8 text-text-sub text-[14px]">{t('course.auto_7f6f37e', '加载中...')}</div>
+             <div className="flex items-center justify-center p-8 text-text-sub text-[14px]">{t('course.loading', '加载中...')}</div>
+         ) : loadFailed ? (
+             <div className="flex flex-col items-center justify-center gap-3 p-8">
+               <p className="text-text-sub text-[14px]">{t('course.loadFailed', '加载失败，请重试')}</p>
+               <button
+                 onClick={() => {
+                   setLoading(true);
+                   setLoadFailed(false);
+                   CourseService.getCourseDiscussions(courseId, lessonId)
+                     .then((data) => setDiscussions([...data]))
+                     .catch(() => setLoadFailed(true))
+                     .finally(() => setLoading(false));
+                 }}
+                 className="px-4 py-1.5 bg-blue-600 text-white rounded-full text-[12px] active:bg-blue-700"
+               >
+                 {t('course.retry', '重试')}
+               </button>
+             </div>
          ) : discussions.length === 0 ? (
              <div className="flex items-center justify-center p-8 text-text-sub text-[14px]">{t('course.auto_45d0d76', '暂无讨论，来抢沙发吧')}</div>
          ) : (
+            <>
+            <div className="flex items-center gap-1.5 px-1 pb-3 text-[12px] text-text-sub">
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span>{t('course.discussionCount', '共 {{count}} 条讨论', { count: discussions.length })}</span>
+            </div>
             <div className="flex flex-col gap-5">
                {discussions.map(item => (
                  <div key={item.id} className="flex items-start gap-3">
@@ -78,6 +103,7 @@ const [discussions, setDiscussions] = useState<CourseDiscussion[]>([]);
                  </div>
                ))}
             </div>
+            </>
          )}
       </div>
       

@@ -21,7 +21,7 @@ export const CourseInstructor: FC<CourseInstructorProps> = ({
         <div className="bg-white p-5 dark:bg-[#1C1C1E]">
           <h3 className="mb-4 flex items-center gap-2 text-[17px] font-bold text-text-main">
             <span className="h-4 w-1 rounded-full bg-blue-500" />
-            {t("course.auto_41772658", "Course highlights")}
+            {t("course.highlights", "Course highlights")}
           </h3>
           <div className="flex flex-col gap-3">
             {advantages.map((advantage) => (

@@ -434,8 +434,8 @@ pub async fn course_resources_create(
 ) -> CourseRouteResult<Value> {
     let mut cmd = body;
     if let Some(obj) = cmd.as_object_mut() {
-        obj.insert("ownerType".to_string(), serde_json::json!("lesson"));
-        obj.insert("ownerId".to_string(), serde_json::json!(_lesson_id));
+        obj.insert("owner_type".to_string(), serde_json::json!("lesson"));
+        obj.insert("owner_id".to_string(), serde_json::json!(_lesson_id));
     }
     let result = service.save_resource_ref(context, cmd).await?;
     Ok(ok(result))

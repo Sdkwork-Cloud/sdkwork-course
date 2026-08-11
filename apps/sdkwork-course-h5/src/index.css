@@ -1,20 +1,114 @@
 @import "tailwindcss";
 
-/* Mobile-first styles */
+/* Dark mode follows the `.dark` class (host-managed), matching the sdkwork
+   IM H5 theme strategy so course pages render identically in both hosts. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Scan the canonical course package classes (Tailwind v4 source detection). */
+@source "../../../apps/sdkwork-course-common/packages/sdkwork-course-mobile-react-courses/src";
+
+@theme {
+  --color-primary-blue: var(--sdkwork-course-h5-primary-blue);
+  --color-bg-color: var(--sdkwork-course-h5-bg-color);
+  --color-text-main: var(--sdkwork-course-h5-text-main);
+  --color-text-sub: var(--sdkwork-course-h5-text-sub);
+  --color-accent-green: var(--sdkwork-course-h5-accent-green);
+  --color-accent-red: var(--sdkwork-course-h5-accent-red);
+  --color-accent-blue: var(--sdkwork-course-h5-accent-blue);
+  --color-border-color: var(--sdkwork-course-h5-border-color);
+  --color-chat-other-bg: var(--sdkwork-course-h5-chat-other-bg);
+}
+
 :root {
+  color-scheme: light;
+  /* Light Mode — aligned with the sdkwork H5 palette. */
+  --sdkwork-course-h5-primary-blue: #2b5ce7;
+  --sdkwork-course-h5-bg-color: #f2f2f7;
+  --sdkwork-course-h5-text-main: #1d2129;
+  --sdkwork-course-h5-text-sub: #86909c;
+  --sdkwork-course-h5-accent-green: #00b42a;
+  --sdkwork-course-h5-accent-red: #f53f3f;
+  --sdkwork-course-h5-accent-blue: #2b5ce7;
+  --sdkwork-course-h5-border-color: #e5e6eb;
+  --sdkwork-course-h5-chat-other-bg: #ffffff;
   --primary-color: #3b82f6;
   --secondary-color: #8b5cf6;
   --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-body {
+.dark {
+  color-scheme: dark;
+  /* Dark Mode — aligned with the sdkwork H5 palette. */
+  --sdkwork-course-h5-primary-blue: #4c7df0;
+  --sdkwork-course-h5-bg-color: #000000;
+  --sdkwork-course-h5-text-main: #f3f4f6;
+  --sdkwork-course-h5-text-sub: #9ca3af;
+  --sdkwork-course-h5-accent-green: #26b85c;
+  --sdkwork-course-h5-accent-red: #ef4444;
+  --sdkwork-course-h5-accent-blue: #4c7df0;
+  --sdkwork-course-h5-border-color: #262626;
+  --sdkwork-course-h5-chat-other-bg: #1f1f1f;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  /* Scrollable app shell: pages grow with content, so the shell must not
+     pin a fixed viewport height (IM H5 uses a fixed shell; course H5 pages
+     are long-form lists that scroll naturally). `min-height` keeps the
+     themed background full-bleed while allowing the document to scroll. */
+  min-height: 100vh;
   margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-color);
+  color: var(--color-text-main);
+}
+
+@supports (min-height: 100dvh) {
+  html,
+  body,
+  #root {
+    min-height: 100dvh;
+  }
+}
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
+}
+
+
+/* Safe area utilities (canonical course package uses these; Tailwind v4
+   dropped the v3 `*-safe` utilities, so they are defined here to match the
+   IM H5 host implementation). */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-sizing: content-box;
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+  box-sizing: content-box;
+}
+.safe-area-top,
+.pt-safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+  box-sizing: content-box;
+}
+
+/* Hide scrollbars on horizontal scrolling bars (category tabs, feeds). */
+.no-scrollbar,
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar,
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* Safe area for bottom navigation */

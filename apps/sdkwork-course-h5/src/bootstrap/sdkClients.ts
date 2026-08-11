@@ -1,20 +1,23 @@
-﻿import { loadRuntimeConfig } from './environment'
+import { createCourseAppSdkClient, createGeneratedCourseAppSdkPort, type CourseAppSdkClient } from '@sdkwork/course-runtime'
+import type { CourseAppSdkPort } from '@sdkwork/course-sdk-ports'
+import type { AuthTokenManager } from '@sdkwork/sdk-common'
+import { loadRuntimeConfig } from './environment'
 
-export interface CourseSdkClients {
-  appApi: {
-    baseUrl: string
-    prefix: string
-  }
+export interface CourseH5SdkClients {
+  appApiBaseUrl: string
+  courseAppSdk: CourseAppSdkClient
+  courseAppSdkPort: CourseAppSdkPort
 }
 
-export function createSdkClients(): CourseSdkClients {
+export function createSdkClients(tokenManager: AuthTokenManager): CourseH5SdkClients {
   const config = loadRuntimeConfig()
-  
+  const courseAppSdk = createCourseAppSdkClient({
+    config: { appApiBaseUrl: config.apiBaseUrl },
+    tokenManager,
+  })
   return {
-    appApi: {
-      baseUrl: config.apiBaseUrl,
-      prefix: config.appApiPrefix,
-    },
+    appApiBaseUrl: config.apiBaseUrl,
+    courseAppSdk,
+    courseAppSdkPort: createGeneratedCourseAppSdkPort(courseAppSdk.client),
   }
 }
-

@@ -1,4 +1,5 @@
 import { getCourseConsolePcHost } from '../courseConsoleHost';
+import { uploadCourseMediaFile } from '@sdkwork/sdkwork-course-pc-core';
 import {
   readNumber,
   readRecords,
@@ -66,6 +67,12 @@ export interface ConsoleCourseLessonItem {
   durationSeconds: number;
   freePreview: boolean;
   status: string;
+  /** Lesson form: vod_video / live_session / article / download / quiz / assignment. */
+  kind?: string;
+  /** External source id (e.g. bilibili BV id) for connected lessons. */
+  externalSourceId?: string;
+  /** External source provider (`bilibili`, `manual`, ...). */
+  sourceProvider?: string;
 }
 
 export interface CreateConsoleCourseSectionInput {
@@ -78,6 +85,12 @@ export interface CreateConsoleCourseLessonInput {
   sectionId?: string;
   description?: string;
   freePreview?: boolean;
+  /** Lesson form: vod_video / live_session / article / download / quiz / assignment. */
+  kind?: string;
+  /** External source id (e.g. bilibili BV id) for connected lessons. */
+  externalSourceId?: string;
+  /** External source provider (`bilibili`, `manual`, ...). */
+  sourceProvider?: string;
 }
 
 function mapCategoryItem(record: ReturnType<typeof asRecord>): ConsoleCourseCategoryItem {
@@ -110,6 +123,9 @@ function mapLessonItem(record: ReturnType<typeof asRecord>): ConsoleCourseLesson
     durationSeconds: readNumber(record, ['durationSeconds', 'duration_seconds']),
     freePreview: Boolean(record.freePreview ?? record.free_preview),
     status: readString(record, ['status'], 'draft'),
+    kind: readString(record, ['kind']) || undefined,
+    externalSourceId: readString(record, ['externalSourceId', 'external_source_id']) || undefined,
+    sourceProvider: readString(record, ['sourceProvider', 'source_provider']) || undefined,
   };
 }
 
@@ -247,7 +263,29 @@ export const courseConsoleService = {
       sectionId: input.sectionId,
       description: input.description?.trim() || undefined,
       freePreview: input.freePreview ?? false,
+      lessonKind: input.kind ?? 'vod_video',
+      externalSourceId: input.externalSourceId?.trim() || undefined,
+      sourceProvider: input.sourceProvider?.trim() || undefined,
     });
     return mapLessonItem(readSingleRecord(response));
+  },
+
+  async attachLessonResource(lessonId: string, file: File): Promise<{ driveResourceId: string; fileName: string }> {
+    // Upload through the drive app SDK, then link the uploaded node to the
+    // lesson as an attachment resource via the backend resources API.
+    const upload = await uploadCourseMediaFile(file);
+    const client = getCourseConsolePcHost().getBackendClientWithSession();
+    await client.courseResources.create(lessonId, {
+      drive_resource_id: upload.driveResourceId,
+      resource_role: 'attachment',
+      mime_type: upload.mimeType,
+      media_resource_snapshot: JSON.stringify({
+        provider: 'drive',
+        driveResourceId: upload.driveResourceId,
+        fileName: upload.fileName,
+        mimeType: upload.mimeType,
+      }),
+    });
+    return { driveResourceId: upload.driveResourceId, fileName: upload.fileName };
   },
 };

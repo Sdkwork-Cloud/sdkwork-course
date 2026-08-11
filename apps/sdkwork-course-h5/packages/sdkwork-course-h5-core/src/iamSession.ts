@@ -7,9 +7,7 @@ import {
   type CourseSession,
   type CourseSessionUser,
 } from './session';
-import { resetCourseAppSdkClient } from './courseAppSdkClient';
 import { resetIamAppSdkClient } from './iamAppSdkClient';
-import { resetDriveAppSdkClient } from './driveAppSdkClient';
 
 function asRecord(value: unknown): Record<string, unknown> | null {
   if (value == null || typeof value !== 'object' || Array.isArray(value)) {
@@ -63,9 +61,7 @@ export function persistIamSession(
 
   saveCourseSession(session);
   resetCourseGlobalTokenManager();
-  resetCourseAppSdkClient();
   resetIamAppSdkClient();
-  resetDriveAppSdkClient();
   getCourseGlobalTokenManager();
 
   return session;

@@ -45,6 +45,13 @@ pub async fn bootstrap_course_database(pool: DatabasePool) -> Result<CourseDatab
             .map_err(|error| format!("course database migrate failed: {error}"))?;
     }
 
+    if options.seed_on_boot {
+        orchestrator
+            .seed(&options.seed_locale, &options.seed_profile)
+            .await
+            .map_err(|error| format!("course database seed failed: {error}"))?;
+    }
+
     Ok(CourseDatabaseHost { pool, module })
 }
 

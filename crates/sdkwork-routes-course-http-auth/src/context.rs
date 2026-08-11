@@ -80,7 +80,11 @@ pub fn course_service_context_from_web(
             actor_id: user_id,
             request_id: Some(app_ctx.request_id.0.clone()),
             trace_id: app_ctx.trace_id.clone(),
-            permissions: vec![],
+            // Development/test fallback simulates a fully scoped course
+            // operator so local flows (enrollment, progress, live join) work
+            // without provisioning IAM roles. Production always requires a
+            // resolved principal with real permissions.
+            permissions: vec!["course.*".to_owned()],
         });
     }
 

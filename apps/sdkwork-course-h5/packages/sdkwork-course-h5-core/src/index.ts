@@ -1,24 +1,12 @@
-﻿export {
-  getCourseAppSdkClient,
-  initCourseAppSdkClient,
-  resetCourseAppSdkClient,
-  createCourseAppSdkClientConfig,
-  createCourseSdk,
-  type CourseAppSdkClient,
-  type CourseAppSdkClientConfig,
-  type CourseSdk,
-  type CourseSdkConfig,
-} from './courseAppSdkClient';
-
-export { CourseSdkProvider, useCourseSdk } from './context';
-export type { CourseSdkProviderProps } from './context';
-
 export {
   loadCourseSession,
   saveCourseSession,
   getCourseGlobalTokenManager,
   resetCourseGlobalTokenManager,
   resolveAppApiBaseUrl,
+  readCourseSessionTokens,
+  resolveCourseAccessToken,
+  resolveCourseAuthToken,
   COURSE_SESSION_STORAGE_KEY,
   COURSE_SESSION_CHANGED_EVENT,
   type CourseSession,
@@ -28,6 +16,8 @@ export {
 export {
   getIamAppSdkClient,
   resetIamAppSdkClient,
+  type IamAppSdkClient,
+  type IamAppSdkClientConfig,
 } from './iamAppSdkClient';
 
 export {
@@ -36,24 +26,5 @@ export {
   assertIamSessionTokens,
   type IamSessionTokens,
 } from './iamSession';
-
-export {
-  getDriveAppSdkClient,
-  resetDriveAppSdkClient,
-  uploadCourseMediaFile,
-  type CourseDriveUploadResult,
-} from './driveAppSdkClient';
-
-export {
-  extractSdkListItems,
-  extractSdkItem,
-  readEntityString,
-  readEntityNumber,
-} from './courseSdkPayload';
-
-export {
-  enrollInFirstCourseOffering,
-  CourseEnrollmentError,
-} from './courseEnrollment';
 
 export { useAppStore } from './store';

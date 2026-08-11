@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "sdkwork.component.spec",
+  "component": {
+    "name": "@sdkwork/course-mobile-react-courses",
+    "displayName": "SDKWork Course Mobile React Courses",
+    "version": "0.1.0",
+    "type": "react-package",
+    "root": "sdkwork-course/apps/sdkwork-course-common/packages/sdkwork-course-mobile-react-courses",
+    "domain": "content",
+    "capability": "course",
+    "surface": "app",
+    "languages": ["typescript", "react"],
+    "generated": false,
+    "manifests": ["package.json"]
+  },
+  "contracts": {
+    "layerRole": "frontend-feature",
+    "publicExports": [".", "./i18n"],
+    "providedPorts": [
+      { "name": "courseMobilePages", "export": "." },
+      { "name": "courseRuntimePort", "export": "." },
+      { "name": "courseI18nResources", "export": "./i18n" }
+    ],
+    "requiredPorts": [
+      { "name": "courseSdkPorts", "package": "@sdkwork/course-sdk-ports", "export": "." }
+    ],
+    "runtimeEntrypoints": [],
+    "routeManifest": null,
+    "sdkClients": [],
+    "sdkDependencies": ["sdkwork-course-app-sdk"],
+    "events": [],
+    "configKeys": []
+  },
+  "verification": {
+    "commands": ["pnpm --dir apps/sdkwork-course-h5 typecheck", "pnpm --dir apps/sdkwork-im-h5 typecheck"]
+  }
+}

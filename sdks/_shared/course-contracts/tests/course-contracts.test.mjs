@@ -22,9 +22,9 @@ test("course contract exposes learning content and governance operations", () =>
   assert.ok(COURSE_BACKEND_API_OPERATION_IDS.includes("courseLiveSessions.replay.publish"));
   assert.ok(COURSE_BACKEND_API_OPERATION_IDS.includes("courseReports.liveSessions.list"));
   assert.equal(COURSE_APP_API_OPERATION_IDS.length, 31);
-  assert.equal(COURSE_BACKEND_API_OPERATION_IDS.length, 67);
+  assert.equal(COURSE_BACKEND_API_OPERATION_IDS.length, 64);
   assert.equal(SDKWORK_COURSE_APP_OPERATIONS.courseApplicationsCreate.operationId, "courseApplications.create");
-  assert.equal(SDKWORK_COURSE_BACKEND_OPERATIONS.courseApplicationsReview.operationId, "courseApplications.review");
+  assert.equal(SDKWORK_COURSE_BACKEND_OPERATIONS.courseApplicationsConvert.operationId, "courseApplications.convert");
 });
 
 test("course contract owns only course tables", () => {

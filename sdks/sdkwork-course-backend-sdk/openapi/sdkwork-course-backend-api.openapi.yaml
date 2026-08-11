@@ -163,7 +163,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseCategories",
-        "x-sdkwork-permission": "course.categories.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -172,7 +171,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.categories.read"
       },
       "post": {
         "tags": [
@@ -264,7 +264,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseCategories",
-        "x-sdkwork-permission": "course.categories.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -274,6 +273,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.categories.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseCategories.create.",
@@ -387,7 +387,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseCategories",
-        "x-sdkwork-permission": "course.categories.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -397,6 +396,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.categories.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseCategories.update.",
@@ -501,7 +501,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseCategories",
-        "x-sdkwork-permission": "course.categories.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -510,7 +509,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.categories.write"
       }
     },
     "/backend/v3/api/course_categories/reorder": {
@@ -604,7 +604,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseCategories",
-        "x-sdkwork-permission": "course.categories.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -614,6 +613,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.categories.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseCategories.update.",
@@ -765,7 +765,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseInstructors",
-        "x-sdkwork-permission": "course.instructors.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -774,7 +773,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.instructors.read"
       },
       "post": {
         "tags": [
@@ -866,7 +866,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseInstructors",
-        "x-sdkwork-permission": "course.instructors.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -876,6 +875,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.instructors.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseInstructors.create.",
@@ -989,7 +989,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseInstructors",
-        "x-sdkwork-permission": "course.instructors.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -998,7 +997,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.instructors.read"
       },
       "patch": {
         "tags": [
@@ -1099,7 +1099,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseInstructors",
-        "x-sdkwork-permission": "course.instructors.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1109,6 +1108,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.instructors.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseInstructors.update.",
@@ -1222,7 +1222,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseInstructors",
-        "x-sdkwork-permission": "course.instructors.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1232,6 +1231,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.instructors.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseInstructors.status.update.",
@@ -1383,7 +1383,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courses",
-        "x-sdkwork-permission": "course.courses.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1392,7 +1391,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.courses.read"
       },
       "post": {
         "tags": [
@@ -1484,7 +1484,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courses",
-        "x-sdkwork-permission": "course.courses.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1494,6 +1493,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.courses.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courses.create.",
@@ -1607,7 +1607,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courses",
-        "x-sdkwork-permission": "course.courses.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1616,7 +1615,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.courses.read"
       },
       "patch": {
         "tags": [
@@ -1717,7 +1717,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courses",
-        "x-sdkwork-permission": "course.courses.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1727,6 +1726,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.courses.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courses.update.",
@@ -1831,7 +1831,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courses",
-        "x-sdkwork-permission": "course.courses.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1840,7 +1839,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.courses.write"
       }
     },
     "/backend/v3/api/courses/{courseId}/publish": {
@@ -1943,7 +1943,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courses",
-        "x-sdkwork-permission": "course.courses.publish",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -1953,6 +1952,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.courses.publish",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courses.publish.",
@@ -2066,7 +2066,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courses",
-        "x-sdkwork-permission": "course.courses.publish",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2076,6 +2075,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.courses.publish",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courses.unpublish.",
@@ -2235,7 +2235,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseOfferings",
-        "x-sdkwork-permission": "course.offerings.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2244,7 +2243,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.offerings.read"
       },
       "post": {
         "tags": [
@@ -2345,7 +2345,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseOfferings",
-        "x-sdkwork-permission": "course.offerings.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2355,6 +2354,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.offerings.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseOfferings.create.",
@@ -2468,7 +2468,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseOfferings",
-        "x-sdkwork-permission": "course.offerings.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2477,7 +2476,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.offerings.read"
       },
       "patch": {
         "tags": [
@@ -2578,7 +2578,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseOfferings",
-        "x-sdkwork-permission": "course.offerings.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2588,6 +2587,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.offerings.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseOfferings.update.",
@@ -2692,7 +2692,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseOfferings",
-        "x-sdkwork-permission": "course.offerings.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2701,7 +2700,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.offerings.write"
       }
     },
     "/backend/v3/api/course_offerings/{offeringId}/publish": {
@@ -2804,7 +2804,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseOfferings",
-        "x-sdkwork-permission": "course.offerings.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2814,6 +2813,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.offerings.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseOfferings.publish.",
@@ -2927,7 +2927,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseOfferings",
-        "x-sdkwork-permission": "course.offerings.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -2937,6 +2936,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.offerings.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseOfferings.close.",
@@ -3096,7 +3096,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseSections",
-        "x-sdkwork-permission": "course.lessons.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3105,7 +3104,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.lessons.read"
       },
       "post": {
         "tags": [
@@ -3206,7 +3206,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseSections",
-        "x-sdkwork-permission": "course.lessons.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3216,6 +3215,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.lessons.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseSections.create.",
@@ -3329,7 +3329,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseSections",
-        "x-sdkwork-permission": "course.lessons.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3339,6 +3338,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.lessons.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseSections.update.",
@@ -3443,7 +3443,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseSections",
-        "x-sdkwork-permission": "course.lessons.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3452,7 +3451,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.lessons.write"
       }
     },
     "/backend/v3/api/courses/{courseId}/sections/reorder": {
@@ -3555,7 +3555,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseSections",
-        "x-sdkwork-permission": "course.lessons.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3565,6 +3564,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.lessons.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseSections.update.",
@@ -3724,7 +3724,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessons",
-        "x-sdkwork-permission": "course.lessons.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3733,7 +3732,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.lessons.read"
       },
       "post": {
         "tags": [
@@ -3834,7 +3834,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessons",
-        "x-sdkwork-permission": "course.lessons.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3844,6 +3843,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.lessons.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLessons.create.",
@@ -3957,7 +3957,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessons",
-        "x-sdkwork-permission": "course.lessons.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -3966,7 +3965,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.lessons.read"
       },
       "patch": {
         "tags": [
@@ -4067,7 +4067,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessons",
-        "x-sdkwork-permission": "course.lessons.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -4077,6 +4076,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.lessons.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLessons.update.",
@@ -4181,7 +4181,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessons",
-        "x-sdkwork-permission": "course.lessons.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -4190,7 +4189,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.lessons.write"
       }
     },
     "/backend/v3/api/courses/{courseId}/lessons/reorder": {
@@ -4293,7 +4293,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessons",
-        "x-sdkwork-permission": "course.lessons.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -4303,6 +4302,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.lessons.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLessons.update.",
@@ -4462,7 +4462,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseResources",
-        "x-sdkwork-permission": "course.resources.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -4471,7 +4470,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.resources.read"
       },
       "post": {
         "tags": [
@@ -4572,7 +4572,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseResources",
-        "x-sdkwork-permission": "course.resources.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -4582,6 +4581,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.resources.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseResources.create.",
@@ -4695,7 +4695,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseResources",
-        "x-sdkwork-permission": "course.resources.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -4705,6 +4704,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.resources.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseResources.update.",
@@ -4809,7 +4809,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseResources",
-        "x-sdkwork-permission": "course.resources.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -4818,7 +4817,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.resources.write"
       }
     },
     "/backend/v3/api/course_live_sessions": {
@@ -4959,7 +4959,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -4968,7 +4967,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.live_sessions.read"
       },
       "post": {
         "tags": [
@@ -5060,7 +5060,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -5070,6 +5069,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.live_sessions.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.create.",
@@ -5183,7 +5183,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -5192,7 +5191,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.live_sessions.read"
       },
       "patch": {
         "tags": [
@@ -5293,7 +5293,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -5303,6 +5302,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.live_sessions.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.update.",
@@ -5416,7 +5416,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.operate",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -5426,6 +5425,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.live_sessions.operate",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.start.",
@@ -5539,7 +5539,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.operate",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -5549,6 +5548,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.live_sessions.operate",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.end.",
@@ -5662,7 +5662,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.operate",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -5672,6 +5671,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.live_sessions.operate",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.cancel.",
@@ -5785,7 +5785,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -5795,6 +5794,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.live_sessions.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.replay.create.",
@@ -5908,7 +5908,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLiveSessions",
-        "x-sdkwork-permission": "course.live_sessions.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -5918,6 +5917,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.live_sessions.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.replay.publish.",
@@ -6069,7 +6069,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseEnrollments",
-        "x-sdkwork-permission": "course.enrollments.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -6078,7 +6077,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.enrollments.read"
       }
     },
     "/backend/v3/api/course_enrollments/grants": {
@@ -6172,7 +6172,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseEnrollments",
-        "x-sdkwork-permission": "course.enrollments.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -6182,6 +6181,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.enrollments.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseEnrollments.create.",
@@ -6295,7 +6295,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseEnrollments",
-        "x-sdkwork-permission": "course.enrollments.write",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -6305,6 +6304,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.enrollments.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseEnrollments.revoke.",
@@ -6456,7 +6456,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseProgress",
-        "x-sdkwork-permission": "course.progress.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -6465,7 +6464,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.progress.read"
       }
     },
     "/backend/v3/api/course_enrollments/{enrollmentId}/progress": {
@@ -6568,7 +6568,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseProgress",
-        "x-sdkwork-permission": "course.progress.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -6577,7 +6576,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.progress.read"
       }
     },
     "/backend/v3/api/course_lesson_progress/{lessonProgressId}": {
@@ -6680,7 +6680,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseLessonProgress",
-        "x-sdkwork-permission": "course.progress.repair",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -6690,6 +6689,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.progress.repair",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLessonProgress.update.",
@@ -6841,7 +6841,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseComments",
-        "x-sdkwork-permission": "course.comments.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -6850,7 +6849,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.comments.read"
       }
     },
     "/backend/v3/api/course_comments/{commentId}/moderation": {
@@ -6953,7 +6953,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseComments",
-        "x-sdkwork-permission": "course.comments.moderate",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -6963,6 +6962,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.comments.moderate",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseComments.update.",
@@ -7069,7 +7069,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseComments",
-        "x-sdkwork-permission": "course.comments.moderate",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -7078,7 +7077,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.comments.moderate"
       }
     },
     "/backend/v3/api/course_reactions": {
@@ -7219,7 +7219,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseReactions",
-        "x-sdkwork-permission": "course.reactions.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -7228,7 +7227,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.reactions.read"
       }
     },
     "/backend/v3/api/course_applications": {
@@ -7369,7 +7369,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseApplications",
-        "x-sdkwork-permission": "course.applications.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -7378,7 +7377,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.applications.read"
       }
     },
     "/backend/v3/api/course_applications/{applicationId}": {
@@ -7481,7 +7481,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseApplications",
-        "x-sdkwork-permission": "course.applications.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -7490,7 +7489,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.applications.read"
       }
     },
     "/backend/v3/api/course_applications/{applicationId}/review": {
@@ -7593,7 +7593,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseApplications",
-        "x-sdkwork-permission": "course.applications.review",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -7603,6 +7602,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.applications.review",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseApplications.update.",
@@ -7716,7 +7716,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseApplications",
-        "x-sdkwork-permission": "course.applications.review",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -7726,6 +7725,7 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.applications.review",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseApplications.convert.",
@@ -7830,7 +7830,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseReports",
-        "x-sdkwork-permission": "course.reports.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -7839,7 +7838,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.reports.read"
       }
     },
     "/backend/v3/api/course_reports/learning": {
@@ -7980,7 +7980,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseReports",
-        "x-sdkwork-permission": "course.reports.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -7989,7 +7988,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.reports.read"
       }
     },
     "/backend/v3/api/course_reports/live_sessions": {
@@ -8130,7 +8130,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseReports",
-        "x-sdkwork-permission": "course.reports.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -8139,7 +8138,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.reports.read"
       }
     },
     "/backend/v3/api/course_audit_logs": {
@@ -8280,7 +8280,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseAuditLogs",
-        "x-sdkwork-permission": "course.audit_logs.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -8289,7 +8288,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.audit_logs.read"
       }
     },
     "/backend/v3/api/course_audit_logs/{auditLogId}": {
@@ -8392,7 +8392,6 @@
         "x-sdkwork-api-authority": "sdkwork-course-backend-api",
         "x-sdkwork-domain": "content",
         "x-sdkwork-resource": "courseAuditLogs",
-        "x-sdkwork-permission": "course.audit_logs.read",
         "x-sdkwork-auth-mode": "dual-token",
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
@@ -8401,7 +8400,8 @@
         "x-sdkwork-source": "apis/backend-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-backend-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true
+        "x-sdkwork-server-request-id": true,
+        "x-sdkwork-permission": "course.audit_logs.read"
       }
     }
   },

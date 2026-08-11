@@ -44,8 +44,24 @@ export const ConsoleCourse: React.FC = () => {
   const [newSectionTitle, setNewSectionTitle] = useState('');
   const [newLessonTitle, setNewLessonTitle] = useState('');
   const [newLessonSectionId, setNewLessonSectionId] = useState('');
+  const [newLessonKind, setNewLessonKind] = useState('vod_video');
+  const [newLessonExternalSourceId, setNewLessonExternalSourceId] = useState('');
   const [creatingSection, setCreatingSection] = useState(false);
   const [creatingLesson, setCreatingLesson] = useState(false);
+  const [uploadingLessonId, setUploadingLessonId] = useState<string | null>(null);
+
+  const handleAttachResource = async (lessonId: string, file: File) => {
+    setUploadingLessonId(lessonId);
+    setError(null);
+    try {
+      const result = await courseConsoleService.attachLessonResource(lessonId, file);
+      setError(`已上传资料「${result.fileName}」并关联到课时`);
+    } catch (uploadError) {
+      setError(uploadError instanceof Error ? uploadError.message : '资料上传失败');
+    } finally {
+      setUploadingLessonId(null);
+    }
+  };
 
   const selectedCourse = courses.find((course) => course.id === selectedCourseId) ?? null;
 
@@ -181,8 +197,12 @@ export const ConsoleCourse: React.FC = () => {
       await courseConsoleService.createLesson(selectedCourseId, {
         title: newLessonTitle,
         sectionId: newLessonSectionId || undefined,
+        kind: newLessonKind,
+        externalSourceId: newLessonExternalSourceId.trim() || undefined,
+        sourceProvider: newLessonExternalSourceId.trim() ? 'bilibili' : undefined,
       });
       setNewLessonTitle('');
+      setNewLessonExternalSourceId('');
       await loadCurriculum(selectedCourseId);
       await loadCourses();
     } catch (createError) {
@@ -514,6 +534,18 @@ export const ConsoleCourse: React.FC = () => {
                       />
                       <div className="flex gap-2">
                         <select
+                          value={newLessonKind}
+                          onChange={(event) => setNewLessonKind(event.target.value)}
+                          className="flex-1 bg-console-input-bg border border-console-border rounded-lg py-2 px-3 text-sm text-console-text-main focus:ring-1 focus:ring-blue-500 outline-none"
+                        >
+                          <option value="vod_video">点播视频</option>
+                          <option value="live_session">直播</option>
+                          <option value="article">图文</option>
+                          <option value="download">资料下载</option>
+                          <option value="quiz">测验</option>
+                          <option value="assignment">作业</option>
+                        </select>
+                        <select
                           value={newLessonSectionId}
                           onChange={(event) => setNewLessonSectionId(event.target.value)}
                           className="flex-1 bg-console-input-bg border border-console-border rounded-lg py-2 px-3 text-sm text-console-text-main focus:ring-1 focus:ring-blue-500 outline-none"
@@ -525,6 +557,15 @@ export const ConsoleCourse: React.FC = () => {
                             </option>
                           ))}
                         </select>
+                      </div>
+                      <input
+                        type="text"
+                        value={newLessonExternalSourceId}
+                        onChange={(event) => setNewLessonExternalSourceId(event.target.value)}
+                        placeholder="外站视频连接(如 B 站 BV 号,可选)"
+                        className="w-full bg-console-input-bg border border-console-border rounded-lg py-2 px-3 text-sm text-console-text-main focus:ring-1 focus:ring-blue-500 outline-none"
+                      />
+                      <div className="flex justify-end">
                         <button
                           type="button"
                           disabled={creatingLesson || !newLessonTitle.trim()}
@@ -541,10 +582,41 @@ export const ConsoleCourse: React.FC = () => {
                           key={lesson.id}
                           className="rounded-lg border border-console-border px-3 py-2 text-sm text-console-text-main"
                         >
-                          {lesson.title}
-                          {lesson.sectionId ? (
-                            <span className="ml-2 text-xs text-console-text-muted">章节 {lesson.sectionId}</span>
-                          ) : null}
+                          <div className="flex items-center justify-between gap-3">
+                            <span className="min-w-0 truncate">
+                              {lesson.title}
+                              {lesson.kind ? (
+                                <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded border border-console-border text-console-text-muted">
+                                  {lesson.kind}
+                                </span>
+                              ) : null}
+                              {lesson.externalSourceId ? (
+                                <span className="ml-2 text-xs text-console-text-muted">
+                                  {lesson.externalSourceId}
+                                </span>
+                              ) : null}
+                              {lesson.sectionId ? (
+                                <span className="ml-2 text-xs text-console-text-muted">章节 {lesson.sectionId}</span>
+                              ) : null}
+                            </span>
+                            <label className="shrink-0 cursor-pointer">
+                              <input
+                                type="file"
+                                className="hidden"
+                                disabled={uploadingLessonId === lesson.id}
+                                onChange={(event) => {
+                                  const file = event.target.files?.[0];
+                                  if (file) {
+                                    void handleAttachResource(lesson.id, file);
+                                  }
+                                  event.target.value = '';
+                                }}
+                              />
+                              <span className="text-[11px] px-2 py-1 rounded-md border border-console-border text-console-text-muted hover:border-blue-500 hover:text-blue-600">
+                                {uploadingLessonId === lesson.id ? '上传中...' : '上传资料'}
+                              </span>
+                            </label>
+                          </div>
                         </div>
                       ))}
                     </div>

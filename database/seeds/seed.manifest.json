@@ -23,8 +23,10 @@
     },
     "standard": {
       "common": [
+        "common/003_top_level_categories.sql",
         "common/002_default_category.sql",
-        "001_bootstrap.sql"
+        "common/001_bootstrap.sql",
+        "common/004_bilibili_ai_courses.sql"
       ],
       "locales": {
         "zh-CN": []

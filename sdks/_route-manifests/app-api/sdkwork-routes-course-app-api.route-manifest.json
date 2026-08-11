@@ -26,7 +26,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.categories.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -60,7 +60,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.categories.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -94,7 +94,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.courses.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -128,7 +128,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.courses.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -162,7 +162,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.offerings.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -196,7 +196,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.offerings.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -366,7 +366,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.lessons.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -400,7 +400,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.lessons.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -434,7 +434,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.lessons.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -468,7 +468,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.resources.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -604,7 +604,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.live_sessions.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -638,7 +638,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.live_sessions.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -774,7 +774,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.live_sessions.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -808,7 +808,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.comments.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },

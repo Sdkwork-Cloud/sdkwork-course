@@ -260,9 +260,12 @@ impl CourseLessonRepository for PostgresCourseRepository {
         lesson_id: String,
     ) -> CourseResult<Option<CourseLessonItem>> {
         let sql = r#"
-            SELECT id, course_id, section_id, lesson_no, lesson_kind as kind, title,
-                   description, content, duration_seconds, free_preview,
-                   required_for_completion, sort_order, status
+            SELECT id, course_id, section_id, lesson_no, title,
+                   description, content, duration_seconds::bigint as duration_seconds,
+                   duration_seconds::text as duration_text,
+                   free_preview::boolean as free_preview,
+                   TRIM(BOTH '"' FROM lesson_kind) as kind, external_source_id, source_provider,
+                   required_for_completion, sort_order::bigint as sort_weight, status
             FROM course_lesson
             WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
         "#;
@@ -774,10 +777,10 @@ impl CourseApplicationRepository for PostgresCourseRepository {
         let course = sqlx::query_as::<_, CourseItem>(
             r#"
             SELECT id, course_code, title, description, cover_resource_snapshot as thumbnail,
-                   primary_instructor_id as instructor, estimated_duration_seconds as duration_text,
-                   lesson_count_snapshot as lessons_count, rating_score_snapshot as rating_score,
-                   student_count_snapshot as students_count, difficulty_level as level,
-                   category_id as category, status
+                   primary_instructor_id as instructor, estimated_duration_seconds::text as duration_text,
+                   lesson_count_snapshot::bigint as lessons_count, rating_score_snapshot as rating_score,
+                   student_count_snapshot::bigint as students_count, difficulty_level as level,
+                   category_id as category, tags_json as tags, body_content as content, status
             FROM course_catalog
             WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
             "#,
@@ -849,7 +852,8 @@ impl CourseResourceRepository for PostgresCourseRepository {
     ) -> CourseResult<Vec<Value>> {
         let sql = r#"
             SELECT id, uuid, owner_type, owner_id, resource_role, drive_resource_id,
-                   media_resource_snapshot, mime_type, duration_seconds, file_size_bytes,
+                   media_resource_snapshot, mime_type, duration_seconds::bigint as duration_seconds,
+                   file_size_bytes::bigint as file_size_bytes,
                    sort_order, visibility, status, created_at
             FROM course_resource_ref
             WHERE owner_type = $1

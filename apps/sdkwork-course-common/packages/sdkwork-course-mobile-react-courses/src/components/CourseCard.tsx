@@ -18,7 +18,23 @@ return (
       onClick={onClick}
     >
        <div className="relative w-[130px] shrink-0 aspect-[4/3] rounded-xl overflow-hidden border border-black/5 dark:border-white/5 bg-gray-100 dark:bg-gray-800">
-          <img src={course.cover} alt={course.title} className="w-full h-full object-cover" />
+          <img
+            src={course.cover}
+            alt={course.title}
+            loading="lazy"
+            decoding="async"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (!target.dataset.fallback) {
+                target.dataset.fallback = "1";
+                target.src = "";
+                target.className = "hidden";
+                target.nextElementSibling?.classList.remove("hidden");
+              }
+            }}
+            className="w-full h-full object-cover"
+          />
+          <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-500 hidden" />
           {course.type === 'live' ? (
              <div className="absolute top-1.5 left-1.5 bg-red-500/95 backdrop-blur-sm text-white text-[10px] px-1.5 py-0.5 rounded flex items-center gap-1 font-medium shadow-sm">
                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />{course.liveStatus === 'live' ? '正在直播' : '预告'}</div>
@@ -42,17 +58,19 @@ return (
           </div>
           <div className="flex flex-wrap items-end justify-between gap-2 mt-2">
              {course.isPurchased ? (
-                <span className="text-[13px] text-blue-500 font-medium bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded">已购</span>
+                <span className="text-[13px] text-blue-500 font-medium bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded">{t("course.purchased", "已购")}</span>
              ) : (
                 <div className="flex items-baseline gap-1.5">
                    <span className="text-[16px] font-bold text-red-500 leading-none">
-                     {formatMoney(course.price, {
-                       currency: "CNY",
-                       locale,
-                       mode: "symbol",
-                       minFractionDigits: 0,
-                       maxFractionDigits: 2,
-                     }) ?? "--"}
+                     {course.price > 0
+                       ? formatMoney(course.price, {
+                           currency: "CNY",
+                           locale,
+                           mode: "symbol",
+                           minFractionDigits: 0,
+                           maxFractionDigits: 2,
+                         }) ?? "--"
+                       : t("course.free", "免费")}
                    </span>
                    {course.originalPrice && course.originalPrice > course.price && (
                       <span className="text-[11px] text-text-sub line-through opacity-70">

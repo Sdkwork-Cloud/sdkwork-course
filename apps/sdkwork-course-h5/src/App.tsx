@@ -1,13 +1,9 @@
-﻿import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useAppStore, CourseSdkProvider } from '@sdkwork/sdkwork-course-h5-core'
+import React, { Suspense } from 'react'
+import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom'
 import { MobileLoginPage, MobileRegisterPage } from '@sdkwork/sdkwork-course-h5-auth'
-import { MobileCourseListPage, MobileCourseDetailPage } from '@sdkwork/sdkwork-course-h5-courses'
-import { MobileLessonPlayerPage } from '@sdkwork/sdkwork-course-h5-lessons'
-import { MobileLiveSessionListPage, MobileLiveSessionDetailPage } from '@sdkwork/sdkwork-course-h5-live'
-import { MobileMyLearningPage } from '@sdkwork/sdkwork-course-h5-progress'
-
-const queryClient = new QueryClient()
+import { useAppStore } from '@sdkwork/sdkwork-course-h5-core'
+import { AuthGate } from './AuthGate'
+import { COURSE_H5_ROUTES } from './routes/courseRoutes'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAppStore()
@@ -19,107 +15,103 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
-function App() {
+class AppErrorBoundary extends React.Component<{ children: React.ReactNode }, { error: Error | null }> {
+  state: { error: Error | null } = { error: null };
+
+  static getDerivedStateFromError(error: Error) {
+    return { error };
+  }
+
+  componentDidCatch(error: Error) {
+    console.error('Course H5 render error:', error);
+  }
+
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-8 gap-3">
+          <div className="text-4xl">⚠️</div>
+          <p className="text-sm text-gray-600 text-center">
+            页面渲染失败，请刷新重试
+          </p>
+          <p className="text-xs text-gray-400 text-center break-all max-w-xs">
+            {String(this.state.error?.message ?? this.state.error)}
+          </p>
+          <button
+            onClick={() => this.setState({ error: null })}
+            className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm active:bg-blue-700"
+          >
+            重试
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function AppShell({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAppStore()
 
   return (
-    <CourseSdkProvider>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <div className="min-h-screen bg-gray-50 flex flex-col">
-            <main className="flex-1 pb-16">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<MobileLoginPage />} />
-                <Route path="/register" element={<MobileRegisterPage />} />
-                <Route path="/courses" element={<MobileCourseListPage />} />
-                <Route path="/courses/:id" element={<MobileCourseDetailPage />} />
-                <Route
-                  path="/courses/:courseId/learn/:lessonId"
-                  element={
-                    <ProtectedRoute>
-                      <MobileLessonPlayerPage />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/live" element={<MobileLiveSessionListPage />} />
-                <Route path="/live/:id" element={<MobileLiveSessionDetailPage />} />
-                <Route
-                  path="/my"
-                  element={
-                    <ProtectedRoute>
-                      <MobileMyLearningPage />
-                    </ProtectedRoute>
-                  }
-                />
-              </Routes>
-            </main>
-            <nav className="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-2 z-50">
-              <a href="/" className="flex flex-col items-center text-xs text-gray-600 active:text-blue-600">
-                <span className="text-lg">🏠</span>
-                <span>首页</span>
-              </a>
-              <a href="/courses" className="flex flex-col items-center text-xs text-gray-600 active:text-blue-600">
-                <span className="text-lg">📚</span>
-                <span>课程</span>
-              </a>
-              <a href="/live" className="flex flex-col items-center text-xs text-gray-600 active:text-blue-600">
-                <span className="text-lg">📺</span>
-                <span>直播</span>
-              </a>
-              {isAuthenticated ? (
-                <a href="/my" className="flex flex-col items-center text-xs text-gray-600 active:text-blue-600">
-                  <span className="text-lg">👤</span>
-                  <span>我的</span>
-                </a>
-              ) : (
-                <a href="/login" className="flex flex-col items-center text-xs text-gray-600 active:text-blue-600">
-                  <span className="text-lg">👤</span>
-                  <span>登录</span>
-                </a>
-              )}
-            </nav>
-          </div>
-        </BrowserRouter>
-      </QueryClientProvider>
-    </CourseSdkProvider>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <main className="flex-1 pb-16">{children}</main>
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-2 z-50">
+        <Link to="/course" className="flex flex-col items-center text-xs text-gray-600 active:text-blue-600">
+          <span className="text-lg">📚</span>
+          <span>课程</span>
+        </Link>
+        <Link to="/course" className="flex flex-col items-center text-xs text-gray-600 active:text-blue-600">
+          <span className="text-lg">📺</span>
+          <span>直播</span>
+        </Link>
+        {isAuthenticated ? (
+          <Link to="/course/my" className="flex flex-col items-center text-xs text-gray-600 active:text-blue-600">
+            <span className="text-lg">👤</span>
+            <span>我的</span>
+          </Link>
+        ) : (
+          <Link to="/login" className="flex flex-col items-center text-xs text-gray-600 active:text-blue-600">
+            <span className="text-lg">👤</span>
+            <span>登录</span>
+          </Link>
+        )}
+      </nav>
+    </div>
   )
 }
 
-function HomePage() {
-  const { isAuthenticated } = useAppStore()
-
+function App() {
   return (
-    <div className="p-4">
-      <div className="mb-4">
-        {isAuthenticated ? (
-          <h2 className="text-xl font-bold">欢迎回来</h2>
-        ) : (
-          <h2 className="text-xl font-bold">欢迎来到在线课程平台</h2>
-        )}
-      </div>
-      <div className="space-y-4">
-        <a href="/courses" className="block bg-white rounded-lg shadow p-4 active:bg-gray-50 transition-colors">
-          <h3 className="font-semibold mb-2">热门课程</h3>
-          <p className="text-sm text-gray-600">探索我们的精品课程</p>
-        </a>
-        <a href="/live" className="block bg-white rounded-lg shadow p-4 active:bg-gray-50 transition-colors">
-          <h3 className="font-semibold mb-2">直播课堂</h3>
-          <p className="text-sm text-gray-600">参与实时互动学习</p>
-        </a>
-        {isAuthenticated ? (
-          <a href="/my" className="block bg-white rounded-lg shadow p-4 active:bg-gray-50 transition-colors">
-            <h3 className="font-semibold mb-2">我的学习</h3>
-            <p className="text-sm text-gray-600">查看学习进度</p>
-          </a>
-        ) : (
-          <a href="/register" className="block bg-white rounded-lg shadow p-4 active:bg-gray-50 transition-colors">
-            <h3 className="font-semibold mb-2">立即注册</h3>
-            <p className="text-sm text-gray-600">开始你的学习之旅</p>
-          </a>
-        )}
-      </div>
-    </div>
+    <BrowserRouter>
+      <AuthGate>
+        <AppShell>
+          <AppErrorBoundary>
+          <Suspense fallback={<div className="p-8 text-center text-gray-500 text-sm">加载中...</div>}>
+            <Routes>
+              <Route path="/" element={<Navigate to="/course" replace />} />
+              <Route path="/login" element={<MobileLoginPage />} />
+              <Route path="/register" element={<MobileRegisterPage />} />
+              {COURSE_H5_ROUTES.map((route) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={
+                    route.path === '/course/my' ? (
+                      <ProtectedRoute>{route.element}</ProtectedRoute>
+                    ) : (
+                      route.element
+                    )
+                  }
+                />
+              ))}
+              <Route path="*" element={<Navigate to="/course" replace />} />
+            </Routes>
+          </Suspense>
+          </AppErrorBoundary>
+        </AppShell>
+      </AuthGate>
+    </BrowserRouter>
   )
 }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { PlayCircle } from "lucide-react";
 import { CourseData } from "../services/CourseService";
 import { NavigateFunction } from "react-router";
@@ -14,6 +15,7 @@ export const CourseHeroHeader: React.FC<CourseHeroHeaderProps> = ({
   id,
   navigate,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="relative aspect-[4/3] w-full bg-black">
       <img
@@ -24,7 +26,7 @@ export const CourseHeroHeader: React.FC<CourseHeroHeaderProps> = ({
       <div className="absolute inset-0 bg-gradient-to-t from-[#F2F2F7] dark:from-black via-transparent to-black/20" />
       <div className="absolute inset-0 flex items-center justify-center">
         <div
-          className="w-16 h-16 bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer hover:bg-white/40 transition-colors"
+          className="w-16 h-16 bg-white/30 dark:bg-white/15 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer hover:bg-white/40 dark:hover:bg-white/25 transition-colors"
           onClick={() => {
             if (course.type === "live") {
               if (course.isPurchased) {
@@ -45,7 +47,7 @@ export const CourseHeroHeader: React.FC<CourseHeroHeaderProps> = ({
       {course.type === "live" && (
         <div className="absolute top-[80px] right-4 bg-red-500/90 backdrop-blur-sm text-white text-[12px] px-3 py-1.5 rounded-full flex items-center gap-1.5 font-medium shadow-lg">
           <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-          正在直播中
+          {t("course.liveNow", "正在直播中")}
         </div>
       )}
     </div>

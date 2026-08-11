@@ -7,7 +7,6 @@ import {
   persistIamSession,
   assertIamSessionTokens,
 } from '@sdkwork/sdkwork-course-h5-core'
-import { MobilePageHeader } from '@sdkwork/sdkwork-course-h5-commons'
 
 export function MobileLoginPage() {
   const navigate = useNavigate()
@@ -40,7 +39,12 @@ export function MobileLoginPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <MobilePageHeader title="登录" showBack onBack={() => navigate(-1)} />
+      <div className="bg-white border-b px-4 py-3 flex items-center gap-3">
+        <button onClick={() => navigate(-1)} className="text-sm text-gray-600">
+          ← 返回
+        </button>
+        <h1 className="font-semibold">登录</h1>
+      </div>
 
       <div className="p-4">
         <div className="mb-6">

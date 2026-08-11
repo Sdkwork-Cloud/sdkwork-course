@@ -34,6 +34,20 @@ pub enum CourseLessonKind {
     Assignment,
 }
 
+impl CourseLessonKind {
+    /// Canonical snake_case wire value stored in `course_lesson.lesson_kind`.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::VodVideo => "vod_video",
+            Self::LiveSession => "live_session",
+            Self::Article => "article",
+            Self::Download => "download",
+            Self::Quiz => "quiz",
+            Self::Assignment => "assignment",
+        }
+    }
+}
+
 #[derive(Debug, Clone, Default, Deserialize, Serialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]
 pub enum CourseProgressStatus {
@@ -95,6 +109,10 @@ pub struct CourseLessonCommand {
     pub duration_seconds: Option<i64>,
     pub free_preview: bool,
     pub resources: Vec<CourseMediaResourceRef>,
+    /// External source id (e.g. bilibili BV id) for connected lessons.
+    pub external_source_id: Option<String>,
+    /// External source provider (`bilibili`, `manual`, ...).
+    pub source_provider: Option<String>,
 }
 
 #[derive(Debug, Clone, Default, Deserialize, Serialize, PartialEq, Eq)]

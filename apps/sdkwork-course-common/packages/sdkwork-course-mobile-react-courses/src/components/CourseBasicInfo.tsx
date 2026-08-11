@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Star, Users, Clock } from "lucide-react";
 import { CourseData } from "../services/CourseService";
 
@@ -7,6 +8,7 @@ interface CourseBasicInfoProps {
 }
 
 export const CourseBasicInfo: React.FC<CourseBasicInfoProps> = ({ course }) => {
+  const { t } = useTranslation();
   return (
     <div className="px-5 py-5 bg-white dark:bg-[#1C1C1E] rounded-t-[32px] -mt-8 relative z-10 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.3)] border-b border-black/5 dark:border-white/5">
       <div className="flex items-center gap-2 mb-3.5">
@@ -17,7 +19,7 @@ export const CourseBasicInfo: React.FC<CourseBasicInfoProps> = ({ course }) => {
               : "bg-blue-500 text-white border border-blue-500"
           }`}
         >
-          {course.type === "live" ? "直播特训" : "精品专栏"}
+          {course.type === "live" ? t("course.liveTraining", "直播特训") : t("course.premiumSeries", "精品专栏")}
         </span>
         <div className="flex items-center gap-1 text-orange-500 text-[13px] font-bold">
           <Star className="w-3.5 h-3.5 fill-orange-500" />
@@ -31,7 +33,7 @@ export const CourseBasicInfo: React.FC<CourseBasicInfoProps> = ({ course }) => {
 
       <div className="flex items-center gap-6 pb-2">
         <div className="flex flex-col gap-1">
-          <span className="text-[11px] text-text-sub">参与人数</span>
+          <span className="text-[11px] text-text-sub">{t("course.studentsCount", "参与人数")}</span>
           <div className="flex items-center gap-1.5 text-text-main text-[13px] font-medium">
             <Users className="w-4 h-4 opacity-70" />
             <span>
@@ -43,10 +45,10 @@ export const CourseBasicInfo: React.FC<CourseBasicInfoProps> = ({ course }) => {
         </div>
         <div className="w-[1px] h-8 bg-black/5 dark:bg-white/10" />
         <div className="flex flex-col gap-1">
-          <span className="text-[11px] text-text-sub">课程容量</span>
+          <span className="text-[11px] text-text-sub">{t("course.courseCapacity", "课程容量")}</span>
           <div className="flex items-center gap-1.5 text-text-main text-[13px] font-medium">
             <Clock className="w-4 h-4 opacity-70" />
-            <span>{course.totalLessons || "-"} 节详尽内容</span>
+            <span>{course.totalLessons || "-"} {t("course.lessonUnits", "节详尽内容")}</span>
           </div>
         </div>
       </div>

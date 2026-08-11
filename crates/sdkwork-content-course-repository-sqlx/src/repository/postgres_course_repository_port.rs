@@ -35,7 +35,7 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
 
             let sql = r#"
                 SELECT id, category_code as code, name, description, icon_resource_snapshot as icon_key,
-                       sort_order as sort_weight, course_count_snapshot as course_count
+                       sort_order::bigint as sort_weight, course_count_snapshot::bigint as course_count
                 FROM course_category
                 WHERE tenant_id = $1 
                   AND (organization_id = $2 OR organization_id = '0')
@@ -267,7 +267,7 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 let category = sqlx::query_as::<_, CourseCategoryItem>(
                     r#"
                     SELECT id, category_code as code, name, description, icon_resource_snapshot as icon_key,
-                           sort_order as sort_weight, course_count_snapshot as course_count
+                           sort_order::bigint as sort_weight, course_count_snapshot::bigint as course_count
                     FROM course_category
                     WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
                     "#
@@ -625,10 +625,10 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
             let courses = sqlx::query_as::<_, CourseItem>(
                 r#"
                 SELECT id, course_code, title, description, cover_resource_snapshot as thumbnail,
-                       primary_instructor_id as instructor, estimated_duration_seconds as duration_text,
-                       lesson_count_snapshot as lessons_count, rating_score_snapshot as rating_score,
-                       student_count_snapshot as students_count, difficulty_level as level,
-                       category_id as category, status
+                       primary_instructor_id as instructor, estimated_duration_seconds::text as duration_text,
+                       lesson_count_snapshot::bigint as lessons_count, rating_score_snapshot as rating_score,
+                       student_count_snapshot::bigint as students_count, difficulty_level as level,
+                       category_id as category, tags_json as tags, body_content as content, status
                 FROM course_catalog
                 WHERE tenant_id = $1 
                   AND (organization_id = $2 OR organization_id = '0')
@@ -671,10 +671,10 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
             let course = sqlx::query_as::<_, CourseItem>(
                 r#"
                 SELECT id, course_code, title, description, cover_resource_snapshot as thumbnail,
-                       primary_instructor_id as instructor, estimated_duration_seconds as duration_text,
-                       lesson_count_snapshot as lessons_count, rating_score_snapshot as rating_score,
-                       student_count_snapshot as students_count, difficulty_level as level,
-                       category_id as category, tags_json as tags, status
+                       primary_instructor_id as instructor, estimated_duration_seconds::text as duration_text,
+                       lesson_count_snapshot::bigint as lessons_count, rating_score_snapshot as rating_score,
+                       student_count_snapshot::bigint as students_count, difficulty_level as level,
+                       category_id as category, tags_json as tags, body_content as content, status
                 FROM course_catalog
                 WHERE id = $1 
                   AND tenant_id = $2 
@@ -775,10 +775,10 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 let course = sqlx::query_as::<_, CourseItem>(
                     r#"
                     SELECT id, course_code, title, description, cover_resource_snapshot as thumbnail,
-                           primary_instructor_id as instructor, estimated_duration_seconds as duration_text,
-                           lesson_count_snapshot as lessons_count, rating_score_snapshot as rating_score,
-                           student_count_snapshot as students_count, difficulty_level as level,
-                           category_id as category, tags_json as tags, status
+                           primary_instructor_id as instructor, estimated_duration_seconds::text as duration_text,
+                           lesson_count_snapshot::bigint as lessons_count, rating_score_snapshot as rating_score,
+                           student_count_snapshot::bigint as students_count, difficulty_level as level,
+                           category_id as category, tags_json as tags, body_content as content, status
                     FROM course_catalog
                     WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
                     "#
@@ -830,10 +830,10 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 let course = sqlx::query_as::<_, CourseItem>(
                     r#"
                     SELECT id, course_code, title, description, cover_resource_snapshot as thumbnail,
-                           primary_instructor_id as instructor, estimated_duration_seconds as duration_text,
-                           lesson_count_snapshot as lessons_count, rating_score_snapshot as rating_score,
-                           student_count_snapshot as students_count, difficulty_level as level,
-                           category_id as category, tags_json as tags, status
+                           primary_instructor_id as instructor, estimated_duration_seconds::text as duration_text,
+                           lesson_count_snapshot::bigint as lessons_count, rating_score_snapshot as rating_score,
+                           student_count_snapshot::bigint as students_count, difficulty_level as level,
+                           category_id as category, tags_json as tags, body_content as content, status
                     FROM course_catalog
                     WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
                     "#
@@ -931,10 +931,10 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
             let course = sqlx::query_as::<_, CourseItem>(
                 r#"
                 SELECT id, course_code, title, description, cover_resource_snapshot as thumbnail,
-                       primary_instructor_id as instructor, estimated_duration_seconds as duration_text,
-                       lesson_count_snapshot as lessons_count, rating_score_snapshot as rating_score,
-                       student_count_snapshot as students_count, difficulty_level as level,
-                       category_id as category, tags_json as tags, status
+                       primary_instructor_id as instructor, estimated_duration_seconds::text as duration_text,
+                       lesson_count_snapshot::bigint as lessons_count, rating_score_snapshot as rating_score,
+                       student_count_snapshot::bigint as students_count, difficulty_level as level,
+                       category_id as category, tags_json as tags, body_content as content, status
                 FROM course_catalog
                 WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
                 "#
@@ -984,10 +984,10 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
             let course = sqlx::query_as::<_, CourseItem>(
                 r#"
                 SELECT id, course_code, title, description, cover_resource_snapshot as thumbnail,
-                       primary_instructor_id as instructor, estimated_duration_seconds as duration_text,
-                       lesson_count_snapshot as lessons_count, rating_score_snapshot as rating_score,
-                       student_count_snapshot as students_count, difficulty_level as level,
-                       category_id as category, tags_json as tags, status
+                       primary_instructor_id as instructor, estimated_duration_seconds::text as duration_text,
+                       lesson_count_snapshot::bigint as lessons_count, rating_score_snapshot as rating_score,
+                       student_count_snapshot::bigint as students_count, difficulty_level as level,
+                       category_id as category, tags_json as tags, body_content as content, status
                 FROM course_catalog
                 WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
                 "#
@@ -1248,8 +1248,8 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
             let sections = sqlx::query_as::<_, CourseSectionItem>(
                 r#"
                 SELECT id, course_id, section_no, title, description,
-                       lesson_count_snapshot as lesson_count, duration_seconds_snapshot as duration_seconds,
-                       sort_order as sort_weight, status
+                       lesson_count_snapshot::bigint as lesson_count, duration_seconds_snapshot::bigint as duration_seconds,
+                       sort_order::bigint as sort_weight, status
                 FROM course_section
                 WHERE course_id = $1 
                   AND tenant_id = $2 
@@ -1330,8 +1330,8 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 let section = sqlx::query_as::<_, CourseSectionItem>(
                     r#"
                     SELECT id, course_id, section_no, title, description,
-                           lesson_count_snapshot as lesson_count, duration_seconds_snapshot as duration_seconds,
-                           sort_order as sort_weight, status
+                           lesson_count_snapshot::bigint as lesson_count, duration_seconds_snapshot::bigint as duration_seconds,
+                           sort_order::bigint as sort_weight, status
                     FROM course_section
                     WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
                     "#
@@ -1378,8 +1378,8 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 let section = sqlx::query_as::<_, CourseSectionItem>(
                     r#"
                     SELECT id, course_id, section_no, title, description,
-                           lesson_count_snapshot as lesson_count, duration_seconds_snapshot as duration_seconds,
-                           sort_order as sort_weight, status
+                           lesson_count_snapshot::bigint as lesson_count, duration_seconds_snapshot::bigint as duration_seconds,
+                           sort_order::bigint as sort_weight, status
                     FROM course_section
                     WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
                     "#
@@ -1445,8 +1445,8 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
             let sections = sqlx::query_as::<_, CourseSectionItem>(
                 r#"
                 SELECT id, course_id, section_no, title, description,
-                       lesson_count_snapshot as lesson_count, duration_seconds_snapshot as duration_seconds,
-                       sort_order as sort_weight, status
+                       lesson_count_snapshot::bigint as lesson_count, duration_seconds_snapshot::bigint as duration_seconds,
+                       sort_order::bigint as sort_weight, status
                 FROM course_section
                 WHERE course_id = $1 AND tenant_id = $2 AND deleted_at IS NULL
                 ORDER BY sort_order ASC
@@ -1471,8 +1471,9 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
             let lessons = sqlx::query_as::<_, CourseLessonItem>(
                 r#"
                 SELECT id, course_id, section_id, lesson_no, title, description,
-                       content, duration_seconds, duration_seconds as duration_text,
-                       free_preview, sort_order as sort_weight, status
+                       content, duration_seconds::bigint as duration_seconds, duration_seconds::text as duration_text,
+                       free_preview::boolean as free_preview, sort_order::bigint as sort_weight, status,
+                       TRIM(BOTH '"' FROM lesson_kind) as kind, external_source_id, source_provider
                 FROM course_lesson
                 WHERE course_id = $1 
                   AND tenant_id = $2 
@@ -1509,20 +1510,20 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                     r#"
                     UPDATE course_lesson 
                     SET section_id = $1, lesson_kind = $2, title = $3, description = $4,
-                        duration_seconds = $5, free_preview = $6, updated_at = $7,
-                        updated_by = $8, version = version + 1
-                    WHERE id = $9 AND course_id = $10 AND tenant_id = $11 AND deleted_at IS NULL
+                        duration_seconds = $5, free_preview = $6, external_source_id = $7,
+                        source_provider = $8, updated_at = $9,
+                        updated_by = $10, version = version + 1
+                    WHERE id = $11 AND course_id = $12 AND tenant_id = $13 AND deleted_at IS NULL
                     "#,
                 )
                 .bind(&command.section_id)
-                .bind(
-                    serde_json::to_string(&command.lesson_kind)
-                        .unwrap_or_else(|_| "\"vod_video\"".to_string()),
-                )
+                .bind(command.lesson_kind.as_str())
                 .bind(&command.title)
                 .bind(&command.summary)
                 .bind(command.duration_seconds.unwrap_or(0))
                 .bind(command.free_preview)
+                .bind(&command.external_source_id)
+                .bind(&command.source_provider)
                 .bind(&now)
                 .bind(&context.actor_id)
                 .bind(lesson_id)
@@ -1590,8 +1591,9 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 let lesson = sqlx::query_as::<_, CourseLessonItem>(
                     r#"
                     SELECT id, course_id, section_id, lesson_no, title, description,
-                           content, duration_seconds, duration_seconds as duration_text,
-                           free_preview, sort_order as sort_weight, status
+                           content, duration_seconds::bigint as duration_seconds, duration_seconds::text as duration_text,
+                           free_preview::boolean as free_preview, sort_order::bigint as sort_weight, status,
+                           TRIM(BOTH '"' FROM lesson_kind) as kind, external_source_id, source_provider
                     FROM course_lesson
                     WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
                     "#,
@@ -1613,9 +1615,9 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                     INSERT INTO course_lesson (
                         id, uuid, tenant_id, organization_id, course_id, section_id,
                         lesson_no, lesson_kind, title, description, duration_seconds,
-                        free_preview, sort_order, status, created_at, created_by,
+                        free_preview, external_source_id, source_provider, sort_order, status, created_at, created_by,
                         updated_at, updated_by, version
-                    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, 0, 'draft', $13, $14, $15, $16, 0)
+                    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 0, 'draft', $15, $16, $17, $18, 0)
                     "#
                 )
                 .bind(&id)
@@ -1625,11 +1627,13 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 .bind(&command.course_id)
                 .bind(&command.section_id)
                 .bind(&lesson_no)
-                .bind(serde_json::to_string(&command.lesson_kind).unwrap_or_else(|_| "\"vod_video\"".to_string()))
+                .bind(command.lesson_kind.as_str())
                 .bind(&command.title)
                 .bind(&command.summary)
                 .bind(command.duration_seconds.unwrap_or(0))
                 .bind(command.free_preview)
+                .bind(&command.external_source_id)
+                .bind(&command.source_provider)
                 .bind(&now)
                 .bind(&context.actor_id)
                 .bind(&now)
@@ -1680,8 +1684,9 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 let lesson = sqlx::query_as::<_, CourseLessonItem>(
                     r#"
                     SELECT id, course_id, section_id, lesson_no, title, description,
-                           content, duration_seconds, duration_seconds as duration_text,
-                           free_preview, sort_order as sort_weight, status
+                           content, duration_seconds::bigint as duration_seconds, duration_seconds::text as duration_text,
+                           free_preview::boolean as free_preview, sort_order::bigint as sort_weight, status,
+                           TRIM(BOTH '"' FROM lesson_kind) as kind, external_source_id, source_provider
                     FROM course_lesson
                     WHERE id = $1 AND tenant_id = $2 AND deleted_at IS NULL
                     "#,
@@ -1747,8 +1752,9 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
             let lessons = sqlx::query_as::<_, CourseLessonItem>(
                 r#"
                 SELECT id, course_id, section_id, lesson_no, title, description,
-                       content, duration_seconds, duration_seconds as duration_text,
-                       free_preview, sort_order as sort_weight, status
+                       content, duration_seconds::bigint as duration_seconds, duration_seconds::text as duration_text,
+                       free_preview::boolean as free_preview, sort_order::bigint as sort_weight, status,
+                       TRIM(BOTH '"' FROM lesson_kind) as kind, external_source_id, source_provider
                 FROM course_lesson
                 WHERE course_id = $1 AND tenant_id = $2 AND deleted_at IS NULL
                 ORDER BY sort_order ASC

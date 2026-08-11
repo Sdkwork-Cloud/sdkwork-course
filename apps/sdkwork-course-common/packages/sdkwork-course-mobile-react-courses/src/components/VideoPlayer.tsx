@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { Loader2 } from "lucide-react";
 import { VideoPlayerHeader } from "./video-player/VideoPlayerHeader";
 import { VideoPlayerSeekFeedback } from "./video-player/VideoPlayerSeekFeedback";
@@ -9,9 +10,12 @@ export interface VideoPlayerProps {
   isPlaying: boolean;
   setIsPlaying: (isPlaying: boolean) => void;
   onEnded?: () => void;
+  /** Playback progress callback (timeupdate); hosts throttle reporting. */
+  onProgress?: (currentTime: number, duration: number) => void;
 }
 
-export const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, isPlaying, setIsPlaying, onEnded }) => {
+export const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, isPlaying, setIsPlaying, onEnded, onProgress }) => {
+  const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
@@ -19,6 +23,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, isPlaying, s
   const [durationStr, setDurationStr] = useState("00:00");
   const [showControls, setShowControls] = useState(true);
   const [isBuffering, setIsBuffering] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [isScrubbing, setIsScrubbing] = useState(false);
   const [showSeekFeedback, setShowSeekFeedback] = useState<{ type: 'forward' | 'backward', show: boolean }>({ type: 'forward', show: false });
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -32,6 +37,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, isPlaying, s
     setProgress(0);
     setCurrentTime("00:00");
     setIsBuffering(true);
+    setLoadError(false);
     if (videoRef.current) {
        videoRef.current.load();
        if (isPlaying) {
@@ -70,9 +76,10 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, isPlaying, s
       setCurrentTime(formatTime(current));
       if (duration > 0) {
         setProgress((current / duration) * 100);
+        onProgress?.(current, duration);
       }
     }
-  }, [isScrubbing]);
+  }, [isScrubbing, onProgress]);
 
   const handleLoadedMetadata = () => {
     if (videoRef.current) {
@@ -204,6 +211,11 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, isPlaying, s
              onPlaying={() => setIsBuffering(false)}
              onCanPlay={() => setIsBuffering(false)}
              onLoadedData={() => setIsBuffering(false)}
+             onError={() => {
+                setIsBuffering(false);
+                setIsPlaying(false);
+                setLoadError(true);
+             }}
              onEnded={() => {
                 setIsPlaying(false);
                 onEnded?.();
@@ -213,9 +225,18 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, isPlaying, s
           />
           
           {/* Buffering Indicator */}
-          {isBuffering && (
+          {isBuffering && !loadError && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                <Loader2 className="w-10 h-10 text-white/80 animate-spin drop-shadow-md" />
+            </div>
+          )}
+
+          {/* Load error overlay */}
+          {loadError && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-8 pointer-events-none">
+              <p className="text-white/90 text-[13px] text-center">
+                {t("course.videoLoadFailed", "视频加载失败，请检查网络后重试")}
+              </p>
             </div>
           )}
 
