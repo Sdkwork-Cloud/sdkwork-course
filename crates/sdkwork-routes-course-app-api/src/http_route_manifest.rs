@@ -60,7 +60,7 @@ const HTTP_ROUTES: &[HttpRoute] = &[
         HttpMethod::Delete,
         "/app/v3/api/course_enrollments/{enrollmentId}",
         "course",
-        "courseEnrollments.cancel",
+        "courseEnrollments.delete",
     ).with_required_permission("course.enrollments.write"),
     HttpRoute::dual_token(
         HttpMethod::Get,
@@ -162,7 +162,7 @@ const HTTP_ROUTES: &[HttpRoute] = &[
         HttpMethod::Put,
         "/app/v3/api/course_reactions",
         "course",
-        "courseReactions.replace",
+        "courseReactions.update",
     ).with_required_permission("course.reactions.write"),
     HttpRoute::dual_token(
         HttpMethod::Delete,

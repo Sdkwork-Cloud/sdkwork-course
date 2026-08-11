@@ -24,7 +24,7 @@
         "courseCategories"
       ],
       "auth": {
-        "mode": "dual-token-or-anonymous",
+        "mode": "dual-token",
         "required": true,
         "permission": "course.categories.read",
         "tenantScope": "tenant",
@@ -58,7 +58,7 @@
         "courseCategories"
       ],
       "auth": {
-        "mode": "dual-token-or-anonymous",
+        "mode": "dual-token",
         "required": true,
         "permission": "course.categories.read",
         "tenantScope": "tenant",
@@ -92,7 +92,7 @@
         "courses"
       ],
       "auth": {
-        "mode": "dual-token-or-anonymous",
+        "mode": "dual-token",
         "required": true,
         "permission": "course.courses.read",
         "tenantScope": "tenant",
@@ -126,7 +126,7 @@
         "courses"
       ],
       "auth": {
-        "mode": "dual-token-or-anonymous",
+        "mode": "dual-token",
         "required": true,
         "permission": "course.courses.read",
         "tenantScope": "tenant",
@@ -160,7 +160,7 @@
         "courseOfferings"
       ],
       "auth": {
-        "mode": "dual-token-or-anonymous",
+        "mode": "dual-token",
         "required": true,
         "permission": "course.offerings.read",
         "tenantScope": "tenant",
@@ -194,7 +194,7 @@
         "courseOfferings"
       ],
       "auth": {
-        "mode": "dual-token-or-anonymous",
+        "mode": "dual-token",
         "required": true,
         "permission": "course.offerings.read",
         "tenantScope": "tenant",
@@ -364,7 +364,7 @@
         "courseSections"
       ],
       "auth": {
-        "mode": "dual-token-or-anonymous",
+        "mode": "dual-token",
         "required": true,
         "permission": "course.lessons.read",
         "tenantScope": "tenant",
@@ -398,7 +398,7 @@
         "courseLessons"
       ],
       "auth": {
-        "mode": "dual-token-or-anonymous",
+        "mode": "dual-token",
         "required": true,
         "permission": "course.lessons.read",
         "tenantScope": "tenant",
@@ -432,7 +432,7 @@
         "courseLessons"
       ],
       "auth": {
-        "mode": "dual-token-or-anonymous",
+        "mode": "dual-token",
         "required": true,
         "permission": "course.lessons.read",
         "tenantScope": "tenant",
@@ -806,7 +806,7 @@
         "courseComments"
       ],
       "auth": {
-        "mode": "dual-token-or-anonymous",
+        "mode": "dual-token",
         "required": true,
         "permission": "course.comments.read",
         "tenantScope": "tenant",

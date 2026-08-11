@@ -14,7 +14,7 @@
       "path": "/app/v3/api/course_categories",
       "operationId": "courseCategories.list",
       "resource": "courseCategories",
-      "authMode": "dual-token-or-anonymous",
+      "authMode": "dual-token",
       "permission": "course.categories.read"
     },
     {
@@ -22,7 +22,7 @@
       "path": "/app/v3/api/course_categories/{categoryId}",
       "operationId": "courseCategories.retrieve",
       "resource": "courseCategories",
-      "authMode": "dual-token-or-anonymous",
+      "authMode": "dual-token",
       "permission": "course.categories.read"
     },
     {
@@ -30,7 +30,7 @@
       "path": "/app/v3/api/courses",
       "operationId": "courses.list",
       "resource": "courses",
-      "authMode": "dual-token-or-anonymous",
+      "authMode": "dual-token",
       "permission": "course.courses.read"
     },
     {
@@ -38,7 +38,7 @@
       "path": "/app/v3/api/courses/{courseId}",
       "operationId": "courses.retrieve",
       "resource": "courses",
-      "authMode": "dual-token-or-anonymous",
+      "authMode": "dual-token",
       "permission": "course.courses.read"
     },
     {
@@ -46,7 +46,7 @@
       "path": "/app/v3/api/courses/{courseId}/offerings",
       "operationId": "courseOfferings.list",
       "resource": "courseOfferings",
-      "authMode": "dual-token-or-anonymous",
+      "authMode": "dual-token",
       "permission": "course.offerings.read"
     },
     {
@@ -54,7 +54,7 @@
       "path": "/app/v3/api/course_offerings/{offeringId}",
       "operationId": "courseOfferings.retrieve",
       "resource": "courseOfferings",
-      "authMode": "dual-token-or-anonymous",
+      "authMode": "dual-token",
       "permission": "course.offerings.read"
     },
     {
@@ -95,7 +95,7 @@
       "path": "/app/v3/api/courses/{courseId}/sections",
       "operationId": "courseSections.list",
       "resource": "courseSections",
-      "authMode": "dual-token-or-anonymous",
+      "authMode": "dual-token",
       "permission": "course.lessons.read"
     },
     {
@@ -103,7 +103,7 @@
       "path": "/app/v3/api/courses/{courseId}/lessons",
       "operationId": "courseLessons.list",
       "resource": "courseLessons",
-      "authMode": "dual-token-or-anonymous",
+      "authMode": "dual-token",
       "permission": "course.lessons.read"
     },
     {
@@ -111,7 +111,7 @@
       "path": "/app/v3/api/course_lessons/{lessonId}",
       "operationId": "courseLessons.retrieve",
       "resource": "courseLessons",
-      "authMode": "dual-token-or-anonymous",
+      "authMode": "dual-token",
       "permission": "course.lessons.read"
     },
     {
@@ -201,7 +201,7 @@
       "path": "/app/v3/api/courses/{courseId}/comments",
       "operationId": "courseComments.list",
       "resource": "courseComments",
-      "authMode": "dual-token-or-anonymous",
+      "authMode": "dual-token",
       "permission": "course.comments.read"
     },
     {
