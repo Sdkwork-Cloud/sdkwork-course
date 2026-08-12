@@ -229,7 +229,6 @@ pub struct CourseApplicationItem {
     pub id: String,
     pub title: String,
     pub category: String,
-    pub source_provider: String,
     pub status: String,
     pub contact_name: Option<String>,
     pub submitted_at: String,

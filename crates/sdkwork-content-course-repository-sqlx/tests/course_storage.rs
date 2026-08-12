@@ -39,8 +39,11 @@ async fn course_repository_applies_the_database_baseline_schema() {
         .map(|table_name| format!("'{table_name}'"))
         .collect::<Vec<_>>()
         .join(", ");
+    // The baseline DDL creates tables without a schema qualifier, so they land
+    // in the connection's search_path schema (e.g. `sdkwork_ai_dev`) rather
+    // than `public`. Count in the session schema to stay environment-agnostic.
     let sql = format!(
-        "SELECT COUNT(1) FROM information_schema.tables WHERE table_schema = 'public' AND table_name IN ({table_names})"
+        "SELECT COUNT(1) FROM information_schema.tables WHERE table_schema = current_schema() AND table_name IN ({table_names})"
     );
     let table_count: i64 = sqlx::query_scalar(sqlx::AssertSqlSafe(sql))
         .fetch_one(&pool)

@@ -57,32 +57,28 @@
       "operationId": "courseEnrollments.create",
       "resource": "courseEnrollments",
       "authMode": "dual-token",
-      "permission": "course.enrollments.write",
-      "idempotency": "required"
+      "idempotency": "recommended"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/course_enrollments",
       "operationId": "courseEnrollments.current.list",
       "resource": "courseEnrollments",
-      "authMode": "dual-token",
-      "permission": "course.enrollments.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/course_enrollments/{enrollmentId}",
       "operationId": "courseEnrollments.retrieve",
       "resource": "courseEnrollments",
-      "authMode": "dual-token",
-      "permission": "course.enrollments.read"
+      "authMode": "dual-token"
     },
     {
       "method": "DELETE",
       "path": "/app/v3/api/course_enrollments/{enrollmentId}",
       "operationId": "courseEnrollments.delete",
       "resource": "courseEnrollments",
-      "authMode": "dual-token",
-      "permission": "course.enrollments.write"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
@@ -117,8 +113,7 @@
       "path": "/app/v3/api/course_enrollments/{enrollmentId}/progress",
       "operationId": "courseProgress.retrieve",
       "resource": "courseProgress",
-      "authMode": "dual-token",
-      "permission": "course.progress.read"
+      "authMode": "dual-token"
     },
     {
       "method": "PATCH",
@@ -126,7 +121,6 @@
       "operationId": "courseLessonProgress.update",
       "resource": "courseLessonProgress",
       "authMode": "dual-token",
-      "permission": "course.progress.write",
       "idempotency": "recommended"
     },
     {
@@ -134,8 +128,7 @@
       "path": "/app/v3/api/course_lessons/{lessonId}/watch_position",
       "operationId": "courseLessonProgress.watchPositions.update",
       "resource": "courseLessonProgress",
-      "authMode": "dual-token",
-      "permission": "course.progress.write"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
@@ -157,7 +150,6 @@
       "operationId": "courseLiveSessions.join",
       "resource": "courseLiveSessions",
       "authMode": "dual-token",
-      "permission": "course.live_sessions.join",
       "idempotency": "recommended"
     },
     {
@@ -165,16 +157,14 @@
       "path": "/app/v3/api/course_live_sessions/{liveSessionId}/heartbeat",
       "operationId": "courseLiveSessions.heartbeat",
       "resource": "courseLiveSessions",
-      "authMode": "dual-token",
-      "permission": "course.live_sessions.join"
+      "authMode": "dual-token"
     },
     {
       "method": "POST",
       "path": "/app/v3/api/course_live_sessions/{liveSessionId}/leave",
       "operationId": "courseLiveSessions.leave",
       "resource": "courseLiveSessions",
-      "authMode": "dual-token",
-      "permission": "course.live_sessions.join"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
@@ -196,7 +186,6 @@
       "operationId": "courseComments.create",
       "resource": "courseComments",
       "authMode": "dual-token",
-      "permission": "course.comments.write",
       "idempotency": "recommended"
     },
     {
@@ -204,8 +193,7 @@
       "path": "/app/v3/api/course_comments/{commentId}",
       "operationId": "courseComments.delete",
       "resource": "courseComments",
-      "authMode": "dual-token",
-      "permission": "course.comments.write"
+      "authMode": "dual-token"
     },
     {
       "method": "PUT",
@@ -213,7 +201,6 @@
       "operationId": "courseReactions.update",
       "resource": "courseReactions",
       "authMode": "dual-token",
-      "permission": "course.reactions.write",
       "idempotency": "recommended"
     },
     {
@@ -221,8 +208,7 @@
       "path": "/app/v3/api/course_reactions/{reactionId}",
       "operationId": "courseReactions.delete",
       "resource": "courseReactions",
-      "authMode": "dual-token",
-      "permission": "course.reactions.write"
+      "authMode": "dual-token"
     },
     {
       "method": "POST",
@@ -230,7 +216,6 @@
       "operationId": "courseApplications.create",
       "resource": "courseApplications",
       "authMode": "dual-token",
-      "permission": "course.applications.write",
       "idempotency": "required"
     },
     {
@@ -238,16 +223,14 @@
       "path": "/app/v3/api/course_applications",
       "operationId": "courseApplications.current.list",
       "resource": "courseApplications",
-      "authMode": "dual-token",
-      "permission": "course.applications.read"
+      "authMode": "dual-token"
     },
     {
       "method": "GET",
       "path": "/app/v3/api/course_applications/{applicationId}",
       "operationId": "courseApplications.retrieve",
       "resource": "courseApplications",
-      "authMode": "dual-token",
-      "permission": "course.applications.read"
+      "authMode": "dual-token"
     }
   ]
 }

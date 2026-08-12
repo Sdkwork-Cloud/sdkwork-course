@@ -5,7 +5,9 @@ export const CourseBanner: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="p-4 bg-white dark:bg-[#1C1C1E]">
+    // z-0 keeps the banner below the sticky category tabs (z-10) so the
+    // carousel never covers them while scrolling.
+    <div className="p-4 bg-white dark:bg-[#1C1C1E] relative z-0">
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white flex flex-col justify-end shadow-sm relative overflow-hidden h-[160px] cursor-pointer">
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
         <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-md px-2 py-0.5 rounded text-[10px] font-medium border border-white/10">

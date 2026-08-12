@@ -773,7 +773,7 @@
           {
             "name": "Idempotency-Key",
             "in": "header",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string",
               "minLength": 8,
@@ -805,16 +805,6 @@
           },
           "401": {
             "description": "Authentication required",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Permission denied",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -868,12 +858,11 @@
         "x-sdkwork-tenant-scope": "tenant",
         "x-sdkwork-data-scope": "organization",
         "x-sdkwork-audit-event": null,
-        "x-sdkwork-idempotent": "required",
+        "x-sdkwork-idempotent": "recommended",
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.enrollments.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseEnrollments.create.",
@@ -974,16 +963,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -1033,8 +1012,7 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.enrollments.read"
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_enrollments/{enrollmentId}": {
@@ -1086,16 +1064,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -1145,8 +1113,7 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.enrollments.read"
+        "x-sdkwork-server-request-id": true
       },
       "delete": {
         "tags": [
@@ -1189,16 +1156,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -1248,8 +1205,7 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.enrollments.write"
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/courses/{courseId}/sections": {
@@ -1843,16 +1799,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -1902,8 +1848,7 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.progress.read"
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_lessons/{lessonId}/progress": {
@@ -1966,16 +1911,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -2026,7 +1961,6 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.progress.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLessonProgress.update.",
@@ -2089,16 +2023,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -2149,7 +2073,6 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.progress.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLessonProgress.watchPositions.update.",
@@ -2463,16 +2386,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -2523,7 +2436,6 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.live_sessions.join",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.join.",
@@ -2586,16 +2498,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -2646,7 +2548,6 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.live_sessions.join",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.heartbeat.",
@@ -2709,16 +2610,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -2769,7 +2660,6 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.live_sessions.join",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseLiveSessions.leave.",
@@ -3089,16 +2979,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -3149,7 +3029,6 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.comments.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseComments.create.",
@@ -3205,16 +3084,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -3264,8 +3133,7 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.comments.write"
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_reactions": {
@@ -3312,16 +3180,6 @@
           },
           "401": {
             "description": "Authentication required",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Permission denied",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -3380,7 +3238,6 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.reactions.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseReactions.update.",
@@ -3428,16 +3285,6 @@
           },
           "401": {
             "description": "Authentication required",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Permission denied",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -3495,8 +3342,7 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.reactions.write"
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_applications": {
@@ -3543,16 +3389,6 @@
           },
           "401": {
             "description": "Authentication required",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Permission denied",
             "content": {
               "application/problem+json": {
                 "schema": {
@@ -3611,7 +3447,6 @@
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
         "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.applications.write",
         "requestBody": {
           "required": true,
           "description": "Typed command body for courseApplications.create.",
@@ -3710,16 +3545,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -3769,8 +3594,7 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.applications.read"
+        "x-sdkwork-server-request-id": true
       }
     },
     "/app/v3/api/course_applications/{applicationId}": {
@@ -3822,16 +3646,6 @@
               }
             }
           },
-          "403": {
-            "description": "Permission denied",
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetail"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Course resource not found",
             "content": {
@@ -3881,8 +3695,7 @@
         "x-sdkwork-source": "apis/app-api/course/operations.json",
         "x-sdkwork-source-route-crate": "sdkwork-routes-course-app-api",
         "x-sdkwork-request-context": "AppRequestContext",
-        "x-sdkwork-server-request-id": true,
-        "x-sdkwork-permission": "course.applications.read"
+        "x-sdkwork-server-request-id": true
       }
     }
   },

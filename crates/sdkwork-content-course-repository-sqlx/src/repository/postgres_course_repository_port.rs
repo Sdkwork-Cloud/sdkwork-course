@@ -1,5 +1,9 @@
-//! Generated Postgres `CourseSqlxRepositoryPort` implementation.
-//! Source: scripts/dev/generate-course-postgres-repository-port.mjs
+//! Postgres `CourseSqlxRepositoryPort` implementation.
+//! Historically generated from the sqlite template by
+//! scripts/dev/generate-course-postgres-repository-port.mjs, but the sqlite
+//! template block was removed from course_repository.rs, so this file is now
+//! HAND-MAINTAINED. Do not run the generator: it fails loudly rather than
+//! overwriting this file.
 
 use serde_json::Value;
 use sqlx::Row;
@@ -2153,13 +2157,13 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
             let uuid = uuid::Uuid::new_v4().to_string();
 
             // Check for existing enrollment (idempotency)
-            let existing_enrollment = sqlx::query_scalar::<_, Option<String>>(
+            let existing_enrollment = sqlx::query_scalar::<_, String>(
                 "SELECT id FROM course_enrollment WHERE tenant_id = $1 AND offering_id = $2 AND user_id = $3 AND deleted_at IS NULL"
             )
             .bind(&context.tenant_id)
             .bind(&command.offering_id)
             .bind(&command.learner_user_id)
-            .fetch_one(self.pool())
+            .fetch_optional(self.pool())
             .await
             .map_err(sqlx_storage_error)?;
 
@@ -2326,14 +2330,14 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
             .map_err(sqlx_storage_error)?;
 
             // Upsert lesson progress
-            let existing_progress = sqlx::query_scalar::<_, Option<String>>(
+            let existing_progress = sqlx::query_scalar::<_, String>(
                 "SELECT id FROM course_lesson_progress WHERE tenant_id = $1 AND offering_id = $2 AND lesson_id = $3 AND user_id = $4 AND deleted_at IS NULL"
             )
             .bind(&context.tenant_id)
             .bind(&enrollment.2) // offering_id
             .bind(&command.lesson_id)
             .bind(&context.user_id)
-            .fetch_one(&mut *tx)
+            .fetch_optional(&mut *tx)
             .await
             .map_err(sqlx_storage_error)?;
 
@@ -2347,10 +2351,7 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                     WHERE id = $6 AND tenant_id = $7
                     "#,
                 )
-                .bind(
-                    serde_json::to_string(&command.progress_status)
-                        .unwrap_or_else(|_| "\"not_started\"".to_string()),
-                )
+                .bind(command.progress_status.as_str())
                 .bind(command.watched_seconds.unwrap_or(0))
                 .bind(&command.completed_at)
                 .bind(&now)
@@ -2395,7 +2396,7 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 .bind(&command.enrollment_id)
                 .bind(&context.user_id)
                 .bind(&lesson_kind)
-                .bind(serde_json::to_string(&command.progress_status).unwrap_or_else(|_| "\"not_started\"".to_string()))
+                .bind(command.progress_status.as_str())
                 .bind(command.watched_seconds.unwrap_or(0))
                 .bind(&command.completed_at)
                 .bind(&now)
@@ -2564,6 +2565,26 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
             let uuid = uuid::Uuid::new_v4().to_string();
             let id = uuid::Uuid::new_v4().to_string();
 
+            // source_provider / external_bvid have no dedicated columns on
+            // course_application; preserve them in metadata_json instead of
+            // dropping them at the boundary.
+            let mut metadata = request.metadata.clone().unwrap_or_else(|| serde_json::json!({}));
+            if let Some(obj) = metadata.as_object_mut() {
+                if !obj.contains_key("sourceProvider") && !request.source_provider.is_empty() {
+                    obj.insert(
+                        "sourceProvider".to_string(),
+                        serde_json::json!(request.source_provider),
+                    );
+                }
+                if !obj.contains_key("externalBvid") {
+                    if let Some(bvid) = request.external_bvid.as_ref() {
+                        obj.insert("externalBvid".to_string(), serde_json::json!(bvid));
+                    }
+                }
+            }
+            let metadata_json =
+                serde_json::to_string(&metadata).unwrap_or_else(|_| "{}".to_string());
+
             // Insert application
             sqlx::query(
                 r#"
@@ -2585,7 +2606,7 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
             .bind(&request.description)
             .bind(&request.contact_name)
             .bind(&request.contact_email)
-            .bind(request.metadata.as_ref().map(|m| serde_json::to_string(m).unwrap_or_else(|_| "{}".to_string())))
+            .bind(metadata_json)
             .bind(&now)
             .bind(&context.actor_id)
             .bind(&now)
@@ -3224,7 +3245,8 @@ impl CourseSqlxRepositoryPort for PostgresCourseRepository {
                 r#"
                 SELECT id, course_id, offering_id, enrollment_id, user_id,
                        progress_status, completed_lesson_count, required_lesson_count,
-                       progress_percent, watch_seconds, last_lesson_id, started_at, completed_at
+                       progress_percent, watch_seconds::bigint as watch_seconds,
+                       last_lesson_id, started_at, completed_at
                 FROM course_learning_progress
                 WHERE enrollment_id = $1 AND tenant_id = $2 AND deleted_at IS NULL
                 "#,

@@ -957,17 +957,32 @@ impl CourseApplicationService for CourseServiceImpl {
         context: &CourseServiceContext,
         command: CourseEnrollmentCommand,
     ) -> CourseResult<String> {
-        let has_access = self
-            .entitlement_port
-            .verify_learning_access(
-                context,
-                command.offering_id.clone(),
-                command.learner_user_id.clone(),
-            )
-            .await?;
+        // Free offerings enroll directly — no commerce entitlement needed.
+        // Paid offerings verify learning access and fail closed until a real
+        // entitlement adapter is wired.
+        let offering = self
+            .offering_repo
+            .retrieve_offering(context, command.offering_id.clone())
+            .await?
+            .ok_or_else(|| CourseError::not_found("Offering not found"))?;
+        let access_mode = offering
+            .get("accessMode")
+            .and_then(serde_json::Value::as_str)
+            .unwrap_or("free");
 
-        if !has_access && command.source == "self_service" {
-            return Err(CourseError::invalid("Entitlement required for enrollment"));
+        if access_mode != "free" {
+            let has_access = self
+                .entitlement_port
+                .verify_learning_access(
+                    context,
+                    command.offering_id.clone(),
+                    command.learner_user_id.clone(),
+                )
+                .await?;
+
+            if !has_access && command.source == "self_service" {
+                return Err(CourseError::invalid("Entitlement required for enrollment"));
+            }
         }
 
         self.enrollment_repo

@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
-import { ThumbsUp, Star } from "lucide-react";
+import { ThumbsUp, Star, ChevronLeft } from "lucide-react";
 import {
   CourseService,
   CourseCapabilityUnavailableError,
@@ -134,7 +134,24 @@ export function CourseDetail() {
 
   return (
     <div className="min-h-screen bg-[#F2F2F7] dark:bg-black pb-24">
-      <CourseHeroHeader course={course} id={course.id} navigate={navigate} />
+      <div className="relative">
+        <CourseHeroHeader course={course} id={course.id} navigate={navigate} />
+        <button
+          onClick={() => {
+            // Prefer history back; fall back to the course home when the page
+            // was opened directly (no SPA history to pop).
+            if (window.history.length > 1) {
+              navigate(-1);
+            } else {
+              navigate("/course");
+            }
+          }}
+          aria-label={t("course.back", "返回")}
+          className="absolute top-3 left-3 z-20 w-9 h-9 rounded-full bg-black/35 backdrop-blur-md flex items-center justify-center text-white active:bg-black/55 transition-colors"
+        >
+          <ChevronLeft className="w-5 h-5" strokeWidth={2.5} />
+        </button>
+      </div>
       <CourseBasicInfo course={course} />
 
       <div className="px-5 py-5 flex items-center gap-3 bg-white dark:bg-[#1C1C1E] border-b border-black/5 dark:border-white/5">

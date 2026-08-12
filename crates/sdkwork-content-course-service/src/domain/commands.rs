@@ -58,6 +58,18 @@ pub enum CourseProgressStatus {
     Expired,
 }
 
+impl CourseProgressStatus {
+    /// Canonical snake_case wire value stored in progress tables.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::NotStarted => "not_started",
+            Self::InProgress => "in_progress",
+            Self::Completed => "completed",
+            Self::Expired => "expired",
+        }
+    }
+}
+
 #[derive(Debug, Clone, Default, Deserialize, Serialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct CourseMediaResourceRef {

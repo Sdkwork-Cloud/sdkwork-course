@@ -18,11 +18,32 @@ export const CourseHeroHeader: React.FC<CourseHeroHeaderProps> = ({
   const { t } = useTranslation();
   return (
     <div className="relative aspect-[4/3] w-full bg-black">
-      <img
-        src={course.cover}
-        alt={course.title}
-        className="w-full h-full object-cover opacity-80"
-      />
+      {course.cover ? (
+        <img
+          src={course.cover}
+          alt={course.title}
+          onError={(e) => {
+            const target = e.currentTarget;
+            if (!target.dataset.fallback) {
+              target.dataset.fallback = "1";
+              target.className = "hidden";
+              target.nextElementSibling?.classList.remove("hidden");
+            }
+          }}
+          className="w-full h-full object-cover opacity-80"
+        />
+      ) : null}
+      <div
+        className={`absolute inset-0 bg-gradient-to-br from-blue-600/80 to-purple-700/80 flex items-center justify-center ${
+          course.cover ? "hidden" : ""
+        }`}
+      >
+        {course.cover ? null : (
+          <span className="text-white/95 text-5xl font-bold select-none">
+            {course.title.trim().charAt(0) || "课"}
+          </span>
+        )}
+      </div>
       <div className="absolute inset-0 bg-gradient-to-t from-[#F2F2F7] dark:from-black via-transparent to-black/20" />
       <div className="absolute inset-0 flex items-center justify-center">
         <div

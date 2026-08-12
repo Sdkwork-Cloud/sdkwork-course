@@ -230,7 +230,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.enrollments.write",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -250,7 +250,7 @@
         "apiAuthority": "sdkwork-course-app-api",
         "sdkFamily": "sdkwork-course-app-sdk"
       },
-      "idempotency": "required",
+      "idempotency": "recommended",
       "auditEvent": null
     },
     {
@@ -264,7 +264,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.enrollments.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -298,7 +298,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.enrollments.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -332,7 +332,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.enrollments.write",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -502,7 +502,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.progress.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -536,7 +536,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.progress.write",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -570,7 +570,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.progress.write",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -672,7 +672,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.live_sessions.join",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -706,7 +706,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.live_sessions.join",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -740,7 +740,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.live_sessions.join",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -842,7 +842,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.comments.write",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -876,7 +876,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.comments.write",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -910,7 +910,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.reactions.write",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -944,7 +944,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.reactions.write",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -978,7 +978,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.applications.write",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -1012,7 +1012,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.applications.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },
@@ -1046,7 +1046,7 @@
       "auth": {
         "mode": "dual-token",
         "required": true,
-        "permission": "course.applications.read",
+        "permission": null,
         "tenantScope": "tenant",
         "dataScope": "organization"
       },

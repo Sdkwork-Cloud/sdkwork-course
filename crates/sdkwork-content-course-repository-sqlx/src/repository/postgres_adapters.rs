@@ -1,5 +1,8 @@
-//! Generated Postgres repository adapter implementations.
-//! Source: scripts/dev/generate-course-postgres-adapters.mjs
+//! Postgres repository adapter implementations.
+//! Historically generated from the sqlite template by
+//! scripts/dev/generate-course-postgres-adapters.mjs, but the sqlite template
+//! was removed, so this file is now HAND-MAINTAINED. The generator script
+//! fails loudly when its source marker is missing.
 
 use serde_json::Value;
 use sqlx::Row;
