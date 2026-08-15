@@ -12,8 +12,8 @@ path = "src/lib.rs"
 axum.workspace = true
 serde.workspace = true
 serde_json.workspace = true
-sdkwork-content-course-service = { path = "../sdkwork-content-course-service" }
-sdkwork-routes-course-http-auth = { path = "../sdkwork-routes-course-http-auth" }
+sdkwork_content_course_service.workspace = true
+sdkwork_routes_course_http_auth.workspace = true
 sdkwork-utils-rust.workspace = true
 sdkwork-web-contract.workspace = true
 sdkwork-web-core.workspace = true

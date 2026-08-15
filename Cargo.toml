@@ -19,6 +19,18 @@ version = "0.1.0"
 license = "AGPL-3.0-or-later"
 
 [workspace.dependencies]
+sdkwork_routes_course_http_auth = { path = "crates/sdkwork-routes-course-http-auth", package = "sdkwork-routes-course-http-auth" }
+
+sdkwork_content_course_repository_sqlx = { path = "crates/sdkwork-content-course-repository-sqlx", package = "sdkwork-content-course-repository-sqlx" }
+
+sdkwork_content_course_service = { path = "crates/sdkwork-content-course-service", package = "sdkwork-content-course-service" }
+
+sdkwork_routes_course_backend_api = { path = "crates/sdkwork-routes-course-backend-api", package = "sdkwork-routes-course-backend-api" }
+
+sdkwork_routes_course_app_api = { path = "crates/sdkwork-routes-course-app-api", package = "sdkwork-routes-course-app-api" }
+
+sdkwork_course_embedded_bootstrap = { path = "crates/sdkwork-course-embedded-bootstrap", package = "sdkwork-course-embedded-bootstrap" }
+
 sdkwork-api-course-assembly = { path = "crates/sdkwork-api-course-assembly" }
 axum = { version = "0.8", features = ["macros"] }
 tokio = { version = "1.52", features = ["macros", "rt-multi-thread", "net", "sync"] }

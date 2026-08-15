@@ -12,7 +12,7 @@ name = "sdkwork_routes_course_http_auth"
 axum.workspace = true
 serde.workspace = true
 serde_json.workspace = true
-sdkwork-content-course-service = { path = "../sdkwork-content-course-service" }
+sdkwork_content_course_service.workspace = true
 sdkwork-iam-web-adapter.workspace = true
 sdkwork-utils-rust.workspace = true
 sdkwork-web-axum.workspace = true

@@ -15,6 +15,6 @@ tokio.workspace = true
 sdkwork-web-bootstrap.workspace = true
 sdkwork-web-core.workspace = true
 sdkwork-database-sqlx.workspace = true
-sdkwork-course-embedded-bootstrap = { path = "../sdkwork-course-embedded-bootstrap" }
-sdkwork-routes-course-app-api = { path = "../sdkwork-routes-course-app-api" }
-sdkwork-routes-course-backend-api = { path = "../sdkwork-routes-course-backend-api" }
+sdkwork_course_embedded_bootstrap.workspace = true
+sdkwork_routes_course_app_api.workspace = true
+sdkwork_routes_course_backend_api.workspace = true

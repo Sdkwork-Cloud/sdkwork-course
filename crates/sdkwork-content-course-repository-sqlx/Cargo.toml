@@ -13,7 +13,7 @@ sdkwork-course-database-host.workspace = true
 sdkwork-database-config.workspace = true
 sdkwork-database-sqlx.workspace = true
 async-trait = "0.1"
-sdkwork-content-course-service = { path = "../sdkwork-content-course-service" }
+sdkwork_content_course_service.workspace = true
 chrono = { version = "0.4", features = ["serde"] }
 serde_json = "1.0"
 sqlx = { version = "0.9", default-features = false, features = ["runtime-tokio", "sqlite", "postgres"] }
