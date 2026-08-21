@@ -1,5 +1,5 @@
 import { appApiPath } from './paths';
-import type { HttpClient } from '../http/client';
+import type { ApiRequestOptions, HttpClient } from '../http/client';
 
 import type { CourseCommandBody, SdkWorkCommandData, SdkWorkPageData } from '../types';
 
@@ -13,8 +13,8 @@ export class CourseLiveSessionsReplayApi {
 
 
 /** course Live Sessions replay retrieve. */
-  async retrieve(liveSessionId: string): Promise<Record<string, unknown>> {
-    return this.client.get<Record<string, unknown>>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/replay`));
+  async retrieve(liveSessionId: string, requestOptions?: ApiRequestOptions): Promise<Record<string, unknown>> {
+    return this.client.request<Record<string, unknown>>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/replay`), { ...(requestOptions?.signal !== undefined ? { signal: requestOptions.signal } : {}), ...(requestOptions?.timeout !== undefined ? { timeout: requestOptions.timeout } : {}), method: 'GET' as any, sdkworkUnwrapKind: 'item' });
   }
 }
 
@@ -41,7 +41,7 @@ export class CourseLiveSessionsApi {
 
 
 /** course Live Sessions list. */
-  async list(params?: CourseLiveSessionsListParams): Promise<SdkWorkPageData> {
+  async list(params?: CourseLiveSessionsListParams, requestOptions?: ApiRequestOptions): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
@@ -49,33 +49,33 @@ export class CourseLiveSessionsApi {
       { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<SdkWorkPageData>(appendQueryString(appApiPath(`/course_live_sessions`), query));
+    return this.client.request<SdkWorkPageData>(appendQueryString(appApiPath(`/course_live_sessions`), query), { ...(requestOptions?.signal !== undefined ? { signal: requestOptions.signal } : {}), ...(requestOptions?.timeout !== undefined ? { timeout: requestOptions.timeout } : {}), method: 'GET' as any, sdkworkUnwrapKind: 'page' });
   }
 
 /** course Live Sessions retrieve. */
-  async retrieve(liveSessionId: string): Promise<Record<string, unknown>> {
-    return this.client.get<Record<string, unknown>>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}`));
+  async retrieve(liveSessionId: string, requestOptions?: ApiRequestOptions): Promise<Record<string, unknown>> {
+    return this.client.request<Record<string, unknown>>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}`), { ...(requestOptions?.signal !== undefined ? { signal: requestOptions.signal } : {}), ...(requestOptions?.timeout !== undefined ? { timeout: requestOptions.timeout } : {}), method: 'GET' as any, sdkworkUnwrapKind: 'item' });
   }
 
 /** course Live Sessions join. */
-  async join(liveSessionId: string, body: CourseCommandBody, params?: CourseLiveSessionsJoinParams): Promise<SdkWorkCommandData> {
+  async join(liveSessionId: string, body: CourseCommandBody, params?: CourseLiveSessionsJoinParams, requestOptions?: ApiRequestOptions): Promise<SdkWorkCommandData> {
     const requestHeaders = buildRequestHeaders(
       {
         'Idempotency-Key': { value: params?.idempotencyKey, style: 'simple', explode: false },
       },
       {}
     );
-    return this.client.post<SdkWorkCommandData>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/join`), body, undefined, requestHeaders, 'application/json');
+    return this.client.request<SdkWorkCommandData>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/join`), { ...(requestOptions?.signal !== undefined ? { signal: requestOptions.signal } : {}), ...(requestOptions?.timeout !== undefined ? { timeout: requestOptions.timeout } : {}), method: 'POST' as any, body, contentType: 'application/json', ...(requestHeaders !== undefined ? { headers: requestHeaders } : {}), sdkworkUnwrapKind: 'command' });
   }
 
 /** course Live Sessions heartbeat. */
-  async heartbeat(liveSessionId: string, body: CourseCommandBody): Promise<SdkWorkCommandData> {
-    return this.client.post<SdkWorkCommandData>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/heartbeat`), body, undefined, undefined, 'application/json');
+  async heartbeat(liveSessionId: string, body: CourseCommandBody, requestOptions?: ApiRequestOptions): Promise<SdkWorkCommandData> {
+    return this.client.request<SdkWorkCommandData>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/heartbeat`), { ...(requestOptions?.signal !== undefined ? { signal: requestOptions.signal } : {}), ...(requestOptions?.timeout !== undefined ? { timeout: requestOptions.timeout } : {}), method: 'POST' as any, body, contentType: 'application/json', sdkworkUnwrapKind: 'command' });
   }
 
 /** course Live Sessions leave. */
-  async leave(liveSessionId: string, body: CourseCommandBody): Promise<SdkWorkCommandData> {
-    return this.client.post<SdkWorkCommandData>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/leave`), body, undefined, undefined, 'application/json');
+  async leave(liveSessionId: string, body: CourseCommandBody, requestOptions?: ApiRequestOptions): Promise<SdkWorkCommandData> {
+    return this.client.request<SdkWorkCommandData>(appApiPath(`/course_live_sessions/${serializePathParameter(liveSessionId, { name: 'liveSessionId', style: 'simple', explode: false })}/leave`), { ...(requestOptions?.signal !== undefined ? { signal: requestOptions.signal } : {}), ...(requestOptions?.timeout !== undefined ? { timeout: requestOptions.timeout } : {}), method: 'POST' as any, body, contentType: 'application/json', sdkworkUnwrapKind: 'command' });
   }
 }
 

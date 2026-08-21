@@ -50,3 +50,15 @@ config/*.local.toml
 *.log
 .DS_Store
 Thumbs.db
+
+# Generated SDK compiled outputs (only .ts sources are tracked)
+**/generated/**/*.js
+**/generated/**/*.d.ts
+**/generated/**/*.js.map
+**/generated/**/*.d.ts.map
+
+# TypeScript build outputs at SDK package src roots
+**/src/index.js
+**/src/index.d.ts
+**/src/index.js.map
+**/src/index.d.ts.map

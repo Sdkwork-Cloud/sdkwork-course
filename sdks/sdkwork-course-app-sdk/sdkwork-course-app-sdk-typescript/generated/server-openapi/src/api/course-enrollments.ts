@@ -1,5 +1,5 @@
 import { appApiPath } from './paths';
-import type { HttpClient } from '../http/client';
+import type { ApiRequestOptions, HttpClient } from '../http/client';
 
 import type { CourseCommandBody, SdkWorkPageData } from '../types';
 
@@ -21,7 +21,7 @@ export class CourseEnrollmentsCurrentApi {
 
 
 /** course Enrollments current list. */
-  async list(params?: CourseEnrollmentsCurrentListParams): Promise<SdkWorkPageData> {
+  async list(params?: CourseEnrollmentsCurrentListParams, requestOptions?: ApiRequestOptions): Promise<SdkWorkPageData> {
     const query = buildQueryString([
       { name: 'q', value: params?.q, style: 'form', explode: true, allowReserved: false },
       { name: 'cursor', value: params?.cursor, style: 'form', explode: true, allowReserved: false },
@@ -29,12 +29,12 @@ export class CourseEnrollmentsCurrentApi {
       { name: 'page_size', value: params?.pageSize, style: 'form', explode: true, allowReserved: false },
       { name: 'status', value: params?.status, style: 'form', explode: true, allowReserved: false },
     ]);
-    return this.client.get<SdkWorkPageData>(appendQueryString(appApiPath(`/course_enrollments`), query));
+    return this.client.request<SdkWorkPageData>(appendQueryString(appApiPath(`/course_enrollments`), query), { ...(requestOptions?.signal !== undefined ? { signal: requestOptions.signal } : {}), ...(requestOptions?.timeout !== undefined ? { timeout: requestOptions.timeout } : {}), method: 'GET' as any, sdkworkUnwrapKind: 'page' });
   }
 }
 
 export interface CourseEnrollmentsCreateParams {
-  idempotencyKey: string;
+  idempotencyKey?: string;
 }
 
 export class CourseEnrollmentsApi {
@@ -48,24 +48,24 @@ export class CourseEnrollmentsApi {
 
 
 /** course Enrollments create. */
-  async create(offeringId: string, body: CourseCommandBody, params: CourseEnrollmentsCreateParams): Promise<Record<string, unknown>> {
+  async create(offeringId: string, body: CourseCommandBody, params?: CourseEnrollmentsCreateParams, requestOptions?: ApiRequestOptions): Promise<Record<string, unknown>> {
     const requestHeaders = buildRequestHeaders(
       {
-        'Idempotency-Key': { value: params.idempotencyKey, style: 'simple', explode: false },
+        'Idempotency-Key': { value: params?.idempotencyKey, style: 'simple', explode: false },
       },
       {}
     );
-    return this.client.post<Record<string, unknown>>(appApiPath(`/course_offerings/${serializePathParameter(offeringId, { name: 'offeringId', style: 'simple', explode: false })}/enrollments`), body, undefined, requestHeaders, 'application/json');
+    return this.client.request<Record<string, unknown>>(appApiPath(`/course_offerings/${serializePathParameter(offeringId, { name: 'offeringId', style: 'simple', explode: false })}/enrollments`), { ...(requestOptions?.signal !== undefined ? { signal: requestOptions.signal } : {}), ...(requestOptions?.timeout !== undefined ? { timeout: requestOptions.timeout } : {}), method: 'POST' as any, body, contentType: 'application/json', ...(requestHeaders !== undefined ? { headers: requestHeaders } : {}), sdkworkUnwrapKind: 'item' });
   }
 
 /** course Enrollments retrieve. */
-  async retrieve(enrollmentId: string): Promise<Record<string, unknown>> {
-    return this.client.get<Record<string, unknown>>(appApiPath(`/course_enrollments/${serializePathParameter(enrollmentId, { name: 'enrollmentId', style: 'simple', explode: false })}`));
+  async retrieve(enrollmentId: string, requestOptions?: ApiRequestOptions): Promise<Record<string, unknown>> {
+    return this.client.request<Record<string, unknown>>(appApiPath(`/course_enrollments/${serializePathParameter(enrollmentId, { name: 'enrollmentId', style: 'simple', explode: false })}`), { ...(requestOptions?.signal !== undefined ? { signal: requestOptions.signal } : {}), ...(requestOptions?.timeout !== undefined ? { timeout: requestOptions.timeout } : {}), method: 'GET' as any, sdkworkUnwrapKind: 'item' });
   }
 
 /** course Enrollments delete. */
-  async delete(enrollmentId: string): Promise<void> {
-    return this.client.delete<void>(appApiPath(`/course_enrollments/${serializePathParameter(enrollmentId, { name: 'enrollmentId', style: 'simple', explode: false })}`));
+  async delete(enrollmentId: string, requestOptions?: ApiRequestOptions): Promise<void> {
+    return this.client.request<void>(appApiPath(`/course_enrollments/${serializePathParameter(enrollmentId, { name: 'enrollmentId', style: 'simple', explode: false })}`), { ...(requestOptions?.signal !== undefined ? { signal: requestOptions.signal } : {}), ...(requestOptions?.timeout !== undefined ? { timeout: requestOptions.timeout } : {}), method: 'DELETE' as any });
   }
 }
 

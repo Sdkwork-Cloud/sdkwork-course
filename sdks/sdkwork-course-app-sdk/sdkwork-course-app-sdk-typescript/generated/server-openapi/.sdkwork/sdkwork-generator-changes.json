@@ -9,7 +9,7 @@
     "protocol": "http",
     "packageName": "@sdkwork/course-app-sdk"
   },
-  "changeFingerprint": "d4a4f78aafffe3237b2ec1883952a72ec8ea75504c7c4a7814a78e6e0ada241e",
+  "changeFingerprint": "bcc7d774c4f48b606be766d4c05795add96d4bdbf569537ff646751a72440b7e",
   "changes": {
     "createdGeneratedFiles": [
       "bin/publish-core.mjs",

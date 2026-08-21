@@ -1,5 +1,5 @@
 import { appApiPath } from './paths';
-import type { HttpClient } from '../http/client';
+import type { ApiRequestOptions, HttpClient } from '../http/client';
 
 import type { CourseCommandBody } from '../types';
 
@@ -17,19 +17,19 @@ export class CourseReactionsApi {
 
 
 /** course Reactions update. */
-  async update(body: CourseCommandBody, params?: CourseReactionsUpdateParams): Promise<Record<string, unknown>> {
+  async update(body: CourseCommandBody, params?: CourseReactionsUpdateParams, requestOptions?: ApiRequestOptions): Promise<Record<string, unknown>> {
     const requestHeaders = buildRequestHeaders(
       {
         'Idempotency-Key': { value: params?.idempotencyKey, style: 'simple', explode: false },
       },
       {}
     );
-    return this.client.put<Record<string, unknown>>(appApiPath(`/course_reactions`), body, undefined, requestHeaders, 'application/json');
+    return this.client.request<Record<string, unknown>>(appApiPath(`/course_reactions`), { ...(requestOptions?.signal !== undefined ? { signal: requestOptions.signal } : {}), ...(requestOptions?.timeout !== undefined ? { timeout: requestOptions.timeout } : {}), method: 'PUT' as any, body, contentType: 'application/json', ...(requestHeaders !== undefined ? { headers: requestHeaders } : {}), sdkworkUnwrapKind: 'item' });
   }
 
 /** course Reactions delete. */
-  async delete(reactionId: string): Promise<void> {
-    return this.client.delete<void>(appApiPath(`/course_reactions/${serializePathParameter(reactionId, { name: 'reactionId', style: 'simple', explode: false })}`));
+  async delete(reactionId: string, requestOptions?: ApiRequestOptions): Promise<void> {
+    return this.client.request<void>(appApiPath(`/course_reactions/${serializePathParameter(reactionId, { name: 'reactionId', style: 'simple', explode: false })}`), { ...(requestOptions?.signal !== undefined ? { signal: requestOptions.signal } : {}), ...(requestOptions?.timeout !== undefined ? { timeout: requestOptions.timeout } : {}), method: 'DELETE' as any });
   }
 }
 
@@ -37,13 +37,7 @@ export function createCourseReactionsApi(client: HttpClient): CourseReactionsApi
   return new CourseReactionsApi(client);
 }
 
-function appendQueryString(path: string, rawQueryString: string): string {
-  const query = rawQueryString.replace(/^\?+/, '');
-  if (!query) {
-    return path;
-  }
-  return path.includes('?') ? `${path}&${query}` : `${path}?${query}`;
-}
+
 
 interface PathParameterSpec {
   name: string;

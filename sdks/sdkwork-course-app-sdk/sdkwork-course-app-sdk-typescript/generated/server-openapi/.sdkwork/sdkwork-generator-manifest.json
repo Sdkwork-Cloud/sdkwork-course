@@ -12,7 +12,7 @@
   "generatedFiles": [
     {
       "path": "bin/publish-core.mjs",
-      "sha256": "98ad0918a78bfbe22bf8f12fec709b0bed545b9e01edd40f5e4abf31a23378a5"
+      "sha256": "a47e95119bf3eafcbcb2102f7024c147f967924e4e3f343d1a29effb4b6765df"
     },
     {
       "path": "bin/publish.ps1",
@@ -40,11 +40,11 @@
     },
     {
       "path": "package.json",
-      "sha256": "06b11b0877a94d885faa3df5fba4dd8fb55dfff47254a332aef14b86b4939952"
+      "sha256": "c2aa208225e73f27b88bd042ffebf692d83b009b0feafd461e03809a0b0821ff"
     },
     {
       "path": "README.md",
-      "sha256": "9014b169531591cc6914b381df5314c01015dff6f6b4be6a2dd792bd30fd6f42"
+      "sha256": "033158f6f5ac66250d214d10b196f5ae1ef45ce6737655182397dfb664ee95ca"
     },
     {
       "path": "sdkwork-sdk.json",
@@ -52,59 +52,59 @@
     },
     {
       "path": "src/api/base.ts",
-      "sha256": "02ad25e6bf331ff241ba387c2947ddf1900dd849038e08c2757416a3aa788a04"
+      "sha256": "94d136c54a008dfe7602e373a0b2c79176bbf2fc6e7c899fc23b1f12f750380f"
     },
     {
       "path": "src/api/course-applications.ts",
-      "sha256": "2c453458478d5d4342703c41a19d9e6c8ede4e08c39b18d7d5eaf1ce948161b0"
+      "sha256": "0a57971b6151b263f5967743a04ade5c058a860ae0a3f0e7b3f7698f3f79bb30"
     },
     {
       "path": "src/api/course-categories.ts",
-      "sha256": "964cda08af6c22b1e5c1ebed1436f05d95fddda769595651981c8c426f0935d2"
+      "sha256": "ecbcc87141b513a055b88ff71eedc8a7cfe674332840700db8a8841b420eee81"
     },
     {
       "path": "src/api/course-comments.ts",
-      "sha256": "21b044cd06e50b2848adb6e1910a080dab44cdbd6affba95a4d1ebbbecfa8db6"
+      "sha256": "fd68403f9d61b98c1bd5db3b44df875b46d3c3fc0115fa14e6009b90d3f16d93"
     },
     {
       "path": "src/api/course-enrollments.ts",
-      "sha256": "ee1897e0d4b33ebc0280d581a04f30189336b2fdb3f99c68a136804a532585e3"
+      "sha256": "3750a71cb7ae58eda87d588bb175bb696a3adf0f183b68426dcd1109f5f92f39"
     },
     {
       "path": "src/api/course-lesson-progress.ts",
-      "sha256": "b4f3f328c3ca1585d7c70c0874ac87f14e11d4b7cb0a7fa613994f7458f322c8"
+      "sha256": "a9babc5afbffa8a69dc8f35e5865090d8c61d54f0a9973c8063fde2e90301c30"
     },
     {
       "path": "src/api/course-lesson-resources.ts",
-      "sha256": "0d7992e60f0862a2f67223c8ae220786ccf511cbb15912d756ef76cf0ef471ea"
+      "sha256": "95f6c4cae226e145532e8519b7bdb5ffb39ae4a51d822cfe571f9b44bd278253"
     },
     {
       "path": "src/api/course-lessons.ts",
-      "sha256": "85b9cbf1c523bbba79c27eba739238beba024ac10d348391dd16ed49bd9c719b"
+      "sha256": "a48f89aa20a5e9d0cbb4e1e26ed73ee6033e6f41205472efff64870821abf491"
     },
     {
       "path": "src/api/course-live-sessions.ts",
-      "sha256": "f4a6cf18b713cae345f7465f9080f26926394d5e216215f5ccaa25725c89472c"
+      "sha256": "2d75657a256c5134b6d4af2235db088c9c07abc03c08cb57d3b9943bcd6324f4"
     },
     {
       "path": "src/api/course-offerings.ts",
-      "sha256": "05f7c21a0ebc7dd93534291735939b1649caca1c66718a7e1023d0310a233b82"
+      "sha256": "d2f31836de65e53502a7c9969cbe5c823c87d5d40da2224ff510e388fb6a0cb3"
     },
     {
       "path": "src/api/course-progress.ts",
-      "sha256": "684802f085b265a771ded9ed3817109648c3408f906ec3ded196d041fe056488"
+      "sha256": "5a4fd1fb3e0246af1be961036b2d0d771484d39b959c79ae44af0ba8f3c6d9d8"
     },
     {
       "path": "src/api/course-reactions.ts",
-      "sha256": "91eda071db2442c224622a1de58b1f982a750f825fbce27f5ae709fda240b081"
+      "sha256": "dd367b2d315a63cc8b3cb7f0210c5d769eed1033aeef530ba90cb3fd26b5fd6c"
     },
     {
       "path": "src/api/course-sections.ts",
-      "sha256": "7460d03841e8b539a4db039f9a6546c02870f6fe73a837f71f0715f3b82ac679"
+      "sha256": "b053da507b7c18162162302e8e6e319fb354ae7ea13f1a2f95efb66eac66c27f"
     },
     {
       "path": "src/api/courses.ts",
-      "sha256": "860420a36fa071d9e4c8dba8018b94ae3f9b524d5c85de5e24b798c7bb684a98"
+      "sha256": "0c4cffb6ec6620709f8820c83d3779483980d4982f4f3bf5f6a3c3ba66894734"
     },
     {
       "path": "src/api/index.ts",
@@ -120,7 +120,7 @@
     },
     {
       "path": "src/http/client.ts",
-      "sha256": "902ecbf9b15072c147ac9716f22209cd50b770e517b55d1ce1583671ab4d2c3e"
+      "sha256": "868b7785497a93658b628de2d9b520d9d2456406bcf2ef717319beaa6913146d"
     },
     {
       "path": "src/http/index.ts",
